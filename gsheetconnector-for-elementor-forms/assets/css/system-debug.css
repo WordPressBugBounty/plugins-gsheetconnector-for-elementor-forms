@@ -1,0 +1,240 @@
+.info-button .dashicons {
+    font-size: 21px; /* Adjust the size as needed */
+    vertical-align: middle; /* Align the icon vertically with the button text */
+    margin-left: 8px; /* Add space between the icon and button text */
+}
+  
+.systemerror{
+/*  color: #0073e6;*/
+  font-size: 20px;
+  margin-left: -2px;
+  color: #242628;
+  position: relative;
+  z-index: 1;
+}
+/* Style for the "Clear" button */
+.clear-content-logs-elemnt {
+  margin: 1rem 0;
+  display: inline-flex;
+  align-items: center;
+  margin: 0.5rem 0 1rem;
+  font-size: 14px;
+  line-height: 38px;
+  height: auto;
+  min-height: 30px;
+  padding: 0 20px;
+  color: #6b7278;
+  border: 1px solid #7f868d;
+  border-radius: 3px;
+  background: #f8f9fa;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  margin-left: -2px;
+}
+
+.clear-content-logs-elemnt:hover {
+  color: #069de3;
+  border-color: #069de3;
+  background: #f8f9fa;;
+}
+
+/* Style for the paragraph text */
+.error-container p {
+  font-size: 16px; /* Adjust the font size as needed */
+  margin: 10px 0; /* Add margin for spacing */
+  color: #333; /* Text color */
+  line-height: 1.5; /* Line height for readability */
+}
+
+/* Style for the link within the paragraph */
+.error-container a {
+    color: #007BFF; /* Link color (blue) */
+    text-decoration: underline; /* Underline the link */
+}
+
+.error-container a:hover {
+    text-decoration: none; /* Remove underline on hover */
+}
+
+/* Style for the "Copied" message */
+.copy-message {
+    display: none;
+    background-color: #4CAF50; /* Green background color */
+    color: #fff; /* White text color */
+    font-size: 14px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%; /* Position it vertically centered */
+    left: 50%; /* Position it horizontally centered */
+    transform: translate(-50%, -50%); /* Center it precisely */
+    z-index: 999; /* Ensure it appears above other elements */
+    opacity: 0.9; /* Adjust the opacity as needed */
+    transition: opacity 0.3s ease;
+}
+
+.copy-message.show {
+    display: block;
+}
+.errorlog {
+    cursor: default;
+    font-family: monospace;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #32344b;
+    width: 100%;
+    height: 400px; /* Set a fixed height for the "screen" */  
+    border-color: #32344b;
+    color: azure;
+}
+.systemifo{
+/*  color: #0073e6;*/
+  font-size: 20px;
+  margin-left: -2px;
+  color: #242628;
+  position: relative;
+  z-index: 1;
+}
+.system-Error {
+  position: relative;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #b5bfc9;
+  margin: 20px auto;
+  width: 100%;
+  box-sizing: border-box; /* Add box-sizing property */
+  overflow: hidden; /* or overflow: auto; depending on your content */
+}
+.system-statuswc {
+  position: relative;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #b5bfc9;
+  margin: 20px auto;
+  width: 100%;
+  box-sizing: border-box; /* Add box-sizing property */
+  overflow: hidden; /* or overflow: auto; depending on your content */
+}
+
+
+.info-button {
+  background-color: white;
+  color: #2c3338;
+  padding: 13px 17px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-weight: 400;
+  flex-grow: 1;
+  font-size: 14px;
+  margin: 0;
+  border: 1px solid #c5c5c5;
+  border-radius: 3px;
+  background: #f8f9fa;
+  box-sizing: border-box; /* Add box-sizing property */
+  overflow: hidden; /* or overflow: auto; depending on your content */
+}
+
+.info-button:hover {
+    background-color: white;
+}
+
+.info-button span {
+    font-size: 16px;
+    margin-left: 26px;
+}
+
+.info-content {
+    display: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 100%; /* Make the content width 100% to match the card width */
+
+}
+.info-content tr:nth-child(even) {
+    background-color: #ffffff; /* Light background color for even rows */
+}
+  
+.info-content tr:nth-child(odd) {
+    background-color: #f5f5f5; /* Dark background color for odd rows */
+}
+
+.info-content h3 {
+    color: #0073e6;
+}
+
+.info-content table {
+    width: 100%; /* Make the table width 100% to match the content width */
+    border-collapse: collapse;
+}
+
+.info-content td {
+    padding: 8px 0;
+/*    border-bottom: 1px solid #ccc;*/
+}
+
+.info-content tr:last-child td {
+    border-bottom: none;
+}
+.copy-success-message {
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   padding: 10px;
+   background-color: #4CAF50;
+   color: #fff;
+   font-weight: bold;
+   border-radius: 4px;
+   z-index: 9999;
+}
+.copy {
+  margin: 1rem 0;
+  display: inline-flex;
+  align-items: center;
+  margin: 0.5rem 0 1rem;
+  font-size: 14px;
+  line-height: 38px;
+  height: auto;
+  min-height: 30px;
+  padding: 0 20px;
+  color: #6b7278;
+  border: 1px solid #7f868d;
+  border-radius: 3px;
+  background: #f8f9fa;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  margin-left: -2px;
+}
+
+.copy:hover {
+  color: #069de3;
+  border-color: #069de3;
+  background: #f8f9fa;;
+}
+
+.copy:focus {
+  outline: none;
+}
+/* Media query for screens smaller than 768px */
+@media (max-width: 768px) {
+    .info-button .dashicons {
+        font-size: 18px; /* Adjust the size for smaller screens */
+    }
+
+    .systemerror {
+        font-size: 16px; /* Adjust the size for smaller screens */
+    }
+
+    /* Adjust other styles for smaller screens */
+    .info-button {
+        font-size: 12px;
+    }
+}
