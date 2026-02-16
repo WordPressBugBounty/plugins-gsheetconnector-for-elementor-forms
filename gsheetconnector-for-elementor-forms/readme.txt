@@ -7,7 +7,7 @@ Docs: https://www.gsheetconnector.com/docs/elementor-google-sheet-connector
 Tested up to: 6.9
 Requires at least: 5.6
 Requires PHP: 7.4
-Stable tag: 1.2.6
+Stable tag: 1.2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,9 @@ Please double-check those items and hopefully getting them right will fix the is
 * Now you can paste this code back on the `Admin Panel > Elementor Form > Google Sheets` screen. 
 
 == Changelog ==
+
+= 1.2.7 (16-02-2026) =
+* Fixed: Data not being saved to the Google Sheet if sheet settings are done under Elementor Page -> Form -> GSheetConnector ( Action After Submit ).
 
 = 1.2.6 (24-12-2025) =
 * Fixed: An issue where special characters (such as &, ", and ') were being encoded when syncing form data. Input values are now properly sanitized before saving to Google Sheets.

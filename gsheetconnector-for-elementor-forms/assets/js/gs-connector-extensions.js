@@ -10,8 +10,8 @@ jQuery(document).ready(function (jQuery) {
     var pluginSlug = button.data("plugin");
     var downloadUrl = button.data("download");
     var loaderSpan = button
-      .closest(".button-bar")
-      .find(".loading-sign-install");
+    .closest(".button-bar")
+    .find(".loading-sign-install");
 
     loaderSpan.addClass("loading");
 
@@ -49,7 +49,7 @@ jQuery(document).ready(function (jQuery) {
    * - On error or failure, resets button and removes loading state
    */
 
-  jQuery(document).on("click", ".ele-activate-plugin-btn-pro", function () {
+   jQuery(document).on("click", ".ele-activate-plugin-btn-pro", function () {
     var button = jQuery(this);
     var pluginSlug = button.data("plugin");
     var loaderSpan = button.siblings(".loading-sign-active");
@@ -88,7 +88,7 @@ jQuery(document).ready(function (jQuery) {
    * - On error, shows AJAX error alert
    */
 
-  jQuery(".ele-deactivate-plugin-pro").on("click", function () {
+   jQuery(".ele-deactivate-plugin-pro").on("click", function () {
     var pluginSlug = jQuery(this).data("plugin");
     jQuery.ajax({
       url: ajaxurl,
@@ -111,4 +111,4 @@ jQuery(document).ready(function (jQuery) {
     });
   });
 
-});
+ });

@@ -10,14 +10,14 @@ jQuery( document ).ready(
 			function () {
 				fadeIn( $popup );
 			}
-		);
+			);
 
 		$closeButton.on(
 			'click',
 			function () {
 				fadeOut( $popup );
 			}
-		);
+			);
 
 		$popupOuter.on(
 			'click',
@@ -26,7 +26,7 @@ jQuery( document ).ready(
 					fadeOut( $popup );
 				}
 			}
-		);
+			);
 
 		function fadeIn($element) {
 			$element.css( { opacity: 0, display: 'block' } ).animate( { opacity: 1 }, 300 );
@@ -39,7 +39,7 @@ jQuery( document ).ready(
 				function () {
 					$element.css( 'display', 'none' );
 				}
-			);
+				);
 		}
 	}
-);
+	);

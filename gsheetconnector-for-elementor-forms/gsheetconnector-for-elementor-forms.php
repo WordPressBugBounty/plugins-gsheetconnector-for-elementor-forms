@@ -5,7 +5,7 @@
  * Description: Send your Elementor Form data to your Google Spreadsheet.
  * Requires at least: 5.6
  * Requires PHP: 7.4
- * Version: 1.2.6
+ * Version: 1.2.7
  * Author: GSheetConnector
  * Author URI: https://www.gsheetconnector.com/
  * Text Domain: gsheetconnector-for-elementor-forms
@@ -123,8 +123,8 @@ if ($activate_the_plugin) {
 /* Freemius End */
 
 // Declare some global constants
-define('GS_CONN_ELE_VERSION', '1.2.6');
-define('GS_CONN_ELE_DB_VERSION', '1.2.6');
+define('GS_CONN_ELE_VERSION', '1.2.7');
+define('GS_CONN_ELE_DB_VERSION', '1.2.7');
 define('GS_CONN_ELE_ROOT', dirname(__FILE__));
 define('GS_CONN_ELE_URL', plugins_url('/', __FILE__));
 define('GS_CONN_ELE_BASE_FILE', basename(dirname(__FILE__)) . '/gsheetconnector-for-elementor-forms.php');
@@ -278,7 +278,6 @@ class GSC_Elementor_Init
             $this->_gfgsc_googlesheet = $google_sheet;
             return $google_sheet;
         } catch (Exception $e) {
-        
         }
     }
 
@@ -350,115 +349,355 @@ class GSC_Elementor_Init
      * @param int   $gsc_elementor_post_id Post ID.
      * @param array $gsc_elementor_formdata Template Data.
      */
+    // public static function gsc_elementor_after_save_settings($gsc_elementor_post_id, $gsc_elementor_formdata)
+    // {
+    //     global $gsc_elementor_header_list, $gsc_elementor_spreadsheetid, $gsc_elementor_exclude_headertype;
+
+    //     // Only run if Elementor Pro is active
+    //     if (!is_plugin_active('elementor-pro/elementor-pro.php')) {
+    //         return;
+    //     }
+
+    //     // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Cannot verify nonce, source is Elementor internal save hook
+    //     if (!isset($_REQUEST['actions']) || empty($_REQUEST['actions'])) {
+    //         return;
+    //     }
+
+    //     // Safely decode and sanitize form config JSON from Elementor
+    //     // phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+    //     $gsc_elementor_data = json_decode(
+    //         // phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+    //         sanitize_text_field(wp_unslash($_REQUEST['actions'])),
+    //         true
+    //     );
+    //     // phpcs:enable
+
+    //     // Iterate over saved data to collect header and sheet details
+    //     $gsc_elementor_data = \ElementorPro\Plugin::elementor()->db->iterate_data(
+    //         $gsc_elementor_data,
+    //         function ($gsc_elementor_element) {
+    //             if (
+    //                 isset($gsc_elementor_element['widgetType']) &&
+    //                 in_array((string) $gsc_elementor_element['widgetType'], ['form', 'global'], true)
+    //             ) {
+    //                 global $gsc_elementor_header_list, $gsc_elementor_spreadsheetid;
+
+    //                 $gsc_elementor_settings = $gsc_elementor_element['settings'] ?? [];
+
+    //                 if (
+    //                     empty($gsc_elementor_settings['submit_actions']) ||
+    //                     !in_array('gsc_elementorentor', $gsc_elementor_settings['submit_actions'], true)
+    //                 ) {
+    //                     return;
+    //                 }
+
+    //                 // Manual Sheet settings
+    //                 if (
+    //                     !empty($gsc_elementor_settings['enable_manual_sheet_settings']) &&
+    //                     $gsc_elementor_settings['enable_manual_sheet_settings'] === 'yes'
+    //                 ) {
+    //                     $gsc_elementor_spreadsheetid = $gsc_elementor_settings['manual_sheet_id'] ?? '';
+    //                     $gsc_elementor_sheetname     = $gsc_elementor_settings['manual_tab_id'] ?? '';
+    //                     $sheetName                   = $gsc_elementor_settings['manual_tab_name'] ?? 'Sheet1';
+    //                 } elseif (
+    //                     !empty($gsc_elementor_settings['gs_spreadsheet_id']) &&
+    //                     !empty($gsc_elementor_settings['gs_spreadsheet_tab_name'])
+    //                 ) {
+    //                     $gsc_elementor_spreadsheetid = $gsc_elementor_settings['gs_spreadsheet_id'];
+    //                     $gsc_elementor_sheetname     = $gsc_elementor_settings['gs_spreadsheet_tab_name'];
+    //                     $sheet_tabId = get_option('elefgs_tabsId');
+    //                     $sheetName = $sheet_tabId[$gsc_elementor_spreadsheetid][$gsc_elementor_sheetname] ?? 'Sheet1';
+    //                 } else {
+    //                     return;
+    //                 }
+
+    //                 // Build headers
+    //                 $gsc_elementor_header_list = ['Entry ID'];
+    //                 $formField = $gsc_elementor_settings['form_fields'] ?? [];
+
+    //                 foreach ($formField as $gsc_elementor_form_fields) {
+    //                     $label = $gsc_elementor_form_fields['field_label'] ??
+    //                         ucfirst($gsc_elementor_form_fields['custom_id'] ?? '');
+    //                     $gsc_elementor_header_list[] = $label;
+    //                 }
+
+    //                 $gsc_elementor_header_list = array_values(array_unique($gsc_elementor_header_list));
+
+    //                 if (!empty($gsc_elementor_header_list)) {
+    //                     $doc = new GSC_Elementor_Free();
+    //                     $doc->auth();
+    //                     // $doc->add_header($gsc_elementor_spreadsheetid, $sheetName, $gsc_elementor_header_list, true);
+    //                 }
+    //             }
+    //         }
+    //     );
+    // }
+
+    // public static function gsc_elementor_after_save_settings($post_id, $formdata)
+    // {
+    //     if (!is_plugin_active('elementor-pro/elementor-pro.php')) {
+    //         return;
+    //     }
+
+    //     if (empty($_REQUEST['actions'])) {
+    //         return;
+    //     }
+
+    //     $raw_actions   = wp_unslash($_REQUEST['actions']);
+    //     $elementor_data = json_decode($raw_actions, true);
+
+    //     if (!is_array($elementor_data)) {
+    //         return;
+    //     }
+
+    //     \ElementorPro\Plugin::elementor()->db->iterate_data(
+    //         $elementor_data,
+    //         function ($element) use ($post_id) {
+
+    //             if (
+    //                 empty($element['widgetType']) ||
+    //                 !in_array($element['widgetType'], ['form', 'global'], true)
+    //             ) {
+    //                 return;
+    //             }
+
+    //             if (empty($element['settings']) || !is_array($element['settings'])) {
+    //                 return;
+    //             }
+
+    //             $settings = $element['settings'];
+
+    //             $spreadsheet_id   = '';
+    //             $spreadsheet_name = '';
+    //             $tab_id           = '';
+    //             $tab_name         = '';
+
+    //             /*
+    //         ============================
+    //         MANUAL MODE
+    //         ============================
+    //         */
+    //             if (($settings['enable_manual_sheet_settings'] ?? '') === 'yes') {
+
+    //                 $spreadsheet_id   = $settings['manual_sheet_id'] ?? '';
+    //                 $spreadsheet_name = $settings['manual_sheet_name'] ?? '';
+    //                 $tab_id           = $settings['manual_tab_id'] ?? '';
+    //                 $tab_name         = $settings['manual_tab_name'] ?? '';
+    //             }
+
+    //             /*
+    //         ============================
+    //         AUTO MODE
+    //         ============================
+    //         */ else {
+
+    //                 $spreadsheet_id = $settings['gs_spreadsheet_id'] ?? '';
+    //                 $tab_id         = $settings['gs_spreadsheet_tab_name'] ?? '';
+
+    //                 $sheet_list = get_option('elefgs_sheetId', []);
+    //                 if (!empty($spreadsheet_id) && is_array($sheet_list)) {
+    //                     $spreadsheet_name = $sheet_list[$spreadsheet_id] ?? '';
+    //                 }
+
+    //                 $tabs_map = get_option('elefgs_tabsId', []);
+    //                 if (!is_array($tabs_map)) {
+    //                     $tabs_map = maybe_unserialize($tabs_map);
+    //                 }
+
+    //                 $tab_name = $tabs_map[$spreadsheet_id][$tab_id] ?? '';
+    //             }
+
+    //             /*
+    //         ============================
+    //         SAVE MULTI-FEED SAFELY
+    //         ============================
+    //         */
+
+    //             if (empty($spreadsheet_id) || empty($tab_id)) {
+    //                 return;
+    //             }
+
+    //             $meta_key = 'gscele_form_feeds';
+
+    //             $meta_data = [
+    //                 'sheet-id'       => $spreadsheet_id,
+    //                 'sheet-name'     => $spreadsheet_name,
+    //                 'sheet-tab-name' => $tab_name,
+    //                 'tab-id'         => $tab_id,
+    //             ];
+
+    //             // Get existing feeds
+    //             $existing_feeds = get_post_meta($post_id, $meta_key, false);
+
+    //             $updated = false;
+
+    //             if (!empty($existing_feeds)) {
+    //                 foreach ($existing_feeds as $old_feed) {
+
+    //                     // Match by sheet-id + tab-id
+    //                     if (
+    //                         ($old_feed['sheet-id'] ?? '') === $spreadsheet_id &&
+    //                         ($old_feed['tab-id'] ?? '') === $tab_id
+    //                     ) {
+
+    //                         update_post_meta($post_id, $meta_key, $meta_data, $old_feed);
+    //                         $updated = true;
+    //                         break;
+    //                     }
+    //                 }
+    //             }
+
+    //             // If not found → add new feed
+    //             if (!$updated) {
+    //                 add_post_meta($post_id, $meta_key, $meta_data);
+    //             }
+    //         }
+    //     );
+    // }
     public static function gsc_elementor_after_save_settings($gsc_elementor_post_id, $gsc_elementor_formdata)
     {
         global $gsc_elementor_header_list, $gsc_elementor_spreadsheetid, $gsc_elementor_exclude_headertype;
 
-        // Only run if Elementor Pro is active
+
         if (!is_plugin_active('elementor-pro/elementor-pro.php')) {
             return;
         }
 
-        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Cannot verify nonce, source is Elementor internal save hook
         if (!isset($_REQUEST['actions']) || empty($_REQUEST['actions'])) {
             return;
         }
 
-        // Safely decode and sanitize form config JSON from Elementor
-        // phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-        $gsc_elementor_data = json_decode(
-            // phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-            sanitize_text_field(wp_unslash($_REQUEST['actions'])),
-            true
-        );
-        // phpcs:enable
+        $gsc_elementor_data = json_decode(sanitize_text_field(wp_unslash($_REQUEST['actions'])), true);
+        $elementor_post_id = $_REQUEST['editor_post_id'] ?? 0;
 
-        // Iterate over saved data to collect header and sheet details
         $gsc_elementor_data = \ElementorPro\Plugin::elementor()->db->iterate_data(
             $gsc_elementor_data,
-            function ($gsc_elementor_element) {
-                if (
-                    isset($gsc_elementor_element['widgetType']) &&
-                    in_array((string) $gsc_elementor_element['widgetType'], ['form', 'global'], true)
-                ) {
-                    global $gsc_elementor_header_list, $gsc_elementor_spreadsheetid;
+            function ($gsc_elementor_element) use (&$gsc_elementor_spreadsheetid, &$gsc_elementor_header_list) {
+                $get_create_sheet_name = get_option('gsc_create_sheet_elementor_settings');
+                $gsc_elementor_settings = $gsc_elementor_element['settings'];
 
-                    $gsc_elementor_settings = $gsc_elementor_element['settings'] ?? [];
+                $widget_type = $gsc_elementor_element['widgetType'] ?? 'N/A';
 
-                    if (
-                        empty($gsc_elementor_settings['submit_actions']) ||
-                        !in_array('gsc_elementorentor', $gsc_elementor_settings['submit_actions'], true)
-                    ) {
-                        return;
-                    }
 
-                    // Manual Sheet settings
-                    if (
-                        !empty($gsc_elementor_settings['enable_manual_sheet_settings']) &&
-                        $gsc_elementor_settings['enable_manual_sheet_settings'] === 'yes'
-                    ) {
-                        $gsc_elementor_spreadsheetid = $gsc_elementor_settings['manual_sheet_id'] ?? '';
-                        $gsc_elementor_sheetname     = $gsc_elementor_settings['manual_tab_id'] ?? '';
-                        $sheetName                   = $gsc_elementor_settings['manual_tab_name'] ?? 'Sheet1';
+                if (in_array($widget_type, ['form', 'global'], true)) {
+                    $gsc_elemetor_new_create_sheet_name = $gsc_elementor_settings['gs_elementor_setting_create_sheet'] ?? '';
 
-                    } elseif (
-                        !empty($gsc_elementor_settings['gs_spreadsheet_id']) &&
-                        !empty($gsc_elementor_settings['gs_spreadsheet_tab_name'])
-                    ) {
-                        $gsc_elementor_spreadsheetid = $gsc_elementor_settings['gs_spreadsheet_id'];
-                        $gsc_elementor_sheetname     = $gsc_elementor_settings['gs_spreadsheet_tab_name'];
-                        $sheet_tabId = get_option('elefgs_tabsId');
-                        $sheetName = $sheet_tabId[$gsc_elementor_spreadsheetid][$gsc_elementor_sheetname] ?? 'Sheet1';
+                    // Create new sheet if changed
+                    if (!empty($gsc_elemetor_new_create_sheet_name) && $get_create_sheet_name !== $gsc_elemetor_new_create_sheet_name) {
+                        update_option('gsc_create_sheet_elementor_settings', $gsc_elemetor_new_create_sheet_name);
 
-                    } else {
-                        return;
-                    }
-
-                    // Build headers
-                    $gsc_elementor_header_list = ['Entry ID'];
-                    $formField = $gsc_elementor_settings['form_fields'] ?? [];
-
-                    foreach ($formField as $gsc_elementor_form_fields) {
-                        $label = $gsc_elementor_form_fields['field_label'] ??
-                                 ucfirst($gsc_elementor_form_fields['custom_id'] ?? '');
-                        $gsc_elementor_header_list[] = $label;
-                    }
-
-                    $gsc_elementor_header_list = array_values(array_unique($gsc_elementor_header_list));
-
-                    if (!empty($gsc_elementor_header_list)) {
-                        $doc = new GSC_Elementor_Free();
+                        $doc = new GSC_Elementor_Pro();
                         $doc->auth();
-                        // $doc->add_header($gsc_elementor_spreadsheetid, $sheetName, $gsc_elementor_header_list, true);
+
+                        $spreadsheet = $doc->gsheet_create_google_sheet($gsc_elemetor_new_create_sheet_name);
+                        if ($spreadsheet && $spreadsheet['result']) {
+                            $selected_sheet_id = $spreadsheet['spreadsheet']['spreadsheet_id'] ?? '';
+                            $selected_sheet_name = $spreadsheet['spreadsheet']['spreadsheet_name'] ?? '';
+
+                            $sheet_data = get_option('elefgs_sheetId');
+                            $sheet_data[$selected_sheet_id] = $selected_sheet_name;
+                            update_option('elefgs_sheetId', $sheet_data);
+
+                            $gsc_elementor_spreadsheetid = $selected_sheet_id;
+                            $gsc_elementor_sheetname = 'Sheet1';
+                            $sheetName = 'Sheet1';
+                        } else {
+
+                            return;
+                        }
+                    }
+
+                    // === Sheet Settings (Manual > Auto) ===
+                    $manual_enabled = $gsc_elementor_settings['enable_manual_sheet_settings'] ?? '';
+                    if ($manual_enabled === 'yes') {
+                        $gsc_elementor_spreadsheetid = $gsc_elementor_settings['manual_sheet_id'] ?? '';
+                        $gsc_elementor_sheetname = $gsc_elementor_settings['manual_tab_id'] ?? 'Sheet1';
+                        $sheetName = $gsc_elementor_settings['manual_tab_name'] ?? $gsc_elementor_sheetname;
+                    } elseif (!empty($gsc_elementor_settings['gs_spreadsheet_id']) && !empty($gsc_elementor_settings['gs_spreadsheet_tab_name'])) {
+                        $gsc_elementor_spreadsheetid = $gsc_elementor_settings['gs_spreadsheet_id'];
+                        $gsc_elementor_sheetname = $gsc_elementor_settings['gs_spreadsheet_tab_name'];
+                        $sheet_tabId = get_option('elefgs_tabsId');
+                        $sheetName = $sheet_tabId[$gsc_elementor_spreadsheetid][$gsc_elementor_sheetname] ?? $gsc_elementor_sheetname;
+                    } else {
+                        $gsc_elementor_spreadsheetid = '';
+                        $gsc_elementor_sheetname = '';
+                        $sheetName = 'Sheet1';
+                    }
+
+                    // === Proceed Only if Sheet ID and Tab ID exist ===
+                    if (!empty($gsc_elementor_spreadsheetid) && $gsc_elementor_sheetname !== '' && $gsc_elementor_sheetname !== null) {
+
+
+
+
+                        // Header building
+                        $headerOptions = [
+                            'Entry ID' => 'headers[Entry ID]',
+                            'Entry Date' => 'headers[Entry Date]',
+                            'Post ID' => 'headers[Post ID]',
+                            'User Name' => 'headers[User Name]',
+                            'User IP' => 'headers[User IP]',
+                            'User ID' => 'headers[User ID]',
+                            'Referrer' => 'headers[Referrer]',
+                            'User Agent' => 'headers[User Agent]',
+                        ];
+
+                        $gsc_elementor_header_list = ['Entry ID'];
+                        foreach ($headerOptions as $headerLabel => $settingKey) {
+                            if (($gsc_elementor_settings[$settingKey] ?? '') === 'yes') {
+                                $gsc_elementor_header_list[] = $headerLabel;
+                            }
+                        }
+
+                        $formField = $gsc_elementor_settings['form_fields'] ?? [];
+                        foreach ($formField as $gsc_elementor_form_fields) {
+                            $header_index = $gsc_elementor_form_fields['field_label'] ?? ucfirst($gsc_elementor_form_fields['custom_id'] ?? '');
+                            if (($gsc_elementor_settings["headers[$header_index]"] ?? '') === 'yes') {
+                                $gsc_elementor_header_list[] = $header_index;
+                            }
+                        }
+
+
+                        $gsc_elementor_header_list = array_values(array_unique($gsc_elementor_header_list));
+
+
+                        update_post_meta($_REQUEST['editor_post_id'], 'gs_elementor_settings', $gsc_elementor_header_list);
+
+                        $gsc_ef_settings = [
+                            'spreadsheet_id' => $gsc_elementor_spreadsheetid,
+                            'tab_id' => $gsc_elementor_sheetname,
+                            'tab_name' => $sheetName,
+                        ];
+                        update_option('gsc_elementor_settings', $gsc_ef_settings);
                     }
                 }
             }
         );
-    }
+}
 
-    public function load_css_and_js_files()
-    {
-        add_action('admin_print_styles', array($this, 'add_css_files'));
-        add_action('admin_print_scripts', array($this, 'add_js_files'));
-    }
+public function load_css_and_js_files()
+{
+    add_action('admin_print_styles', array($this, 'add_css_files'));
+    add_action('admin_print_scripts', array($this, 'add_js_files'));
+}
 
-    public function load_all_classes()
-    {
+public function load_all_classes()
+{
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- $GLOBALS['activate_the_plugin'] is internally controlled, not user input
-        if ($GLOBALS['activate_the_plugin'] == true) {
+    if ($GLOBALS['activate_the_plugin'] == true) {
 
-            if (!class_exists('GSC_Elementor_Integration')) {
-                include(GS_CONN_ELE_PATH . 'includes/class-gsc-elementor-integration.php');
-            }
+        if (!class_exists('GSC_Elementor_Integration')) {
+            include(GS_CONN_ELE_PATH . 'includes/class-gsc-elementor-integration.php');
+        }
 
-            if (!class_exists('gsc_elementor_sidemenu')) {
-                include(GS_CONN_ELE_PATH . 'includes/gsc-elementor-sidemenu.php');
-            }
-             if (!class_exists('Elementor_Extensions')) {
-                include(GS_CONN_ELE_PATH . 'includes/pages/extensions/gs-elementor-extension-service.php');
-            }
+        if (!class_exists('gsc_elementor_sidemenu')) {
+            include(GS_CONN_ELE_PATH . 'includes/gsc-elementor-sidemenu.php');
+        }
+        if (!class_exists('Elementor_Extensions')) {
+            include(GS_CONN_ELE_PATH . 'includes/pages/extensions/gs-elementor-extension-service.php');
         }
     }
+}
 
     /**
      * enqueue CSS files
@@ -471,7 +710,7 @@ class GSC_Elementor_Init
             isset($_GET['page']) && $_GET['page'] == 'gsheetconnector-elementor-config')) {
             wp_enqueue_style('wp-color-picker');
             wp_enqueue_style('gsc-elementor-css', GS_CONN_ELE_URL . 'assets/css/gsc-elementor.css', GS_CONN_ELE_VERSION, true);
-			wp_enqueue_style('gsc-fontawesome-css', GS_CONN_ELE_URL . 'assets/css/fontawesome.css', GS_CONN_ELE_VERSION, true);
+            wp_enqueue_style('gsc-fontawesome-css', GS_CONN_ELE_URL . 'assets/css/fontawesome.css', GS_CONN_ELE_VERSION, true);
 
             wp_enqueue_style(
                 'system-debug-css',
@@ -480,7 +719,6 @@ class GSC_Elementor_Init
                 GS_CONN_ELE_VERSION,
                 'all'
             );
-            
         }
     }
 
@@ -512,7 +750,7 @@ class GSC_Elementor_Init
                 GS_CONN_ELE_VERSION,
                 true
             );
-                wp_enqueue_script(
+            wp_enqueue_script(
                 'gsc-elementor-extension',
                 GS_CONN_ELE_URL . 'assets/js/gs-connector-extensions.js',
                 array('jquery'),
@@ -554,19 +792,18 @@ class GSC_Elementor_Init
      * @since 1.0.0
      */
     private function run_on_activation()
-    {   
+    {
         $plugin_options = get_site_option('elefgs_info');
         if (false === $plugin_options) {
-           
+
             $google_sheet_info = array(
                 'version' => GS_CONN_ELE_VERSION,
                 'db_version' => GS_CONN_ELE_DB_VERSION
             );
             update_site_option('elefgs_info', $google_sheet_info);
         } else if (GS_CONN_ELE_DB_VERSION != $plugin_options['version']) {
-           $this->run_on_upgrade();
+            $this->run_on_upgrade();
         } else {
-            
         }
 
         // Always fetch and save API credentials
@@ -653,7 +890,7 @@ class GSC_Elementor_Init
         $title = __("GSheetConnector For Elementor Forms", 'gsheetconnector-for-elementor-forms');
         // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage -- Static plugin asset used in dashboard widget
         $widget_title = "<img style='width:30px;margin-right: 10px;' src='" . esc_url($img_src) . "'><span>" . esc_html($title) . "</span>";
-        
+
         wp_add_dashboard_widget('elementro_gs__dashboard', $widget_title, array($this, 'elementor_gs_connector_summary_dashboard'));
     }
 
@@ -795,7 +1032,7 @@ class GSC_Elementor_Init
 
         // Validate and sanitize $_SERVER['REMOTE_ADDR']
         $server_ip = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '';
-        $environment_type = ( $server_ip === '127.0.0.1' || $server_ip === '::1' ) ? 'localhost' : 'production';
+        $environment_type = ($server_ip === '127.0.0.1' || $server_ip === '::1') ? 'localhost' : 'production';
         $system_info .= '<tr><td>Environment type</td><td>' . esc_html($environment_type) . '</td></tr>';
 
         // User count
@@ -895,7 +1132,7 @@ class GSC_Elementor_Init
         $system_info .= '</div>';
         // Webserver Configuration
         // Load WP_Filesystem for file permission check
-        if ( ! function_exists('WP_Filesystem') ) {
+        if (! function_exists('WP_Filesystem')) {
             require_once ABSPATH . 'wp-admin/includes/file.php';
         }
         global $wp_filesystem;
@@ -903,7 +1140,7 @@ class GSC_Elementor_Init
 
         // Check .htaccess writable status using WP_Filesystem
         $htaccess_path = ABSPATH . '.htaccess';
-        $htaccess_writable = $wp_filesystem->is_writable( $htaccess_path ) ? 'Writable' : 'Non Writable';
+        $htaccess_writable = $wp_filesystem->is_writable($htaccess_path) ? 'Writable' : 'Non Writable';
 
         // Get current server time using gmdate() (timezone-safe)
         $current_server_time = gmdate('Y-m-d H:i:s');
@@ -1025,7 +1262,7 @@ class GSC_Elementor_Init
 
         // Filesystem Permission
         // Load WP_Filesystem if not already available
-        if ( ! function_exists('WP_Filesystem') ) {
+        if (! function_exists('WP_Filesystem')) {
             require_once ABSPATH . 'wp-admin/includes/file.php';
         }
         global $wp_filesystem;
@@ -1036,11 +1273,11 @@ class GSC_Elementor_Init
         $theme_root = get_theme_root();
 
         // Check writability using WP_Filesystem
-        $main_dir_writable     = $wp_filesystem->is_writable( ABSPATH ) ? 'Writable' : 'Not Writable';
-        $wp_content_writable   = $wp_filesystem->is_writable( WP_CONTENT_DIR ) ? 'Writable' : 'Not Writable';
-        $upload_dir_writable   = $wp_filesystem->is_writable( $upload_dir ) ? 'Writable' : 'Not Writable';
-        $plugin_dir_writable   = $wp_filesystem->is_writable( WP_PLUGIN_DIR ) ? 'Writable' : 'Not Writable';
-        $theme_dir_writable    = $wp_filesystem->is_writable( $theme_root ) ? 'Writable' : 'Not Writable';
+        $main_dir_writable     = $wp_filesystem->is_writable(ABSPATH) ? 'Writable' : 'Not Writable';
+        $wp_content_writable   = $wp_filesystem->is_writable(WP_CONTENT_DIR) ? 'Writable' : 'Not Writable';
+        $upload_dir_writable   = $wp_filesystem->is_writable($upload_dir) ? 'Writable' : 'Not Writable';
+        $plugin_dir_writable   = $wp_filesystem->is_writable(WP_PLUGIN_DIR) ? 'Writable' : 'Not Writable';
+        $theme_dir_writable    = $wp_filesystem->is_writable($theme_root) ? 'Writable' : 'Not Writable';
 
         $system_info .= '<h2><button id="show-ftps-info-button" class="info-button">Filesystem Permission <span class="dashicons dashicons-arrow-down"></span></button></h2>';
         $system_info .= '<div id="ftps-info-container" class="info-content" style="display:none;">';
@@ -1094,4 +1331,3 @@ $init = new GSC_Elementor_Init();
 
 // Add custom link for our plugin
 add_filter('plugin_action_links_' . GS_CONN_ELE_BASE_NAME, array($init, 'elementor_gs_connector_pro_plugin_action_links'));
-

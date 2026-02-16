@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
-   
+ 
     // Clear Error Log
     function clearErrorLog() {
         $('.errorlog').val('');
@@ -56,7 +56,7 @@ jQuery(document).ready(function ($) {
 
 
  // Copy System Info to Clipboard
-function copySystemInfo() {
+ function copySystemInfo() {
     const $container = $('.info-container');
     const $elements = $container.find('.info-content h3, .info-content td');
     let systemInfoText = '';

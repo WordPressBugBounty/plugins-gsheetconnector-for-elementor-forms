@@ -1,12 +1,12 @@
 <?php
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
-   exit();
+ exit();
 }
 
 // 🔒 Prevent Subscribers from seeing sensitive info
 if ( ! current_user_can( 'manage_options' ) ) {
-    wp_die( __( 'You do not have permission to access this page.', 'gsheetconnector-for-elementor-forms' ) );
+  wp_die( __( 'You do not have permission to access this page.', 'gsheetconnector-for-elementor-forms' ) );
 }
 
 
@@ -61,10 +61,10 @@ $elementorForms_gs_tools_service = new GSC_Elementor_Init();
     <div class="clear-content-logs-msg-elemnt"></div>
 
     <input
-      type="hidden"
-      name="gs-ajax-nonce-ele"
-      id="gs-ajax-nonce-ele"
-      value="<?php echo esc_attr( wp_create_nonce( 'gs-ajax-nonce-ele' ) ); ?>"
+    type="hidden"
+    name="gs-ajax-nonce-ele"
+    id="gs-ajax-nonce-ele"
+    value="<?php echo esc_attr( wp_create_nonce( 'gs-ajax-nonce-ele' ) ); ?>"
     />
 
     <div class="copy-message" style="display: none;">

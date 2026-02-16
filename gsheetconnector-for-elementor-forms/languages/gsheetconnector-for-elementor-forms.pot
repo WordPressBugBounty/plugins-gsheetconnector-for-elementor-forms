@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Elementor Forms GSheetConnector\n"
-"POT-Creation-Date: 2025-12-24 15:17+0530\n"
+"POT-Creation-Date: 2026-02-16 18:21+0530\n"
 "PO-Revision-Date: 2023-08-14 18:58+0530\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -39,115 +39,116 @@ msgstr ""
 msgid "Support"
 msgstr ""
 
-#: gsheetconnector-for-elementor-forms.php:318
+#: gsheetconnector-for-elementor-forms.php:317
 msgid ""
 "Google Sheet Connector Elementor Add-on requires Elementor Pro or Pro "
 "Elements or MetForm Plugin to be installed and activated."
 msgstr ""
 
-#: gsheetconnector-for-elementor-forms.php:653
+#: gsheetconnector-for-elementor-forms.php:890
 #: includes/gsc-elementor-sidemenu.php:71
 msgid "GSheetConnector For Elementor Forms"
 msgstr ""
 
-#: gsheetconnector-for-elementor-forms.php:667
+#: gsheetconnector-for-elementor-forms.php:904
 msgid "GSheetConnector Elementor"
 msgstr ""
 
-#: gsheetconnector-for-elementor-forms.php:692
+#: gsheetconnector-for-elementor-forms.php:929
 msgid "Get GSheetConnector Elementor Pro"
 msgstr ""
 
-#: includes/class-gsc-elementor-integration.php:373
+#: includes/class-gsc-elementor-integration.php:789
 msgid "Settings saved successfully."
 msgstr ""
 
 #. Author of the plugin/theme
-#: includes/gsc-elementor-actions.php:39 includes/gsc-elementor-actions.php:237
+#: includes/gsc-elementor-actions.php:44 includes/gsc-elementor-actions.php:277
 msgid "GSheetConnector"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:250
+#: includes/gsc-elementor-actions.php:290
 msgid "Select Google Spreadsheet"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:265
+#: includes/gsc-elementor-actions.php:305
 msgid "Enable Manual Sheet Settings"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:267
+#: includes/gsc-elementor-actions.php:307
 msgid "Yes"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:268
+#: includes/gsc-elementor-actions.php:308
 msgid "No"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:279
+#: includes/gsc-elementor-actions.php:319
 msgid "Manual Sheet Name"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:290
+#: includes/gsc-elementor-actions.php:330
 msgid "Manual Sheet ID"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:301
+#: includes/gsc-elementor-actions.php:341
 msgid "Manual Tab Name"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:312
+#: includes/gsc-elementor-actions.php:352
 msgid "Manual Tab ID"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:327
+#: includes/gsc-elementor-actions.php:367
 msgid "Select Sheet name"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:347
+#: includes/gsc-elementor-actions.php:387
 msgid "Select Sheet Tab name"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:380
+#: includes/gsc-elementor-actions.php:420
 msgid "Click here"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:424
+#: includes/gsc-elementor-actions.php:464
+#: includes/gsc-elementor-actions.php:479
 msgid "VIEW SPREAD SHEET"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:451
+#: includes/gsc-elementor-actions.php:507
 msgid "Click here to configure Form Feeds"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:488
+#: includes/gsc-elementor-actions.php:544
 msgid "Entry Date"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:510
+#: includes/gsc-elementor-actions.php:566
 msgid "Post ID"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:532
+#: includes/gsc-elementor-actions.php:588
 msgid "User Name"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:554
+#: includes/gsc-elementor-actions.php:610
 msgid "User IP"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:576
+#: includes/gsc-elementor-actions.php:632
 msgid "User Agent"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:598
+#: includes/gsc-elementor-actions.php:654
 msgid "User ID"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:620
+#: includes/gsc-elementor-actions.php:676
 msgid "Referrer"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:684
+#: includes/gsc-elementor-actions.php:740
 msgid "Upgrade To Pro"
 msgstr ""
 
@@ -663,15 +664,14 @@ msgstr ""
 #: includes/pages/gsc-integration.php:178
 msgid ""
 "Authentication Error:\n"
-"                          It seems your authorization code is either "
-"incorrect or has expired. Please follow these steps to resolve it:\n"
+"            It seems your authorization code is either incorrect or has "
+"expired. Please follow these steps to resolve it:\n"
 "\n"
-"                          Click the Run Activation button.\n"
+"            Click the Run Activation button.\n"
 "\n"
-"                          Deactivate the current authentication.\n"
+"            Deactivate the current authentication.\n"
 "\n"
-"                          Then, Re-authenticate to generate a new valid "
-"token."
+"            Then, Re-authenticate to generate a new valid token."
 msgstr ""
 
 #: includes/pages/gsc-integration.php:195

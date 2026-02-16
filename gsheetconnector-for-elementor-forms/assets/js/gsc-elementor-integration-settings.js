@@ -54,9 +54,9 @@ jQuery(document).ready(function ($) {
 
     // Sync Google account
     $(document).on('click', '#ele-sync', function () {
-    $(this).parent().children(".loading-sign").addClass("loading");
+        $(this).parent().children(".loading-sign").addClass("loading");
 
-    var data = {
+        var data = {
         action: 'sync_google_account_gscelementor', // unified
         isinit: $(this).data("init"),
         security: $('#gs-ajax-nonce-ele').val()
@@ -262,7 +262,7 @@ jQuery(document).ready(function($) {
  * Display Error logs
  */
 
-jQuery(document).ready(function($) {
+ jQuery(document).ready(function($) {
   // Hide .wp-system-Error-logs initially
   $('.elemnt-system-Error-logs').hide();
 
@@ -298,15 +298,15 @@ jQuery(document).ready(function($) {
 /**
  * Clear debug for integration page
  */
-jQuery(document).on('click', '.debug-clear-elementor', function () {
+ jQuery(document).on('click', '.debug-clear-elementor', function () {
     jQuery(".clear-loading-sign").addClass("loading");
     var data = {
         action: 'gscelementor_clear_debug_log',
         security: jQuery('#gs-ajax-nonce-ele').val()
     };
     jQuery.post(ajaxurl, data, function (response) {
-         var clear_msg = response.data;
-        if (response == -1) {
+       var clear_msg = response.data;
+       if (response == -1) {
             return false; // Invalid nonce
         }
 
@@ -315,8 +315,8 @@ jQuery(document).on('click', '.debug-clear-elementor', function () {
             jQuery("#gs-validation-message").empty();
             jQuery("<span class='gs-valid-message'>"+clear_msg+"</span>").appendTo('#gs-validation-message');
             setTimeout(function () {
-                    location.reload();
-                }, 1000);
+                location.reload();
+            }, 1000);
         }
     });
 });
@@ -328,20 +328,20 @@ jQuery(document).on('click', '.clear-content-logs-elemnt', function () {
 
   jQuery(".clear-loading-sign-logs-elemnt").addClass("loading");
   var data = {
-     action: 'gscelementor_log_elementor_systeminfo',
-     security: jQuery('#gs-ajax-nonce-ele').val()
-  };
-  jQuery.post(ajaxurl, data, function ( response ) {
-     if (response == -1) {
+   action: 'gscelementor_log_elementor_systeminfo',
+   security: jQuery('#gs-ajax-nonce-ele').val()
+};
+jQuery.post(ajaxurl, data, function ( response ) {
+   if (response == -1) {
         return false; // Invalid nonce
-     }
-     
-     if (response.success) {
+    }
+    
+    if (response.success) {
         jQuery(".clear-loading-sign-logs-elemnt").removeClass("loading");
         jQuery('.clear-content-logs-msg-elemnt').html('Logs are cleared.');
         setTimeout(function () {
-                    location.reload();
-                }, 1000);
-     }
-  });
+            location.reload();
+        }, 1000);
+    }
+});
 });

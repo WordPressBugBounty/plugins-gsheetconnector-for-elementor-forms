@@ -64,24 +64,24 @@ class GSC_Elementor_Free
 	}
 
 	public static function updateToken($tokenData)
-    {
-        $expires_in = isset($tokenData['expires_in']) ? intval($tokenData['expires_in']) : 0;
-        $tokenData['expire'] = time() + $expires_in;
-        try {
-            if (isset($tokenData['scope'])) {
-                $permission = explode(" ", $tokenData['scope']);
-                if ((in_array("https://www.googleapis.com/auth/drive.metadata.readonly", $permission)) && (in_array("https://www.googleapis.com/auth/spreadsheets", $permission))) {
-                    update_option('elefgs_verify', 'valid');
-                } else {
-                  update_option('elefgs_verify', 'invalid-auth');
-                }
-            }
-            $tokenJson = json_encode($tokenData);
-            update_option('elefgs_token', $tokenJson);
-        } catch (Exception $e) {
-            GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
-        }
-    }
+	{
+		$expires_in = isset($tokenData['expires_in']) ? intval($tokenData['expires_in']) : 0;
+		$tokenData['expire'] = time() + $expires_in;
+		try {
+			if (isset($tokenData['scope'])) {
+				$permission = explode(" ", $tokenData['scope']);
+				if ((in_array("https://www.googleapis.com/auth/drive.metadata.readonly", $permission)) && (in_array("https://www.googleapis.com/auth/spreadsheets", $permission))) {
+					update_option('elefgs_verify', 'valid');
+				} else {
+					update_option('elefgs_verify', 'invalid-auth');
+				}
+			}
+			$tokenJson = json_encode($tokenData);
+			update_option('elefgs_token', $tokenJson);
+		} catch (Exception $e) {
+			GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
+		}
+	}
 
 	public function auth()
 	{
@@ -183,36 +183,36 @@ class GSC_Elementor_Free
 
 	public function add_row($data)
 	{
-	    try {
-	        $client = self::getInstance();
-	        $service = new Google_Service_Sheets($client);
-	        $spreadsheetId = $this->getSpreadsheetId();
-	        $work_sheets = $service->spreadsheets->get($spreadsheetId);
+		try {
+			$client = self::getInstance();
+			$service = new Google_Service_Sheets($client);
+			$spreadsheetId = $this->getSpreadsheetId();
+			$work_sheets = $service->spreadsheets->get($spreadsheetId);
 
-	        if (!empty($work_sheets) && !empty($data)) {
-	            foreach ($work_sheets->getSheets() as $sheet) {
-	                $properties = $sheet->getProperties();
-	                $sheet_title = $properties->getTitle();
+			if (!empty($work_sheets) && !empty($data)) {
+				foreach ($work_sheets->getSheets() as $sheet) {
+					$properties = $sheet->getProperties();
+					$sheet_title = $properties->getTitle();
 	                $worksheet_id = $this->getWorkTabId(); // expected to be sheet name
 
 	                // ✅ Match by title, not ID
 	                if (strtolower($worksheet_id) == strtolower($sheet_title)) {
-	                    $worksheetCell = $service->spreadsheets_values->get($spreadsheetId, $sheet_title . "!1:1");
-	                    $insert_data = [];
+	                	$worksheetCell = $service->spreadsheets_values->get($spreadsheetId, $sheet_title . "!1:1");
+	                	$insert_data = [];
 
-	                    if (isset($worksheetCell->values[0])) {
-	                        foreach ($worksheetCell->values[0] as $k => $name) {
-	                            $insert_data[] = $data[$name] ?? '';
-	                        }
-	                    }
+	                	if (isset($worksheetCell->values[0])) {
+	                		foreach ($worksheetCell->values[0] as $k => $name) {
+	                			$insert_data[] = $data[$name] ?? '';
+	                		}
+	                	}
 
-	                    $full_range = $sheet_title . "!A1:Z";
-	                    $response = $service->spreadsheets_values->get($spreadsheetId, $full_range);
-	                    $get_values = $response->getValues();
-	                    $row = $get_values ? count($get_values) + 1 : 1;
-	                    $range = $sheet_title . "!A" . $row . ":Z";
+	                	$full_range = $sheet_title . "!A1:Z";
+	                	$response = $service->spreadsheets_values->get($spreadsheetId, $full_range);
+	                	$get_values = $response->getValues();
+	                	$row = $get_values ? count($get_values) + 1 : 1;
+	                	$range = $sheet_title . "!A" . $row . ":Z";
 
-	                    $valueRange = new Google_Service_Sheets_ValueRange();
+	                	$valueRange = new Google_Service_Sheets_ValueRange();
 	                    $valueRange->setValues([ $insert_data ]); // ✅ correct format
 
 	                    $conf = [ "valueInputOption" => "USER_ENTERED" ];
@@ -226,7 +226,7 @@ class GSC_Elementor_Free
 	            }
 	        }
 	    } catch (Exception $e) {
-	        GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
+	    	GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
 	    }
 	}
 
@@ -395,50 +395,50 @@ class GSC_Elementor_Free
 	 * @param string $tab_id
 	 * @retun array $header_cells
 	 **/
-	public function get_header_row($spreadsheet_id, $tab_id)
-	{
+     public function get_header_row($spreadsheet_id, $tab_id)
+     {
 
-		$header_cells = array();
-		try {
+     	$header_cells = array();
+     	try {
 
-			$client = $this->getInstance();
+     		$client = $this->getInstance();
 
-			if (!$client) {
-				return false;
-			}
+     		if (!$client) {
+     			return false;
+     		}
 
-			$service = new Google_Service_Sheets($client);
+     		$service = new Google_Service_Sheets($client);
 
-			$work_sheets = $service->spreadsheets->get($spreadsheet_id);
+     		$work_sheets = $service->spreadsheets->get($spreadsheet_id);
 
-			if ($work_sheets) {
+     		if ($work_sheets) {
 
-				foreach ($work_sheets as $sheet) {
+     			foreach ($work_sheets as $sheet) {
 
-					$properties = $sheet->getProperties();
-					$work_sheet_id = $properties->getSheetId();
+     				$properties = $sheet->getProperties();
+     				$work_sheet_id = $properties->getSheetId();
 
-					if ($work_sheet_id == $tab_id) {
+     				if ($work_sheet_id == $tab_id) {
 
-						$tab_title = $properties->getTitle();
-						$header_row = $service->spreadsheets_values->get($spreadsheet_id, $tab_title . "!1:1");
+     					$tab_title = $properties->getTitle();
+     					$header_row = $service->spreadsheets_values->get($spreadsheet_id, $tab_title . "!1:1");
 
-						$header_row_values = $header_row->getValues();
+     					$header_row_values = $header_row->getValues();
 
-						if (isset($header_row_values[0]) && $header_row_values[0]) {
-							$header_cells = $header_row_values[0];
-						}
-					}
-				}
-			}
-		} catch (Exception $e) {
-			GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
-			$header_cells = array();
-			return $header_cells;
-		}
+     					if (isset($header_row_values[0]) && $header_row_values[0]) {
+     						$header_cells = $header_row_values[0];
+     					}
+     				}
+     			}
+     		}
+     	} catch (Exception $e) {
+     		GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
+     		$header_cells = array();
+     		return $header_cells;
+     	}
 
-		return $header_cells;
-	}
+     	return $header_cells;
+     }
 
 	/** 
 	 * GSC_Elementor_Free::sync_with_google_account
@@ -556,11 +556,11 @@ class GSC_Elementor_Free
 	public function gsheet_print_google_account_email()
 	{
 		try {
-		        $google_sheet = new GSC_Elementor_Free();
-				$google_sheet->auth();
-				$email = $google_sheet->gsheet_get_google_account_email();
-                update_option('gsc_elementor_email_account', $email);
-				return $email;
+			$google_sheet = new GSC_Elementor_Free();
+			$google_sheet->auth();
+			$email = $google_sheet->gsheet_get_google_account_email();
+			update_option('gsc_elementor_email_account', $email);
+			return $email;
 			
 		} catch (Exception $e) {
 			GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());

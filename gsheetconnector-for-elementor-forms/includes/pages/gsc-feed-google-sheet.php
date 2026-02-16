@@ -57,79 +57,79 @@ if ($show_setting == 1) {
         <div class="elementor-row">
             <div>
                 <button class="elementor-btn" id="add-new-feed">
-                   <?php echo esc_html__('Add Feeds', 'gsheetconnector-for-elementor-forms'); ?>
-                </button>
-                <button class="elementor-close-btn" id="close-feed" style="display:none">
-                    <?php echo esc_html__('Close Feeds', 'gsheetconnector-for-elementor-forms'); ?>
-                </button>
-            </div>
-
-            <div class="add-feed-form">
-                <form method="post">
-                    <label for="feed_name"><?php echo esc_html__('Feed Name', 'gsheetconnector-for-elementor-forms'); ?></label>
-                    <input type="text" id="feed_name" class="feedName" name="feed_name" />
-
-                    <label for="elementor_form_select"><?php echo esc_html__('Select Form', 'gsheetconnector-for-elementor-forms'); ?></label>
-                    <select id="elementor_form_select" name="elementorforms" class="elementorForms">
-                        <option value=""><?php echo esc_html__('Select Form', 'gsheetconnector-for-elementor-forms'); ?></option>
-                        <?php
-                        function extract_elementor_forms($data) {
-                            $forms = [];
-                            foreach ($data as $element) {
-                                if (isset($element['widgetType']) && $element['widgetType'] === 'form') {
-                                    $forms[] = [
-                                        'form_name' => $element['settings']['form_name'] ?? esc_html__('Unnamed Form', 'gsheetconnector-for-elementor-forms'),
-                                        'element_id' => $element['id'] ?? esc_html__('Unknown Element ID', 'gsheetconnector-for-elementor-forms')
-                                    ];
-                                }
-                                if (isset($element['elements']) && is_array($element['elements'])) {
-                                    $forms = array_merge($forms, extract_elementor_forms($element['elements']));
-                                }
-                            }
-                            return $forms;
-                        }
-
-                        foreach ($all_elementor_forms as $f) {
-                            $form_id = $f->ID;
-                            $elementor_data = get_post_meta($form_id, '_elementor_data', true);
-                            $data = is_array($elementor_data) ? $elementor_data : json_decode($elementor_data, true);
-
-                            if ($data && is_array($data)) {
-                                $forms = extract_elementor_forms($data);
-                                foreach ($forms as $form) {
-                                    $form_name = $form['form_name'];
-                                    $element_id = $form['element_id'];
-                                    $form_source = ($f->post_type == 'elementor_library' && get_post_meta($f->ID, '_elementor_template_type', true) == 'popup') ? 'Popup: ' : 'Page/Post: ';
-                                    echo '<option value="' . esc_attr($form_id) . '">' . esc_html($form_source . $form_name . ' (Element ID: ' . $element_id . ')') . '</option>';
-                                }
-                            }
-                        }
-
-                        $metforms = get_posts(array(
-                            'post_type' => 'metform-form',
-                            'numberposts' => -1
-                        ));
-
-                        if (!empty($metforms)) {
-                            foreach ($metforms as $metform) {
-                                echo '<option value="' . esc_attr($metform->ID) . '">' . esc_html__('MetForm: ', 'gsheetconnector-for-elementor-forms') . esc_html($metform->post_title) . '</option>';
-                            }
-                        }
-                        ?>
-                    </select>
-
-                    <input type="hidden" name="elementorform-ajax-nonce" id="elementorform-ajax-nonce" value="<?php echo esc_attr(wp_create_nonce('elementorform-ajax-nonce')); ?>" />
-                    <!-- phpcs:ignore WordPress.Security.NonceVerification.Recommended -->
-                    <input type="button" name="execute-submit-feed-elementor" class="elementor-gs-sub-btn" value="<?php echo esc_attr__('Submit', 'gsheetconnector-for-elementor-forms'); ?>">
-                    <span class="fld-fetch-load">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                </form>
-            </div>
+                 <?php echo esc_html__('Add Feeds', 'gsheetconnector-for-elementor-forms'); ?>
+             </button>
+             <button class="elementor-close-btn" id="close-feed" style="display:none">
+                <?php echo esc_html__('Close Feeds', 'gsheetconnector-for-elementor-forms'); ?>
+            </button>
         </div>
 
-        <div class="elementor-feeds-list">
-            <table border="1" id="elementorformtable">
-                <?php
-                $feeds_per_page = 10;
+        <div class="add-feed-form">
+            <form method="post">
+                <label for="feed_name"><?php echo esc_html__('Feed Name', 'gsheetconnector-for-elementor-forms'); ?></label>
+                <input type="text" id="feed_name" class="feedName" name="feed_name" />
+
+                <label for="elementor_form_select"><?php echo esc_html__('Select Form', 'gsheetconnector-for-elementor-forms'); ?></label>
+                <select id="elementor_form_select" name="elementorforms" class="elementorForms">
+                    <option value=""><?php echo esc_html__('Select Form', 'gsheetconnector-for-elementor-forms'); ?></option>
+                    <?php
+                    function extract_elementor_forms($data) {
+                        $forms = [];
+                        foreach ($data as $element) {
+                            if (isset($element['widgetType']) && $element['widgetType'] === 'form') {
+                                $forms[] = [
+                                    'form_name' => $element['settings']['form_name'] ?? esc_html__('Unnamed Form', 'gsheetconnector-for-elementor-forms'),
+                                    'element_id' => $element['id'] ?? esc_html__('Unknown Element ID', 'gsheetconnector-for-elementor-forms')
+                                ];
+                            }
+                            if (isset($element['elements']) && is_array($element['elements'])) {
+                                $forms = array_merge($forms, extract_elementor_forms($element['elements']));
+                            }
+                        }
+                        return $forms;
+                    }
+
+                    foreach ($all_elementor_forms as $f) {
+                        $form_id = $f->ID;
+                        $elementor_data = get_post_meta($form_id, '_elementor_data', true);
+                        $data = is_array($elementor_data) ? $elementor_data : json_decode($elementor_data, true);
+
+                        if ($data && is_array($data)) {
+                            $forms = extract_elementor_forms($data);
+                            foreach ($forms as $form) {
+                                $form_name = $form['form_name'];
+                                $element_id = $form['element_id'];
+                                $form_source = ($f->post_type == 'elementor_library' && get_post_meta($f->ID, '_elementor_template_type', true) == 'popup') ? 'Popup: ' : 'Page/Post: ';
+                                echo '<option value="' . esc_attr($form_id) . '">' . esc_html($form_source . $form_name . ' (Element ID: ' . $element_id . ')') . '</option>';
+                            }
+                        }
+                    }
+
+                    $metforms = get_posts(array(
+                        'post_type' => 'metform-form',
+                        'numberposts' => -1
+                    ));
+
+                    if (!empty($metforms)) {
+                        foreach ($metforms as $metform) {
+                            echo '<option value="' . esc_attr($metform->ID) . '">' . esc_html__('MetForm: ', 'gsheetconnector-for-elementor-forms') . esc_html($metform->post_title) . '</option>';
+                        }
+                    }
+                    ?>
+                </select>
+
+                <input type="hidden" name="elementorform-ajax-nonce" id="elementorform-ajax-nonce" value="<?php echo esc_attr(wp_create_nonce('elementorform-ajax-nonce')); ?>" />
+                <!-- phpcs:ignore WordPress.Security.NonceVerification.Recommended -->
+                <input type="button" name="execute-submit-feed-elementor" class="elementor-gs-sub-btn" value="<?php echo esc_attr__('Submit', 'gsheetconnector-for-elementor-forms'); ?>">
+                <span class="fld-fetch-load">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </form>
+        </div>
+    </div>
+
+    <div class="elementor-feeds-list">
+        <table border="1" id="elementorformtable">
+            <?php
+            $feeds_per_page = 10;
                 $current_page = isset($_GET['paged']) ? intval($_GET['paged']) : 1; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
                 $total_feeds = count($feedList);
                 $total_pages = ceil($total_feeds / $feeds_per_page);
@@ -138,11 +138,11 @@ if ($show_setting == 1) {
 
                 if (!empty($current_feeds)) {
                     echo '<tr>
-                        <th>' . esc_html__('Sr No', 'gsheetconnector-for-elementor-forms') . '</th>
-                        <th>' . esc_html__('Page ID', 'gsheetconnector-for-elementor-forms') . '</th>
-                        <th>' . esc_html__('Feed Name', 'gsheetconnector-for-elementor-forms') . '</th>
-                        <th>' . esc_html__('Form Name', 'gsheetconnector-for-elementor-forms') . '</th>
-                        <th>' . esc_html__('Page Name', 'gsheetconnector-for-elementor-forms') . '</th>
+                    <th>' . esc_html__('Sr No', 'gsheetconnector-for-elementor-forms') . '</th>
+                    <th>' . esc_html__('Page ID', 'gsheetconnector-for-elementor-forms') . '</th>
+                    <th>' . esc_html__('Feed Name', 'gsheetconnector-for-elementor-forms') . '</th>
+                    <th>' . esc_html__('Form Name', 'gsheetconnector-for-elementor-forms') . '</th>
+                    <th>' . esc_html__('Page Name', 'gsheetconnector-for-elementor-forms') . '</th>
                     </tr>';
                     foreach ($current_feeds as $key => $value) {
                         $sr_no = $start_index + $key + 1;
@@ -159,21 +159,21 @@ if ($show_setting == 1) {
                         }
                         $form_title = $form_name ? $form_name : 'Unnamed Form';
                         echo '<tr id="feed-' . esc_attr($value->meta_id) . '">
-                            <td>' . esc_html($sr_no) . '</td>
-                            <td>' . esc_html($value->post_id) . '</td>
-                            <td>
-                                <div class="feed-info">
-                                    <div class="feed-title">' . esc_html($value->meta_key) . '</div>
-                                    <div class="feed-edit-option">
-                                        <a href="?page=gsheetconnector-elementor-config&tab=form_feed_settings&form_id=' . esc_attr($value->post_id) . '&feed_id=' . esc_attr($value->meta_id) . '">' . esc_html__('Edit', 'gsheetconnector-for-elementor-forms') . '</a>
-                                        <a href="#" class="delete elementor-gs-btn delete-feed" data-form-id="' . esc_attr($value->post_id) . '" data-feed-id="' . esc_attr($value->meta_id) . '">' . esc_html__('Delete', 'gsheetconnector-for-elementor-forms') . '</a>
-                                        <a href="' . esc_url(get_permalink($value->post_id)) . '" target="_blank">View</a>
-                                    </div>
-                                    <span class="loading-sign-delete-feed-elegs' . esc_attr($value->meta_id) . '">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                </div>
-                            </td>
-                            <td>' . esc_html($form_title) . '</td>
-                            <td>' . esc_html($post_title) . '</td>
+                        <td>' . esc_html($sr_no) . '</td>
+                        <td>' . esc_html($value->post_id) . '</td>
+                        <td>
+                        <div class="feed-info">
+                        <div class="feed-title">' . esc_html($value->meta_key) . '</div>
+                        <div class="feed-edit-option">
+                        <a href="?page=gsheetconnector-elementor-config&tab=form_feed_settings&form_id=' . esc_attr($value->post_id) . '&feed_id=' . esc_attr($value->meta_id) . '">' . esc_html__('Edit', 'gsheetconnector-for-elementor-forms') . '</a>
+                        <a href="#" class="delete elementor-gs-btn delete-feed" data-form-id="' . esc_attr($value->post_id) . '" data-feed-id="' . esc_attr($value->meta_id) . '">' . esc_html__('Delete', 'gsheetconnector-for-elementor-forms') . '</a>
+                        <a href="' . esc_url(get_permalink($value->post_id)) . '" target="_blank">View</a>
+                        </div>
+                        <span class="loading-sign-delete-feed-elegs' . esc_attr($value->meta_id) . '">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        </div>
+                        </td>
+                        <td>' . esc_html($form_title) . '</td>
+                        <td>' . esc_html($post_title) . '</td>
                         </tr>';
                     }
                 } else {
@@ -199,58 +199,58 @@ if ($show_setting == 1) {
 
                 <?php if ($current_page > 1) { ?>
                     <a href="<?php echo esc_url(add_query_arg(array(
-                        'page' => 'gsheetconnector-elementor-config',
-                        'tab' => 'form_feed_settings',
-                        'paged' => 1
+                    'page' => 'gsheetconnector-elementor-config',
+                    'tab' => 'form_feed_settings',
+                    'paged' => 1
                     ))); ?>" class="first-page">
-                        <?php echo esc_html__('« First', 'gsheetconnector-for-elementor-forms'); ?>
-                    </a>
+                    <?php echo esc_html__('« First', 'gsheetconnector-for-elementor-forms'); ?>
+                </a>
 
-                    <a href="<?php echo esc_url(add_query_arg(array(
-                        'page' => 'gsheetconnector-elementor-config',
-                        'tab' => 'form_feed_settings',
-                        'paged' => $current_page - 1
-                    ))); ?>" class="prev-page">
-                        <?php echo esc_html__('‹', 'gsheetconnector-for-elementor-forms'); ?>
-                    </a>
-                <?php } ?>
+                <a href="<?php echo esc_url(add_query_arg(array(
+                'page' => 'gsheetconnector-elementor-config',
+                'tab' => 'form_feed_settings',
+                'paged' => $current_page - 1
+                ))); ?>" class="prev-page">
+                <?php echo esc_html__('‹', 'gsheetconnector-for-elementor-forms'); ?>
+            </a>
+        <?php } ?>
 
-                <span>
-                    <?php
+        <span>
+            <?php
                     // phpcs:disable WordPress.WP.I18n.MissingTranslatorsComment
-                    echo sprintf(
-                        esc_html__(
-                            'Current Page %1$d of %2$d',
-                            'gsheetconnector-for-elementor-forms'
-                        ),
-                        esc_html( $current_page ),
-                        esc_html( $total_pages )
-                    );
+            echo sprintf(
+                esc_html__(
+                    'Current Page %1$d of %2$d',
+                    'gsheetconnector-for-elementor-forms'
+                ),
+                esc_html( $current_page ),
+                esc_html( $total_pages )
+            );
                     // phpcs:enable
-                    ?>
-                </span>
+            ?>
+        </span>
 
-                <?php if ($current_page < $total_pages) { ?>
-                    <a href="<?php echo esc_url(add_query_arg(array(
-                        'page' => 'gsheetconnector-elementor-config',
-                        'tab' => 'form_feed_settings',
-                        'paged' => $current_page + 1
-                    ))); ?>" class="next-page">
-                        <?php echo esc_html__('›', 'gsheetconnector-for-elementor-forms'); ?>
-                    </a>
+        <?php if ($current_page < $total_pages) { ?>
+            <a href="<?php echo esc_url(add_query_arg(array(
+            'page' => 'gsheetconnector-elementor-config',
+            'tab' => 'form_feed_settings',
+            'paged' => $current_page + 1
+            ))); ?>" class="next-page">
+            <?php echo esc_html__('›', 'gsheetconnector-for-elementor-forms'); ?>
+        </a>
 
-                    <a href="<?php echo esc_url(add_query_arg(array(
-                        'page' => 'gsheetconnector-elementor-config',
-                        'tab' => 'form_feed_settings',
-                        'paged' => $total_pages
-                    ))); ?>" class="last-page">
-                        <?php echo esc_html__('Last ›', 'gsheetconnector-for-elementor-forms'); ?>
-                    </a>
-                <?php } ?>
-            </div>
+        <a href="<?php echo esc_url(add_query_arg(array(
+        'page' => 'gsheetconnector-elementor-config',
+        'tab' => 'form_feed_settings',
+        'paged' => $total_pages
+        ))); ?>" class="last-page">
+        <?php echo esc_html__('Last ›', 'gsheetconnector-for-elementor-forms'); ?>
+    </a>
+<?php } ?>
+</div>
 
-        </div>
-    </div>
+</div>
+</div>
 <?php }
 
 function get_form_name($data) {
@@ -261,13 +261,13 @@ function get_form_name($data) {
 
                 // Check for form name
                 $form_info['form_name'] = isset($widget['settings']['form_name']) 
-                    ? $widget['settings']['form_name'] 
-                    : '';
+                ? $widget['settings']['form_name'] 
+                : '';
 
                 // Get element_id for the form
                 $form_info['element_id'] = isset($widget['id']) 
-                    ? $widget['id'] 
-                    : '';
+                ? $widget['id'] 
+                : '';
 
                 return $form_info;
             }
