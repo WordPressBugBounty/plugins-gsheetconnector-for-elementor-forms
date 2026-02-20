@@ -66,7 +66,7 @@ class gsc_elementor_sidemenu extends Settings_Page {
         ?>
 
         <div class="gsheet-header">
-           <div class="gsheet-logo">
+         <div class="gsheet-logo">
             <a href="https://www.gsheetconnector.com/"><i></i></a></div>
             <h1 class="gsheet-logo-text"><span><?php echo esc_html( __('GSheetConnector For Elementor Forms', 'gsheetconnector-for-elementor-forms' ) ); ?></span> <small><?php echo esc_html( __('Version :', 'gsheetconnector-for-elementor-forms' ) ); ?> <?php   echo esc_html($plugin_version, 'gsheetconnector-for-elementor-forms'); ?> </small></h1>
             
@@ -81,23 +81,23 @@ class gsc_elementor_sidemenu extends Settings_Page {
             
         </div>
         <div class="breadcrumb">
-         <span class="dashboard-gsc"><?php echo esc_html( __('DASHBOARD', 'gsheetconnector-for-elementor-forms' ) ); ?></span>
-         <span class="divider-gsc"> / </span>
-         <span class="modules-gsc"><?php echo esc_html($active_tab_name); ?></span>
-     </div>
-     
-     <?php
-     $tabs = array(
-         'integration'        => esc_html__( 'Integration', 'gsheetconnector-for-elementor-forms' ),
-         'form_feed_settings' => esc_html__( 'Form Feeds', 'gsheetconnector-for-elementor-forms' ),
-         'System_Status'      => esc_html__( 'System Status', 'gsheetconnector-for-elementor-forms' ),
-         'extensions'       => esc_html__( 'Extensions', 'gsheetconnector-for-elementor-forms' ),
-     );
+           <span class="dashboard-gsc"><?php echo esc_html( __('DASHBOARD', 'gsheetconnector-for-elementor-forms' ) ); ?></span>
+           <span class="divider-gsc"> / </span>
+           <span class="modules-gsc"><?php echo esc_html($active_tab_name); ?></span>
+       </div>
+       
+       <?php
+       $tabs = array(
+           'integration'        => esc_html__( 'Integration', 'gsheetconnector-for-elementor-forms' ),
+           'form_feed_settings' => esc_html__( 'Form Feeds', 'gsheetconnector-for-elementor-forms' ),
+           'System_Status'      => esc_html__( 'System Status', 'gsheetconnector-for-elementor-forms' ),
+           'extensions'       => esc_html__( 'Extensions', 'gsheetconnector-for-elementor-forms' ),
+       );
 
 
-     echo '<div id="icon-themes" class="icon32"></div>';
-     echo '<div class="nav-tab-wrapper">';
-     foreach ($tabs as $tab => $name) {
+       echo '<div id="icon-themes" class="icon32"></div>';
+       echo '<div class="nav-tab-wrapper">';
+       foreach ($tabs as $tab => $name) {
                 // Skip MetForm tab if plugin not active (assuming MetForm tab may be added later)
         if ($met_active_plugins === "false" && $name === __('MetForm Settings', 'gsheetconnector-for-elementor-forms')) {
             continue;

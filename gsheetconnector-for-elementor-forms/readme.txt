@@ -7,7 +7,7 @@ Docs: https://www.gsheetconnector.com/docs/elementor-google-sheet-connector
 Tested up to: 6.9
 Requires at least: 5.6
 Requires PHP: 7.4
-Stable tag: 1.2.7
+Stable tag: 1.2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,9 +15,9 @@ Send your Elementor Forms and MetForm submissions directly to your selected Goog
 
 == Description ==
 
- Google Sheet Connector for Elementor Forms is an addon plugin, A bridge between your [WordPress](https://wordpress.org/) based [Elementor Forms](https://wordpress.org/plugins/elementor/) or [Metform Elementor Contact Form Builder](https://wordpress.org/plugins/metform/) to [Google Sheets](https://www.google.com/sheets/about/).
+Google Sheet Connector for Elementor Forms is an addon plugin, A bridge between your [WordPress](https://wordpress.org/) based [Elementor Forms](https://wordpress.org/plugins/elementor/) or [Metform Elementor Contact Form Builder](https://wordpress.org/plugins/metform/) to [Google Sheets](https://www.google.com/sheets/about/).
 
- Google Sheet Connector for Elementor Forms is a powerful addon plugin that acts as a bridge between your [WordPress site](https://wordpress.org/), utilizing [Elementor Forms](https://wordpress.org/plugins/elementor/) or [Metform Elementor Contact Form Builder](https://wordpress.org/plugins/metform/), and your [Google Sheets account](https://www.google.com/sheets/about/). Easily manage form submissions by seamlessly integrating them with Google Sheets for efficient data management. 
+Google Sheet Connector for Elementor Forms is a powerful addon plugin that acts as a bridge between your [WordPress site](https://wordpress.org/), utilizing [Elementor Forms](https://wordpress.org/plugins/elementor/) or [Metform Elementor Contact Form Builder](https://wordpress.org/plugins/metform/), and your [Google Sheets account](https://www.google.com/sheets/about/). Easily manage form submissions by seamlessly integrating them with Google Sheets for efficient data management. 
 
 ###  🚀A Most Popular WordPress Plugin. ### 
 
@@ -109,6 +109,9 @@ Please double-check those items and hopefully getting them right will fix the is
 * Now you can paste this code back on the `Admin Panel > Elementor Form > Google Sheets` screen. 
 
 == Changelog ==
+
+= 1.2.8 (20-02-2026) =
+* Fixed: Compatibility issues with GSheetConnector for Elementor Free and Pro.
 
 = 1.2.7 (16-02-2026) =
 * Fixed: Data not being saved to the Google Sheet if sheet settings are done under Elementor Page -> Form -> GSheetConnector ( Action After Submit ).

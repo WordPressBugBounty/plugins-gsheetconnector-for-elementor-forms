@@ -255,7 +255,7 @@ class GSC_Elementor_Integration
     public function send_form_submission_to_google_sheets_feed($record, $handler)
     {
 
-       
+     
             // Get Elementor form settings and fields
         $gs_ele_settings = $record->get('form_settings');
         $gsele_raw_fields = $record->get('fields');
@@ -343,7 +343,7 @@ class GSC_Elementor_Integration
         public function send_form_submission_to_google_sheets_free($record, $handler)
         {
             if (is_plugin_active('gsheetconnector-for-elementor-forms/gsheetconnector-for-elementor-forms.php')) {
-               
+             
 
             // Check if run() already executed
                 if (class_exists('GSC_Elementor_Actions') && GSC_Elementor_Actions::has_run()) {

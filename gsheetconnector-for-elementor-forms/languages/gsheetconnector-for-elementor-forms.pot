@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Elementor Forms GSheetConnector\n"
-"POT-Creation-Date: 2026-02-16 18:21+0530\n"
+"POT-Creation-Date: 2026-02-20 18:15+0530\n"
 "PO-Revision-Date: 2023-08-14 18:58+0530\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -21,40 +21,40 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: gsheetconnector-for-elementor-forms.php:257
+#: gsheetconnector-for-elementor-forms.php:256
 msgid "View Documentation"
 msgstr ""
 
-#: gsheetconnector-for-elementor-forms.php:257
+#: gsheetconnector-for-elementor-forms.php:256
 #: includes/pages/admin-footer.php:29
 msgid "Docs"
 msgstr ""
 
-#: gsheetconnector-for-elementor-forms.php:258
+#: gsheetconnector-for-elementor-forms.php:257
 msgid "Get Support"
 msgstr ""
 
-#: gsheetconnector-for-elementor-forms.php:258
+#: gsheetconnector-for-elementor-forms.php:257
 #: includes/pages/admin-footer.php:28
 msgid "Support"
 msgstr ""
 
-#: gsheetconnector-for-elementor-forms.php:317
+#: gsheetconnector-for-elementor-forms.php:316
 msgid ""
 "Google Sheet Connector Elementor Add-on requires Elementor Pro or Pro "
 "Elements or MetForm Plugin to be installed and activated."
 msgstr ""
 
-#: gsheetconnector-for-elementor-forms.php:890
+#: gsheetconnector-for-elementor-forms.php:897
 #: includes/gsc-elementor-sidemenu.php:71
 msgid "GSheetConnector For Elementor Forms"
 msgstr ""
 
-#: gsheetconnector-for-elementor-forms.php:904
+#: gsheetconnector-for-elementor-forms.php:911
 msgid "GSheetConnector Elementor"
 msgstr ""
 
-#: gsheetconnector-for-elementor-forms.php:929
+#: gsheetconnector-for-elementor-forms.php:936
 msgid "Get GSheetConnector Elementor Pro"
 msgstr ""
 

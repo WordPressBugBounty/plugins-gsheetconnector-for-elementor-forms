@@ -57,9 +57,9 @@ if ($show_setting == 1) {
         <div class="elementor-row">
             <div>
                 <button class="elementor-btn" id="add-new-feed">
-                 <?php echo esc_html__('Add Feeds', 'gsheetconnector-for-elementor-forms'); ?>
-             </button>
-             <button class="elementor-close-btn" id="close-feed" style="display:none">
+                   <?php echo esc_html__('Add Feeds', 'gsheetconnector-for-elementor-forms'); ?>
+               </button>
+               <button class="elementor-close-btn" id="close-feed" style="display:none">
                 <?php echo esc_html__('Close Feeds', 'gsheetconnector-for-elementor-forms'); ?>
             </button>
         </div>

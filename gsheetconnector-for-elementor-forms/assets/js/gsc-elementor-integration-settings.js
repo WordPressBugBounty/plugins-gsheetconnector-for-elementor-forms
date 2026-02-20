@@ -305,8 +305,8 @@ jQuery(document).ready(function($) {
         security: jQuery('#gs-ajax-nonce-ele').val()
     };
     jQuery.post(ajaxurl, data, function (response) {
-       var clear_msg = response.data;
-       if (response == -1) {
+     var clear_msg = response.data;
+     if (response == -1) {
             return false; // Invalid nonce
         }
 
@@ -328,11 +328,11 @@ jQuery(document).on('click', '.clear-content-logs-elemnt', function () {
 
   jQuery(".clear-loading-sign-logs-elemnt").addClass("loading");
   var data = {
-   action: 'gscelementor_log_elementor_systeminfo',
-   security: jQuery('#gs-ajax-nonce-ele').val()
-};
-jQuery.post(ajaxurl, data, function ( response ) {
-   if (response == -1) {
+     action: 'gscelementor_log_elementor_systeminfo',
+     security: jQuery('#gs-ajax-nonce-ele').val()
+ };
+ jQuery.post(ajaxurl, data, function ( response ) {
+     if (response == -1) {
         return false; // Invalid nonce
     }
     

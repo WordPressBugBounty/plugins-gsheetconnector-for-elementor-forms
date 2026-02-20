@@ -108,7 +108,7 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
 
             } else {
              // Auto mode
-             if (
+               if (
                 isset($tab_id) &&
                 $tab_id !== '' &&
                 isset($tab_mapping[$spreadsheetsId]) &&

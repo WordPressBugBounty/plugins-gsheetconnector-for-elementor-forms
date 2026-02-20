@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
- 
+   
     // Clear Error Log
     function clearErrorLog() {
         $('.errorlog').val('');

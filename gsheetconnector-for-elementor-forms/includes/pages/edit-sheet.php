@@ -44,14 +44,14 @@ $met_form_id = isset($_GET['form_id']) ? filter_var($_GET['form_id'], FILTER_SAN
 
     <!-- MANUAL METHOD OF 1st DiV -->
     <div class="manual-section-elementorgsc">
-       <h2 class="info-headers"><?php echo esc_html(__('Edit Feed and Integrate with Google Sheets', 'gsheetconnector-for-elementor-forms')); ?></h2>
-       <p class="sub-desc"><?php echo esc_html(__('Manually connect your Elementor Form with Google Sheets by entering the Sheet Name, Sheet ID, Tab Name, and Tab ID. This ensures that form submissions are stored directly in your chosen Google Sheet. Fill in the required details and  ', 'gsheetconnector-for-elementor-forms')); ?>
-       <strong><?php echo esc_html__('click Save Changes', 'gsheetconnector-for-elementor-forms'); ?></strong>
-       <?php echo esc_html__(' to complete the integration.', 'gsheetconnector-for-elementor-forms'); ?>
-   </p>
-   
-   
-   <div class="field-row row">
+     <h2 class="info-headers"><?php echo esc_html(__('Edit Feed and Integrate with Google Sheets', 'gsheetconnector-for-elementor-forms')); ?></h2>
+     <p class="sub-desc"><?php echo esc_html(__('Manually connect your Elementor Form with Google Sheets by entering the Sheet Name, Sheet ID, Tab Name, and Tab ID. This ensures that form submissions are stored directly in your chosen Google Sheet. Fill in the required details and  ', 'gsheetconnector-for-elementor-forms')); ?>
+     <strong><?php echo esc_html__('click Save Changes', 'gsheetconnector-for-elementor-forms'); ?></strong>
+     <?php echo esc_html__(' to complete the integration.', 'gsheetconnector-for-elementor-forms'); ?>
+ </p>
+ 
+ 
+ <div class="field-row row">
     <label for="edit-sheet-name"><?php echo esc_html(__('Sheet Name', 'gsheetconnector-for-elementor-forms')); ?></label> 
     <input type="text" id="edit-sheet-name" name="elementor-gs[sheet-name-custom]" value="<?php echo esc_attr($sheet_name); ?>">
     <div class="tooltip-new">
@@ -89,10 +89,10 @@ $met_form_id = isset($_GET['form_id']) ? filter_var($_GET['form_id'], FILTER_SAN
 </div> <!-- field row #end -->
 <div class="sheet-url" id="sheet-url" style="display: flex;">
     <?php if ((isset($sheet_id) && $sheet_id!="") && (isset($tab_id) && $tab_id!="")) {
-       ?>
-       
-       <div class="row">
-         <label>
+     ?>
+     
+     <div class="row">
+       <label>
           <?php esc_html_e( 'Google Sheet URL', 'gsheetconnector-for-elementor-forms' ); ?>
       </label>
 
@@ -107,12 +107,12 @@ $met_form_id = isset($_GET['form_id']) ? filter_var($_GET['form_id'], FILTER_SAN
 </div>
 
 <div class="row"> <label></label>
- <input type="hidden" name="gs-ajax-nonce" id="gs-ajax-nonce" value="<?php echo esc_attr(wp_create_nonce('gs-ajax-nonce')); ?>" />
- <input type="submit" 
- name="execute-edit-feed-elementor" 
- id="execute-save" 
- class="button button-primary" 
- value="<?php echo esc_attr__( 'Save Changes', 'gsheetconnector-for-elementor-forms' ); ?>">
+   <input type="hidden" name="gs-ajax-nonce" id="gs-ajax-nonce" value="<?php echo esc_attr(wp_create_nonce('gs-ajax-nonce')); ?>" />
+   <input type="submit" 
+   name="execute-edit-feed-elementor" 
+   id="execute-save" 
+   class="button button-primary" 
+   value="<?php echo esc_attr__( 'Save Changes', 'gsheetconnector-for-elementor-forms' ); ?>">
 </div>	
 
 </div>
@@ -179,8 +179,8 @@ $met_form_id = isset($_GET['form_id']) ? filter_var($_GET['form_id'], FILTER_SAN
                 <p id="gs-valid-message"></p>
 
                 <?php if (!empty(get_option('elefgs_verify')) && (get_option('elefgs_verify') == "valid")) { ?>
-                 <p class="gscelementorform-sync-row"> <?php esc_html_e( 'Spreadsheet Name and URL not showing?', 'gsheetconnector-for-elementor-forms' ); ?>
-                 <a id="gscelementorform-sync" data-init="yes" class="sync-button">
+                   <p class="gscelementorform-sync-row"> <?php esc_html_e( 'Spreadsheet Name and URL not showing?', 'gsheetconnector-for-elementor-forms' ); ?>
+                   <a id="gscelementorform-sync" data-init="yes" class="sync-button">
                     <?php esc_html_e( 'Click Here', 'gsheetconnector-for-elementor-forms' ); ?>
                 </a>
                 <?php esc_html_e( 'to fetch sheets.', 'gsheetconnector-for-elementor-forms' ); ?>
@@ -347,7 +347,7 @@ if(is_plugin_active( 'metform/metform.php' )) {
 
         <div class="elementorgs-color-code">
             <div class="color-elementorgs">
-             <h2>
+               <h2>
                 <?php esc_html_e( 'Field List | Special Mail Tags', 'gsheetconnector-for-elementor-forms' ); ?>
                 <span class="pro-ver">
                     <?php esc_html_e( 'PRO', 'gsheetconnector-for-elementor-forms' ); ?>
@@ -494,12 +494,12 @@ if(is_plugin_active( 'metform/metform.php' )) {
                         <span class="label-text"><?php esc_html_e( 'Freeze Header Row', 'gsheetconnector-for-elementor-forms' ); ?>
                     </span>
                     <span class="pro-ver">
-                       <?php esc_html_e( 'PRO', 'gsheetconnector-for-elementor-forms' ); ?>
-                   </span>
+                     <?php esc_html_e( 'PRO', 'gsheetconnector-for-elementor-forms' ); ?>
+                 </span>
 
-               </div>
-               
-               <span class="tooltip-new">
+             </div>
+             
+             <span class="tooltip-new">
                 <img src="<?php echo GS_CONN_ELE_URL; ?>assets/img/help.png" class="help-icon">
                 <span class="tooltiptext tooltip-right-msg">
                     <?php esc_html_e( 'Freeze First Header Row.', 'gsheetconnector-for-elementor-forms' ); ?>
@@ -665,7 +665,7 @@ if(is_plugin_active( 'metform/metform.php' )) {
     <input type='date' id='sync-to-date' name='sync_to_date' value="<?php echo $to_date; ?>" min="<?php echo $from_date; ?>" max="<?php echo $to_date; ?>" class='wpgs-date-picker'>
 
     <div class="sync_div_design syncronous_elemgsc_form_entry_gsheet">
-       <span>
+     <span>
         <?php esc_html_e( 'Sync Entries', 'gsheetconnector-for-elementor-forms' ); ?>
     </span>
     <span class="sync-elemgsc-load">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>

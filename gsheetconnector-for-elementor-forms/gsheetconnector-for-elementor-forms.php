@@ -5,7 +5,7 @@
  * Description: Send your Elementor Form data to your Google Spreadsheet.
  * Requires at least: 5.6
  * Requires PHP: 7.4
- * Version: 1.2.7
+ * Version: 1.2.8
  * Author: GSheetConnector
  * Author URI: https://www.gsheetconnector.com/
  * Text Domain: gsheetconnector-for-elementor-forms
@@ -75,11 +75,10 @@ else {
     }
 }
 
-//$pro_plugins = 'gsheetconnector-for-elementor-forms-pro/gsheetconnector-for-elementor-forms-pro.php';
-//
-//if (in_array($pro_plugins, $active_plugins)) {
-//    return;
-//}
+// If Elementor Pro version of plugin is active, stop execution
+if ( is_plugin_active('gsheetconnector-for-elementor-forms-pro/gsheetconnector-for-elementor-forms-pro.php') ) {
+        return; // Exit function
+}
 
 if ($activate_the_plugin) {
     /* Freemius  Start */
@@ -123,8 +122,8 @@ if ($activate_the_plugin) {
 /* Freemius End */
 
 // Declare some global constants
-define('GS_CONN_ELE_VERSION', '1.2.7');
-define('GS_CONN_ELE_DB_VERSION', '1.2.7');
+define('GS_CONN_ELE_VERSION', '1.2.8');
+define('GS_CONN_ELE_DB_VERSION', '1.2.8');
 define('GS_CONN_ELE_ROOT', dirname(__FILE__));
 define('GS_CONN_ELE_URL', plugins_url('/', __FILE__));
 define('GS_CONN_ELE_BASE_FILE', basename(dirname(__FILE__)) . '/gsheetconnector-for-elementor-forms.php');
@@ -683,6 +682,7 @@ public function load_css_and_js_files()
 
 public function load_all_classes()
 {
+
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- $GLOBALS['activate_the_plugin'] is internally controlled, not user input
     if ($GLOBALS['activate_the_plugin'] == true) {
 
@@ -776,6 +776,13 @@ public function load_all_classes()
 
     public function gsc_elementor_widget()
     {
+
+        // If Elementor Pro version of plugin is active, stop execution
+        if ( is_plugin_active('gsheetconnector-for-elementor-forms-pro/gsheetconnector-for-elementor-forms-pro.php') ) {
+        return; // Exit function
+    }
+
+
         // Here its safe to include our action class file.
         include_once dirname(__FILE__) . '/includes/gsc-elementor-actions.php';
 
