@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
 
 // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Needed to fetch all Elementor-designed posts
 $args = array(
-    'post_type' => array('post', 'page', 'elementor_library'),
+    'post_type' => array('post', 'page', 'elementor_library', 'e-landing-page'),
     'post_status' => 'publish',
     'posts_per_page' => -1,
     // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Needed to fetch all Elementor-designed posts

@@ -7,7 +7,7 @@ Docs: https://www.gsheetconnector.com/docs/elementor-google-sheet-connector
 Tested up to: 6.9
 Requires at least: 5.6
 Requires PHP: 7.4
-Stable tag: 1.2.8
+Stable tag: 1.2.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,9 @@ Please double-check those items and hopefully getting them right will fix the is
 * Now you can paste this code back on the `Admin Panel > Elementor Form > Google Sheets` screen. 
 
 == Changelog ==
+
+= 1.2.9 (25-02-2026) =
+* Added: Compatibility for Elementor Landing Pages in the Feed Settings dropdown.
 
 = 1.2.8 (20-02-2026) =
 * Fixed: Compatibility issues with GSheetConnector for Elementor Free and Pro.
