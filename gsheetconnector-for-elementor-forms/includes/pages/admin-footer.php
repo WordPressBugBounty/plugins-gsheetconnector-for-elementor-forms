@@ -1,62 +1,189 @@
 <?php
-// Custom footer text with review link
-function gsheetconnector_admin_footer_text() {
-  $review_url  = 'https://wordpress.org/support/plugin/gsheetconnector-for-elementor-forms/reviews/';
-  $plugin_name = 'GSheetConnector For Elementor Forms';
+if (!defined('ABSPATH')) {
+      exit; // Exit if accessed directly
+    }
+    
+/**
+ * Customize the WordPress admin footer text.
+ *
+ * Replaces the default footer text with a custom message encouraging users
+ * to rate the "GSheetConnector for ElementorForm" plugin on WordPress.org.
+ *
+ * @return void
+ * @since 1.0.0 Initial version
+ */
 
-  $text = sprintf(
-    /* translators: %1$s: plugin name, %2$s: link to reviews */
-    esc_html__(
-      'Enjoy using %1$s? Check out our reviews or leave your own on %2$s.',
-      'gsheetconnector-for-elementor-forms'
-    ),
-    '<strong>' . esc_html( $plugin_name ) . '</strong>',
-    '<a href="' . esc_url( $review_url ) . '" target="_blank" rel="noopener">' . esc_html__( 'WordPress.org', 'gsheetconnector-for-elementor-forms' ) . '</a>'
-  );
+function remove_footer_admin()
+{
+  ?>
+  <!---Start Footer Section--->
+  <div class="gselef-free">
+    <!--NEW FOOTER ONE--->
+    <div class="gsc-admin-footer-bar gselef-free">
 
-  echo wp_kses_post( '<span id="footer-left" class="alignleft">' . $text . '</span>' );
-}
-add_filter( 'admin_footer_text', 'gsheetconnector_admin_footer_text' );
+      <!-- Left -->
+      <div class="gsc-footer-left">
+        <?php echo esc_html__('Please rate', 'gsheetconnector-for-elementor-forms'); ?>
+
+        <strong>
+          <?php echo esc_html__('GSheetConnector for ElementorForms', 'gsheetconnector-for-elementor-forms'); ?>
+        </strong>
+
+        <span class="gsc-stars">★★★★★</span>
+
+        <?php echo esc_html__('on', 'gsheetconnector-for-elementor-forms'); ?>
+
+        <a href="https://wordpress.org/support/plugin/gsheetconnector-for-elementor-forms/reviews/" target="_blank">
+          <?php echo esc_html__('WordPress.org', 'gsheetconnector-for-elementor-forms'); ?>
+        </a>
+
+        <?php echo esc_html__('to help us spread the word.', 'gsheetconnector-for-elementor-forms'); ?>
+      </div>
 
 
-?>
+      <!-- Right -->
+      <div class="gsc-footer-right">
 
-<div class="gsheetconnect-footer-promotion">
-  <p><?php echo esc_html__( 'Made with ♥ by the GSheetConnector Team', 'gsheetconnector-for-elementor-forms' ); ?></p>
+        <div class="gsc-footer-social">
 
-  <ul class="gscele-footer-promotion-links">
-    <li><a href="https://www.gsheetconnector.com/support" target="_blank" rel="noopener"><?php esc_html_e( 'Support', 'gsheetconnector-for-elementor-forms' ); ?></a></li>
-    <li><a href="https://www.gsheetconnector.com/docs/elementor-google-sheet-connector/" target="_blank" rel="noopener"><?php esc_html_e( 'Docs', 'gsheetconnector-for-elementor-forms' ); ?></a></li>
-    <li><a href="https://profiles.wordpress.org/westerndeal/#content-plugins" target="_blank" rel="noopener"><?php esc_html_e( 'Free Plugins', 'gsheetconnector-for-elementor-forms' ); ?></a></li>
-  </ul>
+          <a href="https://www.facebook.com/gsheetconnectorofficial" target="_blank" aria-label="Facebook">
+            <svg viewBox="0 0 24 24">
+              <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+            </svg>
+          </a>
 
-  
+          <a href="https://www.instagram.com/gsheetconnector" target="_blank" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="20" height="20" rx="5" />
+            <circle cx="12" cy="12" r="4" fill="#fff" />
+            <circle cx="17.5" cy="6.5" r="1.2" fill="#fff" />
+          </svg>
+        </a>
 
-  <ul class="gsheetconnect-footer-promotion-social">
-    <li>
-      <a href="https://www.facebook.com/gsheetconnectorofficial" target="_blank" rel="noopener noreferrer">
-        <i class="fa-brands fa-square-facebook"></i>
+        <a href="https://www.linkedin.com/company/gsheetconnector/" target="_blank" aria-label="Linkdin">
+          <svg viewBox="0 0 24 24" fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="3" />
+          <circle cx="7" cy="7" r="1.2" fill="#fff" />
+          <rect x="6" y="10" width="2.5" height="7" fill="#fff" />
+          <path d="M11 10h2v1.2c.5-.8 1.5-1.4 2.8-1.4
+          2 0 3.2 1.2 3.2 3.6V17h-2.5v-3.2
+          c0-1.2-.4-2-1.6-2s-1.9.8-1.9 2V17H11z"
+          fill="#fff" />
+        </svg>
       </a>
-    </li>
-    <li>
-      <a href="https://www.instagram.com/gsheetconnector/" target="_blank" rel="noopener noreferrer">
-        <i class="fa-brands fa-square-instagram"></i>
+
+      <a href="https://twitter.com/gsheetconnector?lang=en" target="_blank" aria-label="Twitter">
+        <svg viewBox="0 0 24 24">
+          <path d="M23 3a10.9 10.9 0 01-3.14 1.53
+          4.48 4.48 0 00-7.86 3v1
+          A10.66 10.66 0 013 4s-4 9
+          5 13a11.64 11.64 0 01-7 2
+          c9 5 20 0 20-11.5
+          a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+        </svg>
       </a>
-    </li>
-    <li>
-      <a href="https://www.linkedin.com/company/gsheetconnector/" target="_blank" rel="noopener noreferrer">
-       <i class="fa-brands fa-linkedin"></i>
-     </a>
-   </li>
-   <li>
-    <a href="https://twitter.com/gsheetconnector?lang=en" target="_blank" rel="noopener noreferrer">
-      <i class="fa-brands fa-square-x-twitter"></i>
-    </a>
-  </li>
-  <li>
-    <a href="https://www.youtube.com/@GSheetConnector?sub_confirmation=1" target="_blank" rel="noopener noreferrer">
-     <i class="fa-brands fa-square-youtube"></i>
-   </a>
- </li>
-</ul>
+
+      <a href="https://www.youtube.com/@GSheetConnector" target="_blank" aria-label="YouTube">
+        <svg viewBox="0 0 24 24">
+          <path d="M23 7s-.2-1.4-.8-2
+          c-.8-.8-1.7-.8-2.1-.9
+          C16.9 4 12 4 12 4s-4.9 0-8.1.1
+          c-.4.1-1.3.1-2.1.9
+          -.6.6-.8 2-.8 2S1 8.6 1 10.2v1.6
+          C1 13.4 1.2 15 1.2 15s.2 1.4.8 2
+          c.8.8 1.9.8 2.4.9
+          C6.1 18 12 18 12 18s4.9 0 8.1-.1
+          c.4-.1 1.3-.1 2.1-.9
+          .6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.6
+          C23.2 8.6 23 7 23 7zM9.7 14.5V8.5l5.2 3-5.2 3z"></path>
+        </svg>
+      </a>
+
+    </div>
+
+    <div class="gsc-footer-version">
+
+     <?php
+     echo esc_html__('Version:', 'gsheetconnector-for-elementor-forms') . ' ' .
+     esc_html( defined('GS_CONN_ELE_VERSION') ? GS_CONN_ELE_VERSION : '' );
+     ?>
+   </div>
+
+
+
+ </div>
+
 </div>
+
+<!-- Floating Icon -->
+<div class="assistant-widget gselef-free">
+
+  <!-- Bear Icon -->
+  <div class="assistant-icon" id="assistantBtn">
+    <img src="<?php echo esc_url(GS_CONN_ELE_URL); ?>/assets/img/gsheet-logo.svg" alt="GSheetConnectorSupport">
+  </div>
+
+  <!-- Popup Menu -->
+  <div class="assistant-menu" id="assistantMenu">
+
+    <a href="https://www.gsheetconnector.com/docs/elementor-google-sheet-connector" target="_blank" class="menu-item d-flex align-center gap-10 fw-500">
+      <span class="menu-icon">
+        <!-- Docs Icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+        </svg>
+        </span> <?php echo esc_html__('Docs', 'gsheetconnector-for-elementor-forms'); ?>
+      </a>
+      <a href="https://www.gsheetconnector.com/plugins" target="_blank" class="menu-item d-flex align-center gap-10 fw-500">
+        <span class="menu-icon">
+          <!-- Plugin Icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 0 0-2-2h-4" />
+            <path d="M3 8v8a2 2 0 0 0 2 2h4" />
+            <rect x="7" y="2" width="10" height="20" rx="2" />
+          </svg>
+          </span><?php echo esc_html__('Plugins', 'gsheetconnector-for-elementor-forms'); ?>
+        </a>
+        <a href="https://www.gsheetconnector.com/support" target="_blank" class="menu-item d-flex align-center gap-10 fw-500">
+          <span class="menu-icon">
+            <!-- Support Icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 12a10 10 0 1 0-20 0" />
+              <path d="M2 12v4a2 2 0 0 0 2 2h4" />
+              <path d="M22 12v4a2 2 0 0 1-2 2h-4" />
+            </svg>
+            </span> <?php echo esc_html__('Support', 'gsheetconnector-for-elementor-forms'); ?>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <script>
+      const btn = document.getElementById("assistantBtn");
+      const menu = document.getElementById("assistantMenu");
+
+      btn.addEventListener("click", function() {
+        menu.classList.toggle("active");
+      });
+
+            // Close when clicking outside
+            document.addEventListener("click", function(e) {
+
+              if (!btn.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.remove("active");
+              }
+
+            });
+          </script>
+
+
+          <?php
+        }
+        add_filter('admin_footer_text', 'remove_footer_admin');
+
+        ?>

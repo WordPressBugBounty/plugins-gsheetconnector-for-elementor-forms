@@ -6,7 +6,7 @@
 
 // Exit if accessed directly
 if (!defined('ABSPATH')) {
- exit();
+ exit;
 }
 ?>
 <div class="dashboard-content">
@@ -14,9 +14,7 @@ if (!defined('ABSPATH')) {
  $elementorgs_connector_service = new GSC_Elementor_Integration();
  $forms_list = $elementorgs_connector_service->get_forms_connected_to_sheet();
  $forms_feeds_list = $elementorgs_connector_service->get_forms_feeds_connected_to_sheet();
-
-
- ?>
+?>
  <div class="main-content">
   <div>
    <h3><?php echo esc_html__("Elementor Forms Connected Sheets using Pagebuilder", 'gsheetconnector-for-elementor-forms'); ?></h3>          

@@ -1,114 +1,208 @@
-=== GSheetConnector for Elementor Forms ===
+=== GSheetConnector for Elementor Forms – Sync Elementor Forms to Google Sheets ===
 Contributors: westerndeal, abdullah17, gsheetconnector
 Donate link: https://www.paypal.me/WesternDeal
-Author URL: https://www.gsheetconnector.com/
-Tags: elementor, elementor addons, elementor forms, elementor google sheets, metform google sheet
-Docs: https://www.gsheetconnector.com/docs/elementor-google-sheet-connector
-Tested up to: 6.9
+Tags: elementor, elementor forms, elementor addons, elementor google sheets, google sheets, metform google sheets, elementor forms to google sheets
 Requires at least: 5.6
+Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.2.9
+Stable tag: 1.3.0
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Author URI: https://www.gsheetconnector.com/
 
-Send your Elementor Forms and MetForm submissions directly to your selected Google Sheets or Spreadsheets.
+Sync Elementor Forms and MetForm to Google Sheets in real-time with secure Google Sheets integration and automatic form submission sync.
 
 == Description ==
 
-Google Sheet Connector for Elementor Forms is an addon plugin, A bridge between your [WordPress](https://wordpress.org/) based [Elementor Forms](https://wordpress.org/plugins/elementor/) or [Metform Elementor Contact Form Builder](https://wordpress.org/plugins/metform/) to [Google Sheets](https://www.google.com/sheets/about/).
+**GSheetConnector for Elementor Forms** is a powerful **Elementor Google Sheets integration plugin** that connects Elementor Forms and MetForm directly to Google Sheets.
 
-Google Sheet Connector for Elementor Forms is a powerful addon plugin that acts as a bridge between your [WordPress site](https://wordpress.org/), utilizing [Elementor Forms](https://wordpress.org/plugins/elementor/) or [Metform Elementor Contact Form Builder](https://wordpress.org/plugins/metform/), and your [Google Sheets account](https://www.google.com/sheets/about/). Easily manage form submissions by seamlessly integrating them with Google Sheets for efficient data management. 
+GSheetConnector acts as a secure bridge between your WordPress site, Elementor Pro Forms or MetForm, and Google Sheets — enabling real-time form submission sync and automated spreadsheet management without manual exports.
 
-###  🚀A Most Popular WordPress Plugin. ### 
+Automatically sync Elementor form submissions to Google Sheets in real-time and eliminate manual exports, CSV downloads, or copy-paste workflows. Every submission is securely transferred to your selected Google Spreadsheet instantly after form submission.
 
-When a visitor completes and submits their information through an Elementor Form (available in Elementor PRO) or MetForm, the data is automatically sent to Google Sheets in a real-time.
+Whether you collect leads, contact inquiries, bookings, registrations, or customer data, GSheetConnector ensures reliable Google Sheets sync and structured spreadsheet management directly from your WordPress site.
 
-[Homepage](https://www.gsheetconnector.com/) | [Documentation](https://www.gsheetconnector.com/docs/elementor-google-sheet-connector/installation-process-free-version) | [Support](https://www.gsheetconnector.com/support) | [Demo](https://demo.gsheetconnector.com/elementor-forms-gsheetconnector-pro/) | [Premium Version](https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro)
+Built specifically for Elementor Pro Forms and MetForm, this plugin delivers seamless Google Sheets integration with secure authentication and automatic data synchronization.
 
-= 📝 Elementor ➜ ✍️Google Sheet =
-Get rid of making mistakes while adding the sheet settings or adding the headers ( Meta Tags ) to the sheet column. We have Launched the [Googlesheet Connector PRO version](https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro) with more automated features.
+== Why Choose GSheetConnector? ==
 
-**[Free Version 1.0.12 is compatible with MetForm as well](https://wordpress.org/plugins/metform/).**
-If you are using Elementor PRO or MetForm then you can use this addon plugin.
+✔ Sync Elementor Forms to Google Sheets instantly  
+✔ Direct Google Sheets integration without third-party automation tools like Zapier  
+✔ Support for Elementor Pro and MetForm  
+✔ Secure Google OAuth 2.0 authentication  
+✔ Lightweight, fast, and performance optimized  
 
-### ✨ PRO Features ✨ ###
-➜ Custom Google API Integration Settings
-➜ Allowing to Create a New Sheet from Plugin Settings
-➜ Manage Fields to Display in Sheet using Enable-Disable / Edit the Fields/ Headers Name to display in Google Sheet.
-➜ Syncronize Existing Entries.(If enabled Actions After Submit to Collect Submissions)
-➜ Freeze Header Settings.
-➜ Header Color and Row Odd/Even Colors.
+Built specifically for Elementor Pro Forms and MetForm users who need secure, real-time Google Sheets integration and reliable form submission sync.
 
-Refer to the features and benefits page for more detailed information on the features of the [Elementor Google Sheet PRO Addon Plugin](https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro)
+== How Elementor to Google Sheets Sync Works ==
+
+When a visitor submits an Elementor Form (Elementor Pro) or MetForm (Free or Pro), GSheetConnector automatically syncs the form submission to Google Sheets in real-time by creating a new row in your connected Google Spreadsheet.
+
+All standard and advanced form field types are supported. Submission date is recorded automatically, with extended metadata available in the Pro version.
+
+Secure Google OAuth authentication ensures safe data transfer without complex API configuration.
+
+== Core Features (Free Version) ==
+
+= Real-Time Elementor Forms to Google Sheets Sync =
+Automatically sync Elementor Forms and MetForm submissions to Google Sheets in real-time.
+
+= One-Time Google Authentication =
+Authenticate once and enable continuous automatic form submission sync.
+
+= Field & Column Mapping =
+Map Elementor form fields directly to Google Sheet columns.
+
+= Submission Date Capture =
+Automatically record submission date with every form entry.
+
+= View Connected Google Spreadsheet =
+Access your linked Google Sheet directly from plugin settings.
+
+= Secure Google OAuth Authentication =
+Includes one-click Google authentication using official Google APIs.
+
+= Full Compatibility =
+Works with Elementor Pro Forms, MetForm (Free & Pro), latest WordPress versions, and modern PHP environments.
+
+== 🛠️ How to Send Elementor Forms Entries to Google Sheets ==
+
+After installing and activating GSheetConnector:
+
+= Step 1: Authenticate with Google =
+Use the one-click Google authentication button to securely connect your WordPress site to your Google Sheets account.
+
+= Step 2: Configure Sheet Details =
+Enter your Google Sheet Name, Sheet ID, Tab Name, and Tab ID inside plugin settings or within the Elementor Form editor under “Actions After Submit” → select “GSheetConnector”.
+
+= Step 3: Match Form Fields with Sheet Columns =
+Ensure your Google Spreadsheet has column headers in the first row that match your Elementor form field labels.
+
+Save and submit a test form — your data will sync to Google Sheets in real-time.
+
+== 🚀 Pro Features ==
+
+Upgrade to Elementor Forms Google Sheets Connector PRO for advanced automation and enhanced control.
+
+= Automatic Header Creation =
+Generate Google Sheet column headers automatically from form fields.
+
+= Synchronize Existing Entries =
+Sync previously submitted Elementor or MetForm entries.
+
+= Advanced Field & Column Management =
+Edit, reorder, enable, or disable specific form fields before syncing.
+
+= Extended Submission Metadata =
+Capture submission time, IP address, browser info, and additional metadata.
+
+= Freeze Header Rows =
+Freeze header rows in Google Sheets for better readability.
+
+= Header & Row Styling =
+Customize header colors and alternate row styling.
+
+= Manual API & Service Account Authentication =
+Supports manual Google API configuration and Service Account authentication.
 
 
-= ⚡️ Check Live Demo =
-[Demo URL: Elementor Google Sheet](https://demo.gsheetconnector.com/elementor-forms-gsheetconnector-pro/)
+== Live Demo & Resources ==
 
-[Google Sheet URL to Check submitted Data](https://docs.google.com/spreadsheets/d/1Ftht9knBeuzcvZlzM4Wz6L8qsV4PiDU5ukFlFq9M6PU/edit#gid=1386620327)
+[Homepage](https://www.gsheetconnector.com/) | [Documentation](https://www.gsheetconnector.com/docs/elementor-google-sheet-connector) | [Support](https://www.gsheetconnector.com/support/) | [Demo](https://demo.gsheetconnector.com/elementor-forms-gsheetconnector-pro/) | [Premium Version](https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro?wp-repo)
 
-### ⚡️ How to Use this Plugin ###
+== 🌟 About GSheetConnector ==
 
-* **Step: 1 - [In Google Sheets](https://sheets.google.com/)** 
-➜ Log into your Google Account and visit Google Sheets.  
-➜ Create a new Sheet and name it.  
-➜ Rename or keep default name of the tab on which you want to capture the data. 
-➜ Copy Sheet Name, Sheet ID, Tab Name and Tab ID (Refer Screenshots)
+Part of the GSheetConnector suite, supporting over 80,000 WordPress users worldwide across multiple Google Sheets integrations.
 
-* **Step: 2 - In WordPress Admin** 
-➜ Create or Edit the Elementor Form form from which you want to capture the data. Set up the form as usual in the Form. Thereafter, go to the new "GSheetConnector" tab.  
-➜ On the "Google Sheets" tab, copy-paste the Google Sheets sheet name and tab name into respective positions, and hit "Save".
+GSheetConnector provides Google Sheets integrations for popular WordPress forms and WooCommerce, helping automate data syncing without writing code.
 
-* **Step: 3 - Automated Columns in Sheet**
-➜ Simply Hit Save 
-➜ Test your form submit and verify that the data shows up in your Google Sheet.
+== Important Notes ==
 
-= 🔥 Videos to help you get started with Elementor Google Sheets Connector =
+Ensure your Google Sheet Name, Sheet ID, Tab Name, Tab ID, and Column Headers match exactly with the values entered in plugin settings.
 
-🚀How to Install, Authenticate and Integrate Elementor Form with your Google Sheet.
+• Use exact form field labels as column headers  
+• Avoid special characters in column names  
+• Keep column headers consistent with form field labels  
 
-[youtube https://youtu.be/m7hy8lQRFrg?si=DZHq0oE3lTH_9fdB]
+Proper formatting ensures accurate real-time Elementor to Google Sheets synchronization.
 
-= Important Notes = 
+== Frequently Asked Questions ==
 
-➜ You must pay very careful attention to your naming. This plugin will have unpredictable results if names and spellings do not match between your Google Sheets and form settings.
+= Why is my Elementor form submission spinning and not sending data to Google Sheets? =
 
-👉 [Get Google Sheet Connector Elementor today](#)
+Check the Integration tab and click “View Debug Log” for error details.  
+Ensure WordPress debugging is enabled:  
+https://www.gsheetconnector.com/docs/general/how-to-enable-debugging-in-wordpress
+
+Confirm your authenticated Google email is visible under Integration settings.
+
+If issues persist, send error logs to helpdesk@gsheetconnector.com.
+
+= I configured the plugin, but entries are not syncing to Google Sheets. What should I check? =
+
+Verify:
+
+1. Google authentication is valid  
+2. Sheet Name, Sheet ID, Tab Name, and Tab ID are correct  
+3. Column headers match Elementor form field labels exactly  
+
+Avoid using dynamic mail tags as column headers.
+
+= Can I sync multiple Elementor forms to different Google Sheets? =
+
+Yes. Each form can connect to a different Google Spreadsheet.  
+Pro version supports multiple feeds per form.
+
+= Does this plugin work with Elementor Free? =
+
+No. Elementor Pro is required for the Form widget.
+
+= Is MetForm supported? =
+
+Yes. MetForm (Free & Pro) is supported.
+
+= Why do I see “This app isn’t verified”? =
+
+This appears when using custom API credentials (Pro).  
+Free version uses simplified one-click authentication.
+
+= Why do I see “Range exceeds grid limits”? =
+
+Increase rows or columns in your Google Sheet.
+
+= Is manual API configuration required? =
+
+No. Free version supports one-click authentication.  
+Manual API and Service Account options are available in Pro.
 
 == Installation ==
 
-1. Upload `gsheetconnector-for-elementor-forms` to the `/wp-content/plugins/` directory, OR `Site Admin > Plugins > New > Search > Elementor Google Sheets Connector > Install`.  
-2. Activate the plugin through the 'Plugins' screen in WordPress.  
-3. Use the `Admin Panel > Elementor Form > Google Sheets` screen to connect to `Google Sheets` by entering the Access Code. You can get the Access Code by clicking the "Get Code" button. 
-Enjoy!
+1. Upload `gsheetconnector-for-elementor-forms` to `/wp-content/plugins/` or install via Plugins screen.
+2. Activate the plugin.
+3. Navigate to Elementor Form → Google Sheets.
+4. Integration Tab – Authenticate your Google account and configure sheet details.
+
+Alternatively, open the Elementor editor → select the Form widget → enable “Actions After Submit” → choose “GSheetConnector” → enter your sheet details.
+
+Your Elementor Forms and MetForm submissions will now sync automatically.
 
 == Screenshots ==
 
-1. Google Sheet Integration Shown with Authentication along with Permissions. 
+1. Google Sheet Integration Shown with Authentication along with Permissions.
 2. Create a form.
 3. How to create feeds and display the Sheet name and Tab name and Entering the Field Header Names Manually in the Connected Sheet and Submitting the form.
 4. System Status.
 5. Extensions.
 
-== Frequently Asked Questions ==
-
-= Why isn't the data send to spreadsheet? Elementor Submit is just Spinning. = 
-Sometimes it can take a while of spinning before it goes through. But if the entries never show up in your Sheet then one of these things might be the reason:
-
-1. Wrong access code ( Check debug log )
-2. Wrong Sheet name or tab name
-3. Wrong Column name mapping ( keep in mind that not to use capital letters, number as initial and special characters like underscores, double or single code, space etc. You can only use small letters and hyphen. )
-
-Please double-check those items and hopefully getting them right will fix the issue.
-
-= How do I get the Google Access Code required in step 3 of Installation? =
-
-* On the `Admin Panel > Elementor Form > Google Sheets` screen, click the "Get Code" button.
-* In a popup Google will ask you to authorize the plugin to connect to your Google Sheets. Authorize it - you may have to log in to your Google account if you aren't already logged in. 
-* On the next screen, you should receive the Access Code. Copy it. 
-* Now you can paste this code back on the `Admin Panel > Elementor Form > Google Sheets` screen. 
 
 == Changelog ==
+
+= 1.3.0 (17-04-2026) =
+* Added: Status functionality in Elementor Feed Settings.
+* Added: Option to delete plugin data upon uninstall.
+* Added: Debug log table for improved error tracking and monitoring.
+* Added: One-time migration to update existing feed records by setting the gselef_status meta field for previously created entries.
+* Improved: Major UI overhaul with improved layout, design, and user experience.
 
 = 1.2.9 (25-02-2026) =
 * Added: Compatibility for Elementor Landing Pages in the Feed Settings dropdown.
@@ -126,9 +220,9 @@ Please double-check those items and hopefully getting them right will fix the is
 * Fixed: Responsive CSS.
 
 = 1.2.4 (24-09-2025) =
+* Added: Extensions tab.
 * Updated: Readme file updated.
 * Fixed: UI improvements.
-* Added: Extensions tab.
 
 = 1.2.3 (05-09-2025) =
 * Fixed: security issue while fetching sheet details on Integration page and Elementor editor.
@@ -259,4 +353,3 @@ Please double-check those items and hopefully getting them right will fix the is
 = 1.0.0 =
 * First public release
 * Integrated Elementor Form with Google sheets.
-

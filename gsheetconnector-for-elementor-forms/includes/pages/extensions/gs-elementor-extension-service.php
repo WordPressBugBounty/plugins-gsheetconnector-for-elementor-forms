@@ -1,9 +1,10 @@
 <?php
 
 /**
- * Extension class for GS gravirty Google Sheet Connector Pro extensions operations
- * @since 1.0.2
+ * Extension class for GS Elementor Forms Google Sheet Connector extensions operations
+ * @since 1.0.0
  */
+
 // Exit if accessed directly
 if (!defined('ABSPATH')) {
     exit;
@@ -11,94 +12,121 @@ if (!defined('ABSPATH')) {
 
 /**
  * GS_Extension Class
- * @since 1.0
+ * @since 1.0.0
  */
-class Elementor_Extensions
+
+class gselef_ElementorForm_Extensions
 {
+
     /**
      *  Set things up.
      *
-     *  @since 1.5
+     *  @since 1.0.0
      */
+
     public function __construct()
     {
         // Install Fluent Forms plugin
-        add_action('wp_ajax_gsele_install_plugin', array($this, 'gsele_install_plugin'));
+        add_action('wp_ajax_gselef_install_plugin', array($this, 'gselef_install_plugin'));
 
         // Activate Fluent Forms plugin
-        add_action('wp_ajax_gsele_activate_plugin', array($this, 'gsele_activate_plugin'));
+        add_action('wp_ajax_gselef_activate_plugin', array($this, 'gselef_activate_plugin'));
 
         // Deactivate Fluent Forms plugin
-        add_action("wp_ajax_gsele_deactivate_plugin", array($this, "gsele_deactivate_plugin"));
-
+        add_action('wp_ajax_gselef_deactivate_plugin', array($this, 'gselef_deactivate_plugin'));
     }
-    function gsele_deactivate_plugin()
+
+    /**
+     * Deactivate Fluent Forms plugin
+     *
+     * @since 1.0.0
+     */
+
+    public function gselef_deactivate_plugin()
     {
         // nonce check
-        check_ajax_referer('gsele_ajax_nonce', 'security');
+        check_ajax_referer('gselef-ajax-nonce', 'security');
+
         if (!current_user_can('activate_plugins')) {
-            GsEl_Connector_Utility::ele_gs_debug_log('Error: User lacks permission.');
             wp_send_json_error('You do not have permission to deactivate plugins.');
         }
 
         if (!isset($_POST['plugin_slug'])) {
-            GsEl_Connector_Utility::ele_gs_debug_log('Error: Plugin slug missing.');
             wp_send_json_error('Plugin slug is missing.');
         }
 
-        $plugin_slug = isset($_POST['plugin_slug']) ? sanitize_text_field(wp_unslash($_POST['plugin_slug'])) : '';
+        $plugin_slug = sanitize_text_field(wp_unslash($_POST['plugin_slug']));
 
         if (empty($plugin_slug)) {
-            GsEl_Connector_Utility::ele_gs_debug_log('Error: Plugin slug is empty.');
             wp_send_json_error('Invalid plugin.');
         }
 
         // Ensure plugin exists before attempting to deactivate
         if (!file_exists(WP_PLUGIN_DIR . '/' . $plugin_slug)) {
-            GsEl_Connector_Utility::ele_gs_debug_log("Error: Plugin file does not exist - " . $plugin_slug);
             wp_send_json_error('Plugin not found.');
         }
 
         deactivate_plugins($plugin_slug);
 
         if (is_plugin_active($plugin_slug)) {
-            GsEl_Connector_Utility::ele_gs_debug_log("Error: Plugin deactivation failed - " . $plugin_slug);
-            wp_send_json_error('Failed to deactivate plugin.');
+            wp_send_json_error('Failed to deactivate plugin');
         }
 
-        //error_log("Success: Plugin deactivated - " . $plugin_slug);
-        wp_send_json_success('Plugin deactivated successfully.');
+        wp_send_json_success('Plugin deactivated successfully');
     }
 
+    /**
+     * Installs or upgrades a plugin via AJAX using provided slug and download URL.
+     *
+     * @access public
+     * @since 1.0.0
+     */
 
-
-    function gsele_install_plugin()
+    public function gselef_install_plugin()
     {
-        // nonce check
-        check_ajax_referer('gsele_ajax_nonce', 'security');
-        if (!isset($_POST['plugin_slug'], $_POST['download_url'])) {
-            wp_send_json_error(['message' => 'Missing required parameters.']);
+
+        // 🔐 Nonce verify
+        if (! check_ajax_referer('gselef-ajax-nonce', 'security', false)) {
+            wp_send_json_error([
+                'message' => __('Invalid security token', 'gsheetconnector-for-elementor-forms')
+            ]);
         }
 
-        $plugin_slug = isset($_POST['plugin_slug']) ? sanitize_text_field(wp_unslash($_POST['plugin_slug'])) : '';
-        $download_url = isset($_POST['download_url']) ? esc_url_raw(wp_unslash($_POST['download_url'])) : '';
+        // 🔐 Permission check
+        if (! current_user_can('install_plugins')) {
+            wp_send_json_error([
+                'message' => __('You do not have permission to install plugin', 'gsheetconnector-for-elementor-forms')
+            ]);
+        }
+
+        if (empty($_POST['plugin_slug']) || empty($_POST['download_url'])) {
+            wp_send_json_error([
+                'message' => __('Missing required parameters', 'gsheetconnector-for-elementor-forms')
+            ]);
+        }
+
+        $plugin_slug  = sanitize_text_field(wp_unslash($_POST['plugin_slug']));
+        $download_url = esc_url_raw(wp_unslash($_POST['download_url']));
 
         if (empty($plugin_slug) || empty($download_url)) {
-            wp_send_json_error(['message' => 'Invalid plugin data.']);
+            wp_send_json_error([
+                'message' => __('Invalid plugin data', 'gsheetconnector-for-elementor-forms')
+            ]);
         }
 
-        include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-        include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-        include_once ABSPATH . 'wp-admin/includes/file.php';
-        include_once ABSPATH . 'wp-admin/includes/update.php';
+        // Required files
+        require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+        require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+        require_once ABSPATH . 'wp-admin/includes/file.php';
+        require_once ABSPATH . 'wp-admin/includes/update.php';
+        require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
         $upgrader = new Plugin_Upgrader(new WP_Ajax_Upgrader_Skin());
 
-        // Get the list of installed plugins
         $installed_plugins = get_plugins();
         $plugin_path = '';
 
-        // Find the correct plugin file path
+        // 🔎 Find installed plugin
         foreach ($installed_plugins as $path => $details) {
             if (strpos($path, $plugin_slug . '/') === 0) {
                 $plugin_path = $path;
@@ -106,63 +134,106 @@ class Elementor_Extensions
             }
         }
 
-        // Check if the plugin is already installed
+        // ==============================
+        // 🔄 If Installed → Upgrade
+        // ==============================
         if ($plugin_path) {
-            // Plugin is installed, check for updates
+
             $update_plugins = get_site_transient('update_plugins');
 
             if (isset($update_plugins->response[$plugin_path])) {
-                // Upgrade the plugin
+
                 $result = $upgrader->upgrade($plugin_path);
 
                 if (is_wp_error($result)) {
-                    wp_send_json_error(['message' => 'Upgrade failed: ' . $result->get_error_message()]);
+                    wp_send_json_error([
+                        'message' => __('Upgrade failed: ', 'gsheetconnector-for-elementor-forms') . $result->get_error_message()
+                    ]);
                 }
 
-                wp_send_json_success(['message' => 'Plugin upgraded successfully.']);
+                wp_send_json_success([
+                    'message' => __('Plugin upgraded successfully', 'gsheetconnector-for-elementor-forms')
+                ]);
             } else {
-                wp_send_json_error(['message' => 'No updates available for this plugin.']);
-            }
-        } else {
-            // Plugin is NOT installed, install it
-            $result = $upgrader->install($download_url);
 
-            if (is_wp_error($result)) {
-                wp_send_json_error(['message' => 'Installation failed: ' . $result->get_error_message()]);
+                wp_send_json_success([
+                    'message' => __('Plugin already installed and up to date', 'gsheetconnector-for-elementor-forms')
+                ]);
             }
-
-            wp_send_json_success();
         }
+
+        // ==============================
+        // 📦 Not Installed → Install
+        // ==============================
+        $result = $upgrader->install($download_url);
+
+        if (is_wp_error($result)) {
+            wp_send_json_error([
+                'message' => __('Installation failed: ', 'gsheetconnector-for-elementor-forms') . $result->get_error_message()
+            ]);
+        }
+
+        wp_send_json_success([
+            'message' => __('Plugin installed successfully', 'gsheetconnector-for-elementor-forms')
+        ]);
     }
 
-
-
-    function gsele_activate_plugin()
+    /**
+     * Activates a plugin via AJAX using the provided plugin slug.
+     *
+     * @access public
+     * @since 1.0.0
+     */
+    public function gselef_activate_plugin()
     {
-        // nonce check
-        check_ajax_referer('gsele_ajax_nonce', 'security');
-        if (!current_user_can('activate_plugins')) {
-            wp_send_json_error(['message' => 'Permission denied.']);
+
+        // 🔐 Verify nonce
+        if (! check_ajax_referer('gselef-ajax-nonce', 'security', false)) {
+            wp_send_json_error(array(
+                'message' => __('Invalid security token', 'gsheetconnector-for-elementor-forms')
+            ));
         }
 
-        if (!isset($_POST['plugin_slug'])) {
-            wp_send_json_error(['message' => 'Missing plugin slug.']);
+        // 🔐 Permission check
+        if (! current_user_can('activate_plugins')) {
+            wp_send_json_error(array(
+                'message' => __('You do not have permission to activate plugin', 'gsheetconnector-for-elementor-forms')
+            ));
         }
 
-        $plugin_slug = isset($_POST['plugin_slug']) ? sanitize_text_field(wp_unslash($_POST['plugin_slug'])) : '';
-
-        include_once ABSPATH . 'wp-admin/includes/plugin.php';
-
-        $activated = activate_plugin($plugin_slug);
-
-        if (is_wp_error($activated)) {
-            wp_send_json_error(['message' => $activated->get_error_message()]);
+        // 🔎 Check plugin slug
+        if (empty($_POST['plugin_slug'])) {
+            wp_send_json_error(array(
+                'message' => __('Plugin slug is missing', 'gsheetconnector-for-elementor-forms')
+            ));
         }
 
-        wp_send_json_success();
+        $plugin_slug = sanitize_text_field(wp_unslash($_POST['plugin_slug']));
+
+        // Load required file
+        if (! function_exists('activate_plugin')) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        // ✅ Check if already active
+        if (is_plugin_active($plugin_slug)) {
+            wp_send_json_success(array(
+                'message' => __('Plugin is already activated', 'gsheetconnector-for-elementor-forms')
+            ));
+        }
+
+        // 🚀 Activate plugin
+        $result = activate_plugin($plugin_slug);
+
+        if (is_wp_error($result)) {
+            wp_send_json_error(array(
+                'message' => $result->get_error_message()
+            ));
+        }
+
+        wp_send_json_success(array(
+            'message' => __('Plugin activated successfully', 'gsheetconnector-for-elementor-forms')
+        ));
     }
-    
-
-
 }
-$Elementor_Extensions = new Elementor_Extensions();
+$gselef_ElementorForm_Extensions = new gselef_ElementorForm_Extensions();

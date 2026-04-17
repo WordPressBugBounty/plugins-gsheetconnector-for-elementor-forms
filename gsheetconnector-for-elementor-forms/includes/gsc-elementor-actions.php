@@ -4,6 +4,9 @@
  * Action after submit to add a records to Google Spreadsheet
  * @since 1.0.0
  */
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly.
+}
 
 use ElementorPro\Plugin;
 use Elementor\Controls_Manager;

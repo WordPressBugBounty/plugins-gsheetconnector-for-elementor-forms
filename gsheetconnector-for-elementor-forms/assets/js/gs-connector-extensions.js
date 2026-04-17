@@ -1,11 +1,25 @@
 jQuery(document).ready(function (jQuery) {
-  jQuery('.gsheetconnector-addons-list').each(function () {
+  /**
+   * Hide empty addon sections and mark them with a CSS class on page load.
+   */
+
+   jQuery(".gsheetconnector-addons-list").each(function () {
     if (jQuery(this).html().trim().length === 0) {
-      jQuery(this).addClass('blank_div');
-      jQuery(this).prev('h2').hide();
+      jQuery(this).addClass("blank_div");
+      jQuery(this).prev("div").hide();
     }
   });
-  jQuery(".ele-install-plugin-btn-pro").on("click", function () {
+
+  /**
+   * Handle plugin install button click via AJAX.
+   *
+   * - Shows loading spinner
+   * - Sends plugin slug and download URL to server
+   * - On success, hides install button and shows activate button
+   * - On error or failure, resets button state
+   */
+
+   jQuery(".gselef-install-plugin-btn").on("click", function () {
     var button = jQuery(this);
     var pluginSlug = button.data("plugin");
     var downloadUrl = button.data("download");
@@ -14,28 +28,53 @@ jQuery(document).ready(function (jQuery) {
     .find(".loading-sign-install");
 
     loaderSpan.addClass("loading");
+    button.prop("disabled", true);
 
     jQuery.ajax({
       url: ajaxurl,
       type: "POST",
+      dataType: "json",
       data: {
-        action: "gsele_install_plugin",
+        action: "gselef_install_plugin",
         plugin_slug: pluginSlug,
         download_url: downloadUrl,
-        security: jQuery("#gsele_ajax_nonce").val(),
+        security: jQuery("#gselef-ajax-nonce").val(),
       },
+
       success: function (response) {
         loaderSpan.removeClass("loading");
+
         if (response.success) {
+          // ✅ Install success
           button.hide();
-          button.closest(".button-bar").find(".ele-activate-plugin-btn-pro-pro").show();
+
+          button
+          .closest(".button-bar")
+          .find(".gselef-activate-plugin-btn")
+          .show();
         } else {
-          button.html("Install").prop("disabled", false);
+          // ❌ Permission or other error → open popup
+          jQuery(".popup-actions-active-msg-free").text(
+            response.data.message ||
+            "You do not have permission to install this plugin.",
+            );
+
+          jQuery("#gselef-confirm-active-popup-free").removeClass("d-none");
+
+          button.prop("disabled", false);
         }
       },
+
       error: function () {
         loaderSpan.removeClass("loading");
-        button.html("Install").prop("disabled", false);
+
+        jQuery(".popup-actions-active-msg-free").text(
+          "Something went wrong. Please try again.",
+          );
+
+        jQuery("#gselef-confirm-active-popup-free").removeClass("d-none");
+
+        button.prop("disabled", false);
       },
     });
   });
@@ -49,32 +88,52 @@ jQuery(document).ready(function (jQuery) {
    * - On error or failure, resets button and removes loading state
    */
 
-   jQuery(document).on("click", ".ele-activate-plugin-btn-pro", function () {
+   jQuery(document).on("click", ".gselef-activate-plugin-btn", function () {
     var button = jQuery(this);
     var pluginSlug = button.data("plugin");
     var loaderSpan = button.siblings(".loading-sign-active");
+
     loaderSpan.addClass("loading");
-    // button.prop("disabled", true);
+    button.prop("disabled", true);
+
     jQuery.ajax({
       url: ajaxurl,
       type: "POST",
+      dataType: "json",
       data: {
-        action: "gsele_activate_plugin",
+        action: "gselef_activate_plugin",
         plugin_slug: pluginSlug,
-        security: jQuery("#gsele_ajax_nonce").val(),
+        security: jQuery("#gselef-ajax-nonce").val(),
       },
+
       success: function (response) {
+        loaderSpan.removeClass("loading");
+
         if (response.success) {
-          button.text("Activated"); // Show "Activated"
-          button.prop("disabled", true);
+          // ✅ Success → reload only
           location.reload();
         } else {
-          loaderSpan.removeClass("loading"); // Clear loader
+          // ❌ Permission denied → open popup
+          jQuery(".popup-actions-active-msg-free").text(
+            response.data.message ||
+            "You do not have permission to activate this plugin.",
+            );
+
+          jQuery("#gselef-confirm-active-popup-free").removeClass("d-none");
+
           button.prop("disabled", false);
         }
       },
+
       error: function () {
-        loaderSpan.removeClass("loading").text(""); // Clear loader
+        loaderSpan.removeClass("loading");
+
+        jQuery(".popup-actions-active-msg-free").text(
+          "Something went wrong. Please try again.",
+          );
+
+        jQuery("#gselef-confirm-active-popup-free").removeClass("d-none");
+
         button.prop("disabled", false);
       },
     });
@@ -88,27 +147,57 @@ jQuery(document).ready(function (jQuery) {
    * - On error, shows AJAX error alert
    */
 
-   jQuery(".ele-deactivate-plugin-pro").on("click", function () {
-    var pluginSlug = jQuery(this).data("plugin");
+   let selectedPluginSlug = "";
+  // Open popup on deactivate click
+  jQuery(".gselef-deactivate-plugin").on("click", function (e) {
+    selectedPluginSlug = jQuery(this).data("plugin");
+    jQuery("#gselef-confirm-dective-popup-free").removeClass("d-none");
+  });
+  // Cancel button
+  jQuery("#gselef-dective-popup-cancel-free").on("click", function () {
+    jQuery("#gselef-confirm-dective-popup-free").addClass("d-none");
+    selectedPluginSlug = "";
+  });
+  // Confirm deactivate
+  jQuery("#gselef-deactive-popup-confirm-free").on("click", function () {
+    if (!selectedPluginSlug) return;
     jQuery.ajax({
       url: ajaxurl,
       type: "POST",
-      dataType: "json", // Ensure JSON response
+      dataType: "json",
       data: {
-        action: "gsele_deactivate_plugin",
-        plugin_slug: pluginSlug,
-        security: jQuery("#gsele_ajax_nonce").val(),
+        action: "gselef_deactivate_plugin",
+        plugin_slug: selectedPluginSlug,
+        security: jQuery("#gselef-ajax-nonce").val(),
       },
       success: function (response) {
         if (response.success) {
-          alert(response.data); // Display success message
+          jQuery("#gselef-confirm-dective-popup-free").addClass("d-none");
           location.reload();
         }
       },
-      error: function (xhr, status, error) {
-        alert("AJAX error: " + error);
-      },
     });
   });
+  // filter
+  document.querySelectorAll(".market-tab").forEach((tab) => {
+    tab.addEventListener("click", function () {
+      let filter = this.dataset.filter;
 
- });
+      document
+      .querySelectorAll(".market-tab")
+      .forEach((t) => t.classList.remove("active"));
+
+      this.classList.add("active");
+
+      document.querySelectorAll(".gsc-market-item").forEach((card) => {
+        if (filter === "all") {
+          card.style.display = "block";
+        } else {
+          card.style.display = card.classList.contains(filter)
+          ? "block"
+          : "none";
+        }
+      });
+    });
+  });
+});
