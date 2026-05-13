@@ -1,6 +1,6 @@
 @media (max-width: 1520px) {
   /**Start Tab Panel Section**/
-  .gselef-free .gscfff-selected-badge {
+  .gselef-free .gselef-selected-badge {
     position: unset;
   }
   /**End Tab Panel Section**/
@@ -11,6 +11,29 @@
     min-width: auto;
   }
   /**End Tab Panel Section**/
+
+  /**Start Dashboard Section**/
+  .gselef-free .dashboard-pro-features {
+    grid-template-columns: 6fr 6fr !important;
+  }
+  .gselef-free .video-grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .gselef-free .gsc-support-card {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+  .gselef-free .gsc-support-right {
+    border-left: unset;
+    padding-left: 0;
+  }
+  /**End Dashboard Section**/
+  /**Start Form Feed Tab Panel Section**/
+  .gselef-free .ui-sortable {
+    grid-template-columns: 6fr 6fr !important;
+  }
+  /**End Form Feed Tab Panel Section**/
 }
 @media (max-width: 1125px) {
   /***START NOTICE SLIDER***/
@@ -82,7 +105,7 @@
   .gselef-free .auto-section .sheet-details .row {
     gap: 15px;
   }
-  .gselef-free .sheet-url-fluentform {
+  .gselef-free .gselef-free-sheet-url-elementorform {
     margin-left: unset !important;
   }
   .gselef-free .res-top-20 {
@@ -97,6 +120,25 @@
     gap: 20px;
   }
   /***End Extensions Tab Panel***/
+
+  /***Start Dashboard Section***/
+  .gselef-free .gsc-main {
+    grid-template-columns: 1fr;
+  }
+
+  .gselef-free .gsc-metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .gselef-free .gsc-hero {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .gselef-free .gsc-hero-left {
+    max-width: 100%;
+  }
+  /***End Dashboard Section***/
 }
 @media (max-width: 992px) {
   /***Start Extra CSS***/
@@ -107,6 +149,15 @@
   /**Start Form Feed Tab Panel Section**/
   .gselef-free .form-fields-list .card.ui-sortable-handle {
     width: 100%;
+  }
+  .gselef-free .header-styling-sheet {
+    flex-direction: column;
+  }
+  .gselef-free .gs-wpcore-sync-entries {
+    width: 100%;
+  }
+  .gselef-free .ui-sortable {
+    grid-template-columns: 12fr !important;
   }
   /**End Form Feed Tab Panel Section**/
   /** Start Settings Tab Panel Section **/
@@ -151,6 +202,16 @@
     justify-content: center;
   }
   /**End Footer Section**/
+
+  /**Start Dashboard Section**/
+  .gselef-free .dashboard-pro-features {
+    grid-template-columns: 12fr !important;
+  }
+  .gselef-free .plugin-category-section {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  }
+
+  /**End Dashboard Section**/
 }
 @media (max-width: 767px) {
   /***START NOTICE SLIDER***/
@@ -187,10 +248,10 @@
     width: 100%;
   }
   .gselef-free
-  .gsheet-header-wrapper
-  .left-gsheet-header
-  .gsheet-header-logo-text
-  .title {
+    .gsheet-header-wrapper
+    .left-gsheet-header
+    .gsheet-header-logo-text
+    .title {
     font-size: 16px;
   }
   .gselef-free .right-gsheet-header {
@@ -285,6 +346,17 @@
   .gselef-free .responsive-text-center {
     text-align: center;
   }
+  .gselef-free .addon-item-header-meta {
+    text-align: center;
+  }
+  .gselef-free .addon-item-meta-title {
+    height: unset;
+    min-height: unset;
+  }
+  .gselef-free .addon-item-header-meta-excerpt {
+    height: unset;
+    min-height: unset;
+  }
   /**End Extension Tab Panel**/
   /**Start Footer Section**/
   .gsc-admin-footer-bar {
@@ -294,6 +366,27 @@
     bottom: 95px;
   }
   /**End Footer Section**/
+
+  /***Start Dashboard Section***/
+  .gselef-free .pro-actions {
+    flex-direction: column;
+  }
+  .gselef-free .gsc-support-right {
+    border-left: none;
+    padding-left: 0;
+  }
+  .gselef-free .common-section-gsc-promo-content .d-flex {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .gselef-free .d-flex-responsiveness {
+    flex-direction: column;
+  }
+  .gselef-free .d-flex-responsiveness .w-50 {
+    width: 100%;
+  }
+  /***End Dashboard Section***/
 }
 @media (max-width: 600px) {
   /**Start Form Feed Tab Panel Section**/
@@ -313,4 +406,10 @@
     flex-wrap: wrap;
   }
   /**End Form Feed Tab Panel Section**/
+
+  /**Start Dashboard Section**/
+  .gselef-free .video-grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  /**End Dashboard Section**/
 }

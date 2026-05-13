@@ -5,7 +5,7 @@ Tags: elementor, elementor forms, elementor addons, elementor google sheets, goo
 Requires at least: 5.6
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author URI: https://www.gsheetconnector.com/
@@ -196,6 +196,19 @@ Your Elementor Forms and MetForm submissions will now sync automatically.
 
 
 == Changelog ==
+
+= 1.3.1 (13-05-2026) =
+* Added: Support for handling multiple Elementor forms on the same page by syncing submissions only to their respective Google Sheet feeds using Elementor Form Element ID mapping.
+* Added: Delete alert message and confirmation popup in Feed Settings.
+* Added: Pagination support in the Feed Settings page.
+* Added: Status toggle functionality with improved UI handling.
+* Added: Admin notice slider for plugin announcements, reviews, upgrade prompts, and authentication reminders.
+* Added: Dashboard tab for quick access to plugin information, notices, and settings.
+* Improved: Feed table row UI to properly reflect disabled feed status.
+* Improved: Overall Feed Settings UI and user experience.
+* Fixed: Proper handling and display of error messages when required Google Sheets and Google Drive permissions are not granted in the Integration tab.
+* Fixed: Improved handling of invalid OAuth tokens to prevent repeated debug log entries on page refresh.
+* Fixed: An issue where sheet details were not being saved in the Edit Feed settings when the Tab ID value was set to 0 or similar values.
 
 = 1.3.0 (17-04-2026) =
 * Added: Status functionality in Elementor Feed Settings.

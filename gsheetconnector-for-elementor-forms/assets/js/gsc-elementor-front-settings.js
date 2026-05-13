@@ -63,39 +63,83 @@ jQuery(window).on("load", function () {
     );
 });
 
+// jQuery(window).on("load", function () {
+//   elementor.channels.editor.on(
+//     "namespace:editor:gscfetchsheet",
+//     function (view) {
+//       jQuery(".elementor-button-gscfetchsheet").text(
+//         "Loading..................",
+//         );
+
+//       var data = {
+//         action: "sync_google_account_gscelementor_page", // unified
+//         isinit: "yes",
+//         security: jQuery("[data-setting=gs-ajax-nonce-ele]").val(),
+//       };
+
+//       jQuery.post(ajaxurl, data, function (response) {
+//         if (response == -1 || !response.success) {
+//           jQuery(".elementor-button-gscfetchsheet").text("Something wrong!");
+//           return;
+//         }
+
+//         if (response.data.success === "yes") {
+//           jQuery(".elementor-button-gscfetchsheet").text(
+//             "Successfully fetched!",
+//             );
+//         } else {
+//           jQuery(".elementor-button-gscfetchsheet").text("Something wrong!");
+//         }
+//         setTimeout(function () {
+//           location.reload();
+//         }, 1000);
+//       });
+//     },
+//     );
+// });
 jQuery(window).on("load", function () {
+
+  // click on "Click here"
+  jQuery(document).on("click", ".blue-text-here", function (e) {
+    e.preventDefault();
+    jQuery(".elementor-button-gscfetchsheet").trigger("click");
+  });
+
   elementor.channels.editor.on(
     "namespace:editor:gscfetchsheet",
     function (view) {
-      jQuery(".elementor-button-gscfetchsheet").text(
-        "Loading..................",
-        );
+
+      jQuery(".fetchsheetloading").show();
+
+      jQuery(".elementor-button-gscfetchsheet").html(
+        'Loading... <i class="eicon-loading eicon-animation-spin"></i>'
+      );
 
       var data = {
-        action: "sync_google_account_gscelementor_page", // unified
+        action: "sync_google_account_gscelementor_page",
         isinit: "yes",
         security: jQuery("[data-setting=gs-ajax-nonce-ele]").val(),
       };
 
       jQuery.post(ajaxurl, data, function (response) {
+
         if (response == -1 || !response.success) {
           jQuery(".elementor-button-gscfetchsheet").text("Something wrong!");
           return;
         }
 
         if (response.data.success === "yes") {
-          jQuery(".elementor-button-gscfetchsheet").text(
-            "Successfully fetched!",
-            );
+          jQuery(".elementor-button-gscfetchsheet").text("Successfully fetched!");
         } else {
           jQuery(".elementor-button-gscfetchsheet").text("Something wrong!");
         }
+
         setTimeout(function () {
           location.reload();
         }, 1000);
       });
-    },
-    );
+    }
+  );
 });
 
 jQuery(window).on("load", function () {

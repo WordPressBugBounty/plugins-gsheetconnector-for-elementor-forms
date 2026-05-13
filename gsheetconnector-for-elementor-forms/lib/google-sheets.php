@@ -37,7 +37,13 @@ public static function setInstance(Google_Client $instance = null)
 public static function getInstance()
 {
 	if (is_null(self::$instance)) {
-		throw new LogicException("Invalid Client");
+
+		$obj = new self();
+		$obj->auth(); // try to init
+
+		if (is_null(self::$instance)) {
+			return false;
+		}
 	}
 
 	return self::$instance;
@@ -100,9 +106,10 @@ public static function updateToken($tokenData)
 			} else {
 				update_option('elefgs_verify', 'invalid-auth');
 			}
+			$tokenJson = json_encode($tokenData);
+			update_option('elefgs_token', $tokenJson);
 		}
-		$tokenJson = json_encode($tokenData);
-		update_option('elefgs_token', $tokenJson);
+		
 	} catch (Exception $e) {
 		GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
 	}
@@ -129,9 +136,10 @@ public function auth()
 		$tokenData = json_decode(get_option('elefgs_token'), true);
 
 
-	if (!isset($tokenData['refresh_token']) || empty($tokenData['refresh_token'])) {
-		throw new LogicException("Auth, Invalid OAuth2 access token");
-		exit();
+	if (empty($tokenData) || !isset($tokenData['refresh_token']) || empty($tokenData['refresh_token'])) {
+
+	// stop silently (NO exception)
+		return false;
 	}
 
 	try {
@@ -156,18 +164,17 @@ public function auth()
 			$clientSecret = ($newClientSecret == 1) ? $api_creds['client_secret_web'] : $api_creds['client_secret_desk'];
 			$client->setClientId($clientId);
 			$client->setClientSecret($clientSecret);
-		}
 
-		$client->setScopes(Google_Service_Sheets::SPREADSHEETS);
-		$client->setScopes(Google_Service_Drive::DRIVE_METADATA_READONLY);
-		$client->refreshToken($tokenData['refresh_token']);
-		$client->setAccessType('offline');
+			
+			$client->setScopes(Google_Service_Sheets::SPREADSHEETS);
+			$client->setScopes(Google_Service_Drive::DRIVE_METADATA_READONLY);
+			$client->refreshToken($tokenData['refresh_token']);
+			$client->setAccessType('offline');
 			//GSC_Elementor_Free::updateToken( $tokenData );
 
-		if ($maunal_setting == '1')
-			GSC_Elementor_Free::updateToken_manual($tokenData);
-		else
 			GSC_Elementor_Free::updateToken($tokenData);
+		}
+
 
 
 		self::setInstance($client);
@@ -631,20 +638,23 @@ public function sync_with_google_account()
  */
 public function gsheet_get_google_account()
 {
+    $user = false; // ✅ initialize
 
-	try {
-		$client = $this->getInstance();
+    try {
+    	$client = $this->getInstance();
 
-		if (!$client) {
-			return false;
-		}
+    	if (!$client) {
+    		return false;
+    	}
 
-		$service = new Google_Service_Oauth2($client);
-		$user = $service->userinfo->get();
-	} catch (Exception $e) {
-		GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
-	}
-	return $user;
+    	$service = new Google_Service_Oauth2($client);
+    	$user = $service->userinfo->get();
+
+    } catch (Exception $e) {
+    	GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
+    }
+
+    return $user;
 }
 
 

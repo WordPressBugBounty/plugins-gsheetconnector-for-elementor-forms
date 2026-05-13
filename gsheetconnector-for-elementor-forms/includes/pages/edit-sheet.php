@@ -40,6 +40,234 @@ $sheet_id   = isset($feed_data['sheet-id']) ? esc_attr($feed_data['sheet-id']) :
 $tab_name   = isset($feed_data['sheet-tab-name']) ? esc_attr($feed_data['sheet-tab-name']) : '';
 $tab_id     = isset($feed_data['tab-id']) ? esc_attr($feed_data['tab-id']) : '';
 
+
+
+
+
+// -----------------------------------------------------------------------------
+// Sync date range for Elementor submissions
+// -----------------------------------------------------------------------------
+global $wpdb;
+
+if ($form_id) {
+    $from_date = $wpdb->get_var(
+        $wpdb->prepare(
+            "SELECT MIN(`created_at`) FROM {$wpdb->prefix}e_submissions WHERE `post_id` = %d",
+            $form_id
+        )
+    );
+
+    $to_date = $wpdb->get_var(
+        $wpdb->prepare(
+            "SELECT MAX(`created_at`) FROM {$wpdb->prefix}e_submissions WHERE `post_id` = %d",
+            $form_id
+        )
+    );
+} else {
+    $from_date = current_time('Y-m-d');
+    $to_date   = current_time('Y-m-d');
+}
+$from_date = $from_date
+? gmdate('Y-m-d', strtotime($from_date))
+: current_time('Y-m-d');
+
+$to_date = $to_date
+? gmdate('Y-m-d', strtotime($to_date))
+: current_time('Y-m-d');
+
+
+
+// -----------------------------------------------------------------------------
+// Get current feed meta row
+// -----------------------------------------------------------------------------
+global $wpdb;
+
+$feed_row = $wpdb->get_row(
+    $wpdb->prepare(
+        "SELECT * FROM {$wpdb->postmeta} WHERE meta_id = %d",
+        $feed_id
+    )
+);
+
+// Safe defaults
+$feed_name  = '';
+$page_name  = '';
+$form_title = 'Unnamed Form';
+$element_id = '';
+
+// -----------------------------------------------------------------------------
+// Feed Name
+// -----------------------------------------------------------------------------
+if ($feed_row) {
+    $feed_name = $feed_row->meta_key;
+}
+
+// -----------------------------------------------------------------------------
+// Feed Data
+// Old users  : meta_value = 'gscele_form_feeds'
+// New users  : meta_value = serialized array
+// -----------------------------------------------------------------------------
+$feed_data = get_post_meta($form_id, $feed_name, true);
+
+if (is_array($feed_data) && isset($feed_data['element_id'])) {
+    $element_id = $feed_data['element_id'];
+}
+
+// -----------------------------------------------------------------------------
+// Page Name
+// -----------------------------------------------------------------------------
+if ($form_id) {
+
+    $form_post = get_post($form_id);
+
+    if ($form_post) {
+        $page_name = $form_post->post_title;
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Form Name
+// Handle BOTH old + new users
+// -----------------------------------------------------------------------------
+$elementor_data = get_post_meta($form_id, '_elementor_data', true);
+
+if ($elementor_data) {
+
+    $data = is_array($elementor_data)
+    ? $elementor_data
+    : json_decode($elementor_data, true);
+
+    if (is_array($data)) {
+
+        /**
+         * Find form name recursively
+         */
+        function gsc_find_form_name_by_element_id($elements, $saved_element_id = '')
+        {
+
+            foreach ($elements as $element) {
+
+                // Elementor form widget
+                if (
+                    isset($element['widgetType']) &&
+                    $element['widgetType'] === 'form'
+                ) {
+
+                    $current_element_id = isset($element['id'])
+                    ? $element['id']
+                    : '';
+
+                    // -----------------------------------------------------------------
+                    // NEW USERS
+                    // Match exact Elementor ID
+                    // -----------------------------------------------------------------
+                    if (!empty($saved_element_id)) {
+
+                        if ($saved_element_id === $current_element_id) {
+
+                            return array(
+                                'form_name' => isset($element['settings']['form_name'])
+                                ? $element['settings']['form_name']
+                                : 'Unnamed Form',
+
+                                'element_id' => $current_element_id
+                            );
+                        }
+                    } else {
+
+                        // -------------------------------------------------------------
+                        // OLD USERS
+                        // First form fallback
+                        // -------------------------------------------------------------
+                        return array(
+                            'form_name' => isset($element['settings']['form_name'])
+                            ? $element['settings']['form_name']
+                            : 'Unnamed Form',
+
+                            'element_id' => $current_element_id
+                        );
+                    }
+                }
+
+                // Recursive children
+                if (
+                    isset($element['elements']) &&
+                    is_array($element['elements'])
+                ) {
+
+                    $result = gsc_find_form_name_by_element_id(
+                        $element['elements'],
+                        $saved_element_id
+                    );
+
+                    if (!empty($result)) {
+                        return $result;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        // ---------------------------------------------------------------------
+        // Get matched form
+        // ---------------------------------------------------------------------
+        $form_result = gsc_find_form_name_by_element_id(
+            $data,
+            $element_id
+        );
+
+        if (!empty($form_result['form_name'])) {
+
+            $form_title = $form_result['form_name'];
+
+           // Show Elementor ID for new users only
+            if (!empty($element_id)) {
+                $form_title .= ' (' . $element_id . ')';
+            }
+        }
+    }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Timezone
+// -----------------------------------------------------------------------------
+$timezone_string = get_option('timezone_string');
+
+if (!empty($timezone_string)) {
+
+    $display_timezone = $timezone_string;
+
+} else {
+
+    $offset = get_option('gmt_offset');
+
+    $hours   = (int) $offset;
+    $minutes = abs(($offset - $hours) * 60);
+
+    $sign = ($offset < 0) ? '-' : '+';
+
+    $display_timezone = 'UTC' . $sign . abs($hours);
+
+    if ($minutes > 0) {
+        $display_timezone .= ':' . str_pad($minutes, 2, '0', STR_PAD_LEFT);
+    }
+}
+
+
+// -----------------------------------------------------------------------------
+// Get Saved Elementor ID
+// -----------------------------------------------------------------------------
+$feed_meta_data = get_post_meta($form_id, $feed_name, true);
+
+$saved_element_id = '';
+
+if (is_array($feed_meta_data) && !empty($feed_meta_data['element_id'])) {
+    $saved_element_id = $feed_meta_data['element_id'];
+}
+
 // -----------------------------------------------------------------------------
 // Fetch Elementor form data
 // -----------------------------------------------------------------------------
@@ -55,7 +283,10 @@ if (!empty($form_data)) {
     $decoded_form_data = json_decode($form_data, true);
 
     if (!empty($decoded_form_data)) {
-        $elements = $this->get_elements_form_data($decoded_form_data, 'form_fields');
+        $elements = get_specific_form_fields(
+    $decoded_form_data,
+    $saved_element_id
+);
 
         if (!empty($elements) && is_array($elements)) {
 
@@ -175,40 +406,6 @@ if (is_plugin_active('metform/metform.php')) {
     }
 }
 
-// Reset Google Sheet Settings
-if (isset($_POST['execute-reset'])) {
-
-    // Security nonce check
-    $nonce = isset($_POST['gs-ajax-nonce'])
-    ? sanitize_text_field(wp_unslash($_POST['gs-ajax-nonce']))
-    : '';
-
-    if (! wp_verify_nonce($nonce, 'gs-ajax-nonce')) {
-        return;
-    }
-
-    $feed_id = isset($_POST['feed_id']) ? absint($_POST['feed_id']) : 0;
-
-    if ($feed_id) {
-
-        // Get existing feed data
-        $feed_data = get_post_meta($feed_id, 'gscele_form_feeds', true);
-
-        if (is_array($feed_data)) {
-
-            // Reset sheet settings
-            $feed_data['sheet-name'] = '';
-            $feed_data['sheet-id'] = '';
-            $feed_data['sheet-tab-name'] = '';
-            $feed_data['tab-id'] = '';
-
-            // Update database
-            update_post_meta($feed_id, 'gscele_form_feeds', $feed_data);
-        }
-
-        $success_message = __('Google Sheet configuration reset successfully.', 'gsheetconnector-for-elementor-forms');
-    }
-}
 
 // Build MetForm header list
 $gsc_elementor_all_header_list_feed = array();
@@ -232,94 +429,6 @@ if (!empty($sheet_header_names_metfrom)) {
     }
 } else {
     $metformOutput = $gsc_elementor_all_header_list_feed;
-}
-
-
-
-// -----------------------------------------------------------------------------
-// Sync date range for Elementor submissions
-// -----------------------------------------------------------------------------
-global $wpdb;
-
-if ($form_id) {
-    $from_date = $wpdb->get_var(
-        $wpdb->prepare(
-            "SELECT MIN(`created_at`) FROM {$wpdb->prefix}e_submissions WHERE `post_id` = %d",
-            $form_id
-        )
-    );
-
-    $to_date = $wpdb->get_var(
-        $wpdb->prepare(
-            "SELECT MAX(`created_at`) FROM {$wpdb->prefix}e_submissions WHERE `post_id` = %d",
-            $form_id
-        )
-    );
-} else {
-    $from_date = current_time('Y-m-d');
-    $to_date   = current_time('Y-m-d');
-}
-$from_date = $from_date
-? gmdate('Y-m-d', strtotime($from_date))
-: current_time('Y-m-d');
-
-$to_date = $to_date
-? gmdate('Y-m-d', strtotime($to_date))
-: current_time('Y-m-d');
-?>
-
-
-<?php
-// Get Feed ID & Form ID
-$feed_id = isset($_GET['feed_id']) ? absint($_GET['feed_id']) : 0;
-$form_id = isset($_GET['form_id']) ? absint($_GET['form_id']) : 0;
-
-// Get feed meta data
-$feed_data = get_post_meta($feed_id, 'gscele_form_feeds', true);
-
-$feed_name = $wpdb->get_var(
-    $wpdb->prepare(
-        "SELECT meta_key FROM {$wpdb->postmeta} WHERE meta_value = %s",
-        'gscele_form_feeds'
-    )
-);
-
-
-// Get Elementor Form Name
-$form_name = '';
-if ($form_id) {
-    $form_post = get_post($form_id);
-    if ($form_post) {
-        $form_name = $form_post->post_title;
-    }
-}
-
-// Timestamp
-$fetch_date = get_post_meta($feed_id, 'gscele_feed_created', true);
-
-if (empty($fetch_date)) {
-    $fetch_date = current_time('mysql');
-}
-
-// Timezone
-$timezone_string = get_option('timezone_string');
-
-if (!empty($timezone_string)) {
-    $display_timezone = $timezone_string;
-} else {
-
-    $offset = get_option('gmt_offset');
-
-    $hours   = (int) $offset;
-    $minutes = abs(($offset - $hours) * 60);
-
-    $sign = ($offset < 0) ? '-' : '+';
-
-    $display_timezone = 'UTC' . $sign . abs($hours);
-
-    if ($minutes > 0) {
-        $display_timezone .= ':' . str_pad($minutes, 2, '0', STR_PAD_LEFT);
-    }
 }
 ?>
 
@@ -394,7 +503,6 @@ if (!empty($timezone_string)) {
                     <?php echo esc_html($feed_name); ?>
                 </div>
             </div>
-
             <!-- Form Name -->
             <div>
 
@@ -403,10 +511,25 @@ if (!empty($timezone_string)) {
                 </div>
 
                 <div class="form-name-value feed-info-sub-head fw-700">
-                    <?php echo esc_html($form_name); ?>
+                    <?php echo esc_html($form_title); ?>
                 </div>
 
             </div>
+
+            <!-- Page Name -->
+            <div>
+
+                <div class="feed-info-heading mt-20">
+                    <?php esc_html_e('Page Name', 'gsheetconnector-for-elementor-forms'); ?>
+                </div>
+
+                <div class="form-name-value feed-info-sub-head fw-700">
+                    <?php echo esc_html($page_name); ?>
+                </div>
+
+            </div>
+
+
 
             <!-- Timestamp -->
             <div>
@@ -417,67 +540,39 @@ if (!empty($timezone_string)) {
 
                 <div class="form-name-value feed-info-sub-head fw-700">
                     <?php
-                        /*
-                        echo esc_html(
-                            date_i18n(
-                                get_option('date_format') . ' ' . get_option('time_format'),
-                                strtotime($fetch_date)
-                            )
-                        );
-                        */
-                        echo ' (' . esc_html($display_timezone) . ')';
-                        ?>
-                    </div>
 
+                    echo ' (' . esc_html($display_timezone) . ')';
+                    ?>
                 </div>
 
             </div>
 
-        </div> <!-- feed information #end -->
+        </div>
+
+    </div> <!-- feed information #end -->
 
 
 
-        <!-- ========================================================================= -->
-        <!-- Manual Google Sheets Configuration -->
-        <!-- ========================================================================= -->
-        <div class="shadow-box mt-40 p-30 manual-section-elementorgsc">
-            <div class="heading mt-0">
-                <?php esc_html_e('Manually Google Sheets Configuration', 'gsheetconnector-for-elementor-forms'); ?>
-            </div>
+    <!-- ========================================================================= -->
+    <!-- Manual Google Sheets Configuration -->
+    <!-- ========================================================================= -->
+    <div class="shadow-box mt-40 p-30 manual-section-elementorgsc">
+        <div class="heading mt-0">
+            <?php esc_html_e('Manual Google Sheets Configuration', 'gsheetconnector-for-elementor-forms'); ?>
+        </div>
 
-            <p>
-                <?php esc_html_e('Manually connect your Elementor Form with Google Sheets by entering the Sheet Name, Sheet ID, Tab Name, and Tab ID. This ensures that form submissions are stored directly in your chosen Google Sheet.', 'gsheetconnector-for-elementor-forms'); ?>
-            </p>
+        <p>
+            <?php esc_html_e('Manual connect your Elementor Form with Google Sheets by entering the Sheet Name, Sheet ID, Tab Name, and Tab ID. This ensures that form submissions are stored directly in your chosen Google Sheet.', 'gsheetconnector-for-elementor-forms'); ?>
+        </p>
 
-            <div class="row">
-                <!-- Sheet Name -->
-                <div class="col-6 res-top-20">
-                    <div class="form-group field-row mr-10">
-                        <label for="edit-sheet-name">
-                            <?php esc_html_e('Sheet Name', 'gsheetconnector-for-elementor-forms'); ?>
-                            <span class="tooltip"
-                            data-tooltip="<?php echo esc_attr__('Go to your Google account, open Google Sheets, and select or create the sheet you want to connect.', 'gsheetconnector-for-elementor-forms'); ?>"
-                            data-tooltip-pos="right"
-                            data-tooltip-length="medium">
-                            <i class="fa-solid fa-circle-question help-icon"></i>
-                        </span>
-                    </label>
-
-                    <input type="text"
-                    class="form-control"
-                    id="edit-sheet-name"
-                    name="elementor-gs[sheet-name-custom]"
-                    value="<?php echo esc_attr($sheet_name); ?>">
-                </div>
-            </div>
-
-            <!-- Sheet ID -->
+        <div class="row">
+            <!-- Sheet Name -->
             <div class="col-6 res-top-20">
                 <div class="form-group field-row mr-10">
-                    <label for="edit-sheet-id">
-                        <?php esc_html_e('Sheet ID', 'gsheetconnector-for-elementor-forms'); ?>
+                    <label for="edit-sheet-name">
+                        <?php esc_html_e('Sheet Name', 'gsheetconnector-for-elementor-forms'); ?>
                         <span class="tooltip"
-                        data-tooltip="<?php echo esc_attr__('You can get the Sheet ID from your Google Sheet URL.', 'gsheetconnector-for-elementor-forms'); ?>"
+                        data-tooltip="<?php echo esc_attr__('Go to your Google account, open Google Sheets, and select or create the sheet you want to connect.', 'gsheetconnector-for-elementor-forms'); ?>"
                         data-tooltip-pos="right"
                         data-tooltip-length="medium">
                         <i class="fa-solid fa-circle-question help-icon"></i>
@@ -486,19 +581,19 @@ if (!empty($timezone_string)) {
 
                 <input type="text"
                 class="form-control"
-                id="edit-sheet-id"
-                name="elementor-gs[sheet-id-custom]"
-                value="<?php echo esc_attr($sheet_id); ?>">
+                id="edit-sheet-name"
+                name="elementor-gs[sheet-name-custom]"
+                value="<?php echo esc_attr($sheet_name); ?>">
             </div>
         </div>
 
-        <!-- Tab Name -->
-        <div class="col-6 mt-20">
+        <!-- Sheet ID -->
+        <div class="col-6 res-top-20">
             <div class="form-group field-row mr-10">
-                <label for="edit-tab-name">
-                    <?php esc_html_e('Tab Name', 'gsheetconnector-for-elementor-forms'); ?>
+                <label for="edit-sheet-id">
+                    <?php esc_html_e('Sheet ID', 'gsheetconnector-for-elementor-forms'); ?>
                     <span class="tooltip"
-                    data-tooltip="<?php echo esc_attr__('Open your Google Sheet and copy the tab name shown at the bottom where you want entries stored.', 'gsheetconnector-for-elementor-forms'); ?>"
+                    data-tooltip="<?php echo esc_attr__('You can get the Sheet ID from your Google Sheet URL.', 'gsheetconnector-for-elementor-forms'); ?>"
                     data-tooltip-pos="right"
                     data-tooltip-length="medium">
                     <i class="fa-solid fa-circle-question help-icon"></i>
@@ -507,19 +602,19 @@ if (!empty($timezone_string)) {
 
             <input type="text"
             class="form-control"
-            id="edit-tab-name"
-            name="elementor-gs[sheet-tab-name-custom]"
-            value="<?php echo esc_attr($tab_name); ?>">
+            id="edit-sheet-id"
+            name="elementor-gs[sheet-id-custom]"
+            value="<?php echo esc_attr($sheet_id); ?>">
         </div>
     </div>
 
-    <!-- Tab ID -->
+    <!-- Tab Name -->
     <div class="col-6 mt-20">
         <div class="form-group field-row mr-10">
-            <label for="edit-tab-id">
-                <?php esc_html_e('Tab ID', 'gsheetconnector-for-elementor-forms'); ?>
+            <label for="edit-tab-name">
+                <?php esc_html_e('Tab Name', 'gsheetconnector-for-elementor-forms'); ?>
                 <span class="tooltip"
-                data-tooltip="<?php echo esc_attr__('You can get the Tab ID from your Google Sheet URL after gid=.', 'gsheetconnector-for-elementor-forms'); ?>"
+                data-tooltip="<?php echo esc_attr__('Open your Google Sheet and copy the tab name shown at the bottom where you want entries stored.', 'gsheetconnector-for-elementor-forms'); ?>"
                 data-tooltip-pos="right"
                 data-tooltip-length="medium">
                 <i class="fa-solid fa-circle-question help-icon"></i>
@@ -528,41 +623,61 @@ if (!empty($timezone_string)) {
 
         <input type="text"
         class="form-control"
-        id="edit-tab-id"
-        name="elementor-gs[tab-id-custom]"
-        value="<?php echo esc_attr($tab_id); ?>">
-
+        id="edit-tab-name"
+        name="elementor-gs[sheet-tab-name-custom]"
+        value="<?php echo esc_attr($tab_name); ?>">
     </div>
+</div>
+
+<!-- Tab ID -->
+<div class="col-6 mt-20">
+    <div class="form-group field-row mr-10">
+        <label for="edit-tab-id">
+            <?php esc_html_e('Tab ID', 'gsheetconnector-for-elementor-forms'); ?>
+            <span class="tooltip"
+            data-tooltip="<?php echo esc_attr__('You can get the Tab ID from your Google Sheet URL after gid=.', 'gsheetconnector-for-elementor-forms'); ?>"
+            data-tooltip-pos="right"
+            data-tooltip-length="medium">
+            <i class="fa-solid fa-circle-question help-icon"></i>
+        </span>
+    </label>
+
+    <input type="text"
+    class="form-control"
+    id="edit-tab-id"
+    name="elementor-gs[tab-id-custom]"
+    value="<?php echo esc_attr($tab_id); ?>">
+
+</div>
 </div>
 
 
 <!-- Sheet URL -->
-<div class="sheet-url field-row" id="sheet-url">
-    <?php if (!empty($sheet_id) && !empty($tab_id)) : ?>
-    <a class="sheet-url-elementor common-sheet-url btn mr-10 text-dark text-decoration-none mt-30 blinking-button"
+<div class="gselef-free-sheet-url field-row" id="gselef-free-sheet-url">
+   <?php if (!empty($sheet_id) && $tab_id !== '') : ?>
+    <a class="sheet-url-elementor gselef-free-common-sheet-url btn mr-10 text-dark text-decoration-none mt-30 blinking-button"
     href="<?php echo esc_url('https://docs.google.com/spreadsheets/d/' . $sheet_id . '/edit#gid=' . $tab_id); ?>"
     target="_blank">
-    <?php esc_html_e('Get Sheet URL', 'gsheetconnector-for-elementor-forms'); ?>
+    <?php esc_html_e('View Spreadsheet', 'gsheetconnector-for-elementor-forms'); ?>
 </a>
 <?php endif; ?>
-
 </div>
 
 
-<div class="sheet-url field-row mt-30">
+<div class="gselef-free-sheet-url field-row mt-30">
     <input type="hidden" name="gs-ajax-nonce" id="gs-ajax-nonce" value="<?php echo esc_attr(wp_create_nonce('gs-ajax-nonce')); ?>" />
 
     <input type="submit"
-    name="gsele-execute-edit-feed"
-    id="gsele-execute-save"
+    name="gsele-free-execute-edit-feed"
+    id="gselef-free-execute-save"
     class="btn btn-primary"
 
-    value="<?php echo esc_attr__('Save', 'gsheetconnector-for-elementor-forms'); ?>">
-    <?php if (!empty($sheet_id) && !empty($tab_id)) : ?>
+    value="<?php echo esc_attr__('Save Settings', 'gsheetconnector-for-elementor-forms'); ?>">
+   <?php if (!empty($sheet_id) && $tab_id !== '') : ?>
     <input type="submit"
-    name="execute-reset"
-    id="execute-reset-free"
-    class="gscfff-reset btn btn-reset ml-5"
+    name="gselef-free-execute-reset"
+    id="gselef-free-execute-reset"
+    class="gselef-free-reset btn btn-reset ml-5"
     value="<?php esc_attr_e('Reset', 'gsheetconnector-for-elementor-forms'); ?>">
 <?php endif; ?>
 <div class="loading-sign-reset"></div>
@@ -575,7 +690,7 @@ if (!empty($timezone_string)) {
 
 </div>
 
-<div class="feed-informtion-inner shadow-box mt-40 p-30">
+<div class="feed-informtion-inner">
     <!----Start Pro Feed Setting Features----->
 
     <div class="gsc-pro-promo">
@@ -594,7 +709,7 @@ if (!empty($timezone_string)) {
 
             <div>
                 <div class="unlock-header"><?php echo esc_html(__('Unlock Advanced Features with Form Feeds', 'gsheetconnector-for-elementor-forms')); ?></div>
-                <span class="gsc-pro-badge"><?php echo esc_html(__('FREE users get special upgrade pricing', 'gsheetconnector-for-elementor-forms')); ?></span>
+                <span class="gsc-pro-badge"><?php echo esc_html(__('Advanced options are available in PRO', 'gsheetconnector-for-elementor-forms')); ?></span>
             </div>
         </div>
 
@@ -663,28 +778,28 @@ if (!empty($timezone_string)) {
 
 
 <!-- ========================================================================= -->
-<!-- Auto Google Sheet Settings (PRO) -->
+<!-- Auto Google Sheet Settings (PRO)   -->
 <!-- ========================================================================= -->
-<div class="system-debug-logs blur-pro-feature" id="opener">
+<div class="system-debug-logs" id="opener">
     <a href="https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro" class="pro-link" target="_blank" style="text-decoration: none;"></a>
 
-    <div class="auto-section shadow-box mt-40 p-30" style="display:block;">
+    <div class="auto-section shadow-box mt-40 p-30" id="auto-googlesheet-configuration" style="display:block;">
         <div class="heading mt-0">
-            <?php esc_html_e('Auto Google Sheet Settings', 'gsheetconnector-for-elementor-forms'); ?>
-            <span class="gsc-pro-badge ml-10"><?php esc_html_e('PRO', 'gsheetconnector-for-elementor-forms'); ?></span>
+            <?php esc_html_e('Automatic Google Sheets Configuration', 'gsheetconnector-for-elementor-forms'); ?>
+            <span class="pro-ver"><?php esc_html_e('PRO', 'gsheetconnector-for-elementor-forms'); ?></span>
         </div>
 
         <p>
-            <?php esc_html_e('Automatically fetch spreadsheets and tabs for faster Google Sheets configuration.', 'gsheetconnector-for-elementor-forms'); ?>
+            <?php esc_html_e('Automatic configure your Google Sheets and start syncing form submissions in real time.', 'gsheetconnector-for-elementor-forms'); ?>
         </p>
 
         <div class="gs-fields">
             <div class="sheet-details <?php echo esc_attr($class); ?>">
                 <div class="row">
-                    <div class="col-6 res-top-20">
+                    <div class="col-4 res-top-20">
                         <div class="form-group field-row mr-10">
                             <label for="gs-elementor-sheet-id">
-                                <?php esc_html_e('Google Spreadsheet Name', 'gsheetconnector-for-elementor-forms'); ?>
+                                <?php esc_html_e('Sheet Name', 'gsheetconnector-for-elementor-forms'); ?>
                                 <span class="tooltip"
                                 data-tooltip="<?php echo esc_attr__('If sheets are not fetched, you can still add sheet and tab details manually.', 'gsheetconnector-for-elementor-forms'); ?>"
                                 data-tooltip-pos="right"
@@ -703,10 +818,10 @@ if (!empty($timezone_string)) {
                     </div>
                 </div>
 
-                <div class="col-6 res-top-20">
+                <div class="col-4 res-top-20">
                     <div class="form-group field-row mr-10">
                         <label for="gs-sheet-tab-name">
-                            <?php esc_html_e('Google Sheet Tab Name', 'gsheetconnector-for-elementor-forms'); ?>
+                            <?php esc_html_e('Tab Name', 'gsheetconnector-for-elementor-forms'); ?>
                             <span class="tooltip"
                             data-tooltip="<?php echo esc_attr__('If tabs are not fetched, you can still add the tab name manually.', 'gsheetconnector-for-elementor-forms'); ?>"
                             data-tooltip-pos="right"
@@ -738,14 +853,22 @@ if (!empty($timezone_string)) {
         <p id="gs-valid-message"></p>
 
         <?php if (!empty(get_option('elefgs_verify')) && get_option('elefgs_verify') === 'valid') : ?>
-        <p class="gscelementorform-sync-row mt-20">
-            <?php esc_html_e('Spreadsheet Name and URL not showing?', 'gsheetconnector-for-elementor-forms'); ?>
-            <a id="gscelementorform-sync" data-init="yes" class="sync-button">
-                <?php esc_html_e('Click Here', 'gsheetconnector-for-elementor-forms'); ?>
-            </a>
-            <?php esc_html_e('to fetch sheets.', 'gsheetconnector-for-elementor-forms'); ?>
-            <span class="loading-sign">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        </p>
+        <div class="gsc-sheet-actions flex-wrap gap-12 gsc-sheet-card-status">
+            <div>
+                <div class="heading mt-0 mb-0">
+                    <?php echo esc_html__('Fetch Sheets', 'gsheetconnector-for-elementor-forms'); ?>
+                </div>
+
+                <p class="gscelementorform-sync-row mt-20">
+                    <?php esc_html_e('Spreadsheet Name and URL not showing?', 'gsheetconnector-for-elementor-forms'); ?>
+                    <a id="gscelementorform-sync" data-init="yes" class="sync-button">
+                        <?php esc_html_e('Click Here', 'gsheetconnector-for-elementor-forms'); ?>
+                    </a>
+                    <?php esc_html_e('to fetch sheets.', 'gsheetconnector-for-elementor-forms'); ?>
+                    <span class="loading-sign">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </p>
+            </div>
+        </div>
     <?php endif; ?>
 </div>
 </div>
@@ -758,12 +881,11 @@ if (!empty($timezone_string)) {
     <div class="form-fields-list gscfff-list-set shadow-box mt-40 p-30" id="field-mapping" name="field-mapping">
         <div class="gscfff-color-code">
             <div class="color-ffgs">
-                <div class="heading gsc-pro-header mt-0">
-                    <?php esc_html_e('Select Fields to Sync', 'gsheetconnector-for-elementor-forms'); ?>
+                <div class="heading mt-0 ">
+                    <?php esc_html_e('Select Fields to Sync', 'gsheetconnector-for-elementor-forms'); ?> <span class="pro-ver"><?php esc_html_e('PRO', 'gsheetconnector-for-elementor-forms'); ?></span>
                 </div>
                 <p class="gsc-pro-desc">
                     <?php esc_html_e('Enable the fields you want to send to Google Sheets and rename columns if needed.', 'gsheetconnector-for-elementor-forms'); ?>
-                    <span class="gsc-pro-badge ml-10"><?php esc_html_e('PRO', 'gsheetconnector-for-elementor-forms'); ?></span>
                 </p>
             </div>
 
@@ -784,7 +906,6 @@ if (!empty($timezone_string)) {
         <!-- Select all toggle -->
         <div class="toggle-button select-all-toggle gsc-pro-content pt-30">
             <label class="switch">
-                <input type="checkbox" id="select-all-checkbox">
                 <span class="slider round button-toggle"></span>
             </label>
             <span class="label-text">
@@ -843,18 +964,35 @@ if (!empty($timezone_string)) {
                         echo '<div class="toggle-button field_list_bg">';
                     }
 
-                    echo '<label class="switch">';
-                    echo '<input type="checkbox" name="sheet_header[' . esc_attr($key) . ']" class="toggle-input" value="1" ' . esc_attr($is_selected) . ' ' . esc_attr($disabled) . '>';
+                    echo '<span class="drag-icon">
+                    <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="6" cy="5" r="1.5" fill="currentColor"></circle>
+                    <circle cx="14" cy="5" r="1.5" fill="currentColor"></circle>
+                    <circle cx="6" cy="10" r="1.5" fill="currentColor"></circle>
+                    <circle cx="14" cy="10" r="1.5" fill="currentColor"></circle>
+                    <circle cx="6" cy="15" r="1.5" fill="currentColor"></circle>
+                    <circle cx="14" cy="15" r="1.5" fill="currentColor"></circle>
+                    </svg>
+                    </span>';
+
+                    echo '<label class="switch field-list-new">';
+                                    // echo '<input type="checkbox" name="sheet_header[' . esc_attr($key) . ']" class="toggle-input" value="1" ' . esc_attr($is_selected) . ' ' . esc_attr($disabled) . '>';
                     echo '<span class="slider round button-toggle"></span>';
                     echo '</label>';
 
                     echo '<span class="label-text card-label">' . esc_html($key) . '</span>';
+                    echo '<i class="dashicons dashicons-edit field-edit-icon"></i>';
 
-                    echo '<input type="text"
-                    class="field-input ' . esc_attr($cursor_not_allow) . '"
-                    name="sheet_header_names[' . esc_attr($key) . ']"
-                    value="' . esc_attr($header_name) . '"
-                    placeholder="' . esc_attr($label) . '">';
+                    if ($key != 'Entry ID') {
+
+                        echo '<input type="text" 
+                        class="field-input d-none' . esc_attr($cursor_not_allow) . '"
+                        name="sheet_header_names[' . esc_attr($key) . ']"
+                        value="' . esc_attr($header_name) . '"
+                        placeholder="' . esc_attr($label) . '">';
+                    }
+
+
 
                     echo '</div>';
                     echo '</div>';
@@ -869,211 +1007,313 @@ if (!empty($timezone_string)) {
         $metform_active = class_exists('Metform\Widgets\Manifest') && method_exists('Metform\Widgets\Manifest', 'instance');
         if ($metform_active && !empty($metformOutput)) :
             ?>
-            <ul class="metform-header-feed mt-30">
+            <div class="metform-header-feed ui-sortable">
                 <?php foreach ($metformOutput as $mfo => $gl) :
                     $field_list_checked_feed = '';
                     $saved_val = isset($sheet_header_names_metfrom[$gl]) ? $sheet_header_names_metfrom[$gl] : $gl;
                     $field_list_checked_feed = isset($saved_headers_metfrom[$mfo]) && (int) $saved_headers_metfrom[$mfo] === 1 ? 'checked' : '';
                     ?>
-                    <li class="li-metform-header-feed field-item">
-                        <div class="toggle-buttom-pos-feed">
-                            <label
-                            class="button-metform-toggle1-feed <?php echo ($field_list_checked_feed === '' ? 'button-tog-inactive-feed' : 'button-tog-active-feed'); ?> sheet_headers_metfrom-lbl-feed"
-                            id="button-metform-toggle1-click-feed"
-                            data-id="<?php echo esc_attr($gl); ?>-"></label>
-                        </div>
+                    <div class="li-metform-header-feed field-item card form-field-toggle">
+                        <div class="card-content">
+                            <div class="toggle-button field_list_bg">
 
-                        <div class="switch-label-metform-feed">
-                            <label>
-                                <span class="label">
-                                    <span class="label_text-metform-feed"><?php echo esc_html($mfo); ?></span>
+                                <!-- Toggle Switch -->
+                                <label class="switch field-list-new">
+                                    <input
+                                    type="checkbox"
+                                    id="<?php echo esc_attr($gl); ?>-one"
+                                    name="sheet_headers_metfrom[<?php echo esc_attr($mfo); ?>]"
+                                    value="1"
+                                    class="header_name_1-metform sheet_headers-one radio-btn-hide toggle-input"
+                                    <?php echo ($field_list_checked_feed !== '' ? 'checked' : ''); ?>>
+                                    <span class="slider round button-toggle"></span>
+                                </label>
+
+                                <!-- Label -->
+                                <span class="label-text card-label">
+                                    <?php echo esc_html($mfo); ?>
                                 </span>
-                            </label>
+
+                                <!-- Hidden radio (keep for logic, no UI change) -->
+                                <input style="display: none;" type="radio"
+                                id="<?php echo esc_attr($gl); ?>-two"
+                                name="sheet_headers_metfrom[<?php echo esc_attr($mfo); ?>]"
+                                value="0"
+                                <?php echo ($field_list_checked_feed === '' ? 'checked' : ''); ?>
+                                class="header_name_0-metform sheet_headers_metfrom-two radio-btn-hide">
+
+                                <!-- Input Field -->
+                                <input
+                                type="text"
+                                class="field-input d-none"
+                                name="sheet_header_names_metfrom[<?php echo esc_attr($mfo); ?>]"
+                                value="<?php echo esc_attr($saved_val); ?>"
+                                placeholder="<?php echo esc_attr($gl); ?>">
+
+                                <!-- Existing icons (kept) -->
+                                <span class="edit_col_name-metform-feed"></span>
+                                <span class="update_col_name-metform-feed" style="display:none">
+                                    <i class="fa fa-check"></i>
+                                </span>
+
+                            </div>
                         </div>
-
-                        <input type="radio"
-                        id="<?php echo esc_attr($gl); ?>-one"
-                        name="sheet_headers_metfrom[<?php echo esc_attr($mfo); ?>]"
-                        value="1"
-                        <?php echo ($field_list_checked_feed !== '' ? 'checked' : ''); ?>
-                        class="header_name_1-metform sheet_headers-one radio-btn-hide">
-
-                        <input type="radio"
-                        id="<?php echo esc_attr($gl); ?>-two"
-                        name="sheet_headers_metfrom[<?php echo esc_attr($mfo); ?>]"
-                        value="0"
-                        <?php echo ($field_list_checked_feed === '' ? 'checked' : ''); ?>
-                        class="header_name_0-metform sheet_headers_metfrom-two radio-btn-hide">
-
-                        <div>
-                            <input type="text"
-                            name="sheet_header_names_metfrom[<?php echo esc_attr($mfo); ?>]"
-                            value="<?php echo esc_attr($saved_val); ?>"
-                            placeholder="<?php echo esc_attr($gl); ?>">
-                            <span class="edit_col_name-metform-feed"></span>
-                            <span class="update_col_name-metform-feed" style="display:none">
-                                <i class="fa fa-check"></i>
-                            </span>
-                        </div>
-                    </li>
+                    </div>
                 <?php endforeach; ?>
-            </ul>
+
+            </div>
         <?php endif; ?>
     </div>
 
     <!-- ========================================================================= -->
     <!-- Header Management / Styling / Sync -->
     <!-- ========================================================================= -->
-    <div class="freez_order_sort form-fields-list gscfff-list-set shadow-box mt-40 p-30">
+    <div class="freez_order_sort form-fields-list gscfff-list-set shadow-box mt-40 p-30 ">
         <div id="header-settings-sheet-sorting" name="header-settings-sheet-sorting">
-            <div class="heading mt-0">
-                <?php esc_html_e('Header Management', 'gsheetconnector-for-elementor-forms'); ?>
-            </div>
-
-            <p>
-                <?php esc_html_e('Manage header row behavior, styling, sheet background colors, and submission sync options.', 'gsheetconnector-for-elementor-forms'); ?>
-            </p>
-
-            <div class="header-styling-sheet">
-                <!-- Freeze Header -->
+            <div class="heading mt-0"><?php echo esc_html(__('Header Settings', 'gsheetconnector-for-elementor-forms')); ?><span class="pro-ver"><?php esc_html_e('PRO', 'gsheetconnector-for-elementor-forms'); ?></span></div>
+            <p><?php echo esc_html(__('Customize the appearance and behavior of your sheet headers and rows for better readability and organization.', 'gsheetconnector-for-elementor-forms')); ?></p>
+            <!-- SECTION 1: Header Behavior -->
+            <div class="header-styling-sheet d-flex gap-20">
                 <div class="settings-card mb-20 w-100 bg-white">
-                    <div class="mt-0 header-settings-ineer-size fw-600 mb-20">
-                        <?php esc_html_e('Header Behavior', 'gsheetconnector-for-elementor-forms'); ?>
-                    </div>
-
+                    <div class="mt-0 header-settings-ineer-size fw-600 mb-20"><?php echo esc_html(__('Header Behavior', 'gsheetconnector-for-elementor-forms')); ?></div>
                     <div class="gscfrmnt-cards gscfrmnt-card setting-row">
                         <div class="toggle-button freeze-header-toggle d-flex align-items-center justify-between mb-15">
-                            <span class="label-text fw-400">
-                                <?php esc_html_e('Freeze Header Row', 'gsheetconnector-for-elementor-forms'); ?>
-                            </span>
-
-                            <label class="switch" for="freeze-header-option">
-                                <input type="checkbox"
-                                name="elementor-gs[freeze_header]"
-                                id="freeze-header-option"
-                                class="check-toggle-elemgsc"
-                                value="">
+                            <span class="label-text fw-400"><?php echo esc_html(__('Freeze Header', 'gsheetconnector-for-elementor-forms')); ?></span>
+                            <label class="switch">
+                                <input type="checkbox" id="freeze-header-checkbox" name="gscf-ff[freeze_header]"
+                                value="true" checked>
                                 <span class="slider round button-toggle"></span>
                             </label>
                         </div>
                     </div>
-
-                    <!-- Header Font Settings -->
-                    <div class="sheet_formatting">
-                        <div class="elemgsc-sheet_formatting elemgsc-sheet_formatting">
-                            <div class="toggle-button sheet_formatting-header-toggle d-flex align-items-center justify-between mb-15">
-                                <span class="label-text fw-400">
-                                    <?php esc_html_e('Header - Font Settings', 'gsheetconnector-for-elementor-forms'); ?>
+                    <div class="sheet_sorting sheet_formatting">
+                        <div class="gscfrmnt-cards">
+                            <div class="toggle-button sheet-sorting-toggle d-flex align-items-center justify-between">
+                                <span class="label-text fw-400"><?php echo esc_html(__('Sheet Sorting', 'gsheetconnector-for-elementor-forms')); ?></span>
+                                <label class="switch" for="sheet-sorting-checkbox">
+                                    <input type="checkbox" id="sheet-sorting-checkbox"
+                                    name="gscf-ff[sheet_sorting]" value="1" checked>
+                                    <span class="slider round button-toggle"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="sheet-sorting-settings" id="sheet-sorting-settings">
+                            <div class="settings-grid">
+                                <div class="gscfrmnt-row form-group">
+                                    <label for="sort-column-name">
+                                        <?php echo esc_html__('Sort Column', 'gsheetconnector-for-elementor-forms'); ?>
+                                    </label>
+                                    <select id="sort-column-name" name="gscf-ff[sort_column]">
+                                    </select>
+                                </div>
+                                <div class="gscfrmnt-row form-group">
+                                    <label for="sort-order"><?php echo esc_html__('Sort Order', 'gsheetconnector-for-elementor-forms'); ?></label>
+                                    <select id="sort-order" name="gscf-ff[sort_order]">
+                                        <option value="ASCENDING"><?php echo esc_html__('Ascending', 'gsheetconnector-for-elementor-forms'); ?></option>
+                                        <option value="DESCENDING"><?php echo esc_html__('Descending', 'gsheetconnector-for-elementor-forms'); ?></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-30 header-settings-ineer-size fw-600 mb-20"><?php echo esc_html__('Header Style', 'gsheetconnector-for-elementor-forms'); ?></div>
+                        <div class="sheet_formatting setting-row">
+                            <div class="gscfrmnt-sheet_formatting gscfrmnt-sheet_formatting">
+                                <div class="toggle-button sheet_formatting-header-toggle d-flex align-items-center justify-between mb-15">
+                                    <span
+                                    class="label-texts  fw-400"><?php echo esc_html(__('Header Appearance', 'gsheetconnector-for-elementor-forms')); ?>
                                 </span>
-
                                 <label class="switch" for="sheet_formatting-header-checkbox">
-                                    <input type="checkbox"
-                                    id="sheet_formatting-header-checkbox"
-                                    name="elementor-gs[sheet_formatting_header]"
-                                    value="1">
+                                    <input type="checkbox" id="sheet_formatting-header-checkbox"
+                                    name="gscf-ff[sheet_formatting_header]" value="1" checked>
                                     <span class="slider round button-toggle"></span>
                                 </label>
                             </div>
                         </div>
-                    </div>
+                        <div class="font-styling-settings" id="font-styling-settings">
+                            <div class="settings-grid">
+                                <div class="font-style row-format form-group">
+                                    <label
+                                    for="font-size"><?php echo esc_html__('Font Style', 'gsheetconnector-for-elementor-forms'); ?></label>
+                                    <div class="d-flex gap-5">
+                                        <label class="style-btn active"><input type="checkbox" name="font_styles[]" class="toggle-input active" value="normal">
+                                            <?php echo esc_html__('Normal', 'gsheetconnector-for-elementor-forms'); ?></label>
+                                            <label class="style-btn"><input type="checkbox" name="font_styles[]" value="italic">
+                                                <?php echo esc_html__('Italic', 'gsheetconnector-for-elementor-forms'); ?></label>
+                                                <label class="style-btn"><input type="checkbox" name="font_styles[]" value="bold"> <?php echo esc_html__('Bold', 'gsheetconnector-for-elementor-forms'); ?></label>
+                                            </div>
+                                        </div>
 
-                    <!-- Sheet Background -->
-                    <div class="back-formating">
-                        <div class="toggle-button sheet-bg-toggle d-flex align-items-center justify-between">
-                            <span class="label-text fw-400">
-                                <?php esc_html_e('Sheet Background Color', 'gsheetconnector-for-elementor-forms'); ?>
-                            </span>
+                                        <div class="font-size row-format form-group">
+                                            <label
+                                            for="font-size"><?php echo esc_html__('Font Size', 'gsheetconnector-for-elementor-forms'); ?></label>
+                                            <select>
+                                                <option value=""> Select size</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">13</option>
+                                                <option value="14">14</option>
+                                                <option value="15">15</option>
+                                            </select>
+                                        </div>
+                                        <div class="font-color row-format form-group">
+                                            <label
+                                            for="font-color"><?php echo esc_html__('Font Color', 'gsheetconnector-for-elementor-forms'); ?></label>
+                                            <input type="color" id="font-color" name="gscf-ff[font_color]" class="bg-color-set-input"
+                                            value="">
+                                        </div>
+                                        <div class="gscfrmnt-cards-sbg gscfrmnt-cards-sbg form-group">
 
-                            <label class="switch" for="sheet-bg-toggle-checkbox">
-                                <input type="checkbox"
-                                id="sheet-bg-toggle-checkbox"
-                                name="elementor-gs[sheet_bg]"
-                                value="1">
-                                <span class="slider round button-toggle"></span>
-                            </label>
+                                            <label for="gscfrmnt-header-color" class="button-gscfrmnt-toggle-color"></label>
+                                            <label>
+                                                <?php echo esc_html__('Header Background', 'gsheetconnector-for-elementor-forms'); ?>
+                                            </label>
+                                            <input type="color" id="header-color" name="gscf-ff[header-color]" class="bg-color-set-input"
+                                            value="< ?php echo esc_attr($header_color); ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <!-- SECTION 2: Header Appearance -->
+                    <div class="settings-card  mb-20 w-100 bg-white">
 
-                    <!-- Row Font Settings -->
-                    <div class="sheet_formatting mt-15">
-                        <div class="elemgsc-sheet_formatting_row elemgsc-sheet_formatting_row">
-                            <div class="toggle-button sheet_formatting-row-toggle d-flex align-items-center justify-between">
-                                <span class="label-text fw-400">
-                                    <?php esc_html_e('Row - Font Settings', 'gsheetconnector-for-elementor-forms'); ?>
+                        <!-- SECTION 3: Row Appearance -->
+                        <div class="sheet_formatting">
+                            <div class="gscfrmnt-sheet_formatting_row gscfrmnt-sheet_formatting_row">
+                                <div class="mt-0 header-settings-ineer-size fw-600 mb-20"><?php echo esc_html__('Row Style', 'gsheetconnector-for-elementor-forms'); ?></div>
+                                <div class="toggle-button sheet_formatting-row-toggle d-flex align-items-center justify-between">
+                                    <span
+                                    class="label-texts  fw-400"><?php echo esc_html__('Row Appearance', 'gsheetconnector-for-elementor-forms'); ?>
                                 </span>
-
                                 <label class="switch" for="sheet_formatting-row-checkbox">
-                                    <input type="checkbox"
-                                    id="sheet_formatting-row-checkbox"
-                                    name="elementor-gs[sheet_formatting_row]"
-                                    value="1">
+                                    <input type="checkbox" id="sheet_formatting-row-checkbox"
+                                    name="gscf-ff[sheet_formatting_row]" value="1" checked>
                                     <span class="slider round button-toggle"></span>
                                 </label>
                             </div>
                         </div>
-                    </div>
-                </div>
+                        <div class="font-styling-settings-row" id="font-styling-settings-row">
+                            <div class="settings-grid">
+                                <div class="font-style row-format form-group">
+                                    <label><?php echo esc_html__('Font Style', 'gsheetconnector-for-elementor-forms'); ?></label>
+                                    <div class="d-flex gap-5">
+                                        <label class="style-btn active"><input type="checkbox" name="font_styles[]" class="toggle-input active" value="normal">
+                                            <?php echo esc_html__('Normal', 'gsheetconnector-for-elementor-forms'); ?></label>
+                                            <label class="style-btn"><input type="checkbox" name="font_styles[]" value="italic">
+                                                <?php echo esc_html__('Italic', 'gsheetconnector-for-elementor-forms'); ?></label>
+                                                <label class="style-btn"><input type="checkbox" name="font_styles[]" value="bold"> <?php echo esc_html__('Bold', 'gsheetconnector-for-elementor-forms'); ?></label>
+                                            </div>
+                                        </div>
 
-                <!-- Sync Entries -->
-                <div class="settings-card mb-20 w-100 bg-white">
-                    <div class="heading mt-0">
-                        <?php esc_html_e('Sync form submissions with Google Sheets', 'gsheetconnector-for-elementor-forms'); ?>
-                        <span class="gsc-pro-badge ml-10"><?php esc_html_e('PRO', 'gsheetconnector-for-elementor-forms'); ?></span>
-                    </div>
+                                        <div class="font-size row-format form-group">
+                                            <label
+                                            for="font-size-row"><?php echo esc_html__('Font Size', 'gsheetconnector-for-elementor-forms'); ?></label>
+                                            <select>
+                                                <option value=""> Select size</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">13</option>
+                                                <option value="14">14</option>
+                                                <option value="15">15</option>
+                                            </select>
+                                        </div>
+                                        <div class="font-color row-format form-group">
+                                            <label
+                                            for="font-color-row"><?php echo esc_html__('Font Color', 'gsheetconnector-for-elementor-forms'); ?></label>
+                                            <input type="color" id="font-color-row" name="gscf-ff[font_color_row]" class="bg-color-set-input"
+                                            value="">
+                                        </div>
+                                        <div class="gscfrmnt-cards-sbg gscfrmnt-cards-sbg form-group">
 
-                    <p>
-                        <?php esc_html_e('Select a date range to sync Elementor form entries to Google Sheets.', 'gsheetconnector-for-elementor-forms'); ?>
-                    </p>
-
-                    <span class="sync-elemgsc-msg"></span>
-
-                    <div class="sync-date">
-                        <div class="d-flex gap-10">
-                            <div class="form-group w-100">
-                                <label for="sync-from-date">
-                                    <?php esc_html_e('From Date', 'gsheetconnector-for-elementor-forms'); ?>
-                                </label>
-                                <input type="date"
-                                id="sync-from-date"
-                                name="sync_from_date"
-                                value="<?php echo esc_attr($from_date); ?>"
-                                min="<?php echo esc_attr($from_date); ?>"
-                                max="<?php echo esc_attr($to_date); ?>"
-                                class="wpgs-date-picker">
+                                            <label for="gscfrmnt-odd-color" class="button-gscfrmnt-toggle-color"></label>
+                                            <label>
+                                                <?php echo esc_html__('Odd Row Color', 'gsheetconnector-for-elementor-forms'); ?>
+                                            </label>
+                                            <input type="color" id="odd-color" name="gscf-ff[odd-color]" class="bg-color-set-input"
+                                            value="< ?php echo esc_attr($odd_color); ?>">
+                                        </div>
+                                        <div class="gscfrmnt-cards-sbg gscfrmnt-cards-sbg form-group">
+                                            <label for="gscfrmnt-even-color" class="button-gscfrmnt-toggle-color"></label>
+                                            <label>
+                                                <?php echo esc_html__('Even Row Color', 'gsheetconnector-for-elementor-forms'); ?>
+                                            </label>
+                                            <input type="color" id="even-color" name="gscf-ff[even-color]" class="bg-color-set-input"
+                                            value="< ?php echo esc_attr($even_color); ?>">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="form-group w-100">
-                                <label for="sync-to-date">
-                                    <?php esc_html_e('To Date', 'gsheetconnector-for-elementor-forms'); ?>
-                                </label>
-                                <input type="date"
-                                id="sync-to-date"
-                                name="sync_to_date"
-                                value="<?php echo esc_attr($to_date); ?>"
-                                min="<?php echo esc_attr($from_date); ?>"
-                                max="<?php echo esc_attr($to_date); ?>"
-                                class="wpgs-date-picker">
+                            <div class="settings-card mb-20 w-100 bg-white">
+                                <div class="toggle-button sheet-sorting-toggle d-flex align-items-center justify-between" id="downloads-toggle-checkbox">
+                                    <span class="label-text  fw-400"><?php echo esc_html(__('Spreadsheet Download', 'gsheetconnector-for-elementor-forms')); ?></span>
+                                    <label class="switch" for="download-toggle-checkbox">
+                                        <input type="checkbox"
+                                        id="download-toggle-checkbox"
+                                        name="gscf-ff[download_spreadsheet]"
+                                        value="1" checked>
+                                        <span class="slider round button-toggle"></span>
+                                    </label>
+                                </div>
+                                <div id="download-button-wrapper" class="mt-15">
+                                    <!-- style="display:none;"> -->
+                                    <a href="#"
+                                    class="gselef-free-sheet-url-elementorform gselef-free-common-sheet-url text-dark fw-700 download-spreadsheet"
+                                    hover-tooltip="Spreadsheet Download">
+                                    <i class="fa-regular fa-file-zipper text-dark fw-500 mr-5"></i><?php echo esc_html(__('Download', 'gsheetconnector-for-elementor-forms')); ?>
+                                </a>
                             </div>
                         </div>
-
-                        <div class="sync_div_design syncronous_elemgsc_form_entry_gsheet mt-20">
-                            <span><?php esc_html_e('Sync Entries', 'gsheetconnector-for-elementor-forms'); ?></span>
-                            <span class="sync-elemgsc-load">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        </div>
                     </div>
-
-                    <input type="hidden" id="form-id-sync" value="<?php echo esc_attr($form_id); ?>">
-                    <input type="hidden" id="feed-id-sync" value="<?php echo esc_attr($feed_id); ?>">
-
-                    <input type="hidden"
-                    name="elementor-sync-gs-ajax-nonce"
-                    id="elementor-sync-gs-ajax-nonce"
-                    value="<?php echo esc_attr(wp_create_nonce('elementor-sync-gs-ajax-nonce')); ?>" />
                 </div>
             </div>
+
+
+            <!-- SECTION 4: Spreadsheet Download -->
+            <div id="spreadsheet-download-sync" name="spreadsheet-download-sync">
+
+
+                <div class="settings-card mt-30 w-100 bg-white">
+                    <div class="heading mt-0"><?php echo esc_html(__('Google Sheets Data Sync', 'gsheetconnector-for-elementor-forms')); ?><span class="pro-ver"><?php esc_html_e('PRO', 'gsheetconnector-for-elementor-forms'); ?></span></div>
+                    <p><?php echo esc_html(__('Easily sync past form submissions to your connected Google Sheet. Choose a date range and ensure your spreadsheet stays complete and up to date.', 'gsheetconnector-for-elementor-forms')); ?></p>
+                    <form method="post" action="">
+                        <div class="gs-wpcore-sync-entries manually-method-add pb-30 w-50">
+                            <div class="d-flex gap-10 mb-30">
+                                <div class="form-group w-100">
+                                    <label for="sync-from-date"><?php echo esc_html__('From Date', 'gsheetconnector-for-elementor-forms'); ?></label>
+                                    <input type="date" id="sync-from-date" name="sync_from_date" value="" class="wpgs-date-picker">
+                                </div>
+
+                                <div class="form-group w-100">
+                                    <label for="sync-to-date"><?php echo esc_html__('To Date', 'gsheetconnector-for-elementor-forms'); ?></label>
+                                    <input type="date" id="sync-to-date" name="sync_to_date" value="" class="wpgs-date-picker">
+                                </div>
+                            </div>
+
+                            <a id="gs-sync-entries" data-init="yes" class="sync-button-entries back-btn text-decoration-none mt-20">
+                                <?php echo esc_html__('Sync Entries', 'gsheetconnector-for-elementor-forms'); ?>
+                            </a>
+                            <span class="loading-sign">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <input type="hidden" name="gscfff-ajax-nonce" id="gscfff-ajax-nonce"
+                            value="<?php echo esc_attr(wp_create_nonce('gscfff-ajax-nonce')); ?>" />
+
+                            <div id="gs-message-popup" style="display:none;">
+                                <div class="popup-content">
+                                    <p id="popup-message"></p>
+                                    <button id="popup-close"><?php echo esc_html__('Close', 'gsheetconnector-for-elementor-forms'); ?></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
-</div>
 </div>
 <!-- End blurred pro area -->
 
@@ -1083,3 +1323,105 @@ if (!empty($timezone_string)) {
 </div>
 
 </div>
+
+<?php
+function get_form_name($data)
+{
+    foreach ($data as $widget) {
+        if (is_array($widget) || is_object($widget)) {
+            if (isset($widget['widgetType']) && $widget['widgetType'] === 'form') {
+                $form_info = array();
+
+                // Check for form name
+                $form_info['form_name'] = isset($widget['settings']['form_name'])
+                ? $widget['settings']['form_name']
+                : '';
+
+                // Get element_id for the form
+                $form_info['element_id'] = isset($widget['id'])
+                ? $widget['id']
+                : '';
+
+                return $form_info;
+            }
+
+            // If the widget has child elements, search within them
+            if (isset($widget['elements']) && is_array($widget['elements'])) {
+                $form_info = get_form_name($widget['elements']);
+                if ($form_info) {
+                    return $form_info;
+                }
+            }
+        }
+    }
+    return null;
+}
+
+function get_specific_form_fields($elements, $saved_element_id = '')
+{
+    $fields = array();
+
+    foreach ($elements as $element) {
+
+        // Match only selected form
+        if (
+            isset($element['widgetType']) &&
+            $element['widgetType'] === 'form'
+        ) {
+
+            $current_element_id = isset($element['id'])
+                ? $element['id']
+                : '';
+
+            // -------------------------------------------------------------
+            // NEW USERS
+            // -------------------------------------------------------------
+            if (!empty($saved_element_id)) {
+
+                if ($saved_element_id === $current_element_id) {
+
+                    if (
+                        isset($element['settings']['form_fields']) &&
+                        is_array($element['settings']['form_fields'])
+                    ) {
+
+                        return $element['settings']['form_fields'];
+                    }
+                }
+
+            } else {
+
+                // ---------------------------------------------------------
+                // OLD USERS
+                // First form fallback
+                // ---------------------------------------------------------
+                if (
+                    isset($element['settings']['form_fields']) &&
+                    is_array($element['settings']['form_fields'])
+                ) {
+
+                    return $element['settings']['form_fields'];
+                }
+            }
+        }
+
+        // Recursive child elements
+        if (
+            isset($element['elements']) &&
+            is_array($element['elements'])
+        ) {
+
+            $fields = get_specific_form_fields(
+                $element['elements'],
+                $saved_element_id
+            );
+
+            if (!empty($fields)) {
+                return $fields;
+            }
+        }
+    }
+
+    return $fields;
+}
+?>

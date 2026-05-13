@@ -52,6 +52,7 @@ jQuery(document).ready(function (jQuery) {
           .closest(".button-bar")
           .find(".gselef-activate-plugin-btn")
           .show();
+          location.reload();
         } else {
           // ❌ Permission or other error → open popup
           jQuery(".popup-actions-active-msg-free").text(
@@ -62,6 +63,7 @@ jQuery(document).ready(function (jQuery) {
           jQuery("#gselef-confirm-active-popup-free").removeClass("d-none");
 
           button.prop("disabled", false);
+          location.reload();
         }
       },
 

@@ -16,11 +16,11 @@ jQuery(document).ready(function ($) {
 
       if (!response.success) {
         $(
-          "<div class='gsc-msg gsc-error fw-400 text-dark text-center pt-10 pb-10 manual-margin'>Access code Can't be blank</div>",
+          "<div class='gsc-msg gsc-error fw-400 text-dark text-center pt-10 pb-10 manual-margin'>Access code Can't be blank.</div>",
           ).appendTo("#gs-validation-message");
       } else {
         $(
-          "<div class='gsc-msg gsc-success fw-400 text-dark text-center pt-10 pb-10 manual-margin'>Your Google Access Code is Authorized and Saved</div>",
+          "<div class='gsc-msg gsc-success fw-400 text-dark text-center pt-10 pb-10 manual-margin'>Your Google Access Code is Authorized and Saved.</div>",
           ).appendTo("#gs-validation-message");
         setTimeout(function () {
           window.location.href = $("#redirect_auth_eleforms").val();
@@ -33,16 +33,25 @@ jQuery(document).ready(function ($) {
   // Open popup
   $(document).on("click", "#deactivate-log-ele", function (e) {
     e.preventDefault();
+    e.stopPropagation();
     $("#gselef-confirm-deactive-popup-free").removeClass("d-none");
   });
 
   // Cancel button
-  $(document).on("click", "#gselef-deactive-popup-free-cancel", function () {
+  $(document).on("click", "#gselef-deactive-popup-free-cancel", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
     $("#gselef-confirm-deactive-popup-free").addClass("d-none");
   });
 
   // Confirm deactivate
-  $(document).on("click", "#gselef-deactive-popup-free-confirm", function () {
+  $(document).on("click", "#gselef-deactive-popup-free-confirm", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    $("#gselef-confirm-deactive-popup-free").addClass("d-none");
+
     $(".loading-sign-deactive").addClass("loading");
 
     var data = {
@@ -58,7 +67,7 @@ jQuery(document).ready(function ($) {
         alert("Error while deactivation");
       } else {
         $(
-          "<div class='gsc-msg gsc-success fw-400 text-dark text-center pt-10 pb-10 manual-margin'>Your account is removed. Reauthenticate again to integrate Elementor Form with Google Sheet.</div>",
+          "<div class='gsc-msg gsc-success fw-400 text-dark text-center pt-10 pb-10 manual-margin'>Your account is removed. Reauthenticate again to integrate Elementor Forms with Google Sheet.</div>",
           ).appendTo("#deactivate-message");
 
         $("#gselef-confirm-deactive-popup-free").addClass("d-none");
@@ -112,7 +121,7 @@ jQuery(document).ready(function ($) {
       $(".loading-sign").removeClass("loading");
       if (response == -1) return;
       if (response.success) {
-        $("#sheet-url").html(html_decode(response.data));
+        $("#gselef-free-sheet-url").html(html_decode(response.data));
       }
     });
   });
@@ -159,7 +168,7 @@ jQuery(document).ready(function ($) {
           ).appendTo("#ele-validation-message");
       } else {
         $(
-          "<span class='ele-valid-message'>Your account is removed. Reauthenticate again to integrate Elementor Form with Google Sheet.</span>",
+          "<span class='ele-valid-message'>Your account is removed. Reauthenticate again to integrate Elementor Forms with Google Sheet.</span>",
           ).appendTo("#ele-validation-message");
         setTimeout(function () {
           location.reload();
@@ -177,11 +186,10 @@ jQuery(document).ready(function ($) {
   });
 
   // Save Elementor feed
-  $(document).on("click", ".elementor-gs-sub-btn", function () {
+  $(document).on("click", ".gselef-free-feed-sub-btn", function () {
     var feed_name = $(".feedName").val().trim();
     var elementorForms = $(".elementorForms").val();
     var valid = true;
-
     // Feed name validation
     if (!feed_name) {
       $("#feed_name").siblings(".input-msg").removeClass("d-none");
@@ -210,36 +218,26 @@ jQuery(document).ready(function ($) {
       elementorForms: elementorForms,
     };
 
-    $.post(
-      ajaxurl,
-      data,
-      function (response) {
-        $(".fld-fetch-load").removeClass("loading");
+    $.post(ajaxurl, data, function (response) {
+      $(".fld-fetch-load").removeClass("loading");
 
-        if (response.success) {
-          if (
-            response.data ===
-            "Feed name already exists in the list, Please enter unique name of feed."
-            ) {
-            $(".feed-error-message").html(response.data).show();
-          $(".feed-success-message").hide();
-          setTimeout(function () {
-            location.reload();
-          }, 1000);
-        } else {
-          $(".feed-success-message").html(response.data).show();
-          $(".feed-error-message").hide();
+      // Clear old message
+      $(".gscefp-feed-success-message").html("");
 
-          $(".feedName, .elementorForms").val("");
+      if (response === "success") {
+        $(
+          "<div class='gsc-msg gsc-success fw-400 text-dark text-center pt-10 pb-10 manual-margin'>Feed has been successfully created.</div>",
+          ).appendTo(".gscefp-feed-success-message");
 
-          setTimeout(function () {
-            location.reload();
-          }, 1000);
-        }
+        setTimeout(function () {
+          location.reload();
+        }, 1000);
+      } else {
+        $(
+          "<div class='gsc-msg gsc-error fw-400 text-dark text-center pt-10 pb-10 manual-margin'>Feed name already exists in the list, Please enter unique name of feed.</div>",
+          ).appendTo(".gscefp-feed-success-message");
       }
-    },
-    "json",
-    );
+    });
   });
   // Remove message when typing feed name
   $(document).on("input", ".feedName", function () {
@@ -249,40 +247,6 @@ jQuery(document).ready(function ($) {
   // Remove message when selecting form
   $(document).on("change", ".elementorForms", function () {
     $(this).closest(".auto-select").siblings(".input-msg").addClass("d-none");
-  });
-  // Delete Elementor feed
-  $(".delete-feed").click(function () {
-    var feedId = $(this).data("feed-id");
-    if (confirm("Are you sure you want to delete this feed?")) {
-      $(".loading-sign-delete-feed-elegs" + feedId).addClass("loading");
-      $.post(
-        ajaxurl,
-        {
-          action: "delete_feed",
-          feed_id: feedId,
-          security: $("#elementorform-ajax-nonce").val(),
-        },
-        function (response) {
-          $(".loading-sign-delete-feed-elegs" + feedId).removeClass("loading");
-
-          if (response.success) {
-
-            $(".feed-success-message").html(response.data).show();
-            $(".feed-error-message").hide();
-
-            setTimeout(function () {
-              location.reload();
-            }, 1000);
-
-          } else {
-
-            $(".feed-error-message").html(response.data).show();
-            $(".feed-success-message").hide();
-
-          }
-        },
-        );
-    }
   });
 
   // Promotion popup logic
@@ -358,39 +322,6 @@ jQuery(document).ready(function ($) {
  * Display Error logs
  */
 
- jQuery(document).ready(function ($) {
-  // Hide .wp-system-Error-logs initially
-  $(".elemnt-system-Error-logs").hide();
-
-  // Add a variable to track the state
-  var isOpen = false;
-
-  // Function to toggle visibility and button text
-  function toggleLogs() {
-    $(".elemnt-system-Error-logs").toggle();
-    // Change button text based on visibility
-    $(".elemnt-logs").text(isOpen ? "View" : "Close");
-    isOpen = !isOpen; // Toggle the state
-  }
-
-  // Toggle visibility and button text when clicking .wpgsc-logs button
-  $(".elemnt-logs").on("click", function () {
-    toggleLogs();
-  });
-
-  // Prevent clicks inside the .elemnt-system-Error-logs div from closing it
-  $(".elemnt-system-Error-logs").on("click", function (e) {
-    e.stopPropagation(); // Prevents the div from closing when clicked inside
-  });
-
-  // Only close the .elemnt-system-Error-logs when the "Close" button is clicked
-  $(".close-button").on("click", function () {
-    $(".elemnt-system-Error-logs").hide();
-    $(".elemnt-logs").text("View");
-    isOpen = false;
-  });
-});
-
 /**
  * Clear debug for integration page
  */
@@ -422,7 +353,7 @@ jQuery(document).ready(function ($) {
 /**
  * Clear debug for system status tab
  */
- jQuery(document).on("click", ".clear-content-logs-elemnt", function () {
+ jQuery(document).on("click", ".gselef-free-clear-content-logs", function () {
   jQuery(".clear-loading-sign-logs-elemnt").addClass("loading");
   var data = {
     action: "gscelementor_log_elementor_systeminfo",
@@ -566,15 +497,16 @@ jQuery(document).ready(function ($) {
 });
 
  jQuery(document).ready(function ($) {
-  jQuery(document).on("click", "#execute-reset-free", function (e) {
+  jQuery(document).on("click", "#gselef-free-execute-reset", function (e) {
     e.preventDefault();
     jQuery(".loading-sign-reset").addClass("loading");
-    var feed_id = jQuery("#feed-id-sync").val();
+    var feed_id = jQuery("#feed-id").val(); // FIX
+
     jQuery.ajax({
       url: ajaxurl,
       type: "POST",
       data: {
-        action: "gs_elementor_reset_feed",
+        action: "gselef_free_reset_feed",
         feed_id: feed_id,
         security: jQuery("#gs-ajax-nonce").val(),
       },
@@ -614,112 +546,227 @@ jQuery(document).ready(function ($) {
       },
     });
   });
+
+  /** hide notice  */
+  jQuery(document).on(
+    "click",
+    "#gselef-pro-dismiss-header-notice",
+    function () {
+      var nonce = jQuery("#gselef-ajax-nonce").val();
+
+      jQuery("#pro-notice-bar").hide();
+
+      jQuery.post(ajaxurl, {
+        action: "gselef_dismiss_pro_notice",
+        nonce: nonce,
+      });
+    },
+    );
 });
- 
+
  document.addEventListener("DOMContentLoaded", function () {
   const inputs = document.querySelectorAll(
-    "#edit-sheet-name, #edit-sheet-id, #edit-tab-name, #edit-tab-id"
+    "#edit-sheet-name, #edit-sheet-id, #edit-tab-name, #edit-tab-id",
     );
 
-  const saveBtn = document.getElementById("gsele-execute-save");
+  const saveBtn = document.getElementById("gselef-free-execute-save");
 
   function checkInputs() {
     if (!saveBtn) return; // prevent error if button not found
 
-    const allFilled = [...inputs].every(
-      (input) => input.value.trim() !== ""
-      );
+    const allFilled = [...inputs].every((input) => input.value.trim() !== "");
 
     saveBtn.disabled = !allFilled;
     saveBtn.classList.toggle("common-disable", !allFilled);
   }
 
-  inputs.forEach((input) =>
-    input.addEventListener("input", checkInputs)
-    );
+  inputs.forEach((input) => input.addEventListener("input", checkInputs));
 
   checkInputs();
 });
 
- jQuery(document).ready(function ($) {
+
+/**jQuery for save uninstall settings */
+jQuery(document).ready(function ($) {
   const $checkbox = $("#gscele_elementor_uninstall_settings_free");
   const $saveBtn = $(".uninstall-settings-save-free");
   const $msg = $("#gselef-free-uninstall-msg-free");
   const $loader = $(".loading-uninstall-free");
+  const $popup = $("#gselef-confirm-uninstall-data-popup-free");
 
-  // page load → disable button
+  // Page load → disable button
   $saveBtn.prop("disabled", true).addClass("common-disable");
 
-  // enable button when toggle changes
+  // Checkbox change
   $checkbox.on("change", function () {
+    // If user tries to enable it → show popup
+    if ($(this).is(":checked")) {
+      // Uncheck temporarily
+      $(this).prop("checked", false);
+
+      // Show popup
+      $popup.removeClass("d-none");
+
+      return;
+    }
+
+    // Enable save button normally when unchecked
     $saveBtn.prop("disabled", false).removeClass("common-disable");
   });
 
-  // save click
-  $saveBtn.on("click", function (e) {
-    e.preventDefault();
+  /* =========================
+     POPUP CONFIRM BUTTON
+     ========================= */
 
-    var value = $checkbox.is(":checked") ? "Yes" : "No";
+     $("#gselef-confirm-enable-uninstall-free").on("click", function () {
+      $checkbox.prop("checked", true);
 
-    $.ajax({
-      url: ajaxurl,
-      type: "POST",
-      dataType: "json",
-      data: {
-        action: "gscele_save_uninstall_settings",
-        uninstall_setting: value,
-        security: $("input[name='gscele-elementor-setting-ajax-nonce']").val(),
-      },
+      $popup.addClass("d-none");
 
-      beforeSend: function () {
-        $loader.addClass("loading");
-        $saveBtn.prop("disabled", true).addClass("common-disable");
-      },
-
-      success: function (response) {
-        if (!response.success) return;
-
-        $msg.removeClass("gsc-success gsc-error d-none");
-
-        $msg
-        .addClass("gsc-success")
-        .text("Plugin preferences updated successfully");
-
-        setTimeout(function () {
-          $msg.addClass("d-none").text("");
-        }, 2000);
-      },
-      complete: function () {
-        $loader.removeClass("loading");
-      },
+      $saveBtn.prop("disabled", false).removeClass("common-disable");
     });
+
+  /* =========================
+     POPUP CANCEL BUTTON
+     ========================= */
+
+     $("#gselef-cancel-uninstall-free").on("click", function () {
+      $checkbox.prop("checked", false);
+
+      $popup.addClass("d-none");
+    });
+
+  /* =========================
+     SAVE SETTINGS
+     ========================= */
+
+     $saveBtn.on("click", function (e) {
+      e.preventDefault();
+
+      var isChecked = $checkbox.is(":checked");
+
+      $.ajax({
+        url: ajaxurl,
+        type: "POST",
+        dataType: "json",
+        data: {
+          action: "gscele_save_uninstall_settings",
+          uninstall_setting: isChecked ? 1 : 0,
+          security: $("#gscele-elementor-setting-ajax-nonce").val(),
+        },
+
+        beforeSend: function () {
+          $loader.addClass("loading");
+          $saveBtn.prop("disabled", true).addClass("common-disable");
+        },
+
+        success: function (response) {
+          if (!response.success) return;
+
+          $msg.removeClass("gsc-success gsc-error d-none");
+
+          $msg
+          .addClass("gsc-success")
+          .text("Plugin preferences updated successfully.");
+
+          setTimeout(function () {
+            $msg.addClass("d-none").text("");
+          }, 2000);
+        },
+
+        error: function () {
+          $msg
+          .removeClass("d-none")
+          .addClass("gsc-error")
+          .text("Something went wrong");
+
+          $saveBtn.prop("disabled", false).removeClass("common-disable");
+        },
+
+        complete: function () {
+          $loader.removeClass("loading");
+        },
+      });
+    });
+   });
+
+ 
+//  jQuery(document).ready(function ($) {
+//   const noticeKey = "gselef-free_notice_hidden_until";
+//   const oneDay = 24 * 60 * 60 * 1000;
+//   //  const oneDay = 2 * 60 * 1000;
+
+//   // ❌ Close click ONLY
+//   $("#pro-dismiss-header-notice").on("click", function () {
+//     const now = new Date().getTime();
+
+//     // Hide notice
+//     $(".gselef-free #pro-notice-bar").slideUp(200);
+
+//     // Save hide time for 1 day
+//     localStorage.setItem(noticeKey, now + oneDay);
+//   });
+
+//   // ⏳ On page load: check if 1 day passed
+//   const hideUntil = localStorage.getItem(noticeKey);
+//   const now = new Date().getTime();
+
+//   if (hideUntil && now < hideUntil) {
+//     $(".gselef-free #pro-notice-bar").hide();
+//   }
+// });
+
+jQuery(document).ready(function ($) {
+  let selectedFeedId = null;
+
+  $(document).on("click", function (e) {
+    if ($(e.target).closest(".delete-feed").length) {
+      e.preventDefault();
+
+      selectedFeedId = $(e.target).closest(".delete-feed").data("feed-id");
+      $("#gselef-free-delete-feed-confirm-popup").removeClass("d-none");
+    }
+
+    /*  Cancel popup */
+    if ($(e.target).closest("#gselef-free-delete-feed-popup-cancel").length) {
+      $("#gselef-free-delete-feed-confirm-popup").addClass("d-none");
+      selectedFeedId = null;
+    }
+
+    /*  Confirm delete */
+    if ($(e.target).closest("#gselef-free-delete-feed-popup-confirm").length) {
+      if (!selectedFeedId) return;
+
+      let feedId = selectedFeedId;
+      $(".loading-sign-delete-feed-elegs" + feedId).addClass("loading");
+
+      $.post(
+        ajaxurl,
+        {
+          action: "gselef_free_delete_feed",
+          feed_id: feedId,
+          security: $("#elementorform-ajax-nonce").val(),
+        },
+        function (response) {
+          $(".loading-sign-delete-feed-elegs" + feedId).removeClass("loading");
+          if (response === "success") {
+            jQuery(
+              "<div class='gsc-msg gsc-success fw-400 text-dark text-center pt-10 pb-10 manual-margin'>Feed Deleted Successfully.</div>",
+              ).appendTo(".gscefp-feed-success-message");
+            location.reload();
+          } else {
+            jQuery(
+              "<div class='gsc-msg gsc-error fw-400 text-dark text-center pt-10 pb-10 manual-margin'>Error deleting feed.</div>",
+              ).appendTo(".gscefp-feed-success-message");
+          }
+        },
+        );
+
+      $("#gselef-free-delete-feed-confirm-popup").addClass("d-none");
+    }
   });
 });
- jQuery(document).ready(function ($) {
-  const noticeKey = "gselef-free_notice_hidden_until";
-  const oneDay = 24 * 60 * 60 * 1000;
-  //  const oneDay = 2 * 60 * 1000;
-
-  // ❌ Close click ONLY
-  $("#pro-dismiss-header-notice").on("click", function () {
-    const now = new Date().getTime();
-
-    // Hide notice
-    $(".gselef-free #pro-notice-bar").slideUp(200);
-
-    // Save hide time for 1 day
-    localStorage.setItem(noticeKey, now + oneDay);
-  });
-
-  // ⏳ On page load: check if 1 day passed
-  const hideUntil = localStorage.getItem(noticeKey);
-  const now = new Date().getTime();
-
-  if (hideUntil && now < hideUntil) {
-    $(".gselef-free #pro-notice-bar").hide();
-  }
-});
- document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
   const copyBtn = document.getElementById("gscgff-copy-logs-info");
   const msgDiv = document.querySelector(".gsc-copy-msg");
 
@@ -800,5 +847,262 @@ jQuery(document).ready(function ($) {
         msgDiv.classList.add("d-none");
       }, 2000);
     }
+  });
+});
+
+/**   jquery For Badge  */
+document.addEventListener("DOMContentLoaded", function () {
+  var el = document.querySelector(".gselef-selected-method");
+  var getvalue = el.getAttribute("data-value");
+
+  if (el && el.dataset.value && el.dataset.value.trim() !== "") {
+    var badgeText = el.dataset.value.trim();
+
+    document
+    .querySelectorAll(".nav-tab-wrapper .nav-tab")
+    .forEach(function (tab) {
+      var href = tab.getAttribute("href") || "";
+
+      if (href.indexOf("tab=integration") !== -1) {
+        tab.style.position = "relative";
+
+        /* prevent duplicate badge */
+        if (tab.querySelector(".gselef-selected-badge")) return;
+
+        if (getvalue == "Auth Required") {
+          var badge = document.createElement("div");
+          badge.className = "gselef-selected-authrequired-badge";
+          badge.textContent = badgeText;
+        } else {
+          var badge = document.createElement("div");
+          badge.className = "gselef-selected-badge";
+          badge.textContent = badgeText;
+        }
+
+        tab.appendChild(badge);
+      }
+    });
+  }
+});
+
+jQuery(document).ready(function ($) {
+  let totalSlides = $(
+    ".notification-gselef-slider-track .notification-gselef-slide",
+    ).length;
+
+  function showNextSlide(currentSlide) {
+    var track = currentSlide.closest(".notification-gselef-slider-track");
+    var slides = track.find(".notification-gselef-slide");
+    var currentIndex = slides.index(currentSlide);
+    var nextIndex = currentIndex + 1;
+
+    currentSlide.remove();
+
+    slides = track.find(".notification-gselef-slide");
+
+    if (slides.length > 0) {
+      if (nextIndex >= slides.length) {
+        nextIndex = 0;
+      }
+
+      slides.hide().eq(nextIndex).show();
+    } else {
+      $(".notification-gselef-notice-slider").hide();
+    }
+
+    // Optional page reload
+    // location.reload();
+  }
+
+  /** Dismiss notification */
+  $(document).on(
+    "click",
+    ".gselef-review-close, .gselef-review-dismiss-btn, .gselef-showpro-close, .gselef-addons-close, .gselef-enhance-btn-later, .gselef-review-btn-later, .gselef-enhance-close",
+    function () {
+      var key = $(this).data("key");
+      var currentSlide = $(this).closest(".notification-gselef-slide");
+
+      $.post(
+        ajaxurl,
+        {
+          action: "gselef_free_dismiss_notice",
+          key: key,
+          security: $("#gselef-ajax-nonce").val(),
+        },
+        function () {
+          showNextSlide(currentSlide);
+        },
+        );
+    },
+    );
+
+  /** Snooze notification */
+  $(document).on(
+    "click",
+    ".gselef-review-btn-later, .gselef-Showpro-btn-later, .gselef-addons-btn-later",
+    function () {
+      var key = $(this).data("key");
+      var currentSlide = $(this).closest(".notification-gselef-slide");
+
+      $.post(
+        ajaxurl,
+        {
+          action: "gselef_free_snooze_notice",
+          key: key,
+          security: $("#gselef-ajax-nonce").val(),
+        },
+        function () {
+          showNextSlide(currentSlide);
+        },
+        );
+    },
+    );
+
+  /** Hide arrows if only one slide */
+  if ($(".notification-gselef-slide").length <= 1) {
+    $(".notification-gselef-slider-arrows").hide();
+  }
+
+  /** Hide slider if no slides */
+  if ($(".notification-gselef-slide").length === 0) {
+    $(".notification-gselef-notice-slider").hide();
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const slides = document.querySelectorAll(".notification-gselef-slide");
+  const prevBtn = document.querySelector(
+    ".notification-gselef-slider-btn.prev",
+    );
+  const nextBtn = document.querySelector(
+    ".notification-gselef-slider-btn.next",
+    );
+
+  let index = 0;
+
+  function updateSlider() {
+    if (!slides || slides.length === 0) {
+      return;
+    }
+
+    slides.forEach((slide) => slide.classList.remove("active"));
+
+    if (slides[index]) {
+      slides[index].classList.add("active");
+    }
+  }
+
+  // Next button click
+  if (nextBtn) {
+    nextBtn.addEventListener("click", function () {
+      index++;
+
+      if (index >= slides.length) {
+        index = 0;
+      }
+
+      updateSlider();
+    });
+  }
+
+  // Previous button click
+  if (prevBtn) {
+    prevBtn.addEventListener("click", function () {
+      index--;
+
+      if (index < 0) {
+        index = slides.length - 1;
+      }
+
+      updateSlider();
+    });
+  }
+
+  updateSlider();
+});
+
+/***new slider for without permission for existing method */
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("slider 4");
+  document.querySelectorAll(".gsc-slider-wrapper").forEach(function (wrapper) {
+    const slider = wrapper.querySelector(".gsc-slider");
+    const slides = wrapper.querySelectorAll(".gsc-slide");
+    const prevBtn = wrapper.querySelector(".gsc-nav.prev");
+    const nextBtn = wrapper.querySelector(".gsc-nav.next");
+    let current = 0;
+    function updateSlider() {
+      slider.style.transform = "translateX(" + -current * 100 + "%)";
+    }
+    nextBtn?.addEventListener("click", function () {
+      current = (current + 1) % slides.length;
+      updateSlider();
+    });
+    prevBtn?.addEventListener("click", function () {
+      current = (current - 1 + slides.length) % slides.length;
+      updateSlider();
+    });
+    /*  attach function */
+    wrapper.goToSlide = function (index) {
+      current = index;
+      updateSlider();
+    };
+  });
+
+  /*  AUTO MOVE TO STEP 4   */
+  setTimeout(function () {
+    const errorBox = document.querySelector(".gselef-permission-error");
+    const target = document.querySelector(".gselef-connection-guide-slider");
+    if (!errorBox) {
+      /* console.log("No permission error"); */
+      return;
+    }
+    if (!target) {
+      /* console.log("Slider not found"); */
+      return;
+    }
+    if (target.goToSlide) {
+      target.goToSlide(3);
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+      console.log("Auto moved to Step 4");
+    } else {
+      console.log("goToSlide not available");
+    }
+  }, 800);
+});
+
+/****Extenxion Counter****/
+jQuery(document).ready(function ($) {
+  $(".elementor-free-counter").each(function () {
+    let $this = $(this);
+    let countTo = parseFloat($this.attr("data-count"));
+
+    $({ countNum: 0 }).animate(
+    {
+      countNum: countTo,
+    },
+    {
+      duration: 2500,
+      easing: "swing",
+
+      step: function () {
+        if (countTo % 1 !== 0) {
+          $this.text(this.countNum.toFixed(1));
+        } else {
+          $this.text(Math.floor(this.countNum));
+        }
+      },
+
+      complete: function () {
+        if (countTo % 1 !== 0) {
+          $this.text(countTo.toFixed(1));
+        } else {
+          $this.text(countTo);
+        }
+      },
+    },
+    );
   });
 });

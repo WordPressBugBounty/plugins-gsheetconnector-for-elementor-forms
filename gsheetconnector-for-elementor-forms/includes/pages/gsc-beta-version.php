@@ -80,11 +80,11 @@ if (!defined('ABSPATH')) {
     <!-- CTA -->
     <div class="gsc-pro-footer text-center">
         <a href="https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro"
-        target="_blank"
-        class="btn btn-primary text-decoration-none link-hover-white">
-        <?php echo esc_html(__('Upgrade to Unlock', 'gsheetconnector-for-elementor-forms')); ?>
-    </a>
-</div>
+            target="_blank"
+            class="btn btn-primary text-decoration-none link-hover-white">
+            <?php echo esc_html(__('Upgrade to Unlock', 'gsheetconnector-for-elementor-forms')); ?>
+        </a>
+    </div>
 
 </div>
 <!--End Pro Setting(Roll Permissions)-->
@@ -112,10 +112,10 @@ if (!defined('ABSPATH')) {
                                 <input type="hidden" name="gselef_elementorform_beta" value="No">
                                 <div class="custom-check">
                                     <input type="checkbox"
-                                    class="check-toggle"
-                                    id="gselef_elementorform_beta"
-                                    name="gselef_elementorform_beta"
-                                    value="Yes">
+                                        class="check-toggle"
+                                        id="gselef_elementorform_beta"
+                                        name="gselef_elementorform_beta"
+                                        value="Yes">
                                     <label for="gselef_elementorform_beta" class="button-toggle"></label>
                                 </div>
                             </div>
@@ -145,15 +145,15 @@ if (!defined('ABSPATH')) {
                 </div>
                 <div class="text-right mt-30">
                     <input type="button" class="btn btn-primary"
-                    name="gselef_elementorform_save_beta" id="gselef_elementorform_save_beta"
-                    value="<?php echo esc_html__("Save Settings", 'gsheetconnector-for-elementor-forms'); ?>" />
+                        name="gselef_elementorform_save_beta" id="gselef_elementorform_save_beta"
+                        value="<?php echo esc_html__("Save Settings", 'gsheetconnector-for-elementor-forms'); ?>" />
                     <div id="gselef-beta-popup" class="gselef-beta-popup d-none">
                         <p id="gselef-beta-msg"></p>
                     </div>
                 </div>
                 <input type="hidden" name="gselef-elementorform-setting-ajax-nonce" id="gselef-elementorform-setting-ajax-nonce"
-                value="<?php echo esc_attr(wp_create_nonce('gselef-elementorform-setting-ajax-nonce')); ?>" />
-            </div>
+                    value="<?php echo esc_attr(wp_create_nonce('gselef-elementorform-setting-ajax-nonce')); ?>" />
+        </div>
         </form>
     </div>
 </div>

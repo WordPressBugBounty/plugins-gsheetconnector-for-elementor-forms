@@ -1,0 +1,447 @@
+.elementor-control.elementor-control-separator-before:before {
+  background-color: unset !important;
+  inset: unset !important;
+  position: unset !important;
+  height: unset !important;
+}
+.main-heading-text-controls .elementor-control-field {
+  padding: 16px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  background: #f9fafb;
+}
+.elementor-text-controls .elementor-control-field {
+  display: block;
+  margin-top: -15px !important;
+}
+.elementor-text-controls .elementor-control-title {
+  font-size: 13px !important;
+  margin-bottom: 6px;
+  color: #374151;
+  line-height: 1.3 !important;
+}
+.elementor-text-controls .elementor-control-unit-5 {
+  max-width: 100%;
+  width: 100%;
+}
+.elementor-control-section_gsce .elementor-text-controls .e-input-style,
+input,
+select,
+textarea {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+.btn-primary .elementor-button-gsccreatesheet {
+  display: inline-block;
+  line-height: 2.30769231;
+  padding: 4px 30px;
+  text-transform: capitalize;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+  transition: all 0.3s ease;
+  background: #199436;
+  width: 100% !important;
+}
+.btn-primary .elementor-control-input-wrapper {
+  width: 100%;
+  text-align: left;
+}
+.btn-secondary .elementor-button-viewspreadsheet {
+  display: inline-block;
+  line-height: 2.30769231;
+  padding: 4px 30px;
+  text-transform: capitalize;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+  transition: all 0.3s ease;
+  background: #e5e7eb;
+  color: #000;
+  width: 100% !important;
+}
+.btn-secondary .elementor-control-input-wrapper {
+  width: 100%;
+  text-align: left;
+}
+.btn-outline .elementor-button-gscfetchsheet {
+  display: inline-block;
+  line-height: 2.30769231;
+  padding: 4px 30px;
+  text-transform: capitalize;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+  transition: all 0.3s ease;
+  background: transparent;
+  border: 1px solid #d1d5db;
+  color: #000;
+  width: 100% !important;
+}
+.btn-outline .elementor-control-input-wrapper {
+  width: 100%;
+  text-align: left;
+}
+.auto-select-form-controls select {
+  border: 1px solid #ccc;
+  border-radius: unset;
+  padding: 4px 30px 4px 10px;
+  cursor: pointer;
+  max-width: 100%;
+  color: #444;
+  font-weight: 400;
+  text-transform: capitalize;
+  font-size: 13px;
+  height: 40px !important;
+}
+.elementor-control-type-select .elementor-control-input-wrapper select {
+  height: 40px !important;
+}
+.main-heading-text-controls .elementor-control-field .elementor-control-title {
+  line-height: 18px;
+}
+.gsc-setup-alert .elementor-control-content {
+  display: flex;
+  gap: 16px;
+  background: #fff7ed;
+  border: 1px solid #fdba74;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 900px;
+  margin: 0px auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+.elementor-gs-display-note {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: #7c2d12;
+  line-height: 1.5;
+}
+.feed-alert-header {
+  margin: 0 0 15px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #9a3412;
+  line-height: normal;
+}
+.inner-ele-list {
+  margin: 0 0 20px;
+  padding-left: 4px;
+}
+.inner-ele-list li {
+  font-size: 12px;
+  margin-bottom: 10px;
+  color: #7c2d12;
+  line-height: normal;
+}
+.inner-ele-btn {
+  display: inline-block;
+  background: #ea580c;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+.inner-ele-btn:hover {
+  background: #c2410c;
+  color: #fff;
+}
+.sharing-email-box {
+  background: #f9fafb;
+  border: 1px dashed #d1d5db;
+  border-radius: 10px;
+  padding: 18px !important;
+  margin: 0px 17px 17px 17px;
+}
+.sharing-email-box .elementor-control-title {
+  line-height: 19px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: #111827;
+}
+.connected-mail-desc {
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: #4b5563;
+  line-height: 22px;
+  margin-top: 10px;
+  font-weight: 400;
+}
+.email-share {
+  color: green;
+  line-height: 19px;
+  font-weight: 500;
+}
+.email-not-share {
+  color: #f72121;
+  line-height: 19px;
+  font-weight: 400;
+}
+.gsc-fetch-text {
+  font-size: 13px;
+  color: #4b5563;
+  line-height: 22px;
+  margin-top: 10px;
+  font-weight: 400;
+}
+.gsc-sheet-card-status .elementor-button-default {
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 18px;
+  margin-top: 20px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+  max-width: 100%;
+  text-align: left;
+  line-height: 19px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: #111827 !important;
+}
+.gsc-sheet-card-status .elementor-button-default:hover,
+.gsc-sheet-card-status .elementor-button-default:active {
+  background-color: unset;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+}
+.feed-list-link .elementor-control-content {
+  background: aliceblue;
+  padding: 18px;
+  border: 1px solid #d6e6f4;
+  border-radius: 10px;
+  margin: 15px 0;
+}
+.feed-list-link .elementor-control-raw-html a {
+  color: #0073aa;
+  font-weight: 500;
+  text-decoration: none;
+  line-height: 22px;
+}
+.elementor-text-controls .elementor-control-input-wrapper {
+  margin-top: 0 !important;
+}
+.elementor-control {
+  padding: 0 20px 0;
+}
+
+.special_mail_tags_bg .elementor-control-content {
+  background: #f3f4f6 !important;
+  color: #000 !important;
+  border: 1px solid #e5e7eb !important;
+  width: 100%;
+  display: inline-block;
+  font-size: 14px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  box-shadow: 0px 1px 6px 0px rgba(23, 57, 97, 0.1);
+  display: flex;
+  align-items: center;
+}
+.field_list_bg .elementor-control-content {
+  background: #f8fbff !important;
+  color: #000 !important;
+  border: 1px solid #e1e7ef !important;
+  width: 100%;
+  display: inline-block;
+  font-size: 14px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  box-shadow: 0px 1px 6px 0px rgba(23, 57, 97, 0.1);
+  display: flex;
+  align-items: center;
+}
+.elementor-field-list-control .elementor-control-field {
+  width: 100%;
+}
+.gsc-heading {
+  font-size: 14px;
+  color: #111827;
+  font-weight: 400;
+  margin-bottom: 5px;
+  line-height: 26px;
+}
+.gsc-heading .ele-pro {
+  text-transform: capitalize;
+  display: inline-block;
+  padding: 2px 8px;
+  margin-left: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #000;
+  background: #eee;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  line-height: 1.4;
+  display: inline-block;
+}
+
+.gsc-heading-box {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  line-height: normal;
+  border-radius: 3px;
+}
+
+.elementor-control-gsc_form_heading_2 {
+  padding-bottom: 0 !important;
+}
+.elementor-control-gsc_form_heading_1 {
+  padding-bottom: 0 !important;
+}
+.field-list-pill {
+  background: #f8fbff;
+  color: #111213;
+  border: 1px solid #e1e7ef;
+  display: inline-block;
+  height: 100%;
+  white-space: nowrap;
+  width: auto;
+  position: relative;
+  border-radius: 100px;
+  line-height: 1;
+  overflow: hidden;
+  padding: 0px 12px 0px 12px;
+  text-overflow: ellipsis;
+  line-height: 1.25rem;
+  word-break: break-word;
+  font-weight: 700;
+  align-items: center;
+}
+
+.field-type-system {
+  background: #f3f4f6;
+  color: #000;
+  border: 1px solid #e5e7eb;
+  font-size: 12px;
+  display: inline-block;
+  height: 100%;
+  white-space: nowrap;
+  width: auto;
+  position: relative;
+  border-radius: 100px;
+  line-height: 1;
+  overflow: hidden;
+  padding: 0px 12px 0px 12px;
+  text-overflow: ellipsis;
+  line-height: 1.25rem;
+  word-break: break-word;
+  font-weight: 700;
+  align-items: center;
+}
+.blue-text-here {
+  color: #2563eb;
+}
+
+button.elementor-button.elementor-button-gscsyncsheet {
+  color: #0073aa;
+  font-weight: 700;
+  text-decoration: none;
+  line-height: 22px;
+  background: aliceblue;
+}
+
+.gs_sync_process_text {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 14px;
+  margin-top: 10px;
+  border-radius: 10px;
+  color: #0f172a;
+  font-size: 13px;
+  line-height: 1.5;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  color: #008000;
+}
+
+.gscefp-in-ser-email-copy-btn span.dashicons.dashicons-admin-page {
+  color: #199436;
+}
+
+.gscefp-in-ser-email-copy-btn:hover {
+  border-block-end: unset !important;
+}
+
+a.ml-5.gscefp-in-ser-email-copy-btn.mt-5 {
+  border-block-end: 0px dotted !important;
+}
+
+.elementor-text-controls input {
+  padding: 8px;
+  line-height: 2.30769231;
+}
+
+.field_list_bg label,
+.gsc-switch-disabled label,
+.special_mail_tags_bg label,
+.gsc-switch-disabled .elementor-switch {
+  pointer-events: none;
+}
+.edit-gs-pro-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+.edit-gs-upgrade-btn a {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 7px 20px 7px 20px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+  margin-top: 5px;
+  background-color: #199436;
+  color: #fff;
+}
+.edit-gs-upgrade-btn a:hover {
+  color: #fff;
+}
+
+.gsc-header-color- .elementor-control-content {
+  pointer-events: none;
+}
+
+.gsc-heading-box .gsc-pro-icon {
+  margin-right: 10px;
+}
+
+.gsc-connect-head {
+  font-size: 12px;
+  color: #666;
+  line-height: 26px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 10px 15px;
+  background: #ffffff;
+}
+
+.gsc-connect-head p {
+      margin: 0 0 10px;
+}
+.gsc-connect-head span.email-account {
+  color: #000;
+  font-size: 13px;
+  border-radius: 999px;
+  font-weight: 600;
+  display: block;
+}

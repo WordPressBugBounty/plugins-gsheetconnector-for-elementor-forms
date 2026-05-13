@@ -1,0 +1,2162 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Elementor Forms GSheetConnector Free\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-13 10:14:59+00:00\n"
+"PO-Revision-Date: 2026-05-13 10:14:59+00:00\n"
+"Last-Translator: POForge <noreply@poforge.com>\n"
+"Language-Team: ru_RU <noreply@poforge.com>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: POForge\n"
+
+msgid "Get Elementor Google Sheet Pro"
+msgstr "Получите Elementor Google Sheet Pro"
+
+msgid "No error logs found."
+msgstr "Логи ошибок не найдены."
+
+msgid "You do not have permission to perform this action."
+msgstr "У вас нет разрешения на выполнение этого действия."
+
+msgid "Uninstall settings saved successfully."
+msgstr "Настройки удаления успешно сохранены."
+
+msgid "Enable Manual Google Sheets Configuration"
+msgstr "Включить ручную настройку Google Sheets"
+
+msgid "Fetch Sheets"
+msgstr "Получить таблицы"
+
+msgid ""
+"Error logs are saved in the database. Please clear them regularly to avoid "
+"increasing the database size."
+msgstr ""
+"Логи ошибок сохраняются в базе данных. Пожалуйста, очищайте их регулярно, "
+"чтобы избежать увеличения размера базы данных."
+
+msgid ""
+"You're using GSheetConnector for Elementor Forms Lite. To unlock more "
+"features, consider "
+msgstr ""
+"Вы используете GSheetConnector для Elementor Forms Lite. Чтобы "
+"разблокировать больше функций, рассмотрите возможность "
+
+msgid "Unlock Advance Features of Elementor Forms Pro version 🚀"
+msgstr "Разблокируйте расширенные функции версии Pro Elementor Forms 🚀"
+
+msgid "View Details"
+msgstr "Посмотреть детали"
+
+msgid ""
+"Manual connect your Elementor Form with Google Sheets by entering the Sheet "
+"Name, Sheet ID, Tab Name, and Tab ID. This ensures that form submissions "
+"are stored directly in your chosen Google Sheet."
+msgstr ""
+"Ручное подключение вашей формы Elementor к Google Sheets, введя имя "
+"таблицы, ID таблицы, имя вкладки и ID вкладки. Это гарантирует, что "
+"отправленные формы сохраняются непосредственно в выбранной вами Google "
+"таблице."
+
+msgid ""
+"Go to your Google account, open Google Sheets, and select or create the "
+"sheet you want to connect."
+msgstr ""
+"Перейдите в свою учетную запись Google, откройте Google Sheets и выберите "
+"или создайте таблицу, которую хотите подключить."
+
+msgid "You can get the Sheet ID from your Google Sheet URL."
+msgstr "Вы можете получить ID таблицы из URL вашей Google таблицы."
+
+msgid ""
+"Open your Google Sheet and copy the tab name shown at the bottom where you "
+"want entries stored."
+msgstr ""
+"Откройте свою Google таблицу и скопируйте имя вкладки, показанное внизу, "
+"где вы хотите сохранить записи."
+
+msgid "You can get the Tab ID from your Google Sheet URL after gid=."
+msgstr "Вы можете получить ID вкладки из URL вашей Google таблицы после gid=."
+
+msgid "Reset"
+msgstr "Сброс"
+
+msgid "Advanced options are available in PRO"
+msgstr "Расширенные опции доступны в PRO"
+
+msgid "Automatic Google Sheets Configuration"
+msgstr "Автоматическая настройка Google Sheets"
+
+msgid ""
+"Automatic configure your Google Sheets and start syncing form submissions "
+"in real time."
+msgstr ""
+"Автоматически настраивайте свои Google Sheets и начинайте синхронизацию "
+"отправленных форм в реальном времени."
+
+msgid "If sheets are not fetched, you can still add sheet and tab details manually."
+msgstr ""
+"Если таблицы не были получены, вы все равно можете вручную добавить детали "
+"таблицы и вкладки."
+
+msgid "If tabs are not fetched, you can still add the tab name manually."
+msgstr ""
+"Если вкладки не были получены, вы все равно можете вручную добавить имя "
+"вкладки."
+
+msgid "Special Mail Tags"
+msgstr "Специальные почтовые теги"
+
+msgid "Header Style"
+msgstr "Стиль заголовка"
+
+msgid "Row Style"
+msgstr "Стиль строки"
+
+msgid "CF7 Google Sheet Connector"
+msgstr "CF7 Google Sheet Connector"
+
+msgid "WPForms Google Sheet Connector"
+msgstr "WPForms Google Sheet Connector"
+
+msgid "Gravity Forms Google Sheet Connector"
+msgstr "Gravity Forms Google Sheet Connector"
+
+msgid "Ninja Forms Google Sheet Connector"
+msgstr "Ninja Forms Google Sheet Connector"
+
+msgid "Forminator Forms Google Sheet Connector"
+msgstr "Forminator Forms Google Sheet Connector"
+
+msgid "Formidable Forms Google Sheet Connector"
+msgstr "Formidable Forms Google Sheet Connector"
+
+msgid "Fluent Forms Google Sheet Connector"
+msgstr "Подключение Google Sheets для Fluent Forms"
+
+msgid "Elementor Forms Google Sheet Connector"
+msgstr "Подключение Google Sheets для Elementor Forms"
+
+msgid "Avada Forms Google Sheet Connector"
+msgstr "Подключение Google Sheets для Avada Forms"
+
+msgid "Divi Forms Google Sheet Connector"
+msgstr "Подключение Google Sheets для Divi Forms"
+
+msgid "WP Core Google Sheet Connector"
+msgstr "Подключение Google Sheets для WP Core"
+
+msgid "WooCommerce Google Sheet Connector"
+msgstr "Подключение Google Sheets для WooCommerce"
+
+msgid "Easy Digital Downloads Google Sheet Connector"
+msgstr "Подключение Google Sheets для Easy Digital Downloads"
+
+msgid ""
+"Sync Elementor Forms data with Google Sheets in real-time effortlessly and "
+"accurately."
+msgstr ""
+"Синхронизируйте данные Elementor Forms с Google Sheets в реальном времени "
+"без усилий и точно."
+
+msgid "Integration of Elementor Forms with Google Sheet"
+msgstr "Интеграция Elementor Forms с Google Sheet"
+
+msgid "Configure Elementor Forms with Form Feeds"
+msgstr "Настройка Elementor Forms с помощью Form Feeds"
+
+msgid "Automatic Spreadsheet Selection with Form Feeds"
+msgstr "Автоматический выбор таблицы с помощью Form Feeds"
+
+msgid "MetForm Integration with Google Sheets"
+msgstr "Интеграция MetForm с Google Sheets"
+
+msgid "+ Add Form Feed"
+msgstr "+ Добавить Form Feed"
+
+msgid "- Close Form Feed"
+msgstr "- Закрыть Form Feed"
+
+msgid "Are you sure you want to Delete Feed."
+msgstr "Вы уверены, что хотите удалить Feed?"
+
+msgid "Confirm Data Deletion"
+msgstr "Подтвердите удаление данных"
+
+msgid ""
+"Enabling this option will permanently delete all plugin data, including "
+"settings and integrations, when the plugin is uninstalled."
+msgstr ""
+"Включение этой опции навсегда удалит все данные плагина, включая настройки "
+"и интеграции, при его удалении."
+
+msgid ""
+"If you plan to upgrade from Free to Pro, you may lose your existing "
+"configuration data."
+msgstr ""
+"Если вы планируете обновиться с бесплатной версии на Pro, вы можете "
+"потерять существующие данные конфигурации."
+
+msgid "Proceed only if you want a complete cleanup. This action cannot be undone."
+msgstr ""
+"Продолжайте только если хотите полностью очистить. Это действие нельзя "
+"отменить."
+
+msgid "Enable Deletion"
+msgstr "Включить удаление"
+
+msgid "Google Sheets Integration for Elementor Forms"
+msgstr "Интеграция Google Sheets для Elementor Forms"
+
+msgid "Select how Elementor Forms should authenticate with Google Sheets."
+msgstr "Выберите, как Elementor Forms должны аутентифицироваться с Google Sheets."
+
+msgid "Google Account Connection"
+msgstr "Подключение к Google Account"
+
+msgid ""
+"Sign in with your Google account to connect Elementor Forms with Google "
+"Sheets. Once connected, your data syncs based on your settings. Learn more "
+"in the documentation"
+msgstr ""
+"Войдите с помощью вашей учетной записи Google, чтобы подключить Elementor "
+"Forms к Google Sheets. После подключения ваши данные синхронизируются в "
+"соответствии с вашими настройками. Узнайте больше в документации"
+
+msgid ""
+"<p class=\"fw-400 text-dark\"><strong>Google Drive</strong> and "
+"<strong>Google Sheets</strong> permissions were not granted during "
+"authentication with Google.</p>\n"
+"                                        <p class=\"fw-400 "
+"text-dark\"><strong>Refer to Step 4 in the Connection Guide shown "
+"alongside.</strong><br> Then, deactivate the connection and re-authorize "
+"it, ensuring both Google Drive and Google Sheets permissions are "
+"enabled.</p>"
+msgstr ""
+"<p class=\"fw-400 text-dark\"><strong>Разрешения для Google Drive</strong> "
+"и <strong>Google Sheets</strong> не были предоставлены во время "
+"аутентификации с Google.</p>\n"
+"                                        <p class=\"fw-400 "
+"text-dark\"><strong>Смотрите Шаг 4 в Руководстве по подключению, "
+"представленном рядом.</strong><br> Затем деактивируйте подключение и "
+"повторно авторизуйте его, убедившись, что разрешения для Google Drive и "
+"Google Sheets включены.</p>"
+
+msgid "Save Client Token"
+msgstr "Сохранить токен клиента"
+
+msgid ""
+"Connect Elementor Forms to Google Sheets using your own Google Cloud "
+"project.\n"
+"                            Ideal for advanced users who need full API "
+"control, custom OAuth setup,\n"
+"                            and independent credential management."
+msgstr ""
+"Подключите Elementor Forms к Google Sheets, используя ваш собственный "
+"проект Google Cloud.\n"
+"                            Идеально для продвинутых пользователей, которым "
+"нужен полный контроль API, настройка пользовательского OAuth,\n"
+"                            и независимое управление учетными данными."
+
+msgid ""
+"Securely connect Elementor Forms to Google Sheets using a Google Cloud "
+"Service Account JSON key. Ideal for automated server-to-server syncing "
+"without requiring manual Google login."
+msgstr ""
+"Безопасно подключите Elementor Forms к Google Sheets, используя JSON-ключ "
+"учетной записи службы Google Cloud. Идеально для автоматизированной "
+"синхронизации сервер-сервер без необходимости ручного входа в Google."
+
+msgid ""
+"Are you sure you want to deactivate Google Sheets integration?\n"
+"        This will stop syncing your form entries."
+msgstr ""
+"Вы уверены, что хотите деактивировать интеграцию Google Sheets?\n"
+"        Это остановит синхронизацию ваших записей форм."
+
+msgid "Access Management"
+msgstr "Управление доступом"
+
+msgid "Control who can access and manage the GSheetConnector plugin settings."
+msgstr ""
+"Контролируйте, кто может получить доступ и управлять настройками плагина "
+"GSheetConnector."
+
+msgid "Control which user roles can access the GSheetConnector plugin"
+msgstr ""
+"Контролируйте, какие роли пользователей могут получить доступ к плагину "
+"GSheetConnector"
+
+msgid "Allow selected users to manage Google Sheets integration settings"
+msgstr ""
+"Разрешите выбранным пользователям управлять настройками интеграции с Google "
+"Sheets"
+
+msgid "Restrict access to sensitive features like feeds, logs, and configurations"
+msgstr ""
+"Ограничьте доступ к чувствительным функциям, таким как ленты, журналы и "
+"конфигурации"
+
+msgid "Only enabled roles will see the plugin menu in the admin panel"
+msgstr "Только включенные роли увидят меню плагина в административной панели"
+
+msgid "Recommended: Allow only Administrators and trusted Editors"
+msgstr "Рекомендуется: разрешить только администраторам и доверенным редакторам"
+
+msgid ""
+"View detailed information about your plugin, server, and WordPress setup "
+"for troubleshooting and support.\n"
+"    "
+msgstr ""
+"Просмотрите подробную информацию о вашем плагине, сервере и настройках "
+"WordPress для устранения неполадок и поддержки.\n"
+"    "
+
+msgid "copied successfully."
+msgstr "успешно скопировано."
+
+msgid "View Documentation"
+msgstr "Просмотреть документацию"
+
+msgid "Docs"
+msgstr "Документы"
+
+msgid "Get Support"
+msgstr "Получить поддержку"
+
+msgid "Support"
+msgstr "Поддержка"
+
+msgid ""
+"Google Sheet Connector Elementor Add-on requires Elementor Pro or Pro "
+"Elements or MetForm Plugin to be installed and activated."
+msgstr ""
+"Google Sheet Connector Elementor Add-on требует установки и активации "
+"Elementor Pro или Pro Elements или плагина MetForm."
+
+msgid "GSheetConnector For Elementor Forms"
+msgstr "GSheetConnector для форм Elementor"
+
+msgid "GSheetConnector Elementor"
+msgstr "GSheetConnector Elementor"
+
+msgid "GSheetConnector"
+msgstr "GSheetConnector"
+
+msgid "Select Google Spreadsheet"
+msgstr "Выбрать Google Таблицу"
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "No"
+msgstr "Нет"
+
+msgid "Sheet Name"
+msgstr "Имя Таблицы"
+
+msgid "Sheet ID"
+msgstr "ID Таблицы"
+
+msgid "Tab Name"
+msgstr "Имя Вкладки"
+
+msgid "Tab ID"
+msgstr "ID Вкладки"
+
+msgid "Sheet Tab Name"
+msgstr "Имя вкладки таблицы"
+
+msgid "View Spreadsheet"
+msgstr "Просмотреть таблицу"
+
+msgid "Click here to configure Form Feeds"
+msgstr "Нажмите здесь, чтобы настроить подачу форм"
+
+msgid "Upgrade to GSheetConnector Pro"
+msgstr "Обновите до GSheetConnector Pro"
+
+msgid "Entry ID"
+msgstr "Идентификатор записи"
+
+msgid "Entry Date"
+msgstr "Дата записи"
+
+msgid "Post ID"
+msgstr "ID поста"
+
+msgid "User Name"
+msgstr "Имя пользователя"
+
+msgid "User IP"
+msgstr "IP пользователя"
+
+msgid "User Agent"
+msgstr "User Agent"
+
+msgid "User ID"
+msgstr "ID пользователя"
+
+msgid "Referrer"
+msgstr "Реферер"
+
+msgid "Freeze Header"
+msgstr "Закрепить заголовок"
+
+msgid "Error Log"
+msgstr "Журнал ошибок"
+
+msgid "Clear Logs"
+msgstr "Очистить логи"
+
+msgid "Download CSV"
+msgstr "Скачать CSV"
+
+msgid "Copy Logs"
+msgstr "Копировать логи"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Error ID"
+msgstr "ID ошибки"
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Message"
+msgstr "Сообщение"
+
+msgid "Details"
+msgstr "Детали"
+
+msgid "Permission denied."
+msgstr "Доступ запрещен."
+
+msgid "Google Sheet"
+msgstr "Google Таблица"
+
+msgid "Integration"
+msgstr "Интеграция"
+
+msgid "Form Feeds"
+msgstr "Потоки Форм"
+
+msgid "Settings"
+msgstr "Настройки"
+
+msgid "Extensions"
+msgstr "Расширения"
+
+msgid "Existing"
+msgstr "Существующий"
+
+msgid "Auth Required"
+msgstr "Требуется авторизация"
+
+msgid "upgrading to Pro"
+msgstr "обновления до Pro"
+
+msgid ""
+"Use advanced features like Manual Authentication and automatic field "
+"mapping, no need to create columns in Google Sheets manually."
+msgstr ""
+"Используйте расширенные функции, такие как ручная аутентификация и "
+"автоматическое сопоставление полей, без необходимости вручную создавать "
+"столбцы в Google Sheets."
+
+msgid ""
+"Choose only the fields you need with simple toggles, use advanced tags, "
+"sync past form entries, and get priority support."
+msgstr ""
+"Выбирайте только необходимые поля с помощью простых переключателей, "
+"используйте расширенные теги, синхронизируйте прошлые записи форм и "
+"получайте приоритетную поддержку."
+
+msgid "View License Types"
+msgstr "Посмотреть типы лицензий"
+
+msgid "Compare Features"
+msgstr "Сравнить функции"
+
+msgid "Maybe Later"
+msgstr "Может быть позже"
+
+msgid "Enjoying the Plugin?"
+msgstr "Нравится плагин?"
+
+msgid ""
+"If you are enjoying the plugin, please consider leaving a 5-star review. "
+"Your support helps us improve and grow."
+msgstr ""
+"Если вам нравится плагин, пожалуйста, оставьте отзыв на 5 звезд. Ваша "
+"поддержка помогает нам улучшаться и развиваться."
+
+msgid "Ok, you deserve it!"
+msgstr "Хорошо, вы это заслужили!"
+
+msgid "I already did"
+msgstr "Я уже сделал"
+
+msgid "I need help"
+msgstr "Мне нужна помощь"
+
+msgid " Enhance Your Setup"
+msgstr " Улучшите вашу настройку"
+
+msgid "Extend your workflow with our add-ons."
+msgstr "Расширьте ваш рабочий процесс с нашими дополнениями."
+
+msgid "Discover tools that integrate seamlessly and help you get more done."
+msgstr ""
+"Откройте для себя инструменты, которые интегрируются без проблем и помогают "
+"вам делать больше."
+
+msgid "Authenticate with Your Google Account"
+msgstr "Аутентификация с вашей учетной записью Google"
+
+msgid "Your connection has expired or hasn’t been set up yet."
+msgstr "Ваше соединение истекло или еще не настроено."
+
+msgid ""
+"Please reauthenticate with your google account to continue syncing data "
+"without interruptions."
+msgstr ""
+"Пожалуйста, повторно авторизуйтесь с вашим аккаунтом Google, чтобы "
+"продолжить синхронизацию данных без перерывов."
+
+msgid "Authenticate Now"
+msgstr "Авторизоваться сейчас"
+
+msgid "Learn How"
+msgstr "Узнать как"
+
+msgid "v"
+msgstr "v"
+
+msgid "Dashboard"
+msgstr "Панель управления"
+
+msgid "Advanced Tools for Easy Spreadsheet Control"
+msgstr "Расширенные инструменты для легкого управления таблицами"
+
+msgid ""
+"Improve your sheet management with smart automation and flexible "
+"customization features."
+msgstr ""
+"Улучшите управление вашими таблицами с помощью умной автоматизации и гибких "
+"функций настройки."
+
+msgid "Google Sheets API v4"
+msgstr "Google Sheets API v4"
+
+msgid "One-Click Authentication"
+msgstr "Аутентификация в один клик"
+
+msgid "Authenticated Email Display"
+msgstr "Отображение аутентифицированного email"
+
+msgid "Click & Fetch Automation"
+msgstr "Автоматизация Click & Fetch"
+
+msgid "Create New Spreadsheet"
+msgstr "Создать новую таблицу"
+
+msgid "Manual Sheet / Tab Name"
+msgstr "Ручное имя листа / вкладки"
+
+msgid "Automated Sheet & Tab"
+msgstr "Автоматизированный лист и вкладка"
+
+msgid "Custom / Merge Tags"
+msgstr "Пользовательские / Слияние тегов"
+
+msgid "Drag-and-Drop Column Order"
+msgstr "Перетаскивание порядка столбцов"
+
+msgid "Headers On / Off + Rename"
+msgstr "Заголовки Включить / Выключить + Переименовать"
+
+msgid "Image / PDF Attachment Link"
+msgstr "Ссылка на изображение / PDF-вложение"
+
+msgid "Freeze & Color Headers"
+msgstr "Заморозить и раскрасить заголовки"
+
+msgid "Conditional Options"
+msgstr "Условные параметры"
+
+msgid "Sync Past Entries"
+msgstr "Синхронизировать прошлые записи"
+
+msgid "Role Management"
+msgstr "Управление ролями"
+
+msgid "Quick Configuration"
+msgstr "Быстрая настройка"
+
+msgid "Multi-Language Support"
+msgstr "Поддержка нескольких языков"
+
+msgid "Multi-Site Support"
+msgstr "Поддержка нескольких сайтов"
+
+msgid "Latest WP & PHP Support"
+msgstr "Последняя поддержка WP и PHP"
+
+msgid "There's something wrong with your code..."
+msgstr "Что-то не так с вашим кодом..."
+
+msgid "Please rate"
+msgstr "Пожалуйста, оцените"
+
+msgid "GSheetConnector for Elementor Forms"
+msgstr "GSheetConnector для форм Elementor"
+
+msgid "on"
+msgstr "на"
+
+msgid "WordPress.org"
+msgstr "WordPress.org"
+
+msgid "to help us spread the word."
+msgstr "чтобы помочь нам распространить информацию."
+
+msgid "Version:"
+msgstr "Версия:"
+
+msgid "Plugins"
+msgstr "Плагины"
+
+msgid "Back to Feeds List"
+msgstr "Назад к списку потоков"
+
+msgid "Feed Details"
+msgstr "Детали фида"
+
+msgid ""
+"Displays the form and feed information used for Google Sheets "
+"synchronization."
+msgstr ""
+"Отображает форму и информацию о фиде, используемую для синхронизации с "
+"Google Sheets."
+
+msgid "Form ID"
+msgstr "ID формы"
+
+msgid "Feed Name"
+msgstr "Название ленты"
+
+msgid "Form Name"
+msgstr "Название формы"
+
+msgid "Page Name"
+msgstr "Название страницы"
+
+msgid "Timestamp"
+msgstr "Метка времени"
+
+msgid "Manual Google Sheets Configuration"
+msgstr "Ручная настройка Google Sheets"
+
+msgid "Save Settings"
+msgstr "Сохранить настройки"
+
+msgid "Unlock Advanced Features with Form Feeds"
+msgstr "Разблокируйте расширенные функции с помощью фидов форм"
+
+msgid "Automatically Google Sheet Configuration"
+msgstr "Автоматическая конфигурация Google Sheets"
+
+msgid "Auto fetch Google Sheets list"
+msgstr "Авто получение списка Google Sheets"
+
+msgid "Auto detect sheet tabs"
+msgstr "Авто определение вкладок таблицы"
+
+msgid "One-click configuration"
+msgstr "Конфигурация в один клик"
+
+msgid "Real-time entry sync"
+msgstr "Синхронизация записей в реальном времени"
+
+msgid "Select Fields to Sync"
+msgstr "Выберите поля для синхронизации"
+
+msgid "Drag & drop field reordering"
+msgstr "Перетаскивание и изменение порядка полей"
+
+msgid "Rename column headers"
+msgstr "Переименовать заголовки столбцов"
+
+msgid "Select specific fields to sync"
+msgstr "Выберите конкретные поля для синхронизации"
+
+msgid "Header Settings & Sheet Sorting"
+msgstr "Настройки заголовков и сортировка таблицы"
+
+msgid "Freeze header row"
+msgstr "Закрепить строку заголовка"
+
+msgid "Custom font styling"
+msgstr "Настройка шрифта"
+
+msgid "Header & row color control"
+msgstr "Управление цветом заголовка и строки"
+
+msgid "Sort by any column"
+msgstr "Сортировать по любому столбцу"
+
+msgid "Spreadsheet Download & Google Sheets Sync"
+msgstr "Загрузка таблицы и синхронизация с Google Sheets"
+
+msgid "Download spreadsheet as file"
+msgstr "Скачать таблицу как файл"
+
+msgid "Bulk sync past entries"
+msgstr "Массовая синхронизация прошлых записей"
+
+msgid "Date range sync"
+msgstr "Синхронизация по диапазону дат"
+
+msgid "Real-time entry updates"
+msgstr "Обновления записей в реальном времени"
+
+msgid "Upgrade to Unlock"
+msgstr "Обновите, чтобы разблокировать"
+
+msgid "PRO"
+msgstr "ПРО"
+
+msgid "Select"
+msgstr "Выбрать"
+
+msgid "Create New"
+msgstr "Создать новый"
+
+msgid "Create Spreadsheet"
+msgstr "Создать таблицу"
+
+msgid "Spreadsheet Name and URL not showing?"
+msgstr "Название таблицы и URL не отображаются?"
+
+msgid "Click Here"
+msgstr "Нажмите здесь"
+
+msgid "to fetch sheets."
+msgstr "для получения листов."
+
+msgid ""
+"Enable the fields you want to send to Google Sheets and rename columns if "
+"needed."
+msgstr ""
+"Включите поля, которые хотите отправить в Google Sheets, и переименуйте "
+"столбцы при необходимости."
+
+msgid "Field List"
+msgstr "Список полей"
+
+msgid "Select All"
+msgstr "Выбрать все"
+
+msgid "Header Settings"
+msgstr "Настройки заголовка"
+
+msgid ""
+"Customize the appearance and behavior of your sheet headers and rows for "
+"better readability and organization."
+msgstr ""
+"Настройте внешний вид и поведение заголовков и строк вашей таблицы для "
+"лучшей читаемости и организации."
+
+msgid "Header Behavior"
+msgstr "Поведение заголовка"
+
+msgid "Sheet Sorting"
+msgstr "Сортировка листа"
+
+msgid "Sort Column"
+msgstr "Сортировать столбец"
+
+msgid "Sort Order"
+msgstr "Порядок сортировки"
+
+msgid "Ascending"
+msgstr "По возрастанию"
+
+msgid "Descending"
+msgstr "По убыванию"
+
+msgid "Header Appearance"
+msgstr "Внешний вид заголовка"
+
+msgid "Font Style"
+msgstr "Стиль шрифта"
+
+msgid "Normal"
+msgstr "Обычный"
+
+msgid "Italic"
+msgstr "Курсив"
+
+msgid "Bold"
+msgstr "Жирный"
+
+msgid "Font Size"
+msgstr "Размер шрифта"
+
+msgid "Font Color"
+msgstr "Цвет шрифта"
+
+msgid "Header Background"
+msgstr "Фон заголовка"
+
+msgid "Row Appearance"
+msgstr "Внешний вид строки"
+
+msgid "Odd Row Color"
+msgstr "Цвет нечетной строки"
+
+msgid "Even Row Color"
+msgstr "Цвет четной строки"
+
+msgid "Spreadsheet Download"
+msgstr "Скачать таблицу"
+
+msgid "Download"
+msgstr "Скачать"
+
+msgid "Google Sheets Data Sync"
+msgstr "Синхронизация данных Google Sheets"
+
+msgid ""
+"Easily sync past form submissions to your connected Google Sheet. Choose a "
+"date range and ensure your spreadsheet stays complete and up to date."
+msgstr ""
+"Легко синхронизируйте предыдущие отправки форм с вашей подключенной "
+"таблицей Google. Выберите диапазон дат и убедитесь, что ваша таблица "
+"остается полной и актуальной."
+
+msgid "From Date"
+msgstr "С даты"
+
+msgid "To Date"
+msgstr "По дату"
+
+msgid "Sync Entries"
+msgstr "Синхронизировать записи"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "About GSheetConnector"
+msgstr "О GSheetConnector"
+
+msgid "Built by Experts. Trusted by Thousands."
+msgstr "Создано экспертами. Доверяют тысячам."
+
+msgid ""
+"Led by experienced developers and powered by a passionate team, "
+"GSheetConnector helps WordPress users automate their workflows with "
+"confidence."
+msgstr ""
+"Возглавляемая опытными разработчиками и поддерживаемая увлеченной командой, "
+"GSheetConnector помогает пользователям WordPress автоматизировать свои "
+"рабочие процессы с уверенностью."
+
+msgid ""
+"We focus on building tools that are fast, secure, and easy to use - so you "
+"can spend less time managing data."
+msgstr ""
+"Мы сосредоточены на создании инструментов, которые быстры, безопасны и "
+"просты в использовании - чтобы вы могли тратить меньше времени на "
+"управление данными."
+
+msgid "Meet Our Core Team"
+msgstr "Познакомьтесь с нашей основной командой"
+
+msgid "Our Mission"
+msgstr "Наша миссия"
+
+msgid ""
+"Our mission is to make form automation simple, secure, and reliable for "
+"every WordPress user - from beginners to enterprise teams."
+msgstr ""
+"Наша миссия - сделать автоматизацию форм простой, безопасной и надежной для "
+"каждого пользователя WordPress - от новичков до корпоративных команд."
+
+msgid "Fast & Reliable Data Sync"
+msgstr "Быстрая и надежная синхронизация данных"
+
+msgid "100% Secure Authentication"
+msgstr "100% Безопасная аутентификация"
+
+msgid "Real-Time Google Sheets Updates"
+msgstr "Обновления Google Sheets в реальном времени"
+
+msgid "Easy Setup & Configuration"
+msgstr "Легкая настройка и конфигурация"
+
+msgid "Dedicated Support Team"
+msgstr "Посвященная команда поддержки"
+
+msgid "Forms Successfully Synced"
+msgstr "Формы успешно синхронизированы"
+
+msgid "Trusted by Active Users"
+msgstr "Доверие активных пользователей"
+
+msgid "Reliable Uptime"
+msgstr "Надежное время работы"
+
+msgid "Dedicated Support"
+msgstr "Посвященная поддержка"
+
+msgid "Add-ons & Extensions"
+msgstr "Дополнения и расширения"
+
+msgid ""
+"Extend your Google Sheets integration with powerful add-ons. Install, "
+"manage, and activate extensions to unlock advanced features."
+msgstr ""
+"Расширьте свою интеграцию с Google Sheets мощными дополнениями. Установите, "
+"управляйте и активируйте расширения, чтобы разблокировать расширенные "
+"функции."
+
+msgid ""
+"Easily connect Contact Form 7 to Google Sheets and automatically sync form "
+"submissions in real-time. Every entry is instantly added to your selected "
+"spreadsheet, helping you manage leads, inquiries, and customer data "
+"efficiently without manual export."
+msgstr ""
+"Легко подключите Contact Form 7 к Google Sheets и автоматически "
+"синхронизируйте отправки форм в реальном времени. Каждая запись мгновенно "
+"добавляется в вашу выбранную таблицу, помогая вам эффективно управлять "
+"лидами, запросами и данными клиентов без ручного экспорта."
+
+msgid "Install"
+msgstr "Установить"
+
+msgid ""
+"Integrate WPForms with Google Sheets and send form entries directly to your "
+"spreadsheet automatically. Track leads, manage customer data, and "
+"streamline reporting with seamless Google Sheets integration and real-time "
+"sync."
+msgstr ""
+"Интегрируйте WPForms с Google Sheets и отправляйте записи форм напрямую в "
+"вашу таблицу автоматически. Отслеживайте лиды, управляйте данными клиентов "
+"и упрощайте отчетность с помощью бесшовной интеграции Google Sheets и "
+"синхронизации в реальном времени."
+
+msgid ""
+"Connect Gravity Forms to Google Sheets and automatically push form "
+"submissions to your spreadsheet. Simplify data management, improve workflow "
+"automation, and keep all entries organized in one secure location."
+msgstr ""
+"Подключите Gravity Forms к Google Sheets и автоматически отправляйте "
+"отправки форм в вашу таблицу. Упростите управление данными, улучшите "
+"автоматизацию рабочего процесса и держите все записи организованными в "
+"одном безопасном месте."
+
+msgid ""
+"Automatically sync Ninja Forms submissions to Google Sheets with one-click "
+"integration. Capture leads, monitor responses, and manage data efficiently "
+"with instant spreadsheet updates and easy reporting."
+msgstr ""
+"Автоматически синхронизируйте отправки Ninja Forms с Google Sheets с "
+"помощью интеграции в один клик. Захватывайте лиды, отслеживайте ответы и "
+"эффективно управляйте данными с мгновенными обновлениями таблицы и легкой "
+"отчетностью."
+
+msgid ""
+"Integrate Forminator Forms with Google Sheets to automatically store form "
+"entries in your spreadsheet. Eliminate manual data entry and ensure "
+"accurate, real-time syncing for better data tracking and analysis."
+msgstr ""
+"Интегрируйте Forminator Forms с Google Sheets, чтобы автоматически "
+"сохранять записи форм в вашей таблице. Исключите ручной ввод данных и "
+"обеспечьте точную синхронизацию в реальном времени для лучшего отслеживания "
+"и анализа данных."
+
+msgid "Free"
+msgstr "Бесплатно"
+
+msgid ""
+"Automatically sync Formidable Forms entries to Google Sheets. Manage leads, "
+"track submissions, and simplify data reporting with real-time integration."
+msgstr ""
+"Автоматически синхронизируйте записи Formidable Forms с Google Sheets. "
+"Управляйте лидами, отслеживайте отправки и упрощайте отчетность с помощью "
+"интеграции в реальном времени."
+
+msgid ""
+"Automatically sync Fluent Forms submissions to Google Sheets in real-time. "
+"Every form entry is instantly added to your selected spreadsheet, helping "
+"you manage leads, customer inquiries, and business data without manual "
+"export. Streamline your workflow, improve reporting accuracy, and keep all "
+"submissions organized with seamless Google Sheets integration."
+msgstr ""
+"Автоматически синхронизируйте отправки Fluent Forms с Google Sheets в "
+"реальном времени. Каждая запись формы мгновенно добавляется в вашу "
+"выбранную таблицу, помогая вам управлять лидами, запросами клиентов и "
+"бизнес-данными без ручного экспорта. Упростите свой рабочий процесс, "
+"улучшите точность отчетности и держите все отправки организованными с "
+"помощью бесшовной интеграции Google Sheets."
+
+msgid ""
+"Sync Elementor Forms with Google Sheets instantly. Automatically add new "
+"form submissions to your spreadsheet, manage leads efficiently, and "
+"simplify reporting with real-time data synchronization."
+msgstr ""
+"Синхронизируйте Elementor Forms с Google Sheets мгновенно. Автоматически "
+"добавляйте новые отправки форм в вашу таблицу, эффективно управляйте лидами "
+"и упрощайте отчетность с помощью синхронизации данных в реальном времени."
+
+msgid ""
+"Connect Avada Forms to Google Sheets and automatically transfer form "
+"entries to your spreadsheet. Streamline lead management, automate data "
+"collection, and improve business reporting with seamless integration."
+msgstr ""
+"Подключите Avada Forms к Google Sheets и автоматически передавайте записи "
+"форм в вашу таблицу. Упростите управление лидами, автоматизируйте сбор "
+"данных и улучшите бизнес-отчетность с помощью бесшовной интеграции."
+
+msgid "Available PRO Version"
+msgstr "Доступная PRO версия"
+
+msgid ""
+"Integrate Divi Forms with Google Sheets and automatically sync submissions "
+"in real-time. Store customer data securely, track inquiries efficiently, "
+"and eliminate manual spreadsheet updates."
+msgstr ""
+"Интегрируйте формы Divi с Google Sheets и автоматически синхронизируйте "
+"отправки в реальном времени. Безопасно храните данные клиентов, эффективно "
+"отслеживайте запросы и исключите ручные обновления таблиц."
+
+msgid ""
+"Automatically send WordPress core data (like comments or custom "
+"submissions) to Google Sheets. Simplify website data tracking, automate "
+"record keeping, and centralize important information in one organized "
+"spreadsheet."
+msgstr ""
+"Автоматически отправляйте данные ядра WordPress (например, комментарии или "
+"пользовательские отправки) в Google Sheets. Упростите отслеживание данных "
+"сайта, автоматизируйте ведение записей и централизуйте важную информацию в "
+"одной организованной таблице."
+
+msgid ""
+"Sync WooCommerce orders with Google Sheets automatically. Store order "
+"details, customer information, and transaction data in real-time for easy "
+"reporting, accounting, and business analysis."
+msgstr ""
+"Автоматически синхронизируйте заказы WooCommerce с Google Sheets. Храните "
+"детали заказов, информацию о клиентах и данные транзакций в реальном "
+"времени для удобного отчетности, бухгалтерии и бизнес-анализа."
+
+msgid ""
+"Automatically send Easy Digital Downloads (EDD) order details to Google "
+"Sheets. Track digital product sales, monitor transactions, and manage "
+"customer data effortlessly with real-time spreadsheet integration."
+msgstr ""
+"Автоматически отправляйте детали заказов Easy Digital Downloads (EDD) в "
+"Google Sheets. Отслеживайте продажи цифровых продуктов, контролируйте "
+"транзакции и управляйте данными клиентов без усилий с интеграцией таблиц в "
+"реальном времени."
+
+msgid "Installed & Active Plugins"
+msgstr "Установленные и активные плагины"
+
+msgid ""
+"View and manage all currently installed and active connectors on your site. "
+"You can activate, deactivate, or upgrade plugins from here."
+msgstr ""
+"Просмотрите и управляйте всеми установленными и активными коннекторами на "
+"вашем сайте. Вы можете активировать, деактивировать или обновить плагины "
+"отсюда."
+
+msgid "Pro"
+msgstr "Pro"
+
+msgid "View Docs"
+msgstr "Просмотреть документацию"
+
+msgid "Deactivate"
+msgstr "Деактивировать"
+
+msgid "Recommended Plugins"
+msgstr "Рекомендуемые плагины"
+
+msgid ""
+"Discover recommended plugins that enhance your workflow and help you get "
+"more value from your Google Sheets integration."
+msgstr ""
+"Откройте для себя рекомендуемые плагины, которые улучшают ваш рабочий "
+"процесс и помогают вам получить больше от интеграции с Google Sheets."
+
+msgid "Activate"
+msgstr "Активировать"
+
+msgid "Explore More Plugins"
+msgstr "Изучите больше плагинов"
+
+msgid "Discover the right connector for your workflow and automate data syncing."
+msgstr ""
+"Найдите подходящий коннектор для вашего рабочего процесса и автоматизируйте "
+"синхронизацию данных."
+
+msgid "All"
+msgstr "Все"
+
+msgid "Forms"
+msgstr "Формы"
+
+msgid "Page Builders"
+msgstr "Конструкторы страниц"
+
+msgid "eCommerce"
+msgstr "Электронная коммерция"
+
+msgid "View Demo"
+msgstr "Посмотреть демонстрацию"
+
+msgid "Deactivate plugin"
+msgstr "Деактивировать плагин"
+
+msgid " Are you sure you want to deactivate this plugin?"
+msgstr "Вы уверены, что хотите деактивировать этот плагин?"
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "Invalid security token"
+msgstr "Недействительный токен безопасности"
+
+msgid "You do not have permission to install plugin"
+msgstr "У вас нет разрешения на установку плагина"
+
+msgid "Missing required parameters"
+msgstr "Отсутствуют обязательные параметры"
+
+msgid "Installation failed: "
+msgstr "Ошибка установки: "
+
+msgid "Plugin installed successfully"
+msgstr "Плагин успешно установлен"
+
+msgid "You do not have permission to activate plugin"
+msgstr "У вас нет прав для активации плагина"
+
+msgid "Plugin slug is missing"
+msgstr "Отсутствует слаг плагина"
+
+msgid "Plugin is already activated"
+msgstr "Плагин уже активирован"
+
+msgid "Plugin activated successfully"
+msgstr "Плагин успешно активирован"
+
+msgid "Unlock Beta Version Control"
+msgstr "Разблокировать управление бета-версией"
+
+msgid "Test upcoming features before official release"
+msgstr "Тестируйте предстоящие функции до официального релиза"
+
+msgid "Early Access"
+msgstr "Ранний доступ"
+
+msgid "Get updates before public release"
+msgstr "Получайте обновления до публичного релиза"
+
+msgid "Test new features in advance"
+msgstr "Тестируйте новые функции заранее"
+
+msgid "Try improvements early"
+msgstr "Пробуйте улучшения заранее"
+
+msgid "Stay ahead with new changes"
+msgstr "Будьте на шаг впереди с новыми изменениями"
+
+msgid "Testing Purpose"
+msgstr "Цель тестирования"
+
+msgid "Features may still be under testing"
+msgstr "Функции могут все еще находиться на стадии тестирования"
+
+msgid "Some options may change later"
+msgstr "Некоторые параметры могут измениться позже"
+
+msgid "Minor issues may occur"
+msgstr "Могут возникнуть незначительные проблемы"
+
+msgid "Used for feedback and improvements"
+msgstr "Используется для обратной связи и улучшений"
+
+msgid "Safety Notice"
+msgstr "Уведомление о безопасности"
+
+msgid "Recommended for staging sites"
+msgstr "Рекомендуется для тестовых сайтов"
+
+msgid "Avoid enabling on live websites"
+msgstr "Избегайте включения на живых сайтах"
+
+msgid "Take backup before testing"
+msgstr "Сделайте резервную копию перед тестированием"
+
+msgid "Disable anytime if needed"
+msgstr "Отключайте в любое время, если необходимо"
+
+msgid "Update Control"
+msgstr "Контроль обновлений"
+
+msgid "Receive beta notifications"
+msgstr "Получайте уведомления о бета-версии"
+
+msgid "Updates are not installed automatically"
+msgstr "Обновления не устанавливаются автоматически"
+
+msgid "You control when to update"
+msgstr "Вы контролируете, когда обновлять"
+
+msgid "Switch on/off anytime"
+msgstr "Включайте/выключайте в любое время"
+
+msgid "Beta Program Access"
+msgstr "Доступ к бета-программе"
+
+msgid ""
+"Get early access to upcoming features and improvements before they are "
+"officially released. Beta versions may include experimental updates and "
+"should be used for testing purposes only."
+msgstr ""
+"Получите ранний доступ к предстоящим функциям и улучшениям до их "
+"официального релиза. Бета-версии могут включать экспериментальные "
+"обновления и должны использоваться только в целях тестирования."
+
+msgid "Enable Beta Updates"
+msgstr "Включить бета-обновления"
+
+msgid ""
+"Receive notifications and access to beta releases. Updates will not be "
+"installed automatically."
+msgstr ""
+"Получайте уведомления и доступ к бета-релизам. Обновления не будут "
+"устанавливаться автоматически."
+
+msgid "Beta Usage Notice"
+msgstr "Уведомление о бета-версии"
+
+msgid "Beta versions may include unfinished or experimental features"
+msgstr "Бета-версии могут содержать незавершенные или экспериментальные функции"
+
+msgid "Some features may change or be removed in future updates"
+msgstr "Некоторые функции могут измениться или быть удалены в будущих обновлениях"
+
+msgid "Minor bugs or performance issues may occur"
+msgstr "Могут возникать незначительные ошибки или проблемы с производительностью"
+
+msgid "We recommend enabling beta only on test or staging sites"
+msgstr "Рекомендуем включать бета-версии только на тестовых или промежуточных сайтах"
+
+msgid ""
+"Beta versions are intended for testing purposes. Do not enable on live "
+"production websites without proper backups."
+msgstr ""
+"Бета-версии предназначены для тестирования. Не включайте на живых "
+"производственных сайтах без надлежащих резервных копий."
+
+msgid "Elementor Forms Connected Sheets using Pagebuilder"
+msgstr "Elementor Forms Connected Sheets с использованием Pagebuilder"
+
+msgid "Sheetlink"
+msgstr "Sheetlink"
+
+msgid "No Sheets are connected."
+msgstr "Нет подключенных таблиц."
+
+msgid "No Elementor Forms are connected with Google Sheets."
+msgstr "Нет форм Elementor, подключенных к Google Sheets."
+
+msgid "Welcome To GSheetConnector"
+msgstr "Добро пожаловать в GSheetConnector"
+
+msgid ""
+"GSheetConnector is a powerful automation plugin that syncs WordPress data "
+"with Google Sheets in real time. It supports WooCommerce, Easy Digital "
+"Downloads, and popular form plugins such as Gravity Forms, Contact Form 7, "
+"Elementor Forms, along with 10+ additional WordPress integrations for "
+"efficient data management."
+msgstr ""
+"GSheetConnector — это мощный плагин автоматизации, который синхронизирует "
+"данные WordPress с Google Sheets в реальном времени. Он поддерживает "
+"WooCommerce, Easy Digital Downloads и популярные плагины форм, такие как "
+"Gravity Forms, Contact Form 7, Elementor Forms, а также более 10 "
+"дополнительных интеграций WordPress для эффективного управления данными."
+
+msgid "Let's Connect"
+msgstr "Давайте подключимся"
+
+msgid "Setup Guide & Troubleshooting"
+msgstr "Руководство по настройке и устранению неполадок"
+
+msgid "Getting Started"
+msgstr "Начало работы"
+
+msgid "Installation Process"
+msgstr "Процесс установки"
+
+msgid "Integration with Google (Existing Method)"
+msgstr "Интеграция с Google (существующий метод)"
+
+msgid "Docs & Troubleshooting"
+msgstr "Документы и устранение неполадок"
+
+msgid "How to Enable Debugging in WordPress"
+msgstr "Как включить отладку в WordPress"
+
+msgid "Invalid OAuth2 token"
+msgstr "Недействительный токен OAuth2"
+
+msgid "Change Date/Time Format and Time Zone in Google Sheets"
+msgstr "Изменение формата даты/времени и часового пояса в Google Sheets"
+
+msgid "Additional Resources"
+msgstr "Дополнительные ресурсы"
+
+msgid "Integration with Google (Manual Method)"
+msgstr "Интеграция с Google (ручной метод)"
+
+msgid "Integration with Google (Service Method)"
+msgstr "Интеграция с Google (метод службы)"
+
+msgid "Automatic Select Spreadsheet"
+msgstr "Автоматический выбор таблицы"
+
+msgid "Plugins by Category"
+msgstr "Плагины по категориям"
+
+msgid "Find the perfect connector for your WordPress workflow."
+msgstr "Найдите идеальный коннектор для вашего рабочего процесса WordPress."
+
+msgid "Contact Form Connectors"
+msgstr "Коннекторы форм обратной связи"
+
+msgid "6 plugins available"
+msgstr "Доступно 6 плагинов"
+
+msgid "eCommerce Connectors"
+msgstr "Коннекторы электронной коммерции"
+
+msgid "2 plugins available"
+msgstr "Доступно 2 плагина"
+
+msgid "Page Builder Forms"
+msgstr "Формы конструктора страниц"
+
+msgid "3 plugins available"
+msgstr "Доступно 3 плагина"
+
+msgid "WP Core Connector"
+msgstr "Коннектор WP Core"
+
+msgid "1 plugin available"
+msgstr "Доступен 1 плагин"
+
+msgid "Free Plugins"
+msgstr "Бесплатные Плагины"
+
+msgid "12 plugin available"
+msgstr "Доступен 12 плагинов"
+
+msgid "Need more support? We're here to help."
+msgstr "Нужна дополнительная поддержка? Мы здесь, чтобы помочь."
+
+msgid "Submit a Support Ticket"
+msgstr "Отправить заявку на поддержку"
+
+msgid "Our fast and friendly support team is always happy to help!"
+msgstr "Наша быстрая и дружелюбная команда поддержки всегда рада помочь!"
+
+msgid "Amazing Key Features"
+msgstr "Удивительные ключевые функции"
+
+msgid "Everything You Need to Sync Data"
+msgstr "Все, что вам нужно для синхронизации данных"
+
+msgid ""
+"Common features shared across every GSheetConnector Pro add-on built for "
+"reliability, flexibility, and scale."
+msgstr ""
+"Общие функции, доступные во всех дополнениях GSheetConnector Pro, созданных "
+"для надежности, гибкости и масштабируемости."
+
+msgid "Upgrade to Pro"
+msgstr "Обновить до Pro"
+
+msgid "View Full Features"
+msgstr "Посмотреть все функции"
+
+msgid "Form"
+msgstr "Форма"
+
+msgid "Processing"
+msgstr "Обработка"
+
+msgid "Sheet"
+msgstr "Лист"
+
+msgid "Instant"
+msgstr "Мгновенно"
+
+msgid "Real-time updates"
+msgstr "Обновления в реальном времени"
+
+msgid "100%"
+msgstr "100%"
+
+msgid "Accuracy"
+msgstr "Точность"
+
+msgid "Flexible"
+msgstr "Гибкий"
+
+msgid "Custom mapping"
+msgstr "Пользовательское сопоставление"
+
+msgid "Video Tutorials"
+msgstr "Видеоуроки"
+
+msgid "Existing Client / Secret Key (Auto Setup)"
+msgstr "Существующий клиент / Секретный ключ (Автонастройка)"
+
+msgid "Google Sheets Setup Required"
+msgstr "Требуется настройка Google Sheets"
+
+msgid "your selected Method is : "
+msgstr "ваш выбранный метод: "
+
+msgid ""
+"To start sending form entries to Google Sheets, please connect your Google "
+"account first."
+msgstr ""
+"Чтобы начать отправку записей форм в Google Sheets, сначала подключите свою "
+"учетную запись Google."
+
+msgid "✔ Click on the Sign in with Google button"
+msgstr "✔ Нажмите кнопку Войти с помощью Google"
+
+msgid "✔ Log in using your Google account"
+msgstr "✔ Войдите, используя свою учетную запись Google"
+
+msgid "✔ Select the Google account where your Sheets are stored"
+msgstr "✔ Выберите учетную запись Google, в которой хранятся ваши таблицы"
+
+msgid "✔ Grant access to: Google Drive & Google Sheets"
+msgstr "✔ Предоставьте доступ к: Google Drive и Google Sheets"
+
+msgid "✔ Save the authentication code if prompted"
+msgstr "✔ Сохраните код аутентификации, если будет предложено"
+
+msgid "Go to Integration Setup"
+msgstr "Перейти к настройке интеграции"
+
+msgid "Sheet Sync Feeds"
+msgstr "Ленты синхронизации таблиц"
+
+msgid ""
+"Create, connect, manage, and monitor how your form submissions are "
+"automatically synced to Google Sheets in real time."
+msgstr ""
+"Создавайте, подключайте, управляйте и контролируйте, как ваши отправки форм "
+"автоматически синхронизируются с Google Sheets в реальном времени."
+
+msgid "Create Sheet Sync Feeds"
+msgstr "Создать ленты синхронизации таблиц"
+
+msgid ""
+"Select a form and give your feed a name to start syncing form submissions "
+"with Google Sheets in real time."
+msgstr ""
+"Выберите форму и дайте вашей ленте имя, чтобы начать синхронизацию отправок "
+"форм с Google Sheets в реальном времени."
+
+msgid "Select Form"
+msgstr "Выбрать форму"
+
+msgid "Unnamed Form"
+msgstr "Безымянная форма"
+
+msgid "Unknown Element ID"
+msgstr "Неизвестный ID элемента"
+
+msgid "MetForm: "
+msgstr "MetForm: "
+
+msgid "Submit"
+msgstr "Отправить"
+
+msgid "Actions"
+msgstr "Действия"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Delete Feed"
+msgstr "Удалить ленту"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "« Prev"
+msgstr "« Назад"
+
+msgid "Next »"
+msgstr "Вперед »"
+
+msgid "Plugin Preferences"
+msgstr "Настройки плагина"
+
+msgid ""
+"Manage how plugin settings and data are handled when the plugin is "
+"uninstalled."
+msgstr ""
+"Управляйте тем, как обрабатываются настройки и данные плагина при его "
+"удалении."
+
+msgid "Delete Plugin Data on Uninstall"
+msgstr "Удалить данные плагина при деинсталляции"
+
+msgid "Removes all plugin data (options, metadata) when the plugin is deleted."
+msgstr "Удаляет все данные плагина (настройки, метаданные) при его удалении."
+
+msgid "Uninstall Data Notice"
+msgstr "Уведомление о данных при деинсталляции"
+
+msgid "Enable this option only if you want a complete cleanup"
+msgstr "Включите эту опцию только если хотите полную очистку"
+
+msgid "All plugin settings and data will be permanently removed"
+msgstr "Все настройки и данные плагина будут удалены навсегда"
+
+msgid "Incorrect settings can delete all sensitive form and user data"
+msgstr ""
+"Неправильные настройки могут удалить все чувствительные данные форм и "
+"пользователей"
+
+msgid "Choose Google API Setting"
+msgstr "Выберите настройки Google API"
+
+msgid "Manual Client/Secret Key (Use Your Google API Configuration)"
+msgstr "Ручной клиент/секретный ключ (используйте вашу конфигурацию Google API)"
+
+msgid "Service Account (Recommended)"
+msgstr "Сервисный аккаунт (рекомендуется)"
+
+msgid "Auto Setup"
+msgstr "Автонастройка"
+
+msgid "click here"
+msgstr "нажмите здесь"
+
+msgid "Click on the <strong>Sign in with Google</strong> button."
+msgstr "Нажмите на кнопку <strong>Войти с помощью Google</strong>."
+
+msgid "Log in using your Google account."
+msgstr "Войдите, используя свою учетную запись Google."
+
+msgid "Select the Google account where your Sheets are stored."
+msgstr "Выберите учетную запись Google, где хранятся ваши таблицы."
+
+msgid "Grant access to:"
+msgstr "Предоставьте доступ к:"
+
+msgid "Google Drive"
+msgstr "Google Диск"
+
+msgid "Google Sheets"
+msgstr "Google Таблицы"
+
+msgid "Click <strong>Allow</strong> to finish authorization."
+msgstr "Нажмите <strong>Разрешить</strong>, чтобы завершить авторизацию."
+
+msgid "Save the authentication code if prompted."
+msgstr "Сохраните код аутентификации, если будет предложено."
+
+msgid "This allows the plugin to securely sync your form data with Google Sheets."
+msgstr ""
+"Это позволяет плагину безопасно синхронизировать ваши данные формы с Google "
+"Sheets."
+
+msgid "Connected Email Account"
+msgstr "Подключенный аккаунт электронной почты"
+
+msgid "Connected"
+msgstr "Подключено"
+
+msgid ""
+"Something wrong ! Your Auth Code may be wrong or expired. Please deactivate "
+"and do Re-Authentication again. "
+msgstr ""
+"Что-то пошло не так! Ваш код аутентификации может быть неверным или истек. "
+"Пожалуйста, деактивируйте и выполните повторную аутентификацию."
+
+msgid "Connect Your Google Account"
+msgstr "Подключите свою учетную запись Google"
+
+msgid ""
+"Securely link your Google account to start syncing form entries "
+"automatically."
+msgstr ""
+"Безопасно свяжите свою учетную запись Google, чтобы начать автоматическую "
+"синхронизацию записей формы."
+
+msgid "Sign in with Google"
+msgstr "Войти с помощью Google"
+
+msgid "Client Token"
+msgstr "Клиентский токен"
+
+msgid ""
+"We do not store any of the data from your Google account on our servers, "
+"everything is processed & stored on your server. We take your privacy "
+"extremely seriously and ensure it is never misused. Learn more in the "
+"documentation"
+msgstr ""
+"Мы не храним никаких данных из вашей учетной записи Google на наших "
+"серверах, все обрабатывается и хранится на вашем сервере. Мы очень серьезно "
+"относимся к вашей конфиденциальности и гарантируем, что она никогда не "
+"будет использована неправомерно. Узнайте больше в документации"
+
+msgid "click here."
+msgstr "нажмите здесь."
+
+msgid "Connection Status & Next Steps"
+msgstr "Статус соединения и следующие шаги"
+
+msgid ""
+"Your Google account has been successfully connected. You are now ready to "
+"sync your form submissions with Google Sheets securely and automatically."
+msgstr ""
+"Ваша учетная запись Google успешно подключена. Теперь вы готовы безопасно и "
+"автоматически синхронизировать свои отправки форм с Google Sheets."
+
+msgid "Create New Feed"
+msgstr "Создать новый поток"
+
+msgid "Add Labels in Sheet Headers Manually"
+msgstr "Добавить метки в заголовки таблиц вручную"
+
+msgid "Enable Fields to Sync"
+msgstr "Включить поля для синхронизации"
+
+msgid "Customize the Headers Appearance"
+msgstr "Настроить внешний вид заголовков"
+
+msgid "Use Sync Settings (Past Entries)"
+msgstr "Использовать настройки синхронизации (прошлые записи)"
+
+msgid "Upgrade to unlock"
+msgstr "Обновите, чтобы разблокировать"
+
+msgid "Connection Guide"
+msgstr "Руководство по подключению"
+
+msgid "Step-by-Step"
+msgstr "Пошагово"
+
+msgid ""
+"Follow these steps to connect your Google account and start syncing your "
+"form data with Google Sheets."
+msgstr ""
+"Следуйте этим шагам, чтобы подключить свою учетную запись Google и начать "
+"синхронизацию данных формы с Google Sheets."
+
+msgid "Step-1 Connect Your Google Account"
+msgstr "Шаг-1 Подключите свою учетную запись Google"
+
+msgid ""
+"Sign in with your Google account to start the automatic Google Sheets "
+"integration."
+msgstr ""
+"Войдите в свою учетную запись Google, чтобы начать автоматическую "
+"интеграцию с Google Sheets."
+
+msgid "Step-2 Choose Google Account"
+msgstr "Шаг-2 Выберите учетную запись Google"
+
+msgid "Choose the Google account where your Sheets are stored."
+msgstr "Выберите учетную запись Google, где хранятся ваши таблицы."
+
+msgid "check our detailed guideline"
+msgstr "посмотрите наши подробные рекомендации"
+
+msgid "Step-3 Review Access Information"
+msgstr "Шаг-3 Просмотр информации о доступе"
+
+msgid "Google will show what information the plugin can access."
+msgstr "Google покажет, к какой информации может получить доступ плагин."
+
+msgid "Step-4 Grant Required Permissions"
+msgstr "Шаг-4 Предоставление необходимых разрешений"
+
+msgid "Allow required permissions for Google Sheets and Drive access."
+msgstr "Разрешите необходимые разрешения для доступа к Google Sheets и Drive."
+
+msgid "Step-5 Save Authentication Code"
+msgstr "Шаг-5 Сохранение кода аутентификации"
+
+msgid "Save the authentication code to complete the Google account connection."
+msgstr "Сохраните код аутентификации для завершения подключения к аккаунту Google."
+
+msgid "Step-6 Integration Completed"
+msgstr "Шаг-6 Интеграция завершена"
+
+msgid "Your Google account is now successfully connected."
+msgstr "Ваш аккаунт Google теперь успешно подключен."
+
+msgid "Manual Google Sheets Integration"
+msgstr "Ручная интеграция Google Sheets"
+
+msgid "Custom API Credentials"
+msgstr "Пользовательские учетные данные API"
+
+msgid ""
+"Connect using your own Google Cloud Client ID and Client Secret for full "
+"authentication control."
+msgstr ""
+"Подключитесь, используя свой собственный идентификатор клиента и секрет "
+"клиента Google Cloud для полного контроля аутентификации."
+
+msgid "Secure Authentication"
+msgstr "Безопасная аутентификация"
+
+msgid ""
+"Authenticate directly with Google using a secure Authentication flow "
+"without third-party dependency."
+msgstr ""
+"Аутентифицируйтесь напрямую с Google, используя безопасный процесс "
+"аутентификации без зависимости от третьих сторон."
+
+msgid "Advanced Configuration"
+msgstr "Расширенная конфигурация"
+
+msgid ""
+"Set custom Redirect URIs, manage scopes, and configure API settings based "
+"on your project needs."
+msgstr ""
+"Настройте пользовательские URI перенаправления, управляйте областями и "
+"настраивайте параметры API в зависимости от потребностей вашего проекта."
+
+msgid "Priority Technical Support"
+msgstr "Приоритетная техническая поддержка"
+
+msgid ""
+"Get fast assistance from our expert team for setup, troubleshooting, and "
+"optimization."
+msgstr ""
+"Получите быструю помощь от нашей команды экспертов по настройке, устранению "
+"неполадок и оптимизации."
+
+msgid "View Pro Features"
+msgstr "Посмотреть функции Pro"
+
+msgid "Service Account Google Sheets Integration"
+msgstr "Интеграция Google Sheets с сервисным аккаунтом"
+
+msgid "Secure JSON Authentication"
+msgstr "Безопасная аутентификация JSON"
+
+msgid ""
+"Authenticate using a secure Google Cloud JSON key file for direct and "
+"encrypted communication with Google Sheets."
+msgstr ""
+"Аутентифицируйтесь, используя безопасный файл ключа JSON Google Cloud для "
+"прямой и зашифрованной связи с Google Sheets."
+
+msgid "No Authentication Login Required"
+msgstr "Не требуется вход для аутентификации"
+
+msgid ""
+"Enable automatic background syncing without requiring Google account "
+"sign-in during setup."
+msgstr ""
+"Включите автоматическую синхронизацию в фоновом режиме без необходимости "
+"входа в аккаунт Google во время настройки."
+
+msgid "Direct Spreadsheet Access"
+msgstr "Прямой доступ к таблице"
+
+msgid ""
+"Share your Google Sheet with the service account email to enable automatic "
+"data transfer."
+msgstr ""
+"Поделитесь своей таблицей Google с электронной почтой сервисного аккаунта, "
+"чтобы включить автоматическую передачу данных."
+
+msgid "Production-Ready & Reliable"
+msgstr "Готово к производству и надежно"
+
+msgid ""
+"Built for stable, uninterrupted syncing in professional and high-traffic "
+"environments."
+msgstr ""
+"Создано для стабильной, непрерывной синхронизации в профессиональных и "
+"высоконагруженных средах."
+
+msgid "Deactivate Integration"
+msgstr "Деактивировать интеграцию"
+
+msgid "Permission Not Allowed"
+msgstr "Разрешение не разрешено"
+
+msgid "Unlock Role-Based Access Control"
+msgstr "Разблокировать управление доступом на основе ролей"
+
+msgid "Role Permissions"
+msgstr "Разрешения ролей"
+
+msgid "Allow specific WordPress roles"
+msgstr "Разрешить конкретные роли WordPress"
+
+msgid "Enable/disable integration access"
+msgstr "Включить/выключить доступ к интеграции"
+
+msgid "Control form feed visibility"
+msgstr "Контролировать видимость формы"
+
+msgid "Restrict settings management"
+msgstr "Ограничить управление настройками"
+
+msgid "Security Control"
+msgstr "Контроль безопасности"
+
+msgid "Prevent unauthorized changes"
+msgstr "Предотвратить несанкционированные изменения"
+
+msgid "Secure Google Sheet credentials"
+msgstr "Защитить учетные данные Google Sheet"
+
+msgid "Role-based configuration control"
+msgstr "Контроль конфигурации на основе ролей"
+
+msgid "Protect integration settings"
+msgstr "Защитить настройки интеграции"
+
+msgid "Management Benefits"
+msgstr "Преимущества управления"
+
+msgid "Grant access to trusted editors"
+msgstr "Предоставить доступ доверенным редакторам"
+
+msgid "Hide settings from subscribers"
+msgstr "Скрыть настройки от подписчиков"
+
+msgid "Team-based permission structure"
+msgstr "Структура разрешений на основе команды"
+
+msgid "Improved dashboard security"
+msgstr "Улучшенная безопасность панели управления"
+
+msgid "Audit & Monitoring"
+msgstr "Аудит и мониторинг"
+
+msgid "Track role-based changes"
+msgstr "Отслеживать изменения на основе ролей"
+
+msgid "Monitor integration access"
+msgstr "Мониторинг доступа к интеграции"
+
+msgid "Review permission updates"
+msgstr "Просмотреть обновления разрешений"
+
+msgid "Maintain admin accountability"
+msgstr "Поддерживать ответственность администраторов"
+
+msgid ""
+"Control which user roles are allowed to access and manage the Google Sheets "
+"integration for your forms."
+msgstr ""
+"Контролируйте, какие роли пользователей могут получать доступ и управлять "
+"интеграцией Google Sheets для ваших форм."
+
+msgid "Plugin Access Control"
+msgstr "Контроль доступа к плагину"
+
+msgid "Administrator"
+msgstr "Администратор"
+
+msgid "Permission Guidelines"
+msgstr "Руководство по разрешениям"
+
+msgid "General Settings"
+msgstr "Общие настройки"
+
+msgid "Version Control"
+msgstr "Контроль версий"
+
+msgid "System Status"
+msgstr "Статус Системы"
+
+msgid "You do not have permission to access this page."
+msgstr "У вас нет разрешения на доступ к этой странице."
+
+msgid "System Information"
+msgstr "Информация о системе"
+
+msgid "Copy System Info"
+msgstr "Скопировать информацию о системе"
+
+msgid "GSheetConnector Status"
+msgstr "Статус GSheetConnector"
+
+msgid "Plugin Name"
+msgstr "Название плагина"
+
+msgid "Plugin Version"
+msgstr "Версия плагина"
+
+msgid "Plugin Subscription Plan"
+msgstr "Подписка на плагин"
+
+msgid "Authentication method for connecting to Google Sheets"
+msgstr "Метод аутентификации для подключения к Google Sheets"
+
+msgid "Google Drive Permission"
+msgstr "Разрешение Google Drive"
+
+msgid "Google Sheet Permission"
+msgstr "Разрешение Google Sheet"
+
+msgid "WordPress"
+msgstr "WordPress"
+
+msgid "Version"
+msgstr "Версия"
+
+msgid "Site Language"
+msgstr "Язык сайта"
+
+msgid "Debug Mode"
+msgstr "Режим отладки"
+
+msgid "Enabled"
+msgstr "Включено"
+
+msgid "Disabled"
+msgstr "Отключено"
+
+msgid "Home URL"
+msgstr "URL главной страницы"
+
+msgid "Site URL"
+msgstr "URL сайта"
+
+msgid "Permalink structure"
+msgstr "Структура постоянных ссылок"
+
+msgid "Is this site using HTTPS?"
+msgstr "Использует ли этот сайт HTTPS?"
+
+msgid "Is this a multisite?"
+msgstr "Это мультисайт?"
+
+msgid "Can anyone register on this site?"
+msgstr "Может ли кто-то зарегистрироваться на этом сайте?"
+
+msgid "Is this site discouraging search engines?"
+msgstr "Отговаривает ли этот сайт поисковые системы?"
+
+msgid "Default comment status"
+msgstr "Статус комментариев по умолчанию"
+
+msgid "Unknown"
+msgstr "Неизвестно"
+
+msgid "Localhost"
+msgstr "Локальный хост"
+
+msgid "Production"
+msgstr "Продакшн"
+
+msgid "Environment type"
+msgstr "Тип окружения"
+
+msgid "User Count"
+msgstr "Количество пользователей"
+
+msgid "Communication with WordPress.org"
+msgstr "Связь с WordPress.org"
+
+msgid "Active Theme"
+msgstr "Активная тема"
+
+msgid "Name"
+msgstr "Имя"
+
+msgid "Author"
+msgstr "Автор"
+
+msgid "Author website"
+msgstr "Сайт автора"
+
+msgid "Theme directory location"
+msgstr "Расположение каталога темы"
+
+msgid "Active Plugins"
+msgstr "Активные плагины"
+
+msgid "Server"
+msgstr "Сервер"
+
+msgid ""
+"The options shown below relate to your server setup. If changes are "
+"required, you may need your web host’s assistance."
+msgstr ""
+"Параметры, указанные ниже, относятся к настройкам вашего сервера. Если "
+"требуются изменения, возможно, вам потребуется помощь вашего веб-хостинга."
+
+msgid "Server Architecture"
+msgstr "Архитектура сервера"
+
+msgid "Web Server"
+msgstr "Веб-сервер"
+
+msgid "PHP Version"
+msgstr "Версия PHP"
+
+msgid "PHP SAPI"
+msgstr "PHP SAPI"
+
+msgid "PHP Max Input Variables"
+msgstr "Максимальное количество переменных ввода PHP"
+
+msgid "PHP Time Limit"
+msgstr "Лимит времени PHP"
+
+msgid "seconds"
+msgstr "секунд"
+
+msgid "PHP Memory Limit"
+msgstr "Лимит памяти PHP"
+
+msgid "Max Input Time"
+msgstr "Максимальное время ввода"
+
+msgid "Upload Max Filesize"
+msgstr "Максимальный размер загружаемого файла"
+
+msgid "PHP Post Max Size"
+msgstr "Максимальный размер POST PHP"
+
+msgid "Not Installed"
+msgstr "Не установлен"
+
+msgid "cURL Version"
+msgstr "Версия cURL"
+
+msgid "Is SUHOSIN Installed?"
+msgstr "Установлен ли SUHOSIN?"
+
+msgid "Is the Imagick Library Available?"
+msgstr "Доступна ли библиотека Imagick?"
+
+msgid "Are Pretty Permalinks Supported?"
+msgstr "Поддерживаются ли красивые постоянные ссылки?"
+
+msgid ".htaccess Rules"
+msgstr "Правила .htaccess"
+
+msgid "Writable"
+msgstr "Записываемый"
+
+msgid "Not Writable"
+msgstr "Не записываемый"
+
+msgid "Current Time"
+msgstr "Текущее время"
+
+msgid "Current UTC Time"
+msgstr "Текущее время UTC"
+
+msgid "Current Server Time"
+msgstr "Текущее время сервера"
+
+msgid "Database"
+msgstr "База данных"
+
+msgid "Extension"
+msgstr "Расширение"
+
+msgid "Server Version"
+msgstr "Версия сервера"
+
+msgid "Client Version"
+msgstr "Версия клиента"
+
+msgid "Database Username"
+msgstr "Имя пользователя базы данных"
+
+msgid "Database Host"
+msgstr "Хост базы данных"
+
+msgid "Database Name"
+msgstr "Имя базы данных"
+
+msgid "Table Prefix"
+msgstr "Префикс таблицы"
+
+msgid "Database Charset"
+msgstr "Кодировка базы данных"
+
+msgid "Database Collation"
+msgstr "Сравнение базы данных"
+
+msgid "Max Allowed Packet Size"
+msgstr "Максимальный размер пакета"
+
+msgid "Max Connections Number"
+msgstr "Максимальное количество подключений"
+
+msgid "WordPress Constants"
+msgstr "Константы WordPress"
+
+msgid "Filesystem Permission"
+msgstr "Разрешения файловой системы"
+
+msgid ""
+"Shows whether WordPress is able to write to the directories it needs access "
+"to."
+msgstr ""
+"Показывает, может ли WordPress записывать в директории, к которым ему нужен "
+"доступ."
+
+msgid "The main WordPress directory"
+msgstr "Основной каталог WordPress"
+
+msgid "The wp-content directory"
+msgstr "Каталог wp-content"
+
+msgid "The uploads directory"
+msgstr "Каталог загрузок"
+
+msgid "The plugins directory"
+msgstr "Каталог плагинов"
+
+msgid "The themes directory"
+msgstr "Каталог тем"
+
+msgid "Debug Log"
+msgstr "Журнал отладки"
+
+msgid "https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro"
+msgstr "https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro"
+
+msgid "Send your Elementor Form data to your Google Spreadsheet."
+msgstr "Отправьте данные вашей формы Elementor в вашу таблицу Google."
+
+msgid "https://www.gsheetconnector.com/"
+msgstr "https://www.gsheetconnector.com/"

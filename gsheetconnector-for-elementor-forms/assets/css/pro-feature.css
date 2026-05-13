@@ -281,6 +281,11 @@
     pointer-events: none;
     user-select: none;
   }
+.blur-pro-feature .toggle-button .slider {
+	pointer-events: none;
+    user-select: none;
+}
+
   /***End Pro Feed Setting Features***/
 
   /***Start Pro Setting(Roll Permissions an Version Control)***/
@@ -586,8 +591,112 @@
     .gselef-free .gsc-pro-tabs div {
       font-size: 12px;
     }
-    .gselef-free .gsc-pro-grid li {
+     .gsc-pro-grid li {
       font-size: 12px;
     }
     /***End Pro Feed Setting Features***/
   }
+/***Start Common Pro Feature***/
+.gselef-free .common-section-gsc-promo-wrapper {
+  padding: 30px;
+  border-radius: 12px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  margin: 40px 15px 30px 15px;
+  gap: 40px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+/* LEFT SIDE */
+.gselef-free .common-section-gsc-promo-left {
+  position: relative;
+  width: 220px;
+  height: 150px;
+  background: linear-gradient(135deg, #fde2e4, #e0f2fe);
+  border-radius: 12px;
+}
+.gselef-free .gselef-to-gsheet {
+  background: #f1f5f9;
+}
+
+/* Floating Cards */
+.gselef-free .common-section-gsc-card {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gselef-free .common-section-gsc-card img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+/* Card Positions */
+.gselef-free .gsc-card-1 {
+  top: 10px;
+  left: 15px;
+}
+.gselef-free .gsc-card-2 {
+  top: 40px;
+  left: 90px;
+}
+.gselef-free .gsc-card-3 {
+  top: 70px;
+  left: 40px;
+}
+.gselef-free .gsc-card-4 {
+  top: 20px;
+  left: 140px;
+}
+
+/* RIGHT SIDE */
+.gselef-free .common-section-gsc-promo-content .common-section-heading {
+  margin: 0 0 15px;
+  font-size: 26px;
+  line-height: normal;
+  font-weight: 600;
+}
+.gselef-free .free-pro-btn {
+  color: #1d56d1;
+  font-size: 15px;
+  font-weight: 500;
+}
+.gselef-free .common-section-gsc-promo-content ul {
+  list-style: disc;
+  padding-left: 18px;
+  text-decoration: none;
+  margin-top: 20px;
+}
+.gselef-free .common-section-gsc-promo-content ul li {
+  color: #555;
+  font-size: 14px;
+  position: relative;
+  line-height: 25px;
+}
+.gselef-free .common-section-gsc-promo-content p {
+  font-size: 16px;
+  color: #6b7280;
+}
+.gselef-free .common-section-gsc-card {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+/***End Common Pro Feature***/

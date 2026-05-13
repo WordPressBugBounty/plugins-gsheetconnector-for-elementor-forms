@@ -1,0 +1,2015 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Elementor Forms GSheetConnector Free\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-13 10:27:04+00:00\n"
+"PO-Revision-Date: 2026-05-13 10:27:04+00:00\n"
+"Last-Translator: POForge <noreply@poforge.com>\n"
+"Language-Team: ja <noreply@poforge.com>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: POForge\n"
+
+msgid "Get Elementor Google Sheet Pro"
+msgstr "Elementor Google Sheet Proを取得"
+
+msgid "No error logs found."
+msgstr "エラーログは見つかりませんでした。"
+
+msgid "You do not have permission to perform this action."
+msgstr "このアクションを実行する権限がありません。"
+
+msgid "Uninstall settings saved successfully."
+msgstr "アンインストール設定が正常に保存されました。"
+
+msgid "Enable Manual Google Sheets Configuration"
+msgstr "手動Google Sheets設定を有効にする"
+
+msgid "Fetch Sheets"
+msgstr "シートを取得"
+
+msgid "Upgrade to GSheetConnector Pro"
+msgstr "GSheetConnector Proにアップグレード"
+
+msgid ""
+"Error logs are saved in the database. Please clear them regularly to avoid "
+"increasing the database size."
+msgstr "エラーログはデータベースに保存されています。データベースのサイズが増加しないように、定期的にクリアしてください。"
+
+msgid ""
+"You're using GSheetConnector for Elementor Forms Lite. To unlock more "
+"features, consider "
+msgstr "あなたはGSheetConnector for Elementor Forms Liteを使用しています。より多くの機能をアンロックするには、"
+
+msgid "Unlock Advance Features of Elementor Forms Pro version 🚀"
+msgstr "Elementor Forms Proバージョンの高度な機能をアンロック 🚀"
+
+msgid "View Details"
+msgstr "詳細を見る"
+
+msgid "Feed Details"
+msgstr "フィードの詳細"
+
+msgid ""
+"Displays the form and feed information used for Google Sheets "
+"synchronization."
+msgstr "Google Sheetsの同期に使用されるフォームとフィードの情報を表示します。"
+
+msgid "Form ID"
+msgstr "フォームID"
+
+msgid "Timestamp"
+msgstr "タイムスタンプ"
+
+msgid ""
+"Manual connect your Elementor Form with Google Sheets by entering the Sheet "
+"Name, Sheet ID, Tab Name, and Tab ID. This ensures that form submissions "
+"are stored directly in your chosen Google Sheet."
+msgstr ""
+"シート名、シートID、タブ名、タブIDを入力して、Elementorフォームを手動でGoogle "
+"Sheetsに接続します。これにより、フォームの送信が選択したGoogleシートに直接保存されます。"
+
+msgid ""
+"Go to your Google account, open Google Sheets, and select or create the "
+"sheet you want to connect."
+msgstr "Googleアカウントに移動し、Google Sheetsを開いて、接続したいシートを選択または作成します。"
+
+msgid "You can get the Sheet ID from your Google Sheet URL."
+msgstr "GoogleシートのURLからシートIDを取得できます。"
+
+msgid ""
+"Open your Google Sheet and copy the tab name shown at the bottom where you "
+"want entries stored."
+msgstr "Googleシートを開き、エントリを保存したいタブ名を下部からコピーします。"
+
+msgid "You can get the Tab ID from your Google Sheet URL after gid=."
+msgstr "GoogleシートのURLのgid=の後からタブIDを取得できます。"
+
+msgid "Reset"
+msgstr "リセット"
+
+msgid "Advanced options are available in PRO"
+msgstr "高度なオプションはPROで利用可能です"
+
+msgid "Header Settings & Sheet Sorting"
+msgstr "ヘッダー設定とシートの並べ替え"
+
+msgid "Header & row color control"
+msgstr "ヘッダーと行の色の制御"
+
+msgid "Spreadsheet Download & Google Sheets Sync"
+msgstr "スプレッドシートのダウンロードとGoogle Sheetsの同期"
+
+msgid "Bulk sync past entries"
+msgstr "過去のエントリを一括同期"
+
+msgid "Date range sync"
+msgstr "日付範囲の同期"
+
+msgid "Real-time entry updates"
+msgstr "リアルタイムのエントリ更新"
+
+msgid "Automatic Google Sheets Configuration"
+msgstr "自動Google Sheets設定"
+
+msgid ""
+"Automatic configure your Google Sheets and start syncing form submissions "
+"in real time."
+msgstr "Google Sheetsを自動的に設定し、フォームの送信をリアルタイムで同期し始めます。"
+
+msgid "If sheets are not fetched, you can still add sheet and tab details manually."
+msgstr "シートが取得できない場合でも、シートとタブの詳細を手動で追加できます。"
+
+msgid "If tabs are not fetched, you can still add the tab name manually."
+msgstr "タブが取得できない場合でも、タブ名を手動で追加できます。"
+
+msgid "Special Mail Tags"
+msgstr "特別なメールタグ"
+
+msgid "Header Style"
+msgstr "ヘッダースタイル"
+
+msgid "Row Style"
+msgstr "行スタイル"
+
+msgid "CF7 Google Sheet Connector"
+msgstr "CF7 Google シートコネクタ"
+
+msgid "WPForms Google Sheet Connector"
+msgstr "WPForms Google シートコネクタ"
+
+msgid "Gravity Forms Google Sheet Connector"
+msgstr "Gravity Forms Google シートコネクタ"
+
+msgid "Ninja Forms Google Sheet Connector"
+msgstr "Ninja Forms Google シートコネクタ"
+
+msgid "Forminator Forms Google Sheet Connector"
+msgstr "Forminator Forms Google シートコネクタ"
+
+msgid "Formidable Forms Google Sheet Connector"
+msgstr "Formidable Forms Google シートコネクタ"
+
+msgid "Fluent Forms Google Sheet Connector"
+msgstr "Fluent Forms Google シートコネクタ"
+
+msgid "Elementor Forms Google Sheet Connector"
+msgstr "Elementor Forms Google シートコネクタ"
+
+msgid "Avada Forms Google Sheet Connector"
+msgstr "Avada Forms Google シートコネクタ"
+
+msgid "Divi Forms Google Sheet Connector"
+msgstr "Divi Forms Google シートコネクタ"
+
+msgid "WP Core Google Sheet Connector"
+msgstr "WP Core Google シートコネクタ"
+
+msgid "WooCommerce Google Sheet Connector"
+msgstr "WooCommerce Google シートコネクタ"
+
+msgid "Easy Digital Downloads Google Sheet Connector"
+msgstr "Easy Digital Downloads Google シートコネクタ"
+
+msgid ""
+"Sync Elementor Forms data with Google Sheets in real-time effortlessly and "
+"accurately."
+msgstr "Elementor Forms のデータを Google シートとリアルタイムで簡単かつ正確に同期します。"
+
+msgid "Integration of Elementor Forms with Google Sheet"
+msgstr "Elementor Forms と Google シートの統合"
+
+msgid "Configure Elementor Forms with Form Feeds"
+msgstr "フォームフィードで Elementor Forms を設定する"
+
+msgid "Automatic Spreadsheet Selection with Form Feeds"
+msgstr "フォームフィードを使用した自動スプレッドシート選択"
+
+msgid "MetForm Integration with Google Sheets"
+msgstr "MetForm と Google シートの統合"
+
+msgid "Sheet Sync Feeds"
+msgstr "シート同期フィード"
+
+msgid ""
+"Create, connect, manage, and monitor how your form submissions are "
+"automatically synced to Google Sheets in real time."
+msgstr "フォームの送信がリアルタイムで Google シートに自動的に同期される方法を作成、接続、管理、監視します。"
+
+msgid "+ Add Form Feed"
+msgstr "+ フォームフィードを追加"
+
+msgid "- Close Form Feed"
+msgstr "- フォームフィードを閉じる"
+
+msgid "Create Sheet Sync Feeds"
+msgstr "シート同期フィードを作成"
+
+msgid ""
+"Select a form and give your feed a name to start syncing form submissions "
+"with Google Sheets in real time."
+msgstr "フォームを選択し、フィードに名前を付けて、フォームの送信をリアルタイムで Google シートと同期し始めます。"
+
+msgid "Actions"
+msgstr "アクション"
+
+msgid "Status"
+msgstr "ステータス"
+
+msgid "Delete Feed"
+msgstr "フィードを削除"
+
+msgid "Are you sure you want to Delete Feed."
+msgstr "フィードを削除してもよろしいですか。"
+
+msgid "« Prev"
+msgstr "« 前"
+
+msgid "Next »"
+msgstr "次 »"
+
+msgid "Confirm Data Deletion"
+msgstr "データ削除の確認"
+
+msgid ""
+"Enabling this option will permanently delete all plugin data, including "
+"settings and integrations, when the plugin is uninstalled."
+msgstr "このオプションを有効にすると、プラグインがアンインストールされるときに設定や統合を含むすべてのプラグインデータが永久に削除されます。"
+
+msgid ""
+"If you plan to upgrade from Free to Pro, you may lose your existing "
+"configuration data."
+msgstr "無料版からプロ版にアップグレードする予定がある場合、既存の設定データが失われる可能性があります。"
+
+msgid "Proceed only if you want a complete cleanup. This action cannot be undone."
+msgstr "完全なクリーンアップを希望する場合のみ進めてください。この操作は元に戻せません。"
+
+msgid "Enable Deletion"
+msgstr "削除を有効にする"
+
+msgid "Google Sheets Integration for Elementor Forms"
+msgstr "Elementorフォーム用のGoogle Sheets統合"
+
+msgid "Select how Elementor Forms should authenticate with Google Sheets."
+msgstr "ElementorフォームがGoogle Sheetsとどのように認証するかを選択してください。"
+
+msgid "Google Account Connection"
+msgstr "Googleアカウント接続"
+
+msgid ""
+"Sign in with your Google account to connect Elementor Forms with Google "
+"Sheets. Once connected, your data syncs based on your settings. Learn more "
+"in the documentation"
+msgstr ""
+"Googleアカウントでサインインして、ElementorフォームをGoogle "
+"Sheetsに接続します。接続が完了すると、設定に基づいてデータが同期されます。詳細はドキュメントをご覧ください。"
+
+msgid ""
+"<p class=\"fw-400 text-dark\"><strong>Google Drive</strong> and "
+"<strong>Google Sheets</strong> permissions were not granted during "
+"authentication with Google.</p>\n"
+"                                        <p class=\"fw-400 "
+"text-dark\"><strong>Refer to Step 4 in the Connection Guide shown "
+"alongside.</strong><br> Then, deactivate the connection and re-authorize "
+"it, ensuring both Google Drive and Google Sheets permissions are "
+"enabled.</p>"
+msgstr ""
+"<p class=\"fw-400 text-dark\"><strong>Google Drive</strong>と<strong>Google "
+"Sheets</strong>の権限がGoogleとの認証中に付与されませんでした。</p>\n"
+"                                        <p class=\"fw-400 "
+"text-dark\"><strong>隣に表示されている接続ガイドのステップ4を参照してください。</"
+"strong><br>その後、接続を無効にし、再認証を行い、Google DriveとGoogle "
+"Sheetsの権限が有効になっていることを確認してください。</p>"
+
+msgid "Save Client Token"
+msgstr "クライアントトークンを保存"
+
+msgid ""
+"Connect Elementor Forms to Google Sheets using your own Google Cloud "
+"project.\n"
+"                            Ideal for advanced users who need full API "
+"control, custom OAuth setup,\n"
+"                            and independent credential management."
+msgstr ""
+"独自のGoogle Cloudプロジェクトを使用してElementorフォームをGoogle Sheetsに接続します。\n"
+"                            完全なAPI制御、カスタムOAuth設定、および独立した認証情報管理が必要な上級ユーザーに最適で"
+"す。"
+
+msgid ""
+"Securely connect Elementor Forms to Google Sheets using a Google Cloud "
+"Service Account JSON key. Ideal for automated server-to-server syncing "
+"without requiring manual Google login."
+msgstr ""
+"Google CloudサービスアカウントのJSONキーを使用してElementorフォームをGoogle "
+"Sheetsに安全に接続します。手動でGoogleにログインすることなく、自動化されたサーバー間の同期に最適です。"
+
+msgid ""
+"Are you sure you want to deactivate Google Sheets integration?\n"
+"        This will stop syncing your form entries."
+msgstr ""
+"Google Sheets統合を無効にしてもよろしいですか？\n"
+"        これにより、フォームエントリの同期が停止します。"
+
+msgid "Access Management"
+msgstr "アクセス管理"
+
+msgid "Control who can access and manage the GSheetConnector plugin settings."
+msgstr "GSheetConnectorプラグインの設定にアクセスして管理できるユーザーを制御します。"
+
+msgid "Control which user roles can access the GSheetConnector plugin"
+msgstr "GSheetConnectorプラグインにアクセスできるユーザーロールを制御します。"
+
+msgid "Allow selected users to manage Google Sheets integration settings"
+msgstr "選択したユーザーがGoogle Sheets統合設定を管理できるようにします。"
+
+msgid "Restrict access to sensitive features like feeds, logs, and configurations"
+msgstr "フィード、ログ、および設定などの機密機能へのアクセスを制限します。"
+
+msgid "Only enabled roles will see the plugin menu in the admin panel"
+msgstr "有効なロールのみが管理パネルのプラグインメニューを見ることができます。"
+
+msgid "Recommended: Allow only Administrators and trusted Editors"
+msgstr "推奨：管理者と信頼できる編集者のみを許可"
+
+msgid ""
+"View detailed information about your plugin, server, and WordPress setup "
+"for troubleshooting and support.\n"
+"    "
+msgstr ""
+"トラブルシューティングとサポートのために、プラグイン、サーバー、およびWordPressの設定に関する詳細情報を表示します。\n"
+"    "
+
+msgid "copied successfully."
+msgstr "コピーしました。"
+
+msgid "View Documentation"
+msgstr "ドキュメントを見る"
+
+msgid "Docs"
+msgstr "ドキュメント"
+
+msgid "Get Support"
+msgstr "サポートを受ける"
+
+msgid "Support"
+msgstr "サポート"
+
+msgid ""
+"Google Sheet Connector Elementor Add-on requires Elementor Pro or Pro "
+"Elements or MetForm Plugin to be installed and activated."
+msgstr ""
+"Google Sheet Connector Elementor アドオンは、Elementor Pro または Pro Elements または "
+"MetForm プラグインがインストールされ、アクティブ化されている必要があります。"
+
+msgid "GSheetConnector For Elementor Forms"
+msgstr "Elementor フォーム用 GSheetConnector"
+
+msgid "GSheetConnector Elementor"
+msgstr "GSheetConnector Elementor"
+
+msgid "GSheetConnector"
+msgstr "GSheetConnector"
+
+msgid "Select Google Spreadsheet"
+msgstr "Google スプレッドシートを選択"
+
+msgid "Yes"
+msgstr "はい"
+
+msgid "No"
+msgstr "いいえ"
+
+msgid "Sheet Name"
+msgstr "シート名"
+
+msgid "Sheet ID"
+msgstr "シート ID"
+
+msgid "Tab Name"
+msgstr "タブ名"
+
+msgid "Tab ID"
+msgstr "タブ ID"
+
+msgid "Sheet Tab Name"
+msgstr "シートタブ名"
+
+msgid "View Spreadsheet"
+msgstr "スプレッドシートを表示"
+
+msgid "Click here to configure Form Feeds"
+msgstr "フォームフィードを設定するにはここをクリック"
+
+msgid "Entry ID"
+msgstr "エントリーID"
+
+msgid "Entry Date"
+msgstr "エントリ日"
+
+msgid "Post ID"
+msgstr "投稿 ID"
+
+msgid "User Name"
+msgstr "ユーザー名"
+
+msgid "User IP"
+msgstr "ユーザー IP"
+
+msgid "User Agent"
+msgstr "ユーザーエージェント"
+
+msgid "User ID"
+msgstr "ユーザー ID"
+
+msgid "Referrer"
+msgstr "リファラー"
+
+msgid "Freeze Header"
+msgstr "ヘッダーを固定"
+
+msgid "Error Log"
+msgstr "エラーログ"
+
+msgid "Clear Logs"
+msgstr "ログをクリア"
+
+msgid "Download CSV"
+msgstr "CSVをダウンロード"
+
+msgid "Copy Logs"
+msgstr "ログをコピー"
+
+msgid "Date"
+msgstr "日付"
+
+msgid "Error ID"
+msgstr "エラーID"
+
+msgid "Code"
+msgstr "コード"
+
+msgid "Message"
+msgstr "メッセージ"
+
+msgid "Details"
+msgstr "詳細"
+
+msgid "Permission denied."
+msgstr "権限が拒否されました。"
+
+msgid "Google Sheet"
+msgstr "Google シート"
+
+msgid "Integration"
+msgstr "統合"
+
+msgid "Form Feeds"
+msgstr "フォームフィード"
+
+msgid "Settings"
+msgstr "設定"
+
+msgid "Extensions"
+msgstr "拡張機能"
+
+msgid "Existing"
+msgstr "既存"
+
+msgid "Auth Required"
+msgstr "認証が必要"
+
+msgid "upgrading to Pro"
+msgstr "Pro にアップグレードする"
+
+msgid ""
+"Use advanced features like Manual Authentication and automatic field "
+"mapping, no need to create columns in Google Sheets manually."
+msgstr "手動認証や自動フィールドマッピングなどの高度な機能を使用し、Google シートで手動で列を作成する必要はありません。"
+
+msgid ""
+"Choose only the fields you need with simple toggles, use advanced tags, "
+"sync past form entries, and get priority support."
+msgstr "必要なフィールドだけをシンプルなトグルで選択し、高度なタグを使用し、過去のフォームエントリーを同期し、優先サポートを受けます。"
+
+msgid "View License Types"
+msgstr "ライセンスタイプを見る"
+
+msgid "Compare Features"
+msgstr "機能を比較する"
+
+msgid "Maybe Later"
+msgstr "後で"
+
+msgid "Enjoying the Plugin?"
+msgstr "プラグインを楽しんでいますか？"
+
+msgid ""
+"If you are enjoying the plugin, please consider leaving a 5-star review. "
+"Your support helps us improve and grow."
+msgstr "プラグインを楽しんでいる場合は、5つ星のレビューを残すことを検討してください。あなたのサポートが私たちの改善と成長に役立ちます。"
+
+msgid "Ok, you deserve it!"
+msgstr "はい、あなたはそれに値します！"
+
+msgid "I already did"
+msgstr "私はすでにしました"
+
+msgid "I need help"
+msgstr "助けが必要です"
+
+msgid " Enhance Your Setup"
+msgstr "設定を強化する"
+
+msgid "Extend your workflow with our add-ons."
+msgstr "アドオンでワークフローを拡張しましょう。"
+
+msgid "Discover tools that integrate seamlessly and help you get more done."
+msgstr "シームレスに統合され、より多くの作業を行うのに役立つツールを見つけましょう。"
+
+msgid "Authenticate with Your Google Account"
+msgstr "Googleアカウントで認証する"
+
+msgid "Your connection has expired or hasn’t been set up yet."
+msgstr "接続が期限切れまたはまだ設定されていません。"
+
+msgid ""
+"Please reauthenticate with your google account to continue syncing data "
+"without interruptions."
+msgstr "データの同期を中断なく続けるために、Google アカウントで再認証してください。"
+
+msgid "Authenticate Now"
+msgstr "今すぐ認証する"
+
+msgid "Learn How"
+msgstr "方法を学ぶ"
+
+msgid "v"
+msgstr "v"
+
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
+msgid "Advanced Tools for Easy Spreadsheet Control"
+msgstr "簡単なスプレッドシート管理のための高度なツール"
+
+msgid ""
+"Improve your sheet management with smart automation and flexible "
+"customization features."
+msgstr "スマートな自動化と柔軟なカスタマイズ機能でシート管理を改善します。"
+
+msgid "Google Sheets API v4"
+msgstr "Google Sheets API v4"
+
+msgid "One-Click Authentication"
+msgstr "ワンクリック認証"
+
+msgid "Authenticated Email Display"
+msgstr "認証済みメール表示"
+
+msgid "Click & Fetch Automation"
+msgstr "クリック＆フェッチ自動化"
+
+msgid "Create New Spreadsheet"
+msgstr "新しいスプレッドシートを作成"
+
+msgid "Manual Sheet / Tab Name"
+msgstr "手動シート / タブ名"
+
+msgid "Automated Sheet & Tab"
+msgstr "自動シート＆タブ"
+
+msgid "Custom / Merge Tags"
+msgstr "カスタム / マージタグ"
+
+msgid "Drag-and-Drop Column Order"
+msgstr "ドラッグ＆ドロップ列順"
+
+msgid "Headers On / Off + Rename"
+msgstr "ヘッダーのオン / オフ + 名前変更"
+
+msgid "Image / PDF Attachment Link"
+msgstr "画像 / PDF 添付リンク"
+
+msgid "Freeze & Color Headers"
+msgstr "ヘッダーを固定＆色付け"
+
+msgid "Conditional Options"
+msgstr "条件付きオプション"
+
+msgid "Sync Past Entries"
+msgstr "過去のエントリーを同期"
+
+msgid "Role Management"
+msgstr "役割管理"
+
+msgid "Quick Configuration"
+msgstr "クイック設定"
+
+msgid "Multi-Language Support"
+msgstr "多言語サポート"
+
+msgid "Multi-Site Support"
+msgstr "マルチサイトサポート"
+
+msgid "Latest WP & PHP Support"
+msgstr "最新のWP＆PHPサポート"
+
+msgid "There's something wrong with your code..."
+msgstr "コードに何か問題があります..."
+
+msgid "Please rate"
+msgstr "評価してください"
+
+msgid "GSheetConnector for Elementor Forms"
+msgstr "Elementorフォーム用GSheetConnector"
+
+msgid "on"
+msgstr "オン"
+
+msgid "WordPress.org"
+msgstr "WordPress.org"
+
+msgid "to help us spread the word."
+msgstr "私たちが情報を広める手助けをするために。"
+
+msgid "Version:"
+msgstr "バージョン:"
+
+msgid "Plugins"
+msgstr "プラグイン"
+
+msgid "Back to Feeds List"
+msgstr "フィードリストに戻る"
+
+msgid "Feed Name"
+msgstr "フィード名"
+
+msgid "Form Name"
+msgstr "フォーム名"
+
+msgid "Page Name"
+msgstr "ページ名"
+
+msgid "Manual Google Sheets Configuration"
+msgstr "手動 Google Sheets 設定"
+
+msgid "Save Settings"
+msgstr "設定を保存"
+
+msgid "Unlock Advanced Features with Form Feeds"
+msgstr "フォームフィードで高度な機能をアンロック"
+
+msgid "Automatically Google Sheet Configuration"
+msgstr "自動Googleシート設定"
+
+msgid "Auto fetch Google Sheets list"
+msgstr "Google シートリストを自動取得"
+
+msgid "Auto detect sheet tabs"
+msgstr "シートタブを自動検出"
+
+msgid "One-click configuration"
+msgstr "ワンクリック設定"
+
+msgid "Real-time entry sync"
+msgstr "リアルタイムエントリー同期"
+
+msgid "Select Fields to Sync"
+msgstr "同期するフィールドを選択"
+
+msgid "Drag & drop field reordering"
+msgstr "ドラッグ＆ドロップフィールドの並べ替え"
+
+msgid "Rename column headers"
+msgstr "列ヘッダーの名前を変更"
+
+msgid "Select specific fields to sync"
+msgstr "同期する特定のフィールドを選択"
+
+msgid "Freeze header row"
+msgstr "ヘッダー行を固定"
+
+msgid "Custom font styling"
+msgstr "カスタムフォントスタイリング"
+
+msgid "Sort by any column"
+msgstr "任意の列でソート"
+
+msgid "Download spreadsheet as file"
+msgstr "ファイルとしてスプレッドシートをダウンロード"
+
+msgid "Upgrade to Unlock"
+msgstr "アップグレードしてロックを解除"
+
+msgid "PRO"
+msgstr "PRO"
+
+msgid "Select"
+msgstr "選択"
+
+msgid "Create New"
+msgstr "新規作成"
+
+msgid "Create Spreadsheet"
+msgstr "スプレッドシートを作成"
+
+msgid "Spreadsheet Name and URL not showing?"
+msgstr "スプレッドシート名とURLが表示されない？"
+
+msgid "Click Here"
+msgstr "ここをクリック"
+
+msgid "to fetch sheets."
+msgstr "シートを取得するため。"
+
+msgid ""
+"Enable the fields you want to send to Google Sheets and rename columns if "
+"needed."
+msgstr "Google Sheetsに送信したいフィールドを有効にし、必要に応じて列名を変更してください。"
+
+msgid "Field List"
+msgstr "フィールドリスト"
+
+msgid "Select All"
+msgstr "すべて選択"
+
+msgid "Header Settings"
+msgstr "ヘッダー設定"
+
+msgid ""
+"Customize the appearance and behavior of your sheet headers and rows for "
+"better readability and organization."
+msgstr "シートのヘッダーと行の外観と動作をカスタマイズして、読みやすさと整理を向上させます。"
+
+msgid "Header Behavior"
+msgstr "ヘッダーの動作"
+
+msgid "Sheet Sorting"
+msgstr "シートの並べ替え"
+
+msgid "Sort Column"
+msgstr "ソート列"
+
+msgid "Sort Order"
+msgstr "ソート順"
+
+msgid "Ascending"
+msgstr "昇順"
+
+msgid "Descending"
+msgstr "降順"
+
+msgid "Header Appearance"
+msgstr "ヘッダーの外観"
+
+msgid "Font Style"
+msgstr "フォントスタイル"
+
+msgid "Normal"
+msgstr "通常"
+
+msgid "Italic"
+msgstr "イタリック"
+
+msgid "Bold"
+msgstr "太字"
+
+msgid "Font Size"
+msgstr "フォントサイズ"
+
+msgid "Font Color"
+msgstr "フォントカラー"
+
+msgid "Header Background"
+msgstr "ヘッダーの背景"
+
+msgid "Row Appearance"
+msgstr "行の外観"
+
+msgid "Odd Row Color"
+msgstr "奇数行の色"
+
+msgid "Even Row Color"
+msgstr "偶数行の色"
+
+msgid "Spreadsheet Download"
+msgstr "スプレッドシートのダウンロード"
+
+msgid "Download"
+msgstr "ダウンロード"
+
+msgid "Google Sheets Data Sync"
+msgstr "Google Sheets データ同期"
+
+msgid ""
+"Easily sync past form submissions to your connected Google Sheet. Choose a "
+"date range and ensure your spreadsheet stays complete and up to date."
+msgstr "過去のフォーム送信を接続されたGoogleシートに簡単に同期できます。日付範囲を選択し、スプレッドシートが完全で最新の状態を保つことを確認してください。"
+
+msgid "From Date"
+msgstr "開始日"
+
+msgid "To Date"
+msgstr "終了日"
+
+msgid "Sync Entries"
+msgstr "エントリを同期"
+
+msgid "Close"
+msgstr "閉じる"
+
+msgid "About GSheetConnector"
+msgstr "GSheetConnectorについて"
+
+msgid "Built by Experts. Trusted by Thousands."
+msgstr "専門家によって構築され、何千人もの信頼を得ています。"
+
+msgid ""
+"Led by experienced developers and powered by a passionate team, "
+"GSheetConnector helps WordPress users automate their workflows with "
+"confidence."
+msgstr ""
+"経験豊富な開発者によって主導され、情熱的なチームによって支えられるGSheetConnectorは、WordPressユーザーが自信を持ってワークフロー"
+"を自動化するのを助けます。"
+
+msgid ""
+"We focus on building tools that are fast, secure, and easy to use - so you "
+"can spend less time managing data."
+msgstr "私たちは、迅速で安全、かつ使いやすいツールの構築に注力しています。これにより、データ管理にかかる時間を短縮できます。"
+
+msgid "Meet Our Core Team"
+msgstr "私たちのコアチームに会いましょう"
+
+msgid "Our Mission"
+msgstr "私たちの使命"
+
+msgid ""
+"Our mission is to make form automation simple, secure, and reliable for "
+"every WordPress user - from beginners to enterprise teams."
+msgstr ""
+"私たちの使命は、すべてのWordPressユーザーにとって、フォームの自動化をシンプルで安全、かつ信頼できるものにすることです。初心者から企業チームまで"
+"。"
+
+msgid "Fast & Reliable Data Sync"
+msgstr "迅速かつ信頼性の高いデータ同期"
+
+msgid "100% Secure Authentication"
+msgstr "100%安全な認証"
+
+msgid "Real-Time Google Sheets Updates"
+msgstr "リアルタイムのGoogle Sheets更新"
+
+msgid "Easy Setup & Configuration"
+msgstr "簡単なセットアップと構成"
+
+msgid "Dedicated Support Team"
+msgstr "専任サポートチーム"
+
+msgid "Forms Successfully Synced"
+msgstr "フォームが正常に同期されました"
+
+msgid "Trusted by Active Users"
+msgstr "アクティブユーザーに信頼されています"
+
+msgid "Reliable Uptime"
+msgstr "信頼性のある稼働時間"
+
+msgid "Dedicated Support"
+msgstr "専任サポート"
+
+msgid "Add-ons & Extensions"
+msgstr "アドオン & 拡張機能"
+
+msgid ""
+"Extend your Google Sheets integration with powerful add-ons. Install, "
+"manage, and activate extensions to unlock advanced features."
+msgstr "強力なアドオンでGoogle Sheets統合を拡張します。拡張機能をインストール、管理、アクティブ化して、先進的な機能をアンロックします。"
+
+msgid ""
+"Easily connect Contact Form 7 to Google Sheets and automatically sync form "
+"submissions in real-time. Every entry is instantly added to your selected "
+"spreadsheet, helping you manage leads, inquiries, and customer data "
+"efficiently without manual export."
+msgstr ""
+"Contact Form 7をGoogle "
+"Sheetsに簡単に接続し、フォームの送信をリアルタイムで自動的に同期します。すべてのエントリーは選択したスプレッドシートに即座に追加され、リード、問い"
+"合わせ、顧客データを手動でエクスポートせずに効率的に管理できます。"
+
+msgid "Install"
+msgstr "インストール"
+
+msgid ""
+"Integrate WPForms with Google Sheets and send form entries directly to your "
+"spreadsheet automatically. Track leads, manage customer data, and "
+"streamline reporting with seamless Google Sheets integration and real-time "
+"sync."
+msgstr ""
+"WPFormsをGoogle "
+"Sheetsと統合し、フォームのエントリーをスプレッドシートに直接自動送信します。リードを追跡し、顧客データを管理し、シームレスなGoogle "
+"Sheets統合とリアルタイム同期でレポートを効率化します。"
+
+msgid ""
+"Connect Gravity Forms to Google Sheets and automatically push form "
+"submissions to your spreadsheet. Simplify data management, improve workflow "
+"automation, and keep all entries organized in one secure location."
+msgstr ""
+"Gravity FormsをGoogle "
+"Sheetsに接続し、フォームの送信をスプレッドシートに自動的にプッシュします。データ管理を簡素化し、ワークフローの自動化を改善し、すべてのエントリーを"
+"1つの安全な場所に整理します。"
+
+msgid ""
+"Automatically sync Ninja Forms submissions to Google Sheets with one-click "
+"integration. Capture leads, monitor responses, and manage data efficiently "
+"with instant spreadsheet updates and easy reporting."
+msgstr ""
+"Ninja Formsの送信をワンクリック統合でGoogle "
+"Sheetsに自動同期します。リードをキャッチし、応答を監視し、即時のスプレッドシート更新と簡単なレポートでデータを効率的に管理します。"
+
+msgid ""
+"Integrate Forminator Forms with Google Sheets to automatically store form "
+"entries in your spreadsheet. Eliminate manual data entry and ensure "
+"accurate, real-time syncing for better data tracking and analysis."
+msgstr ""
+"Forminator FormsをGoogle "
+"Sheetsと統合し、フォームのエントリーをスプレッドシートに自動的に保存します。手動データ入力を排除し、正確でリアルタイムの同期を確保して、データの追"
+"跡と分析を向上させます。"
+
+msgid "Free"
+msgstr "無料"
+
+msgid ""
+"Automatically sync Formidable Forms entries to Google Sheets. Manage leads, "
+"track submissions, and simplify data reporting with real-time integration."
+msgstr ""
+"Formidable Forms のエントリーを Google "
+"シートに自動的に同期します。リードを管理し、提出を追跡し、リアルタイム統合でデータ報告を簡素化します。"
+
+msgid ""
+"Automatically sync Fluent Forms submissions to Google Sheets in real-time. "
+"Every form entry is instantly added to your selected spreadsheet, helping "
+"you manage leads, customer inquiries, and business data without manual "
+"export. Streamline your workflow, improve reporting accuracy, and keep all "
+"submissions organized with seamless Google Sheets integration."
+msgstr ""
+"Fluent Formsの送信をリアルタイムでGoogle "
+"Sheetsに自動的に同期します。すべてのフォームエントリーは即座に選択したスプレッドシートに追加され、リード、顧客の問い合わせ、ビジネスデータを手動で"
+"エクスポートすることなく管理できます。ワークフローを合理化し、報告の正確性を向上させ、すべての送信を整理された状態で保つためにシームレスなGoogle "
+"Sheets統合を実現します。"
+
+msgid ""
+"Sync Elementor Forms with Google Sheets instantly. Automatically add new "
+"form submissions to your spreadsheet, manage leads efficiently, and "
+"simplify reporting with real-time data synchronization."
+msgstr ""
+"Elementor Forms を Google "
+"シートと瞬時に同期します。新しいフォームの提出を自動的にスプレッドシートに追加し、リードを効率的に管理し、リアルタイムデータ同期で報告を簡素化します。"
+
+msgid ""
+"Connect Avada Forms to Google Sheets and automatically transfer form "
+"entries to your spreadsheet. Streamline lead management, automate data "
+"collection, and improve business reporting with seamless integration."
+msgstr ""
+"Avada Forms を Google "
+"シートに接続し、フォームエントリーを自動的にスプレッドシートに転送します。リード管理を効率化し、データ収集を自動化し、シームレスな統合でビジネス報告を改"
+"善します。"
+
+msgid "Available PRO Version"
+msgstr "利用可能な PRO バージョン"
+
+msgid ""
+"Integrate Divi Forms with Google Sheets and automatically sync submissions "
+"in real-time. Store customer data securely, track inquiries efficiently, "
+"and eliminate manual spreadsheet updates."
+msgstr ""
+"Divi Forms を Google "
+"シートと統合し、リアルタイムで提出を自動的に同期します。顧客データを安全に保存し、問い合わせを効率的に追跡し、手動のスプレッドシート更新を排除します。"
+
+msgid ""
+"Automatically send WordPress core data (like comments or custom "
+"submissions) to Google Sheets. Simplify website data tracking, automate "
+"record keeping, and centralize important information in one organized "
+"spreadsheet."
+msgstr ""
+"WordPress コアデータ（コメントやカスタム提出など）を Google "
+"シートに自動的に送信します。ウェブサイトのデータ追跡を簡素化し、記録管理を自動化し、重要な情報を整理されたスプレッドシートに集中させます。"
+
+msgid ""
+"Sync WooCommerce orders with Google Sheets automatically. Store order "
+"details, customer information, and transaction data in real-time for easy "
+"reporting, accounting, and business analysis."
+msgstr ""
+"WooCommerce の注文を Google "
+"シートと自動的に同期します。注文の詳細、顧客情報、取引データをリアルタイムで保存し、報告、会計、ビジネス分析を容易にします。"
+
+msgid ""
+"Automatically send Easy Digital Downloads (EDD) order details to Google "
+"Sheets. Track digital product sales, monitor transactions, and manage "
+"customer data effortlessly with real-time spreadsheet integration."
+msgstr ""
+"Easy Digital Downloads (EDD) の注文詳細を Google "
+"シートに自動的に送信します。デジタル製品の販売を追跡し、取引を監視し、リアルタイムのスプレッドシート統合で顧客データを簡単に管理します。"
+
+msgid "Installed & Active Plugins"
+msgstr "インストール済み & アクティブなプラグイン"
+
+msgid ""
+"View and manage all currently installed and active connectors on your site. "
+"You can activate, deactivate, or upgrade plugins from here."
+msgstr "現在インストールされているすべてのコネクタを表示および管理します。ここからプラグインをアクティブ化、非アクティブ化、またはアップグレードできます。"
+
+msgid "Pro"
+msgstr "プロ"
+
+msgid "View Docs"
+msgstr "ドキュメントを見る"
+
+msgid "Deactivate"
+msgstr "無効化"
+
+msgid "Recommended Plugins"
+msgstr "推奨プラグイン"
+
+msgid ""
+"Discover recommended plugins that enhance your workflow and help you get "
+"more value from your Google Sheets integration."
+msgstr "ワークフローを強化し、Google Sheets統合からより多くの価値を得るための推奨プラグインを見つけましょう。"
+
+msgid "Activate"
+msgstr "有効化"
+
+msgid "Explore More Plugins"
+msgstr "さらにプラグインを探す"
+
+msgid "Discover the right connector for your workflow and automate data syncing."
+msgstr "ワークフローに適したコネクタを見つけて、データの同期を自動化しましょう。"
+
+msgid "All"
+msgstr "すべて"
+
+msgid "Forms"
+msgstr "フォーム"
+
+msgid "Page Builders"
+msgstr "ページビルダー"
+
+msgid "eCommerce"
+msgstr "eコマース"
+
+msgid "View Demo"
+msgstr "デモを見る"
+
+msgid "Deactivate plugin"
+msgstr "プラグインを無効化する"
+
+msgid " Are you sure you want to deactivate this plugin?"
+msgstr "このプラグインを無効化してもよろしいですか？"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "Invalid security token"
+msgstr "無効なセキュリティトークン"
+
+msgid "You do not have permission to install plugin"
+msgstr "プラグインをインストールする権限がありません"
+
+msgid "Missing required parameters"
+msgstr "必須パラメータが不足しています"
+
+msgid "Installation failed: "
+msgstr "インストールに失敗しました: "
+
+msgid "Plugin installed successfully"
+msgstr "プラグインが正常にインストールされました"
+
+msgid "You do not have permission to activate plugin"
+msgstr "プラグインを有効化する権限がありません"
+
+msgid "Plugin slug is missing"
+msgstr "プラグインのスラッグが不足しています"
+
+msgid "Plugin is already activated"
+msgstr "プラグインはすでに有効化されています"
+
+msgid "Plugin activated successfully"
+msgstr "プラグインが正常に有効化されました"
+
+msgid "Unlock Beta Version Control"
+msgstr "ベータ版コントロールを解除"
+
+msgid "Test upcoming features before official release"
+msgstr "公式リリース前に今後の機能をテスト"
+
+msgid "Early Access"
+msgstr "早期アクセス"
+
+msgid "Get updates before public release"
+msgstr "公開リリース前に更新を取得"
+
+msgid "Test new features in advance"
+msgstr "新機能を事前にテスト"
+
+msgid "Try improvements early"
+msgstr "改善を早期に試す"
+
+msgid "Stay ahead with new changes"
+msgstr "新しい変更に先んじる"
+
+msgid "Testing Purpose"
+msgstr "テスト目的"
+
+msgid "Features may still be under testing"
+msgstr "機能はまだテスト中の可能性があります"
+
+msgid "Some options may change later"
+msgstr "いくつかのオプションは後で変更される可能性があります"
+
+msgid "Minor issues may occur"
+msgstr "軽微な問題が発生する可能性があります"
+
+msgid "Used for feedback and improvements"
+msgstr "フィードバックと改善のために使用されます"
+
+msgid "Safety Notice"
+msgstr "安全通知"
+
+msgid "Recommended for staging sites"
+msgstr "ステージングサイトに推奨"
+
+msgid "Avoid enabling on live websites"
+msgstr "ライブウェブサイトでの有効化は避けてください"
+
+msgid "Take backup before testing"
+msgstr "テスト前にバックアップを取ってください"
+
+msgid "Disable anytime if needed"
+msgstr "必要に応じていつでも無効にできます"
+
+msgid "Update Control"
+msgstr "更新コントロール"
+
+msgid "Receive beta notifications"
+msgstr "ベータ通知を受け取る"
+
+msgid "Updates are not installed automatically"
+msgstr "更新は自動的にインストールされません"
+
+msgid "You control when to update"
+msgstr "更新のタイミングはあなたが決めます"
+
+msgid "Switch on/off anytime"
+msgstr "いつでもオン/オフを切り替え"
+
+msgid "Beta Program Access"
+msgstr "ベータプログラムアクセス"
+
+msgid ""
+"Get early access to upcoming features and improvements before they are "
+"officially released. Beta versions may include experimental updates and "
+"should be used for testing purposes only."
+msgstr ""
+"正式にリリースされる前に、今後の機能や改善に早期アクセスを取得します。ベータ版には実験的な更新が含まれる場合があり、テスト目的のみで使用する必要がありま"
+"す。"
+
+msgid "Enable Beta Updates"
+msgstr "ベータ更新を有効にする"
+
+msgid ""
+"Receive notifications and access to beta releases. Updates will not be "
+"installed automatically."
+msgstr "通知を受け取り、ベータリリースにアクセスします。更新は自動的にインストールされません。"
+
+msgid "Beta Usage Notice"
+msgstr "ベータ使用通知"
+
+msgid "Beta versions may include unfinished or experimental features"
+msgstr "ベータ版には未完成または実験的な機能が含まれる場合があります"
+
+msgid "Some features may change or be removed in future updates"
+msgstr "将来の更新で一部の機能が変更されたり削除されたりする可能性があります"
+
+msgid "Minor bugs or performance issues may occur"
+msgstr "軽微なバグやパフォーマンスの問題が発生する可能性があります"
+
+msgid "We recommend enabling beta only on test or staging sites"
+msgstr "テストまたはステージングサイトでのみベータを有効にすることをお勧めします"
+
+msgid ""
+"Beta versions are intended for testing purposes. Do not enable on live "
+"production websites without proper backups."
+msgstr "ベータ版はテスト目的で使用されます。適切なバックアップなしに本番のライブウェブサイトで有効にしないでください。"
+
+msgid "Elementor Forms Connected Sheets using Pagebuilder"
+msgstr "Elementorフォーム接続シート（ページビルダー使用）"
+
+msgid "Sheetlink"
+msgstr "シートリンク"
+
+msgid "No Sheets are connected."
+msgstr "接続されているシートはありません。"
+
+msgid "No Elementor Forms are connected with Google Sheets."
+msgstr "Google Sheetsと接続されているElementorフォームはありません。"
+
+msgid "Welcome To GSheetConnector"
+msgstr "GSheetConnectorへようこそ"
+
+msgid ""
+"GSheetConnector is a powerful automation plugin that syncs WordPress data "
+"with Google Sheets in real time. It supports WooCommerce, Easy Digital "
+"Downloads, and popular form plugins such as Gravity Forms, Contact Form 7, "
+"Elementor Forms, along with 10+ additional WordPress integrations for "
+"efficient data management."
+msgstr ""
+"GSheetConnectorは、WordPressデータをGoogle "
+"Sheetsとリアルタイムで同期する強力な自動化プラグインです。WooCommerce、Easy Digital Downloads、Gravity "
+"Forms、Contact Form 7、Elementor "
+"Formsなどの人気のフォームプラグインをサポートし、効率的なデータ管理のために10以上の追加WordPress統合を提供します。"
+
+msgid "Let's Connect"
+msgstr "接続しましょう"
+
+msgid "Setup Guide & Troubleshooting"
+msgstr "セットアップガイドとトラブルシューティング"
+
+msgid "Getting Started"
+msgstr "始めに"
+
+msgid "Installation Process"
+msgstr "インストールプロセス"
+
+msgid "Integration with Google (Existing Method)"
+msgstr "Googleとの統合（既存の方法）"
+
+msgid "Docs & Troubleshooting"
+msgstr "ドキュメントとトラブルシューティング"
+
+msgid "How to Enable Debugging in WordPress"
+msgstr "WordPressでデバッグを有効にする方法"
+
+msgid "Invalid OAuth2 token"
+msgstr "無効なOAuth2トークン"
+
+msgid "Change Date/Time Format and Time Zone in Google Sheets"
+msgstr "Google Sheetsで日付/時刻形式とタイムゾーンを変更する"
+
+msgid "Additional Resources"
+msgstr "追加リソース"
+
+msgid "Integration with Google (Manual Method)"
+msgstr "Googleとの統合（手動の方法）"
+
+msgid "Integration with Google (Service Method)"
+msgstr "Googleとの統合（サービスの方法）"
+
+msgid "Automatic Select Spreadsheet"
+msgstr "スプレッドシートを自動選択"
+
+msgid "Plugins by Category"
+msgstr "カテゴリ別プラグイン"
+
+msgid "Find the perfect connector for your WordPress workflow."
+msgstr "あなたのWordPressワークフローに最適なコネクタを見つけましょう。"
+
+msgid "Contact Form Connectors"
+msgstr "コンタクトフォームコネクタ"
+
+msgid "6 plugins available"
+msgstr "利用可能なプラグインは6個"
+
+msgid "eCommerce Connectors"
+msgstr "eコマースコネクタ"
+
+msgid "2 plugins available"
+msgstr "利用可能なプラグインは2個"
+
+msgid "Page Builder Forms"
+msgstr "ページビルダーフォーム"
+
+msgid "3 plugins available"
+msgstr "利用可能なプラグインは3個"
+
+msgid "WP Core Connector"
+msgstr "WPコアコネクタ"
+
+msgid "1 plugin available"
+msgstr "利用可能なプラグインは1個"
+
+msgid "Free Plugins"
+msgstr "無料プラグイン"
+
+msgid "12 plugin available"
+msgstr "利用可能なプラグインは12個"
+
+msgid "Need more support? We're here to help."
+msgstr "さらにサポートが必要ですか？私たちが助けます。"
+
+msgid "Submit a Support Ticket"
+msgstr "サポートチケットを提出する"
+
+msgid "Our fast and friendly support team is always happy to help!"
+msgstr "私たちの迅速でフレンドリーなサポートチームは、いつでもお手伝いすることを喜んでいます！"
+
+msgid "Amazing Key Features"
+msgstr "驚くべき主な機能"
+
+msgid "Everything You Need to Sync Data"
+msgstr "データを同期するために必要なすべて"
+
+msgid ""
+"Common features shared across every GSheetConnector Pro add-on built for "
+"reliability, flexibility, and scale."
+msgstr "信頼性、柔軟性、スケールのために構築されたすべてのGSheetConnector Proアドオンで共有される一般的な機能。"
+
+msgid "Upgrade to Pro"
+msgstr "Proにアップグレード"
+
+msgid "View Full Features"
+msgstr "すべての機能を見る"
+
+msgid "Form"
+msgstr "フォーム"
+
+msgid "Processing"
+msgstr "処理中"
+
+msgid "Sheet"
+msgstr "シート"
+
+msgid "Instant"
+msgstr "インスタント"
+
+msgid "Real-time updates"
+msgstr "リアルタイム更新"
+
+msgid "100%"
+msgstr "100%"
+
+msgid "Accuracy"
+msgstr "精度"
+
+msgid "Flexible"
+msgstr "柔軟な"
+
+msgid "Custom mapping"
+msgstr "カスタムマッピング"
+
+msgid "Video Tutorials"
+msgstr "ビデオチュートリアル"
+
+msgid "Existing Client / Secret Key (Auto Setup)"
+msgstr "既存のクライアント/シークレットキー（自動セットアップ）"
+
+msgid "Google Sheets Setup Required"
+msgstr "Google Sheets の設定が必要です"
+
+msgid "your selected Method is : "
+msgstr "選択した方法は: "
+
+msgid ""
+"To start sending form entries to Google Sheets, please connect your Google "
+"account first."
+msgstr "Google Sheets にフォームエントリを送信するには、まず Google アカウントに接続してください。"
+
+msgid "✔ Click on the Sign in with Google button"
+msgstr "✔ Google でサインインボタンをクリック"
+
+msgid "✔ Log in using your Google account"
+msgstr "✔ Google アカウントを使用してログイン"
+
+msgid "✔ Select the Google account where your Sheets are stored"
+msgstr "✔ シートが保存されている Google アカウントを選択"
+
+msgid "✔ Grant access to: Google Drive & Google Sheets"
+msgstr "✔ Google Drive と Google Sheets へのアクセスを許可"
+
+msgid "✔ Save the authentication code if prompted"
+msgstr "✔ プロンプトが表示された場合は認証コードを保存"
+
+msgid "Go to Integration Setup"
+msgstr "統合設定に移動"
+
+msgid "Select Form"
+msgstr "フォームを選択"
+
+msgid "Unnamed Form"
+msgstr "名前のないフォーム"
+
+msgid "Unknown Element ID"
+msgstr "不明な要素ID"
+
+msgid "MetForm: "
+msgstr "MetForm: "
+
+msgid "Submit"
+msgstr "送信"
+
+msgid "Delete"
+msgstr "削除"
+
+msgid "Plugin Preferences"
+msgstr "プラグインの設定"
+
+msgid ""
+"Manage how plugin settings and data are handled when the plugin is "
+"uninstalled."
+msgstr "プラグインがアンインストールされたときの設定とデータの取り扱いを管理します。"
+
+msgid "Delete Plugin Data on Uninstall"
+msgstr "アンインストール時にプラグインデータを削除"
+
+msgid "Removes all plugin data (options, metadata) when the plugin is deleted."
+msgstr "プラグインが削除されると、すべてのプラグインデータ（オプション、メタデータ）が削除されます。"
+
+msgid "Uninstall Data Notice"
+msgstr "アンインストールデータ通知"
+
+msgid "Enable this option only if you want a complete cleanup"
+msgstr "完全なクリーンアップを希望する場合のみこのオプションを有効にしてください"
+
+msgid "All plugin settings and data will be permanently removed"
+msgstr "すべてのプラグイン設定とデータが永久に削除されます"
+
+msgid "Incorrect settings can delete all sensitive form and user data"
+msgstr "不正な設定により、すべての機密フォームおよびユーザーデータが削除される可能性があります"
+
+msgid "Choose Google API Setting"
+msgstr "Google API設定を選択"
+
+msgid "Manual Client/Secret Key (Use Your Google API Configuration)"
+msgstr "手動クライアント/シークレットキー（Google API設定を使用）"
+
+msgid "Service Account (Recommended)"
+msgstr "サービスアカウント（推奨）"
+
+msgid "Auto Setup"
+msgstr "自動セットアップ"
+
+msgid "click here"
+msgstr "ここをクリック"
+
+msgid "Click on the <strong>Sign in with Google</strong> button."
+msgstr "<strong>Googleでサインイン</strong>ボタンをクリックします。"
+
+msgid "Log in using your Google account."
+msgstr "Googleアカウントを使用してログインします。"
+
+msgid "Select the Google account where your Sheets are stored."
+msgstr "シートが保存されているGoogleアカウントを選択します。"
+
+msgid "Grant access to:"
+msgstr "アクセスを許可する:"
+
+msgid "Google Drive"
+msgstr "Googleドライブ"
+
+msgid "Google Sheets"
+msgstr "Googleシート"
+
+msgid "Click <strong>Allow</strong> to finish authorization."
+msgstr "<strong>許可</strong>をクリックして認証を完了します。"
+
+msgid "Save the authentication code if prompted."
+msgstr "プロンプトが表示された場合は、認証コードを保存してください。"
+
+msgid "This allows the plugin to securely sync your form data with Google Sheets."
+msgstr "これにより、プラグインはGoogle Sheetsと安全にフォームデータを同期できます。"
+
+msgid "Connected Email Account"
+msgstr "接続されたメールアカウント"
+
+msgid "Connected"
+msgstr "接続済み"
+
+msgid ""
+"Something wrong ! Your Auth Code may be wrong or expired. Please deactivate "
+"and do Re-Authentication again. "
+msgstr "何かがおかしいです！あなたの認証コードが間違っているか、期限切れの可能性があります。無効にして再認証を行ってください。"
+
+msgid "Connect Your Google Account"
+msgstr "Googleアカウントを接続する"
+
+msgid ""
+"Securely link your Google account to start syncing form entries "
+"automatically."
+msgstr "安全にGoogleアカウントをリンクして、フォームエントリの自動同期を開始します。"
+
+msgid "Sign in with Google"
+msgstr "Google でサインイン"
+
+msgid "Client Token"
+msgstr "クライアントトークン"
+
+msgid ""
+"We do not store any of the data from your Google account on our servers, "
+"everything is processed & stored on your server. We take your privacy "
+"extremely seriously and ensure it is never misused. Learn more in the "
+"documentation"
+msgstr ""
+"私たちは、あなたのGoogleアカウントからのデータをサーバーに保存することはありません。すべてはあなたのサーバーで処理および保存されます。私たちはあな"
+"たのプライバシーを非常に重視しており、決して悪用されることはありません。詳細はドキュメントをご覧ください。"
+
+msgid "click here."
+msgstr "ここをクリック。"
+
+msgid "Connection Status & Next Steps"
+msgstr "接続状況と次のステップ"
+
+msgid ""
+"Your Google account has been successfully connected. You are now ready to "
+"sync your form submissions with Google Sheets securely and automatically."
+msgstr "あなたのGoogleアカウントは正常に接続されました。これで、Google Sheetsと安全かつ自動的にフォーム送信を同期する準備が整いました。"
+
+msgid "Create New Feed"
+msgstr "新しいフィードを作成"
+
+msgid "Add Labels in Sheet Headers Manually"
+msgstr "シートヘッダーにラベルを手動で追加"
+
+msgid "Enable Fields to Sync"
+msgstr "同期するフィールドを有効にする"
+
+msgid "Customize the Headers Appearance"
+msgstr "ヘッダーの外観をカスタマイズ"
+
+msgid "Use Sync Settings (Past Entries)"
+msgstr "同期設定を使用する（過去のエントリ）"
+
+msgid "Upgrade to unlock"
+msgstr "アップグレードしてロックを解除"
+
+msgid "Connection Guide"
+msgstr "接続ガイド"
+
+msgid "Step-by-Step"
+msgstr "ステップバイステップ"
+
+msgid ""
+"Follow these steps to connect your Google account and start syncing your "
+"form data with Google Sheets."
+msgstr "これらの手順に従って、Googleアカウントを接続し、フォームデータをGoogle Sheetsと同期させます。"
+
+msgid "Step-1 Connect Your Google Account"
+msgstr "ステップ1 Googleアカウントを接続"
+
+msgid ""
+"Sign in with your Google account to start the automatic Google Sheets "
+"integration."
+msgstr "Googleアカウントでサインインして、自動Google Sheets統合を開始します。"
+
+msgid "Step-2 Choose Google Account"
+msgstr "ステップ2 Googleアカウントを選択"
+
+msgid "Choose the Google account where your Sheets are stored."
+msgstr "Sheetsが保存されているGoogleアカウントを選択します。"
+
+msgid "check our detailed guideline"
+msgstr "詳細なガイドラインを確認してください"
+
+msgid "Step-3 Review Access Information"
+msgstr "ステップ3 アクセス情報を確認"
+
+msgid "Google will show what information the plugin can access."
+msgstr "Googleは、プラグインがアクセスできる情報を表示します。"
+
+msgid "Step-4 Grant Required Permissions"
+msgstr "ステップ4 必要な権限を付与"
+
+msgid "Allow required permissions for Google Sheets and Drive access."
+msgstr "Google SheetsとDriveへのアクセスに必要な権限を許可します。"
+
+msgid "Step-5 Save Authentication Code"
+msgstr "ステップ5 認証コードを保存"
+
+msgid "Save the authentication code to complete the Google account connection."
+msgstr "Googleアカウント接続を完了するために認証コードを保存します。"
+
+msgid "Step-6 Integration Completed"
+msgstr "ステップ6 統合完了"
+
+msgid "Your Google account is now successfully connected."
+msgstr "あなたのGoogleアカウントは正常に接続されました。"
+
+msgid "Manual Google Sheets Integration"
+msgstr "手動Google Sheets統合"
+
+msgid "Custom API Credentials"
+msgstr "カスタムAPI資格情報"
+
+msgid ""
+"Connect using your own Google Cloud Client ID and Client Secret for full "
+"authentication control."
+msgstr "完全な認証制御のために独自のGoogle CloudクライアントIDとクライアントシークレットを使用して接続します。"
+
+msgid "Secure Authentication"
+msgstr "安全な認証"
+
+msgid ""
+"Authenticate directly with Google using a secure Authentication flow "
+"without third-party dependency."
+msgstr "サードパーティの依存関係なしに、安全な認証フローを使用してGoogleと直接認証します。"
+
+msgid "Advanced Configuration"
+msgstr "高度な設定"
+
+msgid ""
+"Set custom Redirect URIs, manage scopes, and configure API settings based "
+"on your project needs."
+msgstr "プロジェクトのニーズに基づいてカスタムリダイレクトURIを設定し、スコープを管理し、API設定を構成します。"
+
+msgid "Priority Technical Support"
+msgstr "優先技術サポート"
+
+msgid ""
+"Get fast assistance from our expert team for setup, troubleshooting, and "
+"optimization."
+msgstr "セットアップ、トラブルシューティング、最適化のために、専門チームから迅速な支援を受けます。"
+
+msgid "View Pro Features"
+msgstr "プロ機能を見る"
+
+msgid "Service Account Google Sheets Integration"
+msgstr "サービスアカウントGoogleシート統合"
+
+msgid "Secure JSON Authentication"
+msgstr "安全なJSON認証"
+
+msgid ""
+"Authenticate using a secure Google Cloud JSON key file for direct and "
+"encrypted communication with Google Sheets."
+msgstr "Google Sheetsとの直接かつ暗号化された通信のために、安全なGoogle Cloud JSONキーファイルを使用して認証します。"
+
+msgid "No Authentication Login Required"
+msgstr "認証ログインは必要ありません"
+
+msgid ""
+"Enable automatic background syncing without requiring Google account "
+"sign-in during setup."
+msgstr "セットアップ中にGoogleアカウントのサインインを必要とせず、自動バックグラウンド同期を有効にします。"
+
+msgid "Direct Spreadsheet Access"
+msgstr "直接スプレッドシートアクセス"
+
+msgid ""
+"Share your Google Sheet with the service account email to enable automatic "
+"data transfer."
+msgstr "自動データ転送を有効にするために、サービスアカウントのメールアドレスでGoogleシートを共有してください。"
+
+msgid "Production-Ready & Reliable"
+msgstr "プロダクション準備完了 & 信頼性の高い"
+
+msgid ""
+"Built for stable, uninterrupted syncing in professional and high-traffic "
+"environments."
+msgstr "プロフェッショナルで高トラフィックな環境での安定した中断のない同期のために構築されています。"
+
+msgid "Deactivate Integration"
+msgstr "統合を無効にする"
+
+msgid "Permission Not Allowed"
+msgstr "許可されていない権限"
+
+msgid "Unlock Role-Based Access Control"
+msgstr "ロールベースのアクセス制御を解除"
+
+msgid "Role Permissions"
+msgstr "役割の権限"
+
+msgid "Allow specific WordPress roles"
+msgstr "特定のWordPressロールを許可"
+
+msgid "Enable/disable integration access"
+msgstr "統合アクセスの有効化/無効化"
+
+msgid "Control form feed visibility"
+msgstr "フォームフィードの可視性を制御"
+
+msgid "Restrict settings management"
+msgstr "設定管理を制限"
+
+msgid "Security Control"
+msgstr "セキュリティ制御"
+
+msgid "Prevent unauthorized changes"
+msgstr "不正な変更を防止"
+
+msgid "Secure Google Sheet credentials"
+msgstr "Googleシートの資格情報を保護"
+
+msgid "Role-based configuration control"
+msgstr "役割ベースの設定管理"
+
+msgid "Protect integration settings"
+msgstr "統合設定を保護する"
+
+msgid "Management Benefits"
+msgstr "管理の利点"
+
+msgid "Grant access to trusted editors"
+msgstr "信頼できる編集者にアクセスを許可する"
+
+msgid "Hide settings from subscribers"
+msgstr "購読者から設定を隠す"
+
+msgid "Team-based permission structure"
+msgstr "チームベースの権限構造"
+
+msgid "Improved dashboard security"
+msgstr "改善されたダッシュボードのセキュリティ"
+
+msgid "Audit & Monitoring"
+msgstr "監査とモニタリング"
+
+msgid "Track role-based changes"
+msgstr "役割ベースの変更を追跡する"
+
+msgid "Monitor integration access"
+msgstr "統合アクセスを監視する"
+
+msgid "Review permission updates"
+msgstr "権限の更新をレビューする"
+
+msgid "Maintain admin accountability"
+msgstr "管理者の責任を維持する"
+
+msgid ""
+"Control which user roles are allowed to access and manage the Google Sheets "
+"integration for your forms."
+msgstr "フォームのGoogle Sheets統合にアクセスし管理することが許可されているユーザーロールを制御します。"
+
+msgid "Plugin Access Control"
+msgstr "プラグインアクセス制御"
+
+msgid "Administrator"
+msgstr "管理者"
+
+msgid "Permission Guidelines"
+msgstr "権限ガイドライン"
+
+msgid "General Settings"
+msgstr "一般設定"
+
+msgid "Version Control"
+msgstr "バージョン管理"
+
+msgid "System Status"
+msgstr "システムステータス"
+
+msgid "You do not have permission to access this page."
+msgstr "このページにアクセスする権限がありません。"
+
+msgid "System Information"
+msgstr "システム情報"
+
+msgid "Copy System Info"
+msgstr "システム情報をコピー"
+
+msgid "GSheetConnector Status"
+msgstr "GSheetConnectorのステータス"
+
+msgid "Plugin Name"
+msgstr "プラグイン名"
+
+msgid "Plugin Version"
+msgstr "プラグインバージョン"
+
+msgid "Plugin Subscription Plan"
+msgstr "プラグインサブスクリプションプラン"
+
+msgid "Authentication method for connecting to Google Sheets"
+msgstr "Google Sheetsに接続するための認証方法"
+
+msgid "Google Drive Permission"
+msgstr "Google Driveの権限"
+
+msgid "Google Sheet Permission"
+msgstr "Google Sheetの権限"
+
+msgid "WordPress"
+msgstr "WordPress"
+
+msgid "Version"
+msgstr "バージョン"
+
+msgid "Site Language"
+msgstr "サイト言語"
+
+msgid "Debug Mode"
+msgstr "デバッグモード"
+
+msgid "Enabled"
+msgstr "有効"
+
+msgid "Disabled"
+msgstr "無効"
+
+msgid "Home URL"
+msgstr "ホーム URL"
+
+msgid "Site URL"
+msgstr "サイト URL"
+
+msgid "Permalink structure"
+msgstr "パーマリンク構造"
+
+msgid "Is this site using HTTPS?"
+msgstr "このサイトは HTTPS を使用していますか？"
+
+msgid "Is this a multisite?"
+msgstr "これはマルチサイトですか？"
+
+msgid "Can anyone register on this site?"
+msgstr "誰でもこのサイトに登録できますか？"
+
+msgid "Is this site discouraging search engines?"
+msgstr "このサイトは検索エンジンを抑制していますか？"
+
+msgid "Default comment status"
+msgstr "デフォルトのコメントステータス"
+
+msgid "Unknown"
+msgstr "不明"
+
+msgid "Localhost"
+msgstr "ローカルホスト"
+
+msgid "Production"
+msgstr "本番"
+
+msgid "Environment type"
+msgstr "環境タイプ"
+
+msgid "User Count"
+msgstr "ユーザー数"
+
+msgid "Communication with WordPress.org"
+msgstr "WordPress.org との通信"
+
+msgid "Active Theme"
+msgstr "アクティブテーマ"
+
+msgid "Name"
+msgstr "名前"
+
+msgid "Author"
+msgstr "著者"
+
+msgid "Author website"
+msgstr "著者のウェブサイト"
+
+msgid "Theme directory location"
+msgstr "テーマディレクトリの場所"
+
+msgid "Active Plugins"
+msgstr "アクティブプラグイン"
+
+msgid "Server"
+msgstr "サーバー"
+
+msgid ""
+"The options shown below relate to your server setup. If changes are "
+"required, you may need your web host’s assistance."
+msgstr "以下のオプションは、あなたのサーバー設定に関連しています。変更が必要な場合は、ウェブホストの支援が必要になることがあります。"
+
+msgid "Server Architecture"
+msgstr "サーバーアーキテクチャ"
+
+msgid "Web Server"
+msgstr "ウェブサーバー"
+
+msgid "PHP Version"
+msgstr "PHP バージョン"
+
+msgid "PHP SAPI"
+msgstr "PHP SAPI"
+
+msgid "PHP Max Input Variables"
+msgstr "PHP 最大入力変数"
+
+msgid "PHP Time Limit"
+msgstr "PHP タイムリミット"
+
+msgid "seconds"
+msgstr "秒"
+
+msgid "PHP Memory Limit"
+msgstr "PHP メモリ制限"
+
+msgid "Max Input Time"
+msgstr "最大入力時間"
+
+msgid "Upload Max Filesize"
+msgstr "アップロード最大ファイルサイズ"
+
+msgid "PHP Post Max Size"
+msgstr "PHPポスト最大サイズ"
+
+msgid "Not Installed"
+msgstr "未インストール"
+
+msgid "cURL Version"
+msgstr "cURLバージョン"
+
+msgid "Is SUHOSIN Installed?"
+msgstr "SUHOSINはインストールされていますか？"
+
+msgid "Is the Imagick Library Available?"
+msgstr "Imagickライブラリは利用可能ですか？"
+
+msgid "Are Pretty Permalinks Supported?"
+msgstr "プレティパーマリンクはサポートされていますか？"
+
+msgid ".htaccess Rules"
+msgstr ".htaccessルール"
+
+msgid "Writable"
+msgstr "書き込み可能"
+
+msgid "Not Writable"
+msgstr "書き込み不可"
+
+msgid "Current Time"
+msgstr "現在の時間"
+
+msgid "Current UTC Time"
+msgstr "現在のUTC時間"
+
+msgid "Current Server Time"
+msgstr "現在のサーバー時間"
+
+msgid "Database"
+msgstr "データベース"
+
+msgid "Extension"
+msgstr "拡張"
+
+msgid "Server Version"
+msgstr "サーバーバージョン"
+
+msgid "Client Version"
+msgstr "クライアントバージョン"
+
+msgid "Database Username"
+msgstr "データベースユーザー名"
+
+msgid "Database Host"
+msgstr "データベースホスト"
+
+msgid "Database Name"
+msgstr "データベース名"
+
+msgid "Table Prefix"
+msgstr "テーブルプレフィックス"
+
+msgid "Database Charset"
+msgstr "データベース文字セット"
+
+msgid "Database Collation"
+msgstr "データベース照合"
+
+msgid "Max Allowed Packet Size"
+msgstr "最大許可パケットサイズ"
+
+msgid "Max Connections Number"
+msgstr "最大接続数"
+
+msgid "WordPress Constants"
+msgstr "WordPress定数"
+
+msgid "Filesystem Permission"
+msgstr "ファイルシステムの権限"
+
+msgid ""
+"Shows whether WordPress is able to write to the directories it needs access "
+"to."
+msgstr "WordPressが必要なディレクトリに書き込むことができるかどうかを示します。"
+
+msgid "The main WordPress directory"
+msgstr "メインのWordPressディレクトリ"
+
+msgid "The wp-content directory"
+msgstr "wp-contentディレクトリ"
+
+msgid "The uploads directory"
+msgstr "uploadsディレクトリ"
+
+msgid "The plugins directory"
+msgstr "pluginsディレクトリ"
+
+msgid "The themes directory"
+msgstr "themesディレクトリ"
+
+msgid "Debug Log"
+msgstr "デバッグログ"
+
+msgid "https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro"
+msgstr "https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro"
+
+msgid "Send your Elementor Form data to your Google Spreadsheet."
+msgstr "ElementorフォームのデータをGoogleスプレッドシートに送信します。"
+
+msgid "https://www.gsheetconnector.com/"
+msgstr "https://www.gsheetconnector.com/"

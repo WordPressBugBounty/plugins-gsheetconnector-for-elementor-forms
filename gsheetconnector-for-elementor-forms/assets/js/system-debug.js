@@ -4,74 +4,131 @@
  * and shows a temporary success message upon successful copy.
  */
  jQuery(document).ready(function ($) {
-  jQuery(document).on("click", "#gselef-free-system-copy", function (e) {
-    e.preventDefault();
-    alert('hello');
-    copySystemInfo();
-  });
+  /**
+   * Copy formatted system info and show message below the button
+   */
+   function copySystemInfo(btn) {
 
-  function copySystemInfo() {
-    const systemInfoContainer = document.querySelector(
-      ".info-container",
-      );
+    if (!btn) return;
 
-    if (!systemInfoContainer) {
+    var wrapper = document.querySelector("#system-info-wrapper");
+
+    if (!wrapper) return;
+
+    var textToCopy = "";
+
+    /* ===== LOOP ALL SECTIONS ===== */
+    wrapper.querySelectorAll(".info-button").forEach(function (button) {
+
+      /* ===== SECTION TITLE ===== */
+      var sectionTitle = button.childNodes[0].textContent.trim();
+
+      textToCopy += "\n====================================\n";
+      textToCopy += sectionTitle + "\n";
+      textToCopy += "====================================\n\n";
+
+      /* ===== GET NEXT CONTENT DIV ===== */
+      var contentDiv = button.parentElement.nextElementSibling;
+
+      if (!contentDiv) return;
+
+      /* ===== LOOP TABLE ROWS ===== */
+      contentDiv.querySelectorAll("table tr").forEach(function (row) {
+
+        var cols = row.querySelectorAll("td");
+
+        if (cols.length >= 2) {
+
+          var label = cols[0].innerText.trim();
+          var value = cols[1].innerText.trim();
+
+          textToCopy += label + ": " + value + "\n";
+        }
+      });
+
+      textToCopy += "\n";
+    });
+
+    textToCopy = textToCopy.trim();
+
+    if (!textToCopy) {
+      console.error("Nothing to copy");
       return;
     }
 
-    const systemInfoElements = systemInfoContainer.querySelectorAll(
-      ".info-content h3, .info-content td",
-      );
+    /* ===== MESSAGE ===== */
+    var msgDiv = btn.parentNode.querySelector(".gsc-copy-msg");
 
-    let systemInfoText = "";
-    let currentRow = "";
+    if (!msgDiv) {
 
-    systemInfoElements.forEach((element) => {
-      if (element.innerText) {
-        const tagName = element.tagName.toLowerCase();
+      msgDiv = document.createElement("div");
 
-        // Section headings
-        if (tagName === "h3") {
-          if (currentRow !== "") {
-            systemInfoText += currentRow.trim() + "\n\n";
-          }
+     msgDiv.className = "gsc-copy-msg";
 
-          systemInfoText += element.innerText + "\n\n";
-          currentRow = "";
-        }
+      msgDiv.style.display = "none";
 
-        // Table data
-        else if (tagName === "td") {
-          const labelElement = element.previousElementSibling;
+      btn.parentNode.appendChild(msgDiv);
+    }
 
-          if (labelElement && labelElement.innerText) {
-            let label = labelElement.innerText.trim();
+    function showCopied() {
 
-            currentRow += label + ": " + element.innerText.trim() + "\n";
-          }
-        }
+      msgDiv.innerHTML = "Copied successfully.";
+
+      msgDiv.style.display = "block";
+
+      setTimeout(function () {
+
+        msgDiv.style.display = "none";
+
+      }, 2000);
+    }
+
+    /* ===== COPY ===== */
+    if (navigator.clipboard && window.isSecureContext) {
+
+      navigator.clipboard.writeText(textToCopy)
+      .then(showCopied)
+      .catch(function (err) {
+        console.error("Clipboard error:", err);
+      });
+
+    } else {
+
+      var textarea = document.createElement("textarea");
+
+      textarea.value = textToCopy;
+
+      textarea.style.position = "fixed";
+
+      textarea.style.left = "-9999px";
+
+      document.body.appendChild(textarea);
+
+      textarea.focus();
+
+      textarea.select();
+
+      try {
+
+        document.execCommand("copy");
+
+        showCopied();
+
+      } catch (e) {
+
+        console.error("Copy failed", e);
       }
-    });
 
-    systemInfoText += currentRow.trim();
-
-    // Copy to clipboard
-    var tempTextarea = document.createElement("textarea");
-    tempTextarea.value = systemInfoText.trim();
-    document.body.appendChild(tempTextarea);
-
-    tempTextarea.select();
-    document.execCommand("copy");
-
-    document.body.removeChild(tempTextarea);
-
-    // Show success message
-    jQuery(".gsc-copy-msg").removeClass("d-none").hide().fadeIn();
-
-    setTimeout(function () {
-      jQuery(".gsc-copy-msg").fadeOut();
-    }, 2000);
+      document.body.removeChild(textarea);
+    }
   }
+
+  /* ===== BUTTON CLICK ===== */
+  $(document).on("click", "#gselef-free-system-copy", function () {
+
+    copySystemInfo(this);
+
+  });
 
   // 🔹 Ensure first section open on page load
   $("#gselef-free-info-container").show();
@@ -89,9 +146,9 @@
     });
   }
 
-  accordionToggle("#show-info-button", "#gselef-free-info-container");
+  accordionToggle("#gselef-free-show-info-button", "#gselef-free-info-container");
   accordionToggle(
-    "#show-wordpress-info-button",
+    "#gselef-free-show-wordpress-info-button",
     "#wordpress-gselef-free-info-container",
     );
   accordionToggle("#show-Drop-info-button", "#Drop-gselef-free-info-container");

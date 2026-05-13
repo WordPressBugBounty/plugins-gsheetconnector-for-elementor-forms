@@ -26,18 +26,18 @@ class gselef_ElementorForm_Extensions
 
     public function __construct()
     {
-        // Install Fluent Forms plugin
+        // Install Elementor Forms plugin
         add_action('wp_ajax_gselef_install_plugin', array($this, 'gselef_install_plugin'));
 
-        // Activate Fluent Forms plugin
+        // Activate Elementor Forms plugin
         add_action('wp_ajax_gselef_activate_plugin', array($this, 'gselef_activate_plugin'));
 
-        // Deactivate Fluent Forms plugin
+        // Deactivate Elementor Forms plugin
         add_action('wp_ajax_gselef_deactivate_plugin', array($this, 'gselef_deactivate_plugin'));
     }
 
     /**
-     * Deactivate Fluent Forms plugin
+     * Deactivate Elementor Forms plugin
      *
      * @since 1.0.0
      */
@@ -92,29 +92,22 @@ class gselef_ElementorForm_Extensions
             ]);
         }
 
-        // 🔐 Permission check
-        if (! current_user_can('install_plugins')) {
-            wp_send_json_error([
+      // Permission check
+        if (!current_user_can('install_plugins')) {
+            wp_send_json_error(array(
                 'message' => __('You do not have permission to install plugin', 'gsheetconnector-for-elementor-forms')
-            ]);
+            ));
         }
 
         if (empty($_POST['plugin_slug']) || empty($_POST['download_url'])) {
-            wp_send_json_error([
+            wp_send_json_error(array(
                 'message' => __('Missing required parameters', 'gsheetconnector-for-elementor-forms')
-            ]);
+            ));
         }
 
         $plugin_slug  = sanitize_text_field(wp_unslash($_POST['plugin_slug']));
         $download_url = esc_url_raw(wp_unslash($_POST['download_url']));
 
-        if (empty($plugin_slug) || empty($download_url)) {
-            wp_send_json_error([
-                'message' => __('Invalid plugin data', 'gsheetconnector-for-elementor-forms')
-            ]);
-        }
-
-        // Required files
         require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
         require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
         require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -123,59 +116,18 @@ class gselef_ElementorForm_Extensions
 
         $upgrader = new Plugin_Upgrader(new WP_Ajax_Upgrader_Skin());
 
-        $installed_plugins = get_plugins();
-        $plugin_path = '';
-
-        // 🔎 Find installed plugin
-        foreach ($installed_plugins as $path => $details) {
-            if (strpos($path, $plugin_slug . '/') === 0) {
-                $plugin_path = $path;
-                break;
-            }
-        }
-
-        // ==============================
-        // 🔄 If Installed → Upgrade
-        // ==============================
-        if ($plugin_path) {
-
-            $update_plugins = get_site_transient('update_plugins');
-
-            if (isset($update_plugins->response[$plugin_path])) {
-
-                $result = $upgrader->upgrade($plugin_path);
-
-                if (is_wp_error($result)) {
-                    wp_send_json_error([
-                        'message' => __('Upgrade failed: ', 'gsheetconnector-for-elementor-forms') . $result->get_error_message()
-                    ]);
-                }
-
-                wp_send_json_success([
-                    'message' => __('Plugin upgraded successfully', 'gsheetconnector-for-elementor-forms')
-                ]);
-            } else {
-
-                wp_send_json_success([
-                    'message' => __('Plugin already installed and up to date', 'gsheetconnector-for-elementor-forms')
-                ]);
-            }
-        }
-
-        // ==============================
-        // 📦 Not Installed → Install
-        // ==============================
         $result = $upgrader->install($download_url);
 
         if (is_wp_error($result)) {
-            wp_send_json_error([
+            wp_send_json_error(array(
                 'message' => __('Installation failed: ', 'gsheetconnector-for-elementor-forms') . $result->get_error_message()
-            ]);
+            ));
         }
 
-        wp_send_json_success([
+        wp_send_json_success(array(
             'message' => __('Plugin installed successfully', 'gsheetconnector-for-elementor-forms')
-        ]);
+        ));
+
     }
 
     /**

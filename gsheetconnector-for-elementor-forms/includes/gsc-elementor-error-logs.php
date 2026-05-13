@@ -166,35 +166,38 @@ if (!class_exists('gscelef_error_logs')) {
             <div class="error-log-main shadow-box mt-40 p-30">
 
                 <div class="error-log-head flex-wrap gap-20">
-                    <div class="heading mt-0 mb-0"><?php echo esc_html__("Error Log", 'gsheetconnector-for-elementor-forms'); ?> </div>
+                    <div>
+                        <div class="heading mt-0 mb-0"><?php echo esc_html__("Error Log", 'gsheetconnector-for-elementor-forms'); ?> </div>
+                        <p><?php echo esc_html__('Error logs are saved in the database. Please clear them regularly to avoid increasing the database size.', 'gsheetconnector-for-elementor-forms'); ?></p>
+                    </div>
 
-
-
-                    <div class="errorlog-button-list">
-                        <a href="<?php echo esc_url(
-                            wp_nonce_url(
-                                admin_url('admin-post.php?action=gselef_clear_logs'),
-                                'gsc_clear_logs_nonce'
-                            )
-                            ); ?>"
-                            class="button btn-logs"><?php echo esc_html__("Clear Logs", 'gsheetconnector-for-elementor-forms'); ?></a>
-
+                    <?php if (!empty($logs)) : ?>
+                        <div class="errorlog-button-list">
                             <a href="<?php echo esc_url(
                                 wp_nonce_url(
-                                    admin_url('admin-post.php?action=gselef_download_logs'),
-                                    'gsc_download_logs_nonce'
+                                    admin_url('admin-post.php?action=gselef_clear_logs'),
+                                    'gsc_clear_logs_nonce'
                                 )
                                 ); ?>"
-                                class="button button-primary"><?php echo esc_html__("Download CSV", 'gsheetconnector-for-elementor-forms'); ?></a>
+                                class="button btn-logs"><?php echo esc_html__("Clear Logs", 'gsheetconnector-for-elementor-forms'); ?></a>
 
-                                <button type="button" id="gscgff-copy-logs-info"
-                                class="button btn-logs"><?php echo esc_html__("Copy Logs", 'gsheetconnector-for-elementor-forms'); ?></button>
-                                <div class="gsc-copy-msg d-none"></div>
-                            </div>
+                                <a href="<?php echo esc_url(
+                                    wp_nonce_url(
+                                        admin_url('admin-post.php?action=gselef_download_logs'),
+                                        'gsc_download_logs_nonce'
+                                    )
+                                    ); ?>"
+                                    class="button button-primary"><?php echo esc_html__("Download CSV", 'gsheetconnector-for-elementor-forms'); ?></a>
+
+                                    <button type="button" id="gscgff-copy-logs-info"
+                                    class="button btn-logs"><?php echo esc_html__("Copy Logs", 'gsheetconnector-for-elementor-forms'); ?></button>
+                                    <div class="gsc-copy-msg d-none"></div>
+                                </div>
+                            <?php endif; ?>
 
                         </div> <!-- error head #end -->
 
-                        <?php echo '<p>' . esc_html__('Error logs are saved in the database. Please clear them regularly to avoid increasing the database size.', 'gsheetconnector-for-elementor-forms') . '</p>'; ?>
+                       
                         <div class="debug-log-div">
                             <table class="widefat striped error-log-table mt-30">
                                 <thead>
@@ -261,7 +264,7 @@ if (!class_exists('gscelef_error_logs')) {
                                     <?php endforeach;
                                     else: ?>
                                         <tr>
-                                            <td colspan="5"><?php echo esc_html__("No logs found", 'gsheetconnector-for-elementor-forms'); ?></td>
+                                            <td colspan="5" class="text-center"><?php echo esc_html__("No error logs found.", 'gsheetconnector-for-elementor-forms'); ?></td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>

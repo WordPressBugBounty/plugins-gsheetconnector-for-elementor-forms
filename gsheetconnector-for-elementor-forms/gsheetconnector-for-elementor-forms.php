@@ -5,7 +5,7 @@
  * Description: Send your Elementor Form data to your Google Spreadsheet.
  * Requires at least: 5.6
  * Requires PHP: 7.4
- * Version: 1.3.0
+ * Version: 1.3.1
  * Author: GSheetConnector
  * Author URI: https://www.gsheetconnector.com/
  * Text Domain: gsheetconnector-for-elementor-forms
@@ -122,8 +122,8 @@ if ($activate_the_plugin) {
 /* Freemius End */
 
 // Declare some global constants
-define('GS_CONN_ELE_VERSION', '1.3.0');
-define('GS_CONN_ELE_DB_VERSION', '1.3.0');
+define('GS_CONN_ELE_VERSION', '1.3.1');
+define('GS_CONN_ELE_DB_VERSION', '1.3.1');
 define('GS_CONN_ELE_ROOT', dirname(__FILE__));
 define('GS_CONN_ELE_URL', plugins_url('/', __FILE__));
 define('GS_CONN_ELE_BASE_FILE', basename(dirname(__FILE__)) . '/gsheetconnector-for-elementor-forms.php');
@@ -708,6 +708,11 @@ public function add_js_files()
         );
         wp_enqueue_script('gsc-elementor-front-settings');
     }
+
+    /** make condition for only elementor preview */
+    if (isset($_GET['elementor-preview']) || isset($_GET['action']) && $_GET['action'] === 'elementor') {
+        wp_enqueue_style('gsc-elementor-inner-sidebar-css', GS_CONN_ELE_URL . 'assets/css/gsc-elementor-inner-sidebar.css', [], GS_CONN_ELE_VERSION);
+    }
 }
 
 /**
@@ -753,9 +758,9 @@ public function gsc_elementor_widget()
  */
 public function run_on_upgrade()
 {
-   $plugin_options = get_site_option('elefgs_info');
+ $plugin_options = get_site_option('elefgs_info');
 
-   if (
+ if (
     is_array($plugin_options) &&
     isset($plugin_options['version']) &&
     $plugin_options['version'] === '1.0.23'
@@ -847,7 +852,7 @@ public function elementor_gs_connector_summary_dashboard()
 public function elementor_gs_connector_pro_plugin_action_links($links)
 {
         // Define the text for the "Get Pro" link
-    $go_pro_text = esc_html__('Get GSheetConnector Elementor Pro', 'gsheetconnector-for-elementor-forms');
+    $go_pro_text = esc_html__('Get Elementor Google Sheet Pro', 'gsheetconnector-for-elementor-forms');
 
         // Check if the Pro version of the plugin is installed and activated
     if (is_plugin_active('gsheetconnector-for-elementor-forms-pro/gsheetconnector-for-elementor-forms-pro.php')) {
@@ -857,7 +862,7 @@ public function elementor_gs_connector_pro_plugin_action_links($links)
 
         // Add the action link to the plugin page with green color styling
     $links['go_pro'] = sprintf(
-        '<a href="%s" target="_blank" class="gsheetconnector-pro-link" style="color: green; font-weight: bold;">%s</a>',
+        '<a href="%s" target="_blank" class="gsheetconnector-pro-link" style="color: green;">%s</a>',
         esc_url('https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro'),
         $go_pro_text
     );
@@ -869,28 +874,81 @@ public function elementor_gs_connector_pro_plugin_action_links($links)
  * Displays the WordPress debug log in a formatted admin table.
  * Shows the latest 100 log entries in reverse chronological order.
  *
- * @return void
+ * @return bool
  */
-public function display_error_log()
+public function display_error_log($display = true)
 {
     if (!current_user_can('manage_options')) {
-        return;
+        return false;
     }
 
     $debug_log_file = WP_CONTENT_DIR . '/debug.log';
 
     if (!file_exists($debug_log_file)) {
-        echo '<p>Debug log file not found.</p>';
-        return;
+        return false;
     }
 
-    $log_lines = file($debug_log_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $log_lines = file(
+        $debug_log_file,
+        FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES
+    );
 
-        // Reverse and limit to last 100
     $log_lines = array_slice(array_reverse($log_lines), 0, 100);
+
+    $valid_logs = array();
+
+    if (!empty($log_lines)) {
+
+        foreach ($log_lines as $line) {
+
+            if (preg_match('/\[(.*?)\]\s(.*?):\s(.*)/', $line)) {
+                $valid_logs[] = $line;
+            }
+        }
+    }
+
+    // No logs
+// No logs
+    if (empty($valid_logs)) {
+
+        if ($display) {
+
+            echo '<div style="max-height:500px; overflow:auto;">';
+            echo '<table class="gselef-free-error-table widefat striped mt-30">';
+
+            echo '<thead>
+            <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Message</th>
+            <th>File</th>
+            </tr>
+            </thead>';
+
+            echo '<tbody>';
+
+            echo '<tr>';
+            echo '<td colspan="4" class="text-center">';
+            echo esc_html__('No error logs found.', 'gsheetconnector-for-elementor-forms');
+            echo '</td>';
+            echo '</tr>';
+
+            echo '</tbody>';
+            echo '</table>';
+            echo '</div>';
+        }
+
+        return false;
+    }
+
+    // Only checking logs
+    if (!$display) {
+        return true;
+    }
 
     echo '<div style="max-height:500px; overflow:auto;">';
     echo '<table class="gselef-free-error-table widefat striped mt-30">';
+
     echo '<thead>
     <tr>
     <th>Date</th>
@@ -899,35 +957,37 @@ public function display_error_log()
     <th>File</th>
     </tr>
     </thead>';
+
     echo '<tbody>';
 
-    foreach ($log_lines as $line) {
+    foreach ($valid_logs as $line) {
 
-        if (preg_match('/\[(.*?)\]\s(.*?):\s(.*)/', $line, $matches)) {
+        preg_match('/\[(.*?)\]\s(.*?):\s(.*)/', $line, $matches);
 
-            $date    = str_replace(' UTC', '', $matches[1]);
-            $type    = str_replace('PHP ', '', $matches[2]);
-            $message = $matches[3];
+        $date    = str_replace(' UTC', '', $matches[1]);
+        $type    = str_replace('PHP ', '', $matches[2]);
+        $message = $matches[3];
 
-            $file = '-';
-            if (preg_match('/in (.*?) on line/', $message, $file_match)) {
-                $file = $file_match[1];
-            }
+        $file = '-';
 
-            echo '<tr>';
-            echo '<td>' . esc_html($date) . '</td>';
-            echo '<td>' . esc_html($type) . '</td>';
-            echo '<td>' . esc_html($message) . '</td>';
-            echo '<td>' . esc_html($file) . '</td>';
-            echo '</tr>';
+        if (preg_match('/in (.*?) on line/', $message, $file_match)) {
+            $file = $file_match[1];
         }
+
+        echo '<tr>';
+        echo '<td>' . esc_html($date) . '</td>';
+        echo '<td>' . esc_html($type) . '</td>';
+        echo '<td>' . esc_html($message) . '</td>';
+        echo '<td>' . esc_html($file) . '</td>';
+        echo '</tr>';
     }
 
     echo '</tbody>';
     echo '</table>';
     echo '</div>';
-}
 
+    return true;
+}
 /**
  * Delete site-specific plugin data during uninstall.
  *
@@ -1124,6 +1184,13 @@ private function run_for_site()
     if (!get_option('elefgs_token')) {
         update_option('elefgs_token', '');
     }
+
+    /** save date for plugin activation  */
+    if(!get_option('elefgs_free_plugin_activated_at')){
+      update_option('elefgs_free_plugin_activated_at',time());
+  }
+
+
 }
 
 }
