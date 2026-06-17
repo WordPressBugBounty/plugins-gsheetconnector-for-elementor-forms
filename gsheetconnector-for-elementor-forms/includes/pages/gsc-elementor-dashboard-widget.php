@@ -8,6 +8,7 @@
 if (!defined('ABSPATH')) {
  exit;
 }
+// phpcs:ignoreFile WordPress.NamingConventions.PrefixAllGlobals
 ?>
 <div class="dashboard-content">
  <?php

@@ -8,6 +8,7 @@
 if (!defined('ABSPATH')) {
     exit;
 }
+// phpcs:ignoreFile WordPress.NamingConventions.PrefixAllGlobals
 
 // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Needed to fetch all Elementor-designed posts
 $args = array(
@@ -42,11 +43,11 @@ $feed = $wpdb->prefix . 'postmeta';
  *      'element_id' => 'xxxx'
  * )
  * -------------------------------------------------------------------------- */
-
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 $feedList = $wpdb->get_results(
     $wpdb->prepare(
         "SELECT *
-        FROM {$feed}
+        FROM {$wpdb->postmeta}
         WHERE meta_value = %s
         OR meta_value LIKE %s
         ORDER BY meta_id DESC",
@@ -419,28 +420,46 @@ value="1"
 <!--  Delete feed popup end -->
 <!-- pagination -->
 
-<?php if ($total_pages > 1) : ?>
+<?php if ($total_pages > 1) :
+    $paged = 1;
 
-    <?php
-    $paged = isset($_GET['paged']) ? absint($_GET['paged']) : 1;
+    if (
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading admin pagination parameter.
+        isset( $_GET['paged'] )
+    ) {
+        $paged =
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading admin pagination parameter.
+        absint( wp_unslash( $_GET['paged'] ) );
+    }
+
+    $page = '';
+
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading admin page parameter.
+    if ( isset( $_GET['page'] ) ) {
+        $page =
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading admin page parameter.
+        sanitize_text_field( wp_unslash( $_GET['page'] ) );
+    }
 
     $base_url = add_query_arg(
         array(
-            'page'  => sanitize_text_field($_GET['page']),
+            'page'  => $page,
             'paged' => '%#%',
         ),
-        admin_url('admin.php')
+        admin_url( 'admin.php' )
     );
 
-    $pagination = paginate_links(array(
-        'base'      => $base_url,
-        'format'    => '',
-        'prev_text' => esc_html__('« Prev', 'gsheetconnector-for-elementor-forms'),
-        'next_text' => esc_html__('Next »', 'gsheetconnector-for-elementor-forms'),
-        'total'     => (int) $total_pages,
-        'current'   => (int) $paged,
-        'type'      => 'array',
-    ));
+    $pagination = paginate_links(
+        array(
+            'base'      => $base_url,
+            'format'    => '',
+            'prev_text' => esc_html__( '« Prev', 'gsheetconnector-for-elementor-forms' ),
+            'next_text' => esc_html__( 'Next »', 'gsheetconnector-for-elementor-forms' ),
+            'total'     => (int) $total_pages,
+            'current'   => (int) $paged,
+            'type'      => 'array',
+        )
+    );
     ?>
 
     <div class="gscefp-pagination mt-40 text-center">

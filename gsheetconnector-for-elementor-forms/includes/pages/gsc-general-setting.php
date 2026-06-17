@@ -3,6 +3,7 @@
 if (!defined('ABSPATH')) {
     exit;
 }
+// phpcs:ignoreFile WordPress.NamingConventions.PrefixAllGlobals
 ?>
 <!-- uninstall plugin settings -->
 <div class="wrap w-100 m-0">

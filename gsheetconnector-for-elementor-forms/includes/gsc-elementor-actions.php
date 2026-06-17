@@ -14,7 +14,7 @@ use ElementorPro\Modules\Forms\Classes\Action_Base;
 use ElementorPro\Modules\Forms\Controls\Fields_Map;
 use ElementorPro\Modules\Forms\Submissions\Database\Query as ele_submission_db;
 
-
+// phpcs:ignoreFile WordPress.NamingConventions.PrefixAllGlobals
 /**
  * Class GSC_Elementor_Actions_Free
  */
@@ -129,6 +129,7 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
                 $latest_id = wp_cache_get('gsc_latest_elementor_id');
                 if (false === $latest_id) {
                     global $wpdb;
+                     // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
                     $result = $wpdb->get_results("SELECT MAX(id) as latest_id FROM {$wpdb->prefix}e_submissions");
                     $latest_id = isset($result[0]->latest_id) ? $result[0]->latest_id : '';
                     wp_cache_set('gsc_latest_elementor_id', $latest_id, '', 300); // Cache for 5 minutes
@@ -257,15 +258,29 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
                                     if (isset($global_form_meta[0]['settings']['gs_spreadsheet_tab_name'])) {
                                         $gsc_elementor_sheetname = $global_form_meta[0]['settings']['gs_spreadsheet_tab_name'];
                                     }
-                                    if (is_array($global_form_meta[0]['settings']['form_fields'])) {
-
+                                    if (
+                                        isset($global_form_meta[0]['settings']['form_fields']) &&
+                                        is_array($global_form_meta[0]['settings']['form_fields'])
+                                    ) {
 
                                         foreach ($global_form_meta[0]['settings']['form_fields'] as $formdata) {
-                                            if (!isset($formdata['field_type']) || (isset($formdata['field_type']) && !in_array($formdata['field_type'], $gsc_elementor_exclude_headertype, true))) {
-                                                $gsc_elementor_headers[$formdata['custom_id']] = $formdata['field_label'] ? $formdata['field_label'] : ucfirst($formdata['custom_id']);
+
+                                            if (
+                                                !isset($formdata['field_type']) ||
+                                                !in_array($formdata['field_type'], $gsc_elementor_exclude_headertype, true)
+                                            ) {
+
+                                                if (isset($formdata['custom_id']) && !empty($formdata['custom_id'])) {
+
+                                                    $gsc_elementor_headers[$formdata['custom_id']] =
+                                                    (isset($formdata['field_label']) && !empty($formdata['field_label']))
+                                                    ? $formdata['field_label']
+                                                    : ucfirst($formdata['custom_id']);
+                                                }
                                             }
                                         }
                                     }
+
                                     return $gsc_elementor_headers;
                                 }
                             }

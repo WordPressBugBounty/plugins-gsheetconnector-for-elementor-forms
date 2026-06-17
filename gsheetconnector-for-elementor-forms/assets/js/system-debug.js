@@ -52,7 +52,7 @@
     textToCopy = textToCopy.trim();
 
     if (!textToCopy) {
-      console.error("Nothing to copy");
+      console.error("Nothing to copy.");
       return;
     }
 
@@ -116,7 +116,7 @@
 
       } catch (e) {
 
-        console.error("Copy failed", e);
+        console.error("Copy failed.", e);
       }
 
       document.body.removeChild(textarea);
@@ -270,7 +270,7 @@
     // Show success message
     var $msg = $(".gsc-copy-msg");
 
-    $msg.text("Copied successfully").removeClass("d-none");
+    $msg.text("Copied successfully.").removeClass("d-none");
 
     setTimeout(function () {
       $msg.addClass("d-none");

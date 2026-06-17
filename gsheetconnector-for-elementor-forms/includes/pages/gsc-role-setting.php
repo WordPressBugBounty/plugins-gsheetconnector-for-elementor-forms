@@ -3,6 +3,7 @@
 if (!defined('ABSPATH')) {
     exit;
 }
+// phpcs:ignoreFile WordPress.NamingConventions.PrefixAllGlobals
 
 if (!current_user_can('administrator')) {
 ?>

@@ -1,11 +1,11 @@
 === GSheetConnector for Elementor Forms – Sync Elementor Forms to Google Sheets ===
 Contributors: westerndeal, abdullah17, gsheetconnector
 Donate link: https://www.paypal.me/WesternDeal
-Tags: elementor, elementor forms, elementor addons, elementor google sheets, google sheets, metform google sheets, elementor forms to google sheets
+Tags: elementor, elementor forms, elementor addons, metform google sheets, elementor forms to google sheets
 Requires at least: 5.6
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author URI: https://www.gsheetconnector.com/
@@ -188,14 +188,20 @@ Your Elementor Forms and MetForm submissions will now sync automatically.
 
 == Screenshots ==
 
-1. Google Sheet Integration Shown with Authentication along with Permissions.
-2. Create a form.
-3. How to create feeds and display the Sheet name and Tab name and Entering the Field Header Names Manually in the Connected Sheet and Submitting the form.
-4. System Status.
-5. Extensions.
+1. Google Sheets Integration setup with Authentication and required Permissions.
+2. Creating a Form.
+3. How to create feeds, display the Sheet Name and Tab Name, manually enter Field Header Names in the connected Google Sheet, and submit the form.
+4. General Settings including the “Delete Plugin Data on Uninstall” option.
+5. Role Permissions.
+6. Version Control.
+7. System Status.
 
 
 == Changelog ==
+
+= 1.3.2 (17-06-2026) =
+* Improved: Optimized bundled library files by including only required components.
+* Fixed: Enhanced compatibility with PHP 8.x versions.
 
 = 1.3.1 (13-05-2026) =
 * Added: Support for handling multiple Elementor forms on the same page by syncing submissions only to their respective Google Sheet feeds using Elementor Form Element ID mapping.

@@ -2,7 +2,7 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-
+// phpcs:ignoreFile WordPress.NamingConventions.PrefixAllGlobals
 /**
  * Create error log table
  * NOTE: Call this from main plugin file on activation
@@ -54,27 +54,54 @@ if (!class_exists('gscelef_error_logs')) {
      * ===================================================== */
         public static function log_to_db($error_id, $code, $message, $details = [])
         {
-            global $wpdb;
+         global $wpdb;
 
-            $table = $wpdb->prefix . 'gscelef_error_logs';
+         $table = esc_sql( $wpdb->prefix . 'gscelef_error_logs' );
 
-           // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared dynamically here
-            if ($wpdb->get_var("SHOW TABLES LIKE '$table'") != $table) {
-                return false;
-            }
+         if (
+       // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+            $wpdb->get_var(
+                $wpdb->prepare(
+                    'SHOW TABLES LIKE %s',
+                    $table
+                )
+            ) !== $table
+        ) {
+            return false;
+        }
+            //    IMPORTANT FIX START
+        if (is_string($details)) {
+            $decoded = json_decode($details, true);
 
-            // 🔥 IMPORTANT FIX START
-            if (is_string($details)) {
-                $decoded = json_decode($details, true);
-
-                if (json_last_error() === JSON_ERROR_NONE) {
+            if (json_last_error() === JSON_ERROR_NONE) {
                     $details = $decoded; // already JSON → convert to array
                 } else {
                     $details = ['raw_error' => $details];
                 }
             }
-            // 🔥 IMPORTANT FIX END
+            //    IMPORTANT FIX END
 
+            // Prevent duplicate error log entries for identical errors within 30 minutes.
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+            $recent_log = $wpdb->get_var(
+                $wpdb->prepare(
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+                    "SELECT COUNT(*) FROM {$table} WHERE error_id = %s AND code = %d AND message = %s AND created_at >= %s",
+                    $error_id,
+                    $code,
+                    $message,
+                    wp_date(
+                        'Y-m-d H:i:s',
+                        time() - ( 30 * MINUTE_IN_SECONDS )
+                    )
+                )
+            );
+
+
+            if (!empty($recent_log)) {
+                return false;
+            }
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
             return $wpdb->insert(
                 $table,
                 [
@@ -86,6 +113,7 @@ if (!class_exists('gscelef_error_logs')) {
                 ],
                 ['%s', '%d', '%s', '%s', '%s']
             );
+            // phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery
         }
 
 
@@ -106,41 +134,41 @@ if (!class_exists('gscelef_error_logs')) {
         }
 
 
-        /* =====================================================
+    /* =====================================================
      * DEBUG → DB NORMALIZER
      * ===================================================== */
-        public static function log_from_debug($error)
-        {
+    public static function log_from_debug($error)
+    {
             // JSON string hoy to decode try karo
-            if (is_string($error)) {
-                $decoded = json_decode($error, true);
+        if (is_string($error)) {
+            $decoded = json_decode($error, true);
 
-                if (json_last_error() === JSON_ERROR_NONE) {
-                    $error = $decoded;
-                }
-            }
-
-            if (is_array($error) || is_object($error)) {
-
-                self::log_to_db(
-                    'ElementorForm_gsheet_error',
-                    500,
-                    'ElementorForm Google Sheets Error',
-                    (array) $error
-                );
-            } else {
-
-                self::log_to_db(
-                    'ElementorForm_gsheet_error',
-                    500,
-                    'ElementorForm Google Sheets Error',
-                    [
-                        'type'      => 'error',
-                        'raw_error' => trim((string) $error),
-                    ]
-                );
+            if (json_last_error() === JSON_ERROR_NONE) {
+                $error = $decoded;
             }
         }
+
+        if (is_array($error) || is_object($error)) {
+
+            self::log_to_db(
+                'ElementorForm_gsheet_error',
+                500,
+                'ElementorForm Google Sheets Error',
+                (array) $error
+            );
+        } else {
+
+            self::log_to_db(
+                'ElementorForm_gsheet_error',
+                500,
+                'ElementorForm Google Sheets Error',
+                [
+                    'type'      => 'error',
+                    'raw_error' => trim((string) $error),
+                ]
+            );
+        }
+    }
 
 
         /* =====================================================
@@ -151,14 +179,15 @@ if (!class_exists('gscelef_error_logs')) {
             global $wpdb;
             $table = $wpdb->prefix . 'gscelef_error_logs';
 
-           // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is safe (from $wpdb->prefix)
+           // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Table name is safe (from $wpdb->prefix)
             if ($wpdb->get_var("SHOW TABLES LIKE '{$table}'") !== $table) {
                 echo '<div class="notice notice-error"><p>Log table not found.</p></div>';
                 return;
             }
 
-           // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is safe (from $wpdb->prefix)
+           // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Table name is safe (from $wpdb->prefix)
             $logs = $wpdb->get_results(
+                 // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Safe table name generated by plugin.
                 "SELECT * FROM {$table} ORDER BY created_at DESC",
                 ARRAY_A
             );
@@ -197,7 +226,7 @@ if (!class_exists('gscelef_error_logs')) {
 
                         </div> <!-- error head #end -->
 
-                       
+
                         <div class="debug-log-div">
                             <table class="widefat striped error-log-table mt-30">
                                 <thead>
@@ -230,8 +259,7 @@ if (!class_exists('gscelef_error_logs')) {
                                                 if (json_last_error() === JSON_ERROR_NONE && is_array($details)) :
                                                     ?>
                                                 <div class="gsc-error-details">
-                                                    <div class="gselef-more-error-display">
-
+                                                    <div class="more-error-display">
                                                         <?php
                                                         $decoded = json_decode($log['details'], true);
                                                         $display = '';
@@ -240,15 +268,14 @@ if (!class_exists('gscelef_error_logs')) {
 
                                                             $raw = $decoded['raw_error'];
 
-                                                            // Extract text after "message:"
                                                             if (strpos($raw, 'message:') !== false) {
                                                                 $parts = explode('message:', $raw);
                                                                 $display = trim(end($parts));
                                                             } else {
-                                                                $display = $raw;
+                                                                $display = wp_strip_all_tags($raw);
                                                             }
                                                         } else {
-                                                            $display = $log['details'];
+                                                            $display = wp_strip_all_tags($log['details']);
                                                         }
 
                                                         echo esc_html($display);
@@ -256,7 +283,7 @@ if (!class_exists('gscelef_error_logs')) {
                                                     </div>
                                                 </div>
 
-                                                <?php else: ?>
+                                                <?php else : ?>
                                                     <?php echo esc_html($log['details']); ?>
                                                 <?php endif; ?>
                                             </td>
@@ -372,8 +399,8 @@ public static function gselef_log_js_error()
         wp_send_json_error();
     }
 
-            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Internal/admin request, capability check already applied
-    $log = $_POST['log'] ?? [];
+// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified earlier in this request.
+    $log = isset( $_POST['log'] ) ? sanitize_text_field( wp_unslash( $_POST['log'] ) ) : '';
 
     if (is_string($log)) {
         $decoded = json_decode($log, true);
@@ -418,7 +445,11 @@ public function gselef_download_logs()
     global $wpdb;
     $table = $wpdb->prefix . 'gscelef_error_logs';
 
-    $logs = $wpdb->get_results("SELECT * FROM {$table}", ARRAY_A);
+ // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+    $logs = $wpdb->get_results(
+        "SELECT * FROM {$wpdb->prefix}gscelef_error_logs",
+        ARRAY_A
+    );
 
     if (empty($logs)) {
         wp_safe_redirect(wp_get_referer());

@@ -3,207 +3,321 @@
 if (!defined('ABSPATH'))
 	exit;
 
-include_once(plugin_dir_path(__FILE__) . 'vendor/autoload.php');
-
 class GSC_Elementor_Free
 {
 
-	private $token;
 	private $spreadsheet;
 	private $worksheet;
 
 
-	private static $instance;
-
-	public function __construct() {}
-
 /**
- * Sets the singleton Google_Client instance.
- *
- * @param Google_Client|null $instance Google Client instance.
- * @return void
- */
-public static function setInstance(Google_Client $instance = null)
+* GET GOOGLE CREDS
+*
+* @since 1.0.0
+*/
+private static function creds()
 {
-	self::$instance = $instance;
+	return is_multisite()
+	? get_site_option('Elegsc_api_creds')
+	: get_option('Elegsc_api_creds');
 }
 
+
 /**
- * Returns the singleton Google_Client instance.
+ * Authenticate Google Client using authorization code.
  *
- * @throws LogicException If the client instance is not initialized.
- * @return Google_Client
+ * Fetches API credentials, initializes the Google Client,
+ * exchanges the authorization code for an access token,
+ * and stores the token data.
+ *
+ * @since 1.0
+ *
+ * @param string $access_code Google OAuth authorization code.
+ * @return void
  */
-public static function getInstance()
+public static function preauth($code)
 {
-	if (is_null(self::$instance)) {
+	try {
+		$creds = self::creds();
+		if (!$creds) return;
 
-		$obj = new self();
-		$obj->auth(); // try to init
-
-		if (is_null(self::$instance)) {
+		$response = wp_remote_post(
+			'https://oauth2.googleapis.com/token',
+			[
+				'body' => [
+					'code'          => $code,
+					'client_id'     => $creds['client_id_web'],
+					'client_secret' => $creds['client_secret_web'],
+					'redirect_uri'  => 'https://oauth.gsheetconnector.com',
+					'grant_type'    => 'authorization_code'
+				]
+			]
+		);
+		if (is_wp_error($response)) {
 			return false;
 		}
-	}
 
-	return self::$instance;
-}
-
-/**
- * Performs OAuth pre-authentication using authorization code.
- *
- * Builds Google Client, exchanges auth code for access token,
- * and stores token data in plugin options.
- *
- * @param string $access_code OAuth authorization code.
- * @return void
- */
-public static function preauth($access_code)
-{
-		// Fetch API creds
-	if (is_multisite()) {
-			// Fetch API creds
-		$api_creds = get_site_option('Elegsc_api_creds');
-	} else {
-			// Fetch API creds
-		$api_creds = get_option('Elegsc_api_creds');
-	}
-	$client = new Google_Client();
-	$newClientSecret = get_option('is_new_client_secret_elefgscfree');
-	$clientId = ($newClientSecret == 1) ? $api_creds['client_id_web'] : $api_creds['client_id_desk'];
-	$clientSecret = ($newClientSecret == 1) ? $api_creds['client_secret_web'] : $api_creds['client_secret_desk'];
-	$client->setClientId($clientId);
-	$client->setClientSecret($clientSecret);
-		//   $client->setClientId( GSC_Elementor_Free::clientId );
-		//   $client->setClientSecret( GSC_Elementor_Free::clientSecret );
-	$client->setRedirectUri('https://oauth.gsheetconnector.com');
-	$client->setScopes(Google_Service_Sheets::SPREADSHEETS);
-	$client->setScopes(Google_Service_Drive::DRIVE_METADATA_READONLY);
-	$client->setAccessType('offline');
-	$client->fetchAccessTokenWithAuthCode($access_code);
-	$tokenData = $client->getAccessToken();
-
-	GSC_Elementor_Free::updateToken($tokenData);
-}
-
-/**
- * Updates and stores OAuth token data in WordPress options.
- *
- * Adds expiry timestamp, validates scopes, and logs errors if any occur.
- *
- * @param array $tokenData OAuth token response data.
- * @return void
- */
-public static function updateToken($tokenData)
-{
-	$expires_in = isset($tokenData['expires_in']) ? intval($tokenData['expires_in']) : 0;
-	$tokenData['expire'] = time() + $expires_in;
-	try {
-		if (isset($tokenData['scope'])) {
-			$permission = explode(" ", $tokenData['scope']);
-			if ((in_array("https://www.googleapis.com/auth/drive.metadata.readonly", $permission)) && (in_array("https://www.googleapis.com/auth/spreadsheets", $permission))) {
-				update_option('elefgs_verify', 'valid');
-			} else {
-				update_option('elefgs_verify', 'invalid-auth');
-			}
-			$tokenJson = json_encode($tokenData);
-			update_option('elefgs_token', $tokenJson);
+		$body = json_decode(wp_remote_retrieve_body($response), true);
+		if (!is_array($body)) {
+			$body = [];
 		}
-		
+
+		$body = json_decode(wp_remote_retrieve_body($response), true);
+
+
+		if (empty($body['access_token'])) {
+			self::updateToken($body);
+			return false;
+		}
+
+		self::updateToken($body);
+		return true;
 	} catch (Exception $e) {
-		GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
+		wc_gsheetconnector_utility::gs_debug_log('[Auth Exception]. ' . $e->getMessage());
+		throw new LogicException('Auth error: ' . esc_html($e->getMessage()));
 	}
 }
 
 /**
- * Authenticates Google Client using stored OAuth token (manual or automatic mode).
+ * Store and update Google OAuth token for manual authentication.
  *
- * - Supports manual credentials mode and API-based credentials mode.
- * - Refreshes access token using stored refresh token.
- * - Stores updated token and sets Google Client instance.
+ * This function saves the token data returned by Google OAuth
+ * and validates the permission scopes before storing them
+ * in WordPress options.
  *
- * @throws LogicException If refresh token is missing or invalid authentication state.
+ * @since 3.0
+ *
+ * @param array $tokenData Google OAuth token data.
+ *
  * @return void
+ */
+public static function updateToken( $tokenData ) {
+  // Invalid token response
+	if (empty($tokenData['access_token'])) {
+
+
+		update_option('gsc_elementor_email_account', '');
+
+		update_option(
+			'elefgs_token',
+			wp_json_encode($tokenData)
+		);
+
+		if (class_exists('gscelef_error_logs')) {
+
+			gscelef_error_logs::log_to_db(
+				'Google_Access_Token_Invalid_Existing',
+				403,
+				'Google access token is invalid or expired (Existing Method)',
+				[
+					'error_type' => 'invalid_token',
+					'authentication_method' => 'Existing',
+					'message' => 'Authentication failed. The stored Google access token is invalid, expired, or refresh token is no longer valid. Please re-authenticate your Google account.',
+				]
+			);
+		}
+
+		return;
+	}
+
+	if ( isset( $tokenData['expires_in'] ) ) {
+		$tokenData['expire'] = time() + intval( $tokenData['expires_in'] );
+	}
+
+	try {
+		if(isset($tokenData['scope'])){
+			$permission = explode(" ", $tokenData['scope']);
+			if ( ( in_array("https://www.googleapis.com/auth/drive.metadata.readonly",$permission ) || in_array( 'https://www.googleapis.com/auth/drive.file', $permission ) ) && ( in_array( 'https://www.googleapis.com/auth/spreadsheets', $permission ) ) ) {
+				update_option('elefgs_verify', 'valid');
+			}else{
+				update_option('elefgs_verify', 'invalid-auth');
+           // Log permission error to error logs
+				if (class_exists('gscelef_error_logs')) {
+					gscelef_error_logs::log_to_db(
+						'Google_Auth_Permission_Error',
+						403,
+						'Google Drive and Google Sheets permissions not granted',
+						[
+							'error_type' => 'Missing Permissions',
+							'message' => 'User did not grant Google Drive and/or Google Sheets permissions during OAuth authentication',
+							'granted_scopes' => $tokenData['scope'] ?? '',
+							'required_drive_scope' => 'https://www.googleapis.com/auth/drive.file OR https://www.googleapis.com/auth/drive.metadata.readonly',
+							'required_sheets_scope' => 'https://www.googleapis.com/auth/spreadsheets',
+						]
+					);
+				}
+			}
+		}
+		$tokenJson = json_encode( $tokenData );
+		update_option( 'elefgs_token', $tokenJson );
+	} catch ( Exception $e ) {
+		GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
+		return;
+	}
+}
+
+/**
+ * AUTHENTICATE GOOGLE CLIENT FOR API ACCESS
+ *
+ * This method handles authentication for Google API access by retrieving
+ * a valid access token using the configured authentication method.
+ *
+ * Supported authentication modes:
+ * 1. Manual OAuth authentication (client ID/secret based token)
+ * 2. Service Account authentication (JSON credentials based token)
+ * 3. Default OAuth authentication (plugin-managed token system)
+ *
+ * The method:
+ * - Retrieves a valid access token from the active authentication flow
+ * - Ensures token is refreshed automatically if required (handled internally)
+ * - Returns the valid token for API usage
+ *
+ * If authentication fails, the error is logged and false is returned.
+ *
+ * @since 1.0.0
+ * @return string|false Valid access token or false on failure
  */
 public function auth()
 {
+	try {
+		$token = $this->get_active_token();
 
-	$maunal_setting = get_option('elefgs_manual_setting') ? get_option('elefgs_manual_setting') : '0';
+		if (!$token) {
+			return false;
+		}
 
-	if ((isset($maunal_setting)) && ($maunal_setting == '1'))
-		$tokenData = json_decode(get_option('elefgs_token_manual'), true);
-	else
-		$tokenData = json_decode(get_option('elefgs_token'), true);
-
-
-	if (empty($tokenData) || !isset($tokenData['refresh_token']) || empty($tokenData['refresh_token'])) {
-
-	// stop silently (NO exception)
+		return $token;
+	} catch (Exception $e) {
+		GsEl_Connector_Utility::ele_gs_debug_log(
+			__METHOD__ . " Error in Auth: \n " . $e->getMessage()
+		);
 		return false;
 	}
+}
 
+
+/**
+ * Get the active Google API access token based on selected auth mode
+ *
+ * Modes:
+ * Default = Existing/Auto token method
+ * @since 1.0.0
+ */
+public function get_active_token()
+{
 	try {
-		$client = new Google_Client();
 
-		if ($maunal_setting == '1') {
-			$elefgs_client_id = get_option('elefgs_client_id');
-			$elefgs_secret_id = get_option('elefgs_secret_id');
-			$client->setClientId($elefgs_client_id);
-			$client->setClientSecret($elefgs_secret_id);
-		} else {
-				// Fetch API creds
-			if (is_multisite()) {
-					// Fetch API creds
-				$api_creds = get_site_option('Elegsc_api_creds');
-			} else {
-					// Fetch API creds
-				$api_creds = get_option('Elegsc_api_creds');
-			}
-			$newClientSecret = get_option('is_new_client_secret_elefgscfree');
-			$clientId = ($newClientSecret == 1) ? $api_creds['client_id_web'] : $api_creds['client_id_desk'];
-			$clientSecret = ($newClientSecret == 1) ? $api_creds['client_secret_web'] : $api_creds['client_secret_desk'];
-			$client->setClientId($clientId);
-			$client->setClientSecret($clientSecret);
+		return $this->token();
+	} catch (Exception $e) {
+		GsEl_Connector_Utility::ele_gs_debug_log(
+			__METHOD__ . " Error in Getting token: \n " . $e->getMessage()
+		);
+		return false;
+	}
+}
 
-			
-			$client->setScopes(Google_Service_Sheets::SPREADSHEETS);
-			$client->setScopes(Google_Service_Drive::DRIVE_METADATA_READONLY);
-			$client->refreshToken($tokenData['refresh_token']);
-			$client->setAccessType('offline');
-			//GSC_Elementor_Free::updateToken( $tokenData );
 
-			GSC_Elementor_Free::updateToken($tokenData);
+/**
+ * GET ACCESS TOKEN
+ *
+ * @since 1.0.0
+ */
+private function token()
+{
+	try {
+		$tokenJson = get_option('elefgs_token');
+		$tokenData = json_decode($tokenJson, true);
+
+		if (empty($tokenData)) {
+			return false;
 		}
 
 
+		if (!isset($tokenData['expire'])) {
 
-		self::setInstance($client);
+			update_option('gsc_elementor_email_account', '');
+
+			return false;
+		}
+
+		if (time() > intval($tokenData['expire'])) {
+
+			$newToken = $this->refresh($tokenData);
+
+			if (!empty($newToken['access_token'])) {
+
+				self::updateToken($newToken);
+
+				return $newToken['access_token'];
+			}
+
+			update_option('gsc_elementor_email_account', '');
+
+			return false;
+		}
+
+		return $tokenData['access_token'];
+
 	} catch (Exception $e) {
-			// throw new LogicException("Auth, Error fetching OAuth2 access token, message: " . $e->getMessage());
-		GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
-		exit();
+		GsEl_Connector_Utility::ele_gs_debug_log(
+			"Error in getting auto token " . $e->getMessage()
+		);
+
 	}
 }
+
 /**
- * Test/debug function to fetch and process Google Sheets data.
+ * REFRESH ACCESS TOKEN USING GOOGLE OAUTH
  *
- * NOTE: This appears to be a development/testing method.
+ * This function refreshes the expired OAuth access token using the stored refresh token.
+ * It calls Google's OAuth token endpoint and updates the WordPress option with the new token data.
  *
- * @return void
+ * Steps:
+ * 1. Validate refresh token exists
+ * 2. Get client credentials
+ * 3. Send request to Google OAuth API
+ * 4. Validate response
+ * 5. Store new access token + expiry time in database
+ * 6. Return new access token
+ *
+ * @since 1.0.0
  */
-public function get_user_data()
+private function refresh($token)
 {
-	$client = self::getInstance();
+	try {
+		if (empty($token['refresh_token'])) {
+			return false;
+		}
+		$creds = self::creds();
 
-	$results = $this->get_spreadsheets();
+		$response = wp_remote_post(
+			'https://oauth2.googleapis.com/token',
+			[
+				'body' => [
+					'client_id'     => $creds['client_id_web'],
+					'client_secret' => $creds['client_secret_web'],
+					'refresh_token' => $token['refresh_token'] ?? '',
+					'grant_type'    => 'refresh_token'
+				]
+			]
+		);
+		if (is_wp_error($response)) {
+			return false;
+		}
+		$body = json_decode(wp_remote_retrieve_body($response), true);
 
 
-	$spreadsheets = $this->get_worktabs('1mRuDMnZveDFQrmzHM9s5YkPA4F_dZkHJ1Gh81BvYB2k');
+		if (!empty($body['access_token'])) {
+			$body['refresh_token'] = $token['refresh_token'];
+		}
 
-	$this->setSpreadsheetId('1mRuDMnZveDFQrmzHM9s5YkPA4F_dZkHJ1Gh81BvYB2k');
-	$this->setWorkTabId('Foglio1');
-	$worksheetTab = $this->list_rows();
+		return $body;
+	} catch (Exception $e) {
+		GsEl_Connector_Utility::ele_gs_debug_log("Refresh Auto Token fail! - " . $e->getMessage());
+	}
 }
+
+
 
 /**
  * Sets the active spreadsheet ID for further operations.
@@ -261,47 +375,145 @@ public function getWorkTabId()
 public function add_row($data)
 {
 	try {
-		$client = self::getInstance();
-		$service = new Google_Service_Sheets($client);
+
 		$spreadsheetId = $this->getSpreadsheetId();
-		$work_sheets = $service->spreadsheets->get($spreadsheetId);
+		$worksheet_id = $this->getWorkTabId();
+		$token = $this->get_active_token();
 
-		if (!empty($work_sheets) && !empty($data)) {
-			foreach ($work_sheets->getSheets() as $sheet) {
-				$properties = $sheet->getProperties();
-				$sheet_title = $properties->getTitle();
-					$worksheet_id = $this->getWorkTabId(); // expected to be sheet name
-
-					// ✅ Match by title, not ID
-					if (strtolower($worksheet_id) == strtolower($sheet_title)) {
-						$worksheetCell = $service->spreadsheets_values->get($spreadsheetId, $sheet_title . "!1:1");
-						$insert_data = [];
-
-						if (isset($worksheetCell->values[0])) {
-							foreach ($worksheetCell->values[0] as $k => $name) {
-								$insert_data[] = $data[$name] ?? '';
-							}
-						}
-
-						$full_range = $sheet_title . "!A1:Z";
-						$response = $service->spreadsheets_values->get($spreadsheetId, $full_range);
-						$get_values = $response->getValues();
-						$row = $get_values ? count($get_values) + 1 : 1;
-						$range = $sheet_title . "!A" . $row . ":Z";
-
-						$valueRange = new Google_Service_Sheets_ValueRange();
-						$valueRange->setValues([$insert_data]); // ✅ correct format
-
-						$conf = ["valueInputOption" => "USER_ENTERED"];
-
-						$result = $service->spreadsheets_values->append($spreadsheetId, $range, $valueRange, $conf);
-					}
-				}
-			}
-		} catch (Exception $e) {
-			GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
+		if (empty($spreadsheetId) || empty($token) || empty($data)) {
+			return;
 		}
-	}
+
+        /*
+         * Get Spreadsheet
+         */
+        $response = wp_remote_get(
+        	"https://sheets.googleapis.com/v4/spreadsheets/{$spreadsheetId}",
+        	array(
+        		'headers' => array(
+        			'Authorization' => 'Bearer ' . $token,
+        		),
+        		'timeout' => 30,
+        	)
+        );
+
+        if (is_wp_error($response)) {
+        	return;
+        }
+
+        $work_sheets = json_decode(wp_remote_retrieve_body($response), true);
+
+        if (!empty($work_sheets['sheets'])) {
+
+        	foreach ($work_sheets['sheets'] as $sheet) {
+
+        		$sheet_title = isset($sheet['properties']['title'])
+        		? $sheet['properties']['title']
+        		: '';
+
+                /*
+                 * Match by title (same as original code)
+                 */
+                if (strtolower($worksheet_id) == strtolower($sheet_title)) {
+
+                    /*
+                     * Fetch headers (1st row)
+                     */
+                    $header_response = wp_remote_get(
+                    	"https://sheets.googleapis.com/v4/spreadsheets/{$spreadsheetId}/values/" . rawurlencode($sheet_title . '!1:1'),
+                    	array(
+                    		'headers' => array(
+                    			'Authorization' => 'Bearer ' . $token,
+                    		),
+                    		'timeout' => 30,
+                    	)
+                    );
+
+                    if (is_wp_error($header_response)) {
+                    	return;
+                    }
+
+                    $worksheetCell = json_decode(
+                    	wp_remote_retrieve_body($header_response),
+                    	true
+                    );
+
+                    $insert_data = array();
+
+                    if (isset($worksheetCell['values'][0])) {
+
+                    	foreach ($worksheetCell['values'][0] as $k => $name) {
+                    		$insert_data[] = isset($data[$name]) ? $data[$name] : '';
+                    	}
+                    }
+
+                    /*
+                     * Get all rows (same logic as original)
+                     */
+                    $full_range = $sheet_title . '!A1:Z';
+
+                    $rows_response = wp_remote_get(
+                    	"https://sheets.googleapis.com/v4/spreadsheets/{$spreadsheetId}/values/" . rawurlencode($full_range),
+                    	array(
+                    		'headers' => array(
+                    			'Authorization' => 'Bearer ' . $token,
+                    		),
+                    		'timeout' => 30,
+                    	)
+                    );
+
+                    if (is_wp_error($rows_response)) {
+                    	return;
+                    }
+
+                    $rows_data = json_decode(
+                    	wp_remote_retrieve_body($rows_response),
+                    	true
+                    );
+
+                    $get_values = isset($rows_data['values'])
+                    ? $rows_data['values']
+                    : array();
+
+                    $row = !empty($get_values)
+                    ? count($get_values) + 1
+                    : 1;
+
+                    $range = $sheet_title . '!A' . $row . ':Z';
+
+                    /*
+                     * Append row
+                     */
+                    $append_url =
+                    "https://sheets.googleapis.com/v4/spreadsheets/{$spreadsheetId}/values/" .
+                    rawurlencode($range) .
+                    ":append?valueInputOption=USER_ENTERED";
+
+                    $result = wp_remote_post(
+                    	$append_url,
+                    	array(
+                    		'headers' => array(
+                    			'Authorization' => 'Bearer ' . $token,
+                    			'Content-Type'  => 'application/json',
+                    		),
+                    		'body' => wp_json_encode(
+                    			array(
+                    				'values' => array($insert_data),
+                    			)
+                    		),
+                    		'timeout' => 30,
+                    	)
+                    );
+
+                    return $result;
+                }
+            }
+        }
+
+    } catch (Exception $e) {
+    	GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
+    }
+}
 
 /**
  * Retrieves all Google Spreadsheets from the connected Google Drive account.
@@ -314,30 +526,43 @@ public function add_row($data)
  */
 public function get_spreadsheets()
 {
-	$all_sheets = array();
 	try {
-		$client = self::getInstance();
+		$token = $this->get_active_token();
 
-		$service = new Google_Service_Drive($client);
+		if (!$token) {
+			return [];
+		}
 
-		$optParams = array(
-			'q' => "mimeType='application/vnd.google-apps.spreadsheet'"
+		$response = wp_remote_get(
+			'https://www.googleapis.com/drive/v3/files?q=mimeType="application/vnd.google-apps.spreadsheet"&fields=files(id,name)',
+			[
+				'headers' => [
+					'Authorization' => 'Bearer ' . $token
+				]
+			]
 		);
-		$results = $service->files->listFiles($optParams);
-		foreach ($results->files as $spreadsheet) {
-			if (isset($spreadsheet['kind']) && $spreadsheet['kind'] == 'drive#file') {
-				$all_sheets[] = array(
-					'id' => $spreadsheet['id'],
-					'title' => $spreadsheet['name'],
-				);
+
+		if (is_wp_error($response)) {
+			return [];
+		}
+
+		$body = json_decode(wp_remote_retrieve_body($response), true);
+
+		$sheets = [];
+
+		if (!empty($body['files'])) {
+			foreach ($body['files'] as $file) {
+				$sheets[] = [
+					'id'    => $file['id'],
+					'title' => $file['name'],
+				];
 			}
 		}
+
+		return $sheets;
 	} catch (Exception $e) {
-		GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
-		return null;
-		exit();
+		GsEl_Connector_Utility::ele_gs_debug_log('[Fail To get Spreadsheet]. ' . $e->getMessage());
 	}
-	return $all_sheets;
 }
 
 /**
@@ -352,27 +577,101 @@ public function get_spreadsheets()
  */
 public function get_worktabs($spreadsheet_id)
 {
-
 	$work_tabs_list = array();
-	try {
-		$client = self::getInstance();
-		$service = new Google_Service_Sheets($client);
-		$work_sheets = $service->spreadsheets->get($spreadsheet_id);
 
-		foreach ($work_sheets as $sheet) {
-			$properties = $sheet->getProperties();
-			$id = $properties->getSheetId();
-			$title = $properties->getTitle();
-			$work_tabs_list[$id] = $title;
+	try {
+
+		$token = $this->get_active_token();
+
+		if (!$token) {
+			return array();
+		}
+
+		$response = wp_remote_get(
+			"https://sheets.googleapis.com/v4/spreadsheets/{$spreadsheet_id}",
+			array(
+				'headers' => array(
+					'Authorization' => 'Bearer ' . $token,
+				),
+				'timeout' => 30,
+			)
+		);
+
+		if (is_wp_error($response)) {
+			return array();
+		}
+
+		$body = json_decode(wp_remote_retrieve_body($response), true);
+
+		if (!empty($body['sheets'])) {
+
+			foreach ($body['sheets'] as $sheet) {
+
+				if (
+					isset($sheet['properties']['sheetId']) &&
+					isset($sheet['properties']['title'])
+				) {
+
+					$id    = $sheet['properties']['sheetId'];
+					$title = $sheet['properties']['title'];
+
+					$work_tabs_list[$id] = $title;
+				}
+			}
 		}
 	} catch (Exception $e) {
-		GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
+		GsEl_Connector_Utility::ele_gs_debug_log(
+			'[Fail To get Worktab]. ' . $e->getMessage()
+		);
+
 		return null;
-		exit();
 	}
 
 	return $work_tabs_list;
 }
+// public function get_worktabs($spreadsheet_id)
+// {
+// 	try {
+// 		$token = $this->get_active_token();
+
+// 		if (!$token) {
+// 			return [];
+// 		}
+
+// 		$response = wp_remote_get(
+// 			"https://sheets.googleapis.com/v4/spreadsheets/{$spreadsheet_id}",
+// 			[
+// 				'headers' => [
+// 					'Authorization' => 'Bearer ' . $token
+// 				]
+// 			]
+// 		);
+
+
+// 		if (is_wp_error($response)) {
+// 			return [];
+// 		}
+
+// 		$body = json_decode(wp_remote_retrieve_body($response), true);
+
+// 		$tabs = [];
+
+// 		if (!empty($body['sheets'])) {
+// 			foreach ($body['sheets'] as $sheet) {
+// 				$props = $sheet['properties'];
+
+// 				$tabs[] = [
+// 					'id'    => $props['sheetId'],
+// 					'title' => $props['title'],
+// 				];
+// 			}
+// 		}
+
+// 		return $tabs;
+// 	} catch (Exception $e) {
+// 		GsEl_Connector_Utility::ele_gs_debug_log('[Fail To get Worktab]. ' . $e->getMessage());
+// 	}
+// }
 
 /*******************************************************************************/
 /********************************  VERSION 3.1 *********************************/
@@ -390,26 +689,51 @@ public function get_worktabs($spreadsheet_id)
  * @param string $tab_id         Google Sheet tab ID
  * @return string Tab name if found, otherwise empty string
  */
-public function get_sheet_name($spreadsheet_id, $tab_id)
-{
+public function get_sheet_name( $spreadsheet_id, $tab_id ) {
 
-	$all_sheet_data = get_option('elefgs_sheetId');
+	try {
 
-	$tab_name = "";
-	foreach ($all_sheet_data as $spreadsheet) {
+		$all_sheet_data = get_option( 'elefgs_sheetId', [] );
 
-		if ($spreadsheet['id'] == $spreadsheet_id) {
-			$tabs = $spreadsheet['tabId'];
+		$tab_name = '';
 
-			foreach ($tabs as $name => $id) {
-				if ($id == $tab_id) {
-					$tab_name = $name;
+		if ( ! empty( $all_sheet_data ) && is_array( $all_sheet_data ) ) {
+
+			foreach ( $all_sheet_data as $spreadsheet ) {
+
+				if (
+					isset( $spreadsheet['id'] ) &&
+					$spreadsheet['id'] == $spreadsheet_id
+				) {
+
+					$tabs = isset( $spreadsheet['tabId'] )
+					? $spreadsheet['tabId']
+					: [];
+
+					if ( ! empty( $tabs ) && is_array( $tabs ) ) {
+
+						foreach ( $tabs as $name => $id ) {
+
+							if ( $id == $tab_id ) {
+
+								$tab_name = $name;
+								break 2;
+							}
+						}
+					}
 				}
 			}
 		}
-	}
 
-	return $tab_name;
+		return $tab_name;
+
+	} catch ( Exception $e ) {
+		GsEl_Connector_Utility::ele_gs_debug_log(
+			'get_sheet_name Error: ' . $e->getMessage()
+		);
+
+		return '';
+	}
 }
 
 /**
@@ -421,20 +745,38 @@ public function get_sheet_name($spreadsheet_id, $tab_id)
  * @param string $spreadsheet_id Google Spreadsheet ID
  * @return string Spreadsheet name if found, otherwise empty string
  */
-public function get_spreadsheet_name($spreadsheet_id)
-{
+public function get_spreadsheet_name( $spreadsheet_id ) {
 
-	$all_sheet_data = get_option('elefgs_sheetId');
+	try {
 
-	$spreadsheetName = "";
-	foreach ($all_sheet_data as $spreadsheet_name => $spreadsheet) {
+		$all_sheet_data = get_option( 'elefgs_sheetId', [] );
 
-		if ($spreadsheet['id'] == $spreadsheet_id) {
-			$spreadsheetName = $spreadsheet_name;
+		$spreadsheetName = '';
+
+		if ( ! empty( $all_sheet_data ) && is_array( $all_sheet_data ) ) {
+
+			foreach ( $all_sheet_data as $spreadsheet_name => $spreadsheet ) {
+
+				if (
+					isset( $spreadsheet['id'] ) &&
+					$spreadsheet['id'] == $spreadsheet_id
+				) {
+
+					$spreadsheetName = $spreadsheet_name;
+					break;
+				}
+			}
 		}
-	}
 
-	return $spreadsheetName;
+		return $spreadsheetName;
+
+	} catch ( Exception $e ) {
+		GsEl_Connector_Utility::ele_gs_debug_log(
+			'get_spreadsheet_name Error: ' . $e->getMessage()
+		);
+
+		return '';
+	}
 }
 
 /**
@@ -454,46 +796,122 @@ public function get_spreadsheet_name($spreadsheet_id)
 public function add_row_feed($spreadsheet_id, $sheet_title, $data, $append = true)
 {
 	try {
-		$client = self::getInstance();
-		$service = new Google_Service_Sheets($client);
-		$work_sheets = $service->spreadsheets->get($spreadsheet_id)->getSheets();
 
-		if (!empty($work_sheets) && !empty($data)) {
-			foreach ($work_sheets as $sheet) {
-				$properties = $sheet->getProperties();
-				$sheet_id = $properties->getSheetId();
-				$worksheet_id = $this->getWorkTabId();
+		$token = $this->get_active_token();
 
-				if ($sheet_id == $worksheet_id) {
-						// Fetch headers
-					$worksheetCell = $service->spreadsheets_values->get($spreadsheet_id, $sheet_title . '!1:1');
-					$insert_data = [];
-
-					if (isset($worksheetCell->values[0])) {
-						$headers = $worksheetCell->values[0];
-
-							// Map the $data to the headers
-						foreach ($headers as $header) {
-								// Use the header as the key to find the corresponding value
-							$insert_data[] = isset($data[$header]) ? $data[$header] : '';
-						}
-					} else {
-
-						return;
-					}
-
-						// Append data to the sheet
-					$valueRange = new Google_Service_Sheets_ValueRange();
-					$valueRange->setValues([$insert_data]);
-
-					$conf = ['valueInputOption' => 'USER_ENTERED'];
-					$response = $service->spreadsheets_values->append($spreadsheet_id, $sheet_title . '!A1', $valueRange, $conf);
-				}
-			}
+		if (!$token || empty($spreadsheet_id) || empty($sheet_title) || empty($data)) {
+			return;
 		}
-	} catch (Exception $e) {
-		GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
-	}
+
+		$worksheet_id = $this->getWorkTabId();
+
+        /*
+         * Get all tabs from spreadsheet
+         */
+        $response = wp_remote_get(
+        	"https://sheets.googleapis.com/v4/spreadsheets/{$spreadsheet_id}",
+        	array(
+        		'headers' => array(
+        			'Authorization' => 'Bearer ' . $token,
+        		),
+        		'timeout' => 30,
+        	)
+        );
+
+        if (is_wp_error($response)) {
+        	return;
+        }
+
+        $spreadsheet = json_decode(wp_remote_retrieve_body($response), true);
+
+        if (empty($spreadsheet['sheets']) || !is_array($spreadsheet['sheets'])) {
+        	return;
+        }
+
+        $tab_found = false;
+
+        foreach ($spreadsheet['sheets'] as $sheet) {
+
+        	if (
+        		isset($sheet['properties']['sheetId']) &&
+        		$sheet['properties']['sheetId'] == $worksheet_id
+        	) {
+        		$tab_found = true;
+        		break;
+        	}
+        }
+
+        if (!$tab_found) {
+        	return;
+        }
+
+        /*
+         * Fetch header row
+         */
+        $header_response = wp_remote_get(
+        	"https://sheets.googleapis.com/v4/spreadsheets/{$spreadsheet_id}/values/" . rawurlencode($sheet_title . '!1:1'),
+        	array(
+        		'headers' => array(
+        			'Authorization' => 'Bearer ' . $token,
+        		),
+        		'timeout' => 30,
+        	)
+        );
+
+        if (is_wp_error($header_response)) {
+        	return;
+        }
+
+        $header_data = json_decode(wp_remote_retrieve_body($header_response), true);
+
+        if (empty($header_data['values'][0])) {
+        	return;
+        }
+
+        $headers = $header_data['values'][0];
+
+        /*
+         * Match data with sheet headers
+         */
+        $insert_data = array();
+
+        foreach ($headers as $header) {
+        	$insert_data[] = isset($data[$header]) ? $data[$header] : '';
+        }
+
+        /*
+         * Append row
+         */
+        $append_url =
+        "https://sheets.googleapis.com/v4/spreadsheets/{$spreadsheet_id}/values/" .
+        rawurlencode($sheet_title . '!A1') .
+        ":append?valueInputOption=USER_ENTERED";
+
+        $append_response = wp_remote_post(
+        	$append_url,
+        	array(
+        		'headers' => array(
+        			'Authorization' => 'Bearer ' . $token,
+        			'Content-Type'  => 'application/json',
+        		),
+        		'body' => wp_json_encode(
+        			array(
+        				'values' => array($insert_data),
+        			)
+        		),
+        		'timeout' => 30,
+        	)
+        );
+
+        if (is_wp_error($append_response)) {
+        	GsEl_Connector_Utility::ele_gs_debug_log(
+        		$append_response->get_error_message()
+        	);
+        }
+
+    } catch (Exception $e) {
+    	GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
+    }
 }
 
 /**
@@ -508,175 +926,148 @@ public function add_row_feed($spreadsheet_id, $sheet_title, $data, $append = tru
  * @param string $tab_id         Worksheet/tab ID (sheetId)
  * @return array|false Header row values or empty array on failure
  */
-public function get_header_row($spreadsheet_id, $tab_id)
-{
+public function get_header_row( $spreadsheet_id, $tab_name ) {
 
-	$header_cells = array();
+	$header_cells = [];
+
 	try {
 
-		$client = $this->getInstance();
+		$token = $this->get_active_token();
 
-		if (!$client) {
-			return false;
+		if ( ! $token ) {
+			return [];
 		}
 
-		$service = new Google_Service_Sheets($client);
+    /*
+     * STEP 1: GET SHEET META
+     */
+    $meta_response = wp_remote_get(
+    	"https://sheets.googleapis.com/v4/spreadsheets/{$spreadsheet_id}",
+    	[
+    		'headers' => [
+    			'Authorization' => 'Bearer ' . $token
+    		]
+    	]
+    );
 
-		$work_sheets = $service->spreadsheets->get($spreadsheet_id);
-
-		if ($work_sheets) {
-
-			foreach ($work_sheets as $sheet) {
-
-				$properties = $sheet->getProperties();
-				$work_sheet_id = $properties->getSheetId();
-
-				if ($work_sheet_id == $tab_id) {
-
-					$tab_title = $properties->getTitle();
-					$header_row = $service->spreadsheets_values->get($spreadsheet_id, $tab_title . "!1:1");
-
-					$header_row_values = $header_row->getValues();
-
-					if (isset($header_row_values[0]) && $header_row_values[0]) {
-						$header_cells = $header_row_values[0];
-					}
-				}
-			}
-		}
-	} catch (Exception $e) {
-		GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
-		$header_cells = array();
-		return $header_cells;
-	}
-
-	return $header_cells;
-}
-
-/**
- * Syncs Google account data and stores spreadsheets + worksheets into WordPress options.
- *
- * - Authenticates Google Client
- * - Fetches all Google Spreadsheets from Drive
- * - Fetches all worksheets (tabs) for each spreadsheet
- * - Stores structured mapping of spreadsheet IDs, names, and tabs
- * - Supports optional AJAX response for frontend initialization
- *
- * Stored Options:
- * - elefgs_sheetId → spreadsheet + tab structure mapping
- * - elefgs_feeds   → simplified sheet-feed mapping
- *
- * @return void|false Returns false if no spreadsheets found
- */
-public function sync_with_google_account()
-{
-	return;
-
-	$return_ajax = false;
-
-	if (isset($_POST['isajax']) && $_POST['isajax'] == 'yes') {
-		check_ajax_referer('gf-ajax-nonce', 'security');
-		$init = sanitize_text_field($_POST['isinit']);
-		$return_ajax = true;
-	}
-
-	$worksheet_array = array();
-	$sheetdata = array();
-	$doc = new GSC_Elementor_Free();
-	$doc->auth();
-	$spreadsheetFeed = $doc->get_spreadsheets();
-
-	if (!$spreadsheetFeed) {
-		return false;
-	}
-
-	foreach ($spreadsheetFeed as $sheetfeeds) {
-		$sheetId = $sheetfeeds['id'];
-		$sheetname = $sheetfeeds['title'];
-
-		$worksheetFeed = $doc->get_worktabs($sheetId);
-
-		foreach ($worksheetFeed as $worksheet) {
-			$tab_id = $worksheet['id'];
-			$tab_name = $worksheet['title'];
-			$worksheet_array[] = $tab_name;
-			$worksheet_ids[$tab_name] = $tab_id;
-		}
-
-		$sheetId_array[$sheetname] = array(
-			"id" => $sheetId,
-			"tabId" => $worksheet_ids
-		);
-
-		unset($worksheet_ids);
-		$sheetdata[$sheetname] = $worksheet_array;
-		unset($worksheet_array);
-	}
-
-	update_option('elefgs_sheetId', $sheetId_array);
-	update_option('elefgs_feeds', $sheetdata);
-
-	if ($return_ajax == true) {
-		if ($init == 'yes') {
-			wp_send_json_success(array("success" => 'yes'));
-		} else {
-			wp_send_json_success(array("success" => 'no'));
-		}
-	}
-}
-
-
-/**
- * Retrieves Google account profile information using OAuth2 service.
- *
- * - Uses authenticated Google Client instance
- * - Fetches user profile data from Google OAuth2 API
- * - Returns full user object on success
- * - Logs error if authentication fails
- *
- * @return object|false Google user object or false on failure
- */
-public function gsheet_get_google_account()
-{
-    $user = false; // ✅ initialize
-
-    try {
-    	$client = $this->getInstance();
-
-    	if (!$client) {
-    		return false;
-    	}
-
-    	$service = new Google_Service_Oauth2($client);
-    	$user = $service->userinfo->get();
-
-    } catch (Exception $e) {
-    	GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
+    if ( is_wp_error( $meta_response ) ) {
+    	return [];
     }
 
-    return $user;
+    $meta_body = json_decode( wp_remote_retrieve_body( $meta_response ), true );
+
+    if ( empty( $meta_body['sheets'] ) ) {
+    	return [];
+    }
+
+    /*
+     * STEP 2: FIND TAB BY TITLE (IMPORTANT FIX)
+     */
+    $found = false;
+
+    foreach ( $meta_body['sheets'] as $sheet ) {
+
+    	$title = $sheet['properties']['title'];
+
+    	if ( $title === $tab_name ) {
+
+    		$found = true;
+
+        /*
+         * STEP 3: GET HEADER ROW
+         */
+        $range = $title . '!1:1';
+
+        $header_response = wp_remote_get(
+        	"https://sheets.googleapis.com/v4/spreadsheets/{$spreadsheet_id}/values/" . urlencode($range),
+        	[
+        		'headers' => [
+        			'Authorization' => 'Bearer ' . $token
+        		]
+        	]
+        );
+
+        if ( is_wp_error( $header_response ) ) {
+        	return [];
+        }
+
+        $header_body = json_decode( wp_remote_retrieve_body( $header_response ), true );
+
+        if ( ! empty( $header_body['values'][0] ) ) {
+        	$header_cells = $header_body['values'][0];
+        }
+
+        break;
+    }
 }
 
+if ( ! $found ) {
+	return [];
+}
+
+} catch ( Exception $e ) {
+
+	GsEl_Connector_Utility::ele_gs_debug_log(
+		"Header Fetch Error: " . $e->getMessage()
+	);
+
+	return [];
+}
+
+}
 
 /**
- * Retrieves the email address of the connected Google account.
+ * GET GOOGLE USER EMAIL FROM ACCESS TOKEN
  *
- * - Calls Google OAuth userinfo API internally
- * - Extracts email from returned user profile object
+ * This method retrieves the authenticated Google user's email address
+ * using the provided OAuth access token.
  *
- * @return string Connected Google account email or empty string
+ * Workflow:
+ * 1. Validate access token exists
+ * 2. Send request to Google UserInfo API
+ * 3. Decode API response
+ * 4. Extract and return user email if available
+ *
+ * If the request fails or email is not found, an empty string is returned.
+ *
+ * @since 1.0.0
+ * @param string $token Google OAuth access token
+ * @return string User email or empty string on failure
  */
-public function gsheet_get_google_account_email()
+private function get_google_user_email($token)
 {
-	$google_account = $this->gsheet_get_google_account();
+	try {
+		if (!$token) {
+			return '';
+		}
 
-	if ($google_account) {
-		return $google_account->email;
-	} else {
-		return "";
+		$response = wp_remote_get(
+			'https://www.googleapis.com/oauth2/v2/userinfo',
+			[
+				'headers' => [
+					'Authorization' => 'Bearer ' . $token
+				]
+			]
+		);
+
+		if (is_wp_error($response)) {
+			return '';
+		}
+
+		$body = json_decode(wp_remote_retrieve_body($response), true);
+
+		if (!empty($body['email'])) {
+			return $body['email'];
+		}
+
+		return '';
+	} catch (Exception $e) {
+		GsEl_Connector_Utility::ele_gs_debug_log(
+			__METHOD__ . " Error in fetching user info: \n " . $e->getMessage()
+		);
+		return false;
 	}
 }
-
 
 /**
  * Authenticates Google account and stores connected email in WordPress options.
@@ -690,53 +1081,73 @@ public function gsheet_get_google_account_email()
 public function gsheet_print_google_account_email()
 {
 	try {
-		$google_sheet = new GSC_Elementor_Free();
-		$google_sheet->auth();
-		$email = $google_sheet->gsheet_get_google_account_email();
-		update_option('gsc_elementor_email_account', $email);
+
+		$token = $this->token();
+
+		if (!$token) {
+
+			update_option('gsc_elementor_email_account', '');
+
+			return false;
+		}
+
+		$email = $this->get_google_user_email($token);
+
+		if (empty($email)) {
+
+			$auth_method = get_option(
+				'elefgs_manual_setting',
+				'0'
+			);
+
+			if ($auth_method === '0') {
+
+				update_option(
+					'gsc_elementor_email_account',
+					''
+				);
+
+				if (class_exists('gscelef_error_logs')) {
+
+					gscelef_error_logs::log_to_db(
+						'Google_User_Email_Empty',
+						403,
+						'Google user email could not be retrieved (Existing Method)',
+						[
+							'error_type' => 'connected_email_empty',
+							'authentication_method' => 'Existing',
+							'message' => 'Failed to retrieve the connected Google account email address.',
+						]
+					);
+				}
+			}
+
+			return false;
+		}
+
+		update_option(
+			'gsc_elementor_email_account',
+			$email
+		);
+
 		return $email;
+
 	} catch (Exception $e) {
-		GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
+
+		update_option(
+			'gsc_elementor_email_account',
+			''
+		);
+
+		GsEl_Connector_Utility::ele_gs_debug_log(
+			__METHOD__ .
+			' Error fetching email: ' .
+			$e->getMessage()
+		);
+
 		return false;
 	}
 }
 
-/**
- * Updates stored spreadsheet and feed mapping in WordPress options.
- *
- * - Adds or updates spreadsheet entry in elefgs_sheetId option
- * - Adds default worksheet mapping (Sheet1) in elefgs_feeds option
- * - Ensures option arrays are initialized before update
- *
- * @param string $spreadsheet_id Google Spreadsheet ID
- * @param string $sheet_title    Spreadsheet name/title
- * @return void
- */
-public function update_google_spreadsheets_option($spreadsheet_id, $sheet_title)
-{
 
-	$gfgs_sheetId = get_option('elefgs_sheetId');
-	$gfgs_feeds = get_option('elefgs_feeds');
-
-	if (!$gfgs_sheetId) {
-		$gfgs_sheetId = array();
-	}
-	if (!$gfgs_feeds) {
-		$gfgs_feeds = array();
-	}
-
-	$gfgs_sheetId[$sheet_title] = array(
-		"id" => $spreadsheet_id,
-		"tabId" => array(
-			"Sheet1" => 0
-		),
-	);
-
-	$gfgs_feeds[$sheet_title] = array(
-		"0" => "Sheet1",
-	);
-
-	update_option('elefgs_sheetId', $gfgs_sheetId);
-	update_option('elefgs_feeds', $gfgs_feeds);
-}
 }

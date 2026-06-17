@@ -6,14 +6,17 @@ if (!defined('ABSPATH')) {
 /**
  * Elementor Feed Edit Page
  */
-
+// phpcs:ignoreFile WordPress.NamingConventions.PrefixAllGlobals
 $gsc_elementor_integration = new GSC_Elementor_Integration();
 
 // -----------------------------------------------------------------------------
 // Request vars
 // -----------------------------------------------------------------------------
+ // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading admin page parameters for routing only.
 $feed_id = isset($_GET['feed_id']) ? absint(wp_unslash($_GET['feed_id'])) : 0;
+ // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading admin page parameters for routing only.
 $form_id = isset($_GET['form_id']) ? absint(wp_unslash($_GET['form_id'])) : 0;
+ // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading admin page parameters for routing only.
 $met_form_id = isset($_GET['form_id']) ? absint(wp_unslash($_GET['form_id'])) : 0;
 
 // -----------------------------------------------------------------------------
@@ -40,16 +43,13 @@ $sheet_id   = isset($feed_data['sheet-id']) ? esc_attr($feed_data['sheet-id']) :
 $tab_name   = isset($feed_data['sheet-tab-name']) ? esc_attr($feed_data['sheet-tab-name']) : '';
 $tab_id     = isset($feed_data['tab-id']) ? esc_attr($feed_data['tab-id']) : '';
 
-
-
-
-
 // -----------------------------------------------------------------------------
 // Sync date range for Elementor submissions
 // -----------------------------------------------------------------------------
 global $wpdb;
 
 if ($form_id) {
+    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
     $from_date = $wpdb->get_var(
         $wpdb->prepare(
             "SELECT MIN(`created_at`) FROM {$wpdb->prefix}e_submissions WHERE `post_id` = %d",
@@ -57,6 +57,7 @@ if ($form_id) {
         )
     );
 
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
     $to_date = $wpdb->get_var(
         $wpdb->prepare(
             "SELECT MAX(`created_at`) FROM {$wpdb->prefix}e_submissions WHERE `post_id` = %d",
@@ -82,6 +83,7 @@ $to_date = $to_date
 // -----------------------------------------------------------------------------
 global $wpdb;
 
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 $feed_row = $wpdb->get_row(
     $wpdb->prepare(
         "SELECT * FROM {$wpdb->postmeta} WHERE meta_id = %d",
@@ -446,7 +448,9 @@ if (!empty($sheet_header_names_metfrom)) {
 
         <?php wp_nonce_field('gsc_edit_feed_action', 'gsc_edit_feed_nonce'); ?>
 
-        <?php if (isset($_POST['execute-edit-feed-elementor']) && !empty($success_message)) : ?>
+        <?php 
+       // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified earlier in the request.
+        if (isset($_POST['execute-edit-feed-elementor']) && !empty($success_message)) : ?>
         <div class="notice notice-success is-dismissible">
             <p><?php echo esc_html($success_message); ?></p>
         </div>

@@ -3,57 +3,55 @@
 if (!defined('ABSPATH')) {
     exit;
 }
+// phpcs:ignoreFile WordPress.NamingConventions.PrefixAllGlobals
 
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading admin page parameter.
 $active_tab = isset($_GET['tab']) ? sanitize_text_field(wp_unslash($_GET['tab'])) : 'integration';
 
 $active_tab_name = '';
 if ($active_tab == 'settings') {
     $active_tab_name = 'Settings';
 }
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading admin page parameter.
 $sub_tab = isset($_GET['sub_tab']) ? sanitize_text_field(wp_unslash($_GET['sub_tab'])) : 'general_settings';
 ?>
 <?php
 switch ($active_tab) {
     case 'settings':
         // Render sub-navigation
-        echo '<div class="gsc-settings-tabs d-flex gap-15 pl-15 pr-15">';
-        $sub_tabs = array(
-            'general_settings' => __('General Settings', 'gsheetconnector-for-elementor-forms'),
-            'role_permissions' => __('Role Permissions', 'gsheetconnector-for-elementor-forms'),
-            'version_control'  => __('Version Control', 'gsheetconnector-for-elementor-forms'),
-            'system_status'    => __('System Status', 'gsheetconnector-for-elementor-forms'),
-        );
+    echo '<div class="gsc-settings-tabs d-flex gap-15 pl-15 pr-15">';
+    $sub_tabs = array(
+        'general_settings' => esc_html__('General Settings', 'gsheetconnector-for-elementor-forms'),
+        'role_permissions' => esc_html__('Role Permissions', 'gsheetconnector-for-elementor-forms'),
+        'version_control'  => esc_html__('Version Control', 'gsheetconnector-for-elementor-forms'),
+    );
 
 
 
-        foreach ($sub_tabs as $sub => $label) {
-            $class = ($sub === $sub_tab) ? 'gsc-tab active' : 'gsc-tab';
-            echo '<a class="' . esc_attr($class) . '" href="' . esc_url(admin_url('admin.php?page=gsheetconnector-elementor-config&tab=settings&sub_tab=' . urlencode($sub))) . '">' . esc_html($label) . '</a>';
-        }
-        echo '</div> <div class="gsc-settings-card">';
+    foreach ($sub_tabs as $sub => $label) {
+        $class = ($sub === $sub_tab) ? 'gsc-tab active' : 'gsc-tab';
+        echo '<a class="' . esc_attr($class) . '" href="' . esc_url(admin_url('admin.php?page=gsheetconnector-elementor-config&tab=settings&sub_tab=' . urlencode($sub))) . '">' . esc_html($label) . '</a>';
+    }
+    echo '</div> <div class="gsc-settings-card">';
 
         // Load correct sub-tab content
-        switch ($sub_tab) {
-            case 'general_settings':
-                include(GS_CONN_ELE_PATH . "includes/pages/gsc-general-setting.php");
-                break;
+    switch ($sub_tab) {
+        case 'general_settings':
+        include(GS_CONN_ELE_PATH . "includes/pages/gsc-general-setting.php");
+        break;
 
-            case 'role_permissions':
-                include(GS_CONN_ELE_PATH . "includes/pages/gsc-role-setting.php");
-                break;
-
-
-            case 'version_control':
-                include(GS_CONN_ELE_PATH . "includes/pages/gsc-beta-version.php");
-                break;
+        case 'role_permissions':
+        include(GS_CONN_ELE_PATH . "includes/pages/gsc-role-setting.php");
+        break;
 
 
-            case 'system_status':
-                include(GS_CONN_ELE_PATH . "includes/pages/gsc-system-status.php");
-                break;
-        }
+        case 'version_control':
+        include(GS_CONN_ELE_PATH . "includes/pages/gsc-beta-version.php");
+        break;
 
-        echo '</div>';
+    }
+
+    echo '</div>';
 }
 ?>
 <!---Start Support  ticket--->

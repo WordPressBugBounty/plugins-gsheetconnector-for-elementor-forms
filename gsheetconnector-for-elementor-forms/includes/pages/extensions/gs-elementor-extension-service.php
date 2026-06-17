@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
  * GS_Extension Class
  * @since 1.0.0
  */
-
+// phpcs:ignoreFile WordPress.NamingConventions.PrefixAllGlobals
 class gselef_ElementorForm_Extensions
 {
 
@@ -69,10 +69,10 @@ class gselef_ElementorForm_Extensions
         deactivate_plugins($plugin_slug);
 
         if (is_plugin_active($plugin_slug)) {
-            wp_send_json_error('Failed to deactivate plugin');
+            wp_send_json_error('Failed to deactivate plugin.');
         }
 
-        wp_send_json_success('Plugin deactivated successfully');
+        wp_send_json_success('Plugin deactivated successfully.');
     }
 
     /**
@@ -88,20 +88,20 @@ class gselef_ElementorForm_Extensions
         // 🔐 Nonce verify
         if (! check_ajax_referer('gselef-ajax-nonce', 'security', false)) {
             wp_send_json_error([
-                'message' => __('Invalid security token', 'gsheetconnector-for-elementor-forms')
+                'message' => __('Invalid security token.', 'gsheetconnector-for-elementor-forms')
             ]);
         }
 
       // Permission check
         if (!current_user_can('install_plugins')) {
             wp_send_json_error(array(
-                'message' => __('You do not have permission to install plugin', 'gsheetconnector-for-elementor-forms')
+                'message' => __('You do not have permission to install plugin.', 'gsheetconnector-for-elementor-forms')
             ));
         }
 
         if (empty($_POST['plugin_slug']) || empty($_POST['download_url'])) {
             wp_send_json_error(array(
-                'message' => __('Missing required parameters', 'gsheetconnector-for-elementor-forms')
+                'message' => __('Missing required parameters.', 'gsheetconnector-for-elementor-forms')
             ));
         }
 
@@ -125,7 +125,7 @@ class gselef_ElementorForm_Extensions
         }
 
         wp_send_json_success(array(
-            'message' => __('Plugin installed successfully', 'gsheetconnector-for-elementor-forms')
+            'message' => __('Plugin installed successfully.', 'gsheetconnector-for-elementor-forms')
         ));
 
     }
@@ -142,21 +142,21 @@ class gselef_ElementorForm_Extensions
         // 🔐 Verify nonce
         if (! check_ajax_referer('gselef-ajax-nonce', 'security', false)) {
             wp_send_json_error(array(
-                'message' => __('Invalid security token', 'gsheetconnector-for-elementor-forms')
+                'message' => __('Invalid security token.', 'gsheetconnector-for-elementor-forms')
             ));
         }
 
         // 🔐 Permission check
         if (! current_user_can('activate_plugins')) {
             wp_send_json_error(array(
-                'message' => __('You do not have permission to activate plugin', 'gsheetconnector-for-elementor-forms')
+                'message' => __('You do not have permission to activate plugin.', 'gsheetconnector-for-elementor-forms')
             ));
         }
 
         // 🔎 Check plugin slug
         if (empty($_POST['plugin_slug'])) {
             wp_send_json_error(array(
-                'message' => __('Plugin slug is missing', 'gsheetconnector-for-elementor-forms')
+                'message' => __('Plugin slug is missing.', 'gsheetconnector-for-elementor-forms')
             ));
         }
 
@@ -170,7 +170,7 @@ class gselef_ElementorForm_Extensions
         // ✅ Check if already active
         if (is_plugin_active($plugin_slug)) {
             wp_send_json_success(array(
-                'message' => __('Plugin is already activated', 'gsheetconnector-for-elementor-forms')
+                'message' => __('Plugin is already activated.', 'gsheetconnector-for-elementor-forms')
             ));
         }
 
@@ -184,7 +184,7 @@ class gselef_ElementorForm_Extensions
         }
 
         wp_send_json_success(array(
-            'message' => __('Plugin activated successfully', 'gsheetconnector-for-elementor-forms')
+            'message' => __('Plugin activated successfully.', 'gsheetconnector-for-elementor-forms')
         ));
     }
 }

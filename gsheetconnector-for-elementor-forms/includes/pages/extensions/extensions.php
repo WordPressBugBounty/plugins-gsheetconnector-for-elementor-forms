@@ -2,6 +2,7 @@
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
+// phpcs:ignoreFile WordPress.NamingConventions.PrefixAllGlobals
 ?>
 <div class="wrap w-100 m-0">
     <div class="inner-wrap  w-100 bg-white p-40">
@@ -152,18 +153,18 @@ if (!defined('ABSPATH')) {
                         'connector' => 'cf7-google-sheets-connector/google-sheet-connector.php',
                         'connector-pro' => 'cf7-google-sheets-connector-pro/google-sheet-connector-pro.php',
 
-                        'name' => __('CF7 Google Sheet Connector', 'wc-gsheetconnector'),
+                        'name' => __('CF7 Google Sheet Connector', 'gsheetconnector-for-elementor-forms'),
 
                         'link' => 'https://www.gsheetconnector.com/cf7-google-sheet-connector-pro',
                         'img' => esc_url(GS_CONN_ELE_URL) . '/assets/img/pro-cf7-gsc.webp',
 
-                        'text' => __('Easily connect Contact Form 7 to Google Sheets and automatically sync form submissions in real-time. Every entry is instantly added to your selected spreadsheet, helping you manage leads, inquiries, and customer data efficiently without manual export.', 'wc-gsheetconnector'),
+                        'text' => __('Easily connect Contact Form 7 to Google Sheets and automatically sync form submissions in real-time. Every entry is instantly added to your selected spreadsheet, helping you manage leads, inquiries, and customer data efficiently without manual export.', 'gsheetconnector-for-elementor-forms'),
 
                         'pro_plugin_active' => 'cf7-google-sheets-connector-pro/google-sheet-connector-pro.php',
                         'url' => 'https://wordpress.org/plugins/cf7-google-sheets-connector/',
 
-                        'button' => __('Install', 'wc-gsheetconnector'),
-                        'badge'  => __('PRO', 'wc-gsheetconnector'),
+                        'button' => __('Install', 'gsheetconnector-for-elementor-forms'),
+                        'badge'  => __('PRO', 'gsheetconnector-for-elementor-forms'),
 
                         'freeLink' => 'https://wordpress.org/plugins/cf7-google-sheets-connector/',
                         'downloadLink' => 'https://downloads.wordpress.org/plugin/cf7-google-sheets-connector.zip',
@@ -176,14 +177,14 @@ if (!defined('ABSPATH')) {
                     'wpforms-lite/wpforms.php' => [
                         'connector' => 'gsheetconnector-wpforms/gsheetconnector-wpforms.php',
                         'connector-pro' => 'gsheetconnector-wpforms-pro/gsheetconnector-wpforms-pro.php',
-                        'name' => __('WPForms Google Sheet Connector', 'wc-gsheetconnector'),
+                        'name' => __('WPForms Google Sheet Connector', 'gsheetconnector-for-elementor-forms'),
                         'link' => 'https://www.gsheetconnector.com/wpforms-google-sheet-connector-pro',
                         'img' => esc_url(GS_CONN_ELE_URL) . '/assets/img/pro-wpf-gsc.webp',
-                        'text' => __('Integrate WPForms with Google Sheets and send form entries directly to your spreadsheet automatically. Track leads, manage customer data, and streamline reporting with seamless Google Sheets integration and real-time sync.', 'wc-gsheetconnector'),
+                        'text' => __('Integrate WPForms with Google Sheets and send form entries directly to your spreadsheet automatically. Track leads, manage customer data, and streamline reporting with seamless Google Sheets integration and real-time sync.', 'gsheetconnector-for-elementor-forms'),
                         'pro_plugin_active' => 'gsheetconnector-wpform-pro/gsheetconnector-wpforms-pro.php',
                         'url' => 'https://wordpress.org/plugins/gsheetconnector-wpforms/',
-                        'button' => __('Install', 'wc-gsheetconnector'),
-                        'badge' => __('PRO', 'wc-gsheetconnector'),
+                        'button' => __('Install', 'gsheetconnector-for-elementor-forms'),
+                        'badge' => __('PRO', 'gsheetconnector-for-elementor-forms'),
                         'freeLink' => 'https://wordpress.org/plugins/gsheetconnector-wpforms/',
                         'downloadLink' => 'https://downloads.wordpress.org/plugin/gsheetconnector-wpforms.zip',
                         'buyLink' => 'https://www.gsheetconnector.com/wpforms-google-sheet-connector-pro',
@@ -196,14 +197,14 @@ if (!defined('ABSPATH')) {
                     'gravityforms/gravityforms.php' => [
                         'connector' => 'gsheetconnector-gravity-forms/gsheetconnector-gravityforms.php',
                         'connector-pro' => 'gsheetconnector-gravity-forms-pro/gsheetconnector-gravity-forms-pro.php',
-                        'name' => __('Gravity Forms Google Sheet Connector', 'wc-gsheetconnector'),
+                        'name' => __('Gravity Forms Google Sheet Connector', 'gsheetconnector-for-elementor-forms'),
                         'link' => 'https://www.gsheetconnector.com/gravity-forms-google-sheet-connector',
                         'img' => esc_url(GS_CONN_ELE_URL) . '/assets/img/pro-gravity-gsc.webp',
-                        'text' => __('Connect Gravity Forms to Google Sheets and automatically push form submissions to your spreadsheet. Simplify data management, improve workflow automation, and keep all entries organized in one secure location.', 'wc-gsheetconnector'),
+                        'text' => __('Connect Gravity Forms to Google Sheets and automatically push form submissions to your spreadsheet. Simplify data management, improve workflow automation, and keep all entries organized in one secure location.', 'gsheetconnector-for-elementor-forms'),
                         'pro_plugin_active' => 'gsheetconnector-gravity-forms-pro/gsheetconnector-gravity-forms-pro.php',
                         'url' => 'https://wordpress.org/plugins/gsheetconnector-gravity-forms/',
-                        'button' => __('Install', 'wc-gsheetconnector'),
-                        'badge' => __('PRO', 'wc-gsheetconnector'),
+                        'button' => __('Install', 'gsheetconnector-for-elementor-forms'),
+                        'badge' => __('PRO', 'gsheetconnector-for-elementor-forms'),
                         'freeLink' => 'https://wordpress.org/plugins/gsheetconnector-gravity-forms/',
                         'downloadLink' => 'https://downloads.wordpress.org/plugin/gsheetconnector-gravity-forms.zip',
                         'buyLink' => 'https://www.gsheetconnector.com/gravity-forms-google-sheet-connector',
@@ -216,14 +217,14 @@ if (!defined('ABSPATH')) {
                     'ninja-forms/ninja-forms.php' => [
                         'connector' => 'gsheetconnector-ninja-forms/gsheetconnector-ninjaforms.php',
                         'connector-pro' => 'gsheetconnector-ninja-forms-pro/gsheetconnector-ninjaform-pro.php',
-                        'name' => __('Ninja Forms Google Sheet Connector', 'wc-gsheetconnector'),
+                        'name' => __('Ninja Forms Google Sheet Connector', 'gsheetconnector-for-elementor-forms'),
                         'link' => 'https://www.gsheetconnector.com/ninja-forms-google-sheet-connector-pro',
                         'img' => esc_url(GS_CONN_ELE_URL) . '/assets/img/pro-ninjaf-gsc.webp',
-                        'text' => __('Automatically sync Ninja Forms submissions to Google Sheets with one-click integration. Capture leads, monitor responses, and manage data efficiently with instant spreadsheet updates and easy reporting.', 'wc-gsheetconnector'),
+                        'text' => __('Automatically sync Ninja Forms submissions to Google Sheets with one-click integration. Capture leads, monitor responses, and manage data efficiently with instant spreadsheet updates and easy reporting.', 'gsheetconnector-for-elementor-forms'),
                         'pro_plugin_active' => 'gsheetconnector-ninja-forms-pro/gsheetconnector-ninjaforms-pro.php',
                         'url' => 'https://wordpress.org/plugins/gsheetconnector-ninjaforms/',
-                        'button' => __('Install', 'wc-gsheetconnector'),
-                        'badge' => __('PRO', 'wc-gsheetconnector'),
+                        'button' => __('Install', 'gsheetconnector-for-elementor-forms'),
+                        'badge' => __('PRO', 'gsheetconnector-for-elementor-forms'),
                         'freeLink' => 'https://wordpress.org/plugins/gsheetconnector-ninja-forms/',
                         'downloadLink' => 'https://downloads.wordpress.org/plugin/gsheetconnector-ninja-forms.zip',
                         'buyLink' => 'https://www.gsheetconnector.com/ninja-forms-google-sheet-connector',
@@ -236,14 +237,14 @@ if (!defined('ABSPATH')) {
                     'forminator/forminator.php' => [
                         'connector' => 'gsheetconnector-forminator/gsheetconnector-forminator.php',
                         'connector-pro' => 'gsheetconnector-forminator-pro/gsheetconnector-forminator-pro.php',
-                        'name' => __('Forminator Forms Google Sheet Connector', 'wc-gsheetconnector'),
+                        'name' => __('Forminator Forms Google Sheet Connector', 'gsheetconnector-for-elementor-forms'),
                         'link' => 'https://wordpress.org/plugins/gsheetconnector-forminator/',
                         'img' => esc_url(GS_CONN_ELE_URL) . '/assets/img/forminator-addon.webp',
-                        'text' => __('Integrate Forminator Forms with Google Sheets to automatically store form entries in your spreadsheet. Eliminate manual data entry and ensure accurate, real-time syncing for better data tracking and analysis.', 'wc-gsheetconnector'),
+                        'text' => __('Integrate Forminator Forms with Google Sheets to automatically store form entries in your spreadsheet. Eliminate manual data entry and ensure accurate, real-time syncing for better data tracking and analysis.', 'gsheetconnector-for-elementor-forms'),
                         'pro_plugin_active' => 'gsheetconnector-forminator-pro/gsheetconnector-forminator-pro.php',
                         'url' => 'https://wordpress.org/plugins/gsheetconnector-forminator/',
-                        'button' => __('Install', 'wc-gsheetconnector'),
-                        'badge' => __('Free', 'wc-gsheetconnector'),
+                        'button' => __('Install', 'gsheetconnector-for-elementor-forms'),
+                        'badge' => __('Free', 'gsheetconnector-for-elementor-forms'),
                         'freeLink' => 'https://wordpress.org/plugins/gsheetconnector-forminator/',
                         'downloadLink' => 'https://downloads.wordpress.org/plugin/gsheetconnector-forminator.zip',
                         'buyLink' => 'https://www.gsheetconnector.com/forminator-forms-google-sheet-connector-pro',
@@ -255,14 +256,14 @@ if (!defined('ABSPATH')) {
                     'formidable/formidable.php' => [
                         'connector' => 'gsheetconnector-formidable-forms/gsheetconnector-formidable-forms.php',
                         'connector-pro' => 'gsheetconnector-formidable-forms-pro/gsheetconnector-formidable-forms-pro.php',
-                        'name' => __('Formidable Forms Google Sheet Connector', 'wc-gsheetconnector'),
+                        'name' => __('Formidable Forms Google Sheet Connector', 'gsheetconnector-for-elementor-forms'),
                         'link' => 'https://wordpress.org/plugins/gsheetconnector-formidable-forms/',
                         'img' => esc_url(GS_CONN_ELE_URL) . '/assets/img/formidable-addon.webp',
-                        'text' => __('Automatically sync Formidable Forms entries to Google Sheets. Manage leads, track submissions, and simplify data reporting with real-time integration.', 'wc-gsheetconnector'),
+                        'text' => __('Automatically sync Formidable Forms entries to Google Sheets. Manage leads, track submissions, and simplify data reporting with real-time integration.', 'gsheetconnector-for-elementor-forms'),
                         'pro_plugin_active' => 'gsheetconnector-forminator-pro/gsheetconnector-forminator-pro.php',
                         'url' => 'https://wordpress.org/plugins/gsheetconnector-formidable-forms/',
-                        'button' => __('Install', 'wc-gsheetconnector'),
-                        'badge' => __('Free', 'wc-gsheetconnector'),
+                        'button' => __('Install', 'gsheetconnector-for-elementor-forms'),
+                        'badge' => __('Free', 'gsheetconnector-for-elementor-forms'),
                         'freeLink' => 'https://wordpress.org/plugins/gsheetconnector-formidable-forms/',
                         'downloadLink' => 'https://downloads.wordpress.org/plugin/gsheetconnector-formidable-forms.zip',
                         'buyLink' => 'https://www.gsheetconnector.com/formidable-forms-google-sheet-connector-pro',
@@ -275,14 +276,14 @@ if (!defined('ABSPATH')) {
                     'fluentform/fluentform.php' => [
                         'connector' => 'wc-gsheetconnector/wc-gsheetconnector.php',
                         'connector-pro' => 'wc-gsheetconnector/wc-gsheetconnector.php',
-                        'name' => __('Fluent Forms Google Sheet Connector', 'wc-gsheetconnector'),
+                        'name' => __('Fluent Forms Google Sheet Connector', 'gsheetconnector-for-elementor-forms'),
                         'link' => 'https://www.gsheetconnector.com/fluent-forms-google-sheet-connector-pro',
                         'img' => esc_url(GS_CONN_ELE_URL) . '/assets/img/pro-fluent-forms-gsc.webp',
-                        'text' => __('Automatically sync Fluent Forms submissions to Google Sheets in real-time. Every form entry is instantly added to your selected spreadsheet, helping you manage leads, customer inquiries, and business data without manual export. Streamline your workflow, improve reporting accuracy, and keep all submissions organized with seamless Google Sheets integration.', 'wc-gsheetconnector'),
+                        'text' => __('Automatically sync Fluent Forms submissions to Google Sheets in real-time. Every form entry is instantly added to your selected spreadsheet, helping you manage leads, customer inquiries, and business data without manual export. Streamline your workflow, improve reporting accuracy, and keep all submissions organized with seamless Google Sheets integration.', 'gsheetconnector-for-elementor-forms'),
                         'pro_plugin_active' => 'wc-gsheetconnector/wc-gsheetconnector.php',
                         'url' => 'https://wordpress.org/plugins/wc-gsheetconnector/',
-                        'button' => __('Install', 'wc-gsheetconnector'),
-                        'badge' => __('Free', 'wc-gsheetconnector'),
+                        'button' => __('Install', 'gsheetconnector-for-elementor-forms'),
+                        'badge' => __('Free', 'gsheetconnector-for-elementor-forms'),
                         'freeLink' => 'https://wordpress.org/plugins/wc-gsheetconnector/',
                         'downloadLink' => '"https://downloads.wordpress.org/plugin/wc-gsheetconnector.1.0.8.zip"',
                         'buyLink' => 'https://www.gsheetconnector.com/fluent-forms-google-sheet-connector-pro',
@@ -295,14 +296,14 @@ if (!defined('ABSPATH')) {
                     'pro-elements/pro-elements.php' => [
                         'connector' => 'gsheetconnector-for-elementor-forms/gsheetconnector-for-elementor-forms.php',
                         'connector-pro' => 'gsheetconnector-for-elementor-forms-pro/gsheetconnector-for-elementor-forms-pro.php',
-                        'name' => __('Elementor Forms Google Sheet Connector', 'wc-gsheetconnector'),
+                        'name' => __('Elementor Forms Google Sheet Connector', 'gsheetconnector-for-elementor-forms'),
                         'link' => 'https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro',
                         'img' => esc_url(GS_CONN_ELE_URL) . '/assets/img/pro-elemntor-gsc.webp',
-                        'text' => __('Sync Elementor Forms with Google Sheets instantly. Automatically add new form submissions to your spreadsheet, manage leads efficiently, and simplify reporting with real-time data synchronization.', 'wc-gsheetconnector'),
+                        'text' => __('Sync Elementor Forms with Google Sheets instantly. Automatically add new form submissions to your spreadsheet, manage leads efficiently, and simplify reporting with real-time data synchronization.', 'gsheetconnector-for-elementor-forms'),
                         'pro_plugin_active' => 'gsheetconnector-for-elementor-forms-pro/gsheetconnector-for-elementor-forms-pro.php',
                         'url' => 'https://wordpress.org/plugins/gsheetconnector-for-elementor-forms/',
-                        'button' => __('Install', 'wc-gsheetconnector'),
-                        'badge' => __('PRO', 'wc-gsheetconnector'),
+                        'button' => __('Install', 'gsheetconnector-for-elementor-forms'),
+                        'badge' => __('PRO', 'gsheetconnector-for-elementor-forms'),
                         'freeLink' => 'https://wordpress.org/plugins/gsheetconnector-for-elementor-forms/',
                         'downloadLink' => 'https://downloads.wordpress.org/plugin/gsheetconnector-for-elementor-forms.zip',
                         'buyLink' => 'https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro',
@@ -314,14 +315,14 @@ if (!defined('ABSPATH')) {
                     'avada/avada.php' => [
                         'connector' => 'avada-forms-google-sheet-connector-pro/avada-forms-google-sheet-connector-pro.php',
                         'connector-pro' => 'avada-forms-google-sheet-connector-pro/avada-forms-google-sheet-connector-pro.php',
-                        'name' => __('Avada Forms Google Sheet Connector', 'wc-gsheetconnector'),
+                        'name' => __('Avada Forms Google Sheet Connector', 'gsheetconnector-for-elementor-forms'),
                         'link' => 'https://www.gsheetconnector.com/avada-forms-google-sheet-connector-pro',
                         'img' => esc_url(GS_CONN_ELE_URL) . '/assets/img/pro-avada-gsc.webp',
-                        'text' => __('Connect Avada Forms to Google Sheets and automatically transfer form entries to your spreadsheet. Streamline lead management, automate data collection, and improve business reporting with seamless integration.', 'wc-gsheetconnector'),
+                        'text' => __('Connect Avada Forms to Google Sheets and automatically transfer form entries to your spreadsheet. Streamline lead management, automate data collection, and improve business reporting with seamless integration.', 'gsheetconnector-for-elementor-forms'),
                         'pro_plugin_active' => 'avada-forms-google-sheet-connector-pro/avada-forms-google-sheet-connector-pro.php',
                         'url' => '',
-                        'button' => __('Install', 'wc-gsheetconnector'),
-                        'badge' => __('Available PRO Version', 'wc-gsheetconnector'),
+                        'button' => __('Install', 'gsheetconnector-for-elementor-forms'),
+                        'badge' => __('Available PRO Version', 'gsheetconnector-for-elementor-forms'),
                         'freeLink' => '',
                         'downloadLink' => '',
                         'buyLink' => 'https://www.gsheetconnector.com/avada-forms-google-sheet-connector-pro',
@@ -334,14 +335,14 @@ if (!defined('ABSPATH')) {
                     'divi/divi.php' => [
                         'connector' => 'divi-forms-db-google-sheet-connector-pro/divi-forms-db-google-sheet-connector-pro.php',
                         'connector-pro' => 'divi-forms-db-google-sheet-connector-pro/divi-forms-db-google-sheet-connector-pro.php',
-                        'name' => __('Divi Forms Google Sheet Connector', 'wc-gsheetconnector'),
+                        'name' => __('Divi Forms Google Sheet Connector', 'gsheetconnector-for-elementor-forms'),
                         'link' => 'https://www.gsheetconnector.com/divi-forms-db-google-sheet-connector-pro',
                         'img' => esc_url(GS_CONN_ELE_URL) . '/assets/img/pro-divi-gsc.webp',
-                        'text' => __('Integrate Divi Forms with Google Sheets and automatically sync submissions in real-time. Store customer data securely, track inquiries efficiently, and eliminate manual spreadsheet updates.', 'wc-gsheetconnector'),
+                        'text' => __('Integrate Divi Forms with Google Sheets and automatically sync submissions in real-time. Store customer data securely, track inquiries efficiently, and eliminate manual spreadsheet updates.', 'gsheetconnector-for-elementor-forms'),
                         'pro_plugin_active' => 'divi-forms-db-google-sheet-connector-pro/divi-forms-db-google-sheet-connector-pro.php',
                         'url' => '',
-                        'button' => __('Install', 'wc-gsheetconnector'),
-                        'badge' => __('Available PRO Version', 'wc-gsheetconnector'),
+                        'button' => __('Install', 'gsheetconnector-for-elementor-forms'),
+                        'badge' => __('Available PRO Version', 'gsheetconnector-for-elementor-forms'),
                         'freeLink' => '',
                         'downloadLink' => '',
                         'buyLink' => 'https://www.gsheetconnector.com/divi-forms-db-google-sheet-connector-pro',
@@ -354,14 +355,14 @@ if (!defined('ABSPATH')) {
                     'gsheetconnector-for-wp-core/gsheetconnector-for-wp-core.php' => [
                         'connector' => 'gsheetconnector-easy-digital-downloads/gsheetconnector-easy-digital-downloads.php',
                         'connector-pro' => 'gsheetconnector-easy-digital-downloads-pro/gsheetconnector-easy-digital-downloads-pro.php',
-                        'name' => __('WP Core Google Sheet Connector', 'wc-gsheetconnector'),
+                        'name' => __('WP Core Google Sheet Connector', 'gsheetconnector-for-elementor-forms'),
                         'link' => 'https://www.gsheetconnector.com/gsheetconnector-for-wp-core',
                         'img' => esc_url(GS_CONN_ELE_URL) . '/assets/img/gsc-wp-core.webp',
-                        'text' => __('Automatically send WordPress core data (like comments or custom submissions) to Google Sheets. Simplify website data tracking, automate record keeping, and centralize important information in one organized spreadsheet.', 'wc-gsheetconnector'),
+                        'text' => __('Automatically send WordPress core data (like comments or custom submissions) to Google Sheets. Simplify website data tracking, automate record keeping, and centralize important information in one organized spreadsheet.', 'gsheetconnector-for-elementor-forms'),
                         'pro_plugin_active' => 'gsheetconnector-easy-digital-downloads-pro/gsheetconnector-easy-digital-downloads-pro.php',
                         'url' => 'https://wordpress.org/plugins/gsheetconnector-easy-digital-downloads/',
-                        'button' => __('Install', 'wc-gsheetconnector'),
-                        'badge' => __('PRO', 'wc-gsheetconnector'),
+                        'button' => __('Install', 'gsheetconnector-for-elementor-forms'),
+                        'badge' => __('PRO', 'gsheetconnector-for-elementor-forms'),
                         'freeLink' => '',
                         'downloadLink' => 'https://downloads.wordpress.org/plugin/gsheetconnector-easy-digital-downloads.zip',
                         'buyLink' => 'https://www.gsheetconnector.com/gsheetconnector-for-wp-core',
@@ -374,14 +375,14 @@ if (!defined('ABSPATH')) {
                     'woocommerce/woocommerce.php' => [
                         'connector' => 'wc-gsheetconnector/wc-gsheetconnector.php',
                         'connector-pro' => 'wc-gsheetconnector/wc-gsheetconnector.php',
-                        'name' => __('WooCommerce Google Sheet Connector', 'wc-gsheetconnector'),
+                        'name' => __('WooCommerce Google Sheet Connector', 'gsheetconnector-for-elementor-forms'),
                         'link' => 'https://www.gsheetconnector.com/woocommerce-google-sheet-connector-pro',
                         'img' => esc_url(GS_CONN_ELE_URL) . '/assets/img/pro-woo-gsc.webp',
-                        'text' => __('Sync WooCommerce orders with Google Sheets automatically. Store order details, customer information, and transaction data in real-time for easy reporting, accounting, and business analysis.', 'wc-gsheetconnector'),
+                        'text' => __('Sync WooCommerce orders with Google Sheets automatically. Store order details, customer information, and transaction data in real-time for easy reporting, accounting, and business analysis.', 'gsheetconnector-for-elementor-forms'),
                         'pro_plugin_active' => 'wc-gsheetconnector/wc-gsheetconnector.php',
                         'url' => 'https://wordpress.org/plugins/wc-gsheetconnector/',
-                        'button' => __('Install', 'wc-gsheetconnector'),
-                        'badge' => __('PRO', 'wc-gsheetconnector'),
+                        'button' => __('Install', 'gsheetconnector-for-elementor-forms'),
+                        'badge' => __('PRO', 'gsheetconnector-for-elementor-forms'),
                         'freeLink' => 'https://wordpress.org/plugins/wc-gsheetconnector/',
                         'downloadLink' => 'https://downloads.wordpress.org/plugin/wc-gsheetconnector.zip',
                         'buyLink' => 'https://www.gsheetconnector.com/woocommerce-google-sheet-connector-pro',
@@ -394,14 +395,14 @@ if (!defined('ABSPATH')) {
                     'easy-digital-downloads/easy-digital-downloads.php' => [
                         'connector' => 'gsheetconnector-easy-digital-downloads/gsheetconnector-easy-digital-downloads.php',
                         'connector-pro' => 'gsheetconnector-easy-digital-downloads-pro/gsheetconnector-easy-digital-downloads-pro.php',
-                        'name' => __('Easy Digital Downloads Google Sheet Connector', 'wc-gsheetconnector'),
+                        'name' => __('Easy Digital Downloads Google Sheet Connector', 'gsheetconnector-for-elementor-forms'),
                         'link' => 'https://www.gsheetconnector.com/easy-digital-downloads-google-sheet-connector-pro',
                         'img' => esc_url(GS_CONN_ELE_URL) . '/assets/img/pro-edd-gsc.webp',
-                        'text' => __('Automatically send Easy Digital Downloads (EDD) order details to Google Sheets. Track digital product sales, monitor transactions, and manage customer data effortlessly with real-time spreadsheet integration.', 'wc-gsheetconnector'),
+                        'text' => __('Automatically send Easy Digital Downloads (EDD) order details to Google Sheets. Track digital product sales, monitor transactions, and manage customer data effortlessly with real-time spreadsheet integration.', 'gsheetconnector-for-elementor-forms'),
                         'pro_plugin_active' => 'gsheetconnector-easy-digital-downloads-pro/gsheetconnector-easy-digital-downloads-pro.php',
                         'url' => 'https://wordpress.org/plugins/gsheetconnector-easy-digital-downloads/',
-                        'button' => __('Install', 'wc-gsheetconnector'),
-                        'badge' => __('PRO', 'wc-gsheetconnector'),
+                        'button' => __('Install', 'gsheetconnector-for-elementor-forms'),
+                        'badge' => __('PRO', 'gsheetconnector-for-elementor-forms'),
                         'freeLink' => 'https://wordpress.org/plugins/gsheetconnector-easy-digital-downloads/',
                         'downloadLink' => 'https://downloads.wordpress.org/plugin/gsheetconnector-easy-digital-downloads.zip',
                         'buyLink' => 'https://www.gsheetconnector.com/edd-google-sheet-connector-pro',
@@ -538,9 +539,6 @@ if (!defined('ABSPATH')) {
                             </div>
 
                         </div>
-
-
-
                     </div>
 
                     <?php
@@ -907,9 +905,6 @@ if (!defined('ABSPATH')) {
                         <?php endforeach; ?>
 
                     </div>
-
-
-
                 </div>
                 <!--NEW-->
                 <?php wp_nonce_field('gselef-ajax-nonce', 'gselef-ajax-nonce'); ?>

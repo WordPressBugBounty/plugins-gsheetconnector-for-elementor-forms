@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
+// phpcs:ignoreFile WordPress.NamingConventions.PrefixAllGlobals
 /**
  * Gs_Connector_Service Class
  *
@@ -96,22 +97,24 @@ class GSC_Elementor_Integration
     public function gselef_dismiss_pro_notice()
     {
 
-        $nonce = isset($_POST['nonce']) ? sanitize_text_field($_POST['nonce']) : '';
+       $nonce = isset( $_POST['nonce'] )
+       ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) )
+       : '';
 
-        if (! wp_verify_nonce($nonce, 'gselef-ajax-nonce')) {
-            wp_send_json_error('Invalid nonce');
-        }
-
-        setcookie(
-            'gselef_pro_notice_dismissed',
-            '1',
-            time() + (7 * 24 * 60 * 60),
-            COOKIEPATH,
-            COOKIE_DOMAIN
-        );
-
-        wp_send_json_success();
+       if ( ! wp_verify_nonce( $nonce, 'gselef-ajax-nonce' ) ) {
+        wp_send_json_error( 'Invalid nonce' );
     }
+
+    setcookie(
+        'gselef_pro_notice_dismissed',
+        '1',
+        time() + (7 * 24 * 60 * 60),
+        COOKIEPATH,
+        COOKIE_DOMAIN
+    );
+
+    wp_send_json_success();
+}
 
     /**
      * Handle dismiss action for admin notices.
@@ -121,18 +124,24 @@ class GSC_Elementor_Integration
      *
      * @return void
      */
-    public function gselef_free_dismiss_notice_callback()
-    {
-        if (!isset($_POST['security']) || !wp_verify_nonce($_POST['security'], 'gselef-ajax-nonce')) {
-            wp_send_json_error('Invalid nonce');
+    public function gselef_free_dismiss_notice_callback() {
+
+        $security = isset( $_POST['security'] )
+        ? sanitize_text_field( wp_unslash( $_POST['security'] ) )
+        : '';
+
+        if ( ! wp_verify_nonce( $security, 'gselef-ajax-nonce' ) ) {
+            wp_send_json_error( 'Invalid nonce' );
         }
 
-        if (!isset($_POST['key'])) {
-            wp_send_json_error('Missing key');
+        if ( ! isset( $_POST['key'] ) ) {
+            wp_send_json_error( 'Missing key' );
         }
 
-        $key = sanitize_text_field($_POST['key']);
-        update_option('elefgs_free_notice_' . $key, 'dismissed');
+        $key = sanitize_text_field( wp_unslash( $_POST['key'] ) );
+
+        update_option( 'elefgs_free_notice_' . $key, 'dismissed' );
+
         wp_send_json_success();
     }
 
@@ -146,13 +155,18 @@ class GSC_Elementor_Integration
      */
     public function gselef_free_snooze_notice_callback()
     {
-        if (!isset($_POST['security']) || !wp_verify_nonce($_POST['security'], 'gselef-ajax-nonce')) {
-            wp_send_json_error('Invalid nonce');
+        $security = isset( $_POST['security'] )
+        ? sanitize_text_field( wp_unslash( $_POST['security'] ) )
+        : '';
+
+        if ( ! wp_verify_nonce( $security, 'gselef-ajax-nonce' ) ) {
+            wp_send_json_error( 'Invalid nonce' );
         }
+
         if (!isset($_POST['key'])) {
             wp_send_json_error('Missing key');
         }
-        $key = sanitize_text_field($_POST['key']);
+        $key = sanitize_text_field( wp_unslash( $_POST['key'] ) );
         update_option('elefgs_free_notice_' . $key . '_time', time());
         wp_send_json_success();
     }
@@ -512,7 +526,7 @@ class GSC_Elementor_Integration
 
             global $wpdb;
 
-            // Get meta_id
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
             $meta_id = $wpdb->get_var(
                 $wpdb->prepare(
                     "SELECT meta_id FROM {$wpdb->postmeta}
@@ -745,10 +759,10 @@ class GSC_Elementor_Integration
       // Old => meta_value = 'gscele_form_feeds'
       // New => serialized array containing type => gscele_form_feeds
 
-       // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+       // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.NoCaching
         $feeds = $wpdb->get_results(
             $wpdb->prepare(
-                "SELECT * FROM {$table}
+                "SELECT * FROM {$wpdb->postmeta}
                 WHERE post_id = %d
                 AND (
                 meta_value = %s
@@ -881,10 +895,10 @@ class GSC_Elementor_Integration
     // Old => meta_value = 'gscele_form_feeds'
     // New => serialized array containing type => gscele_form_feeds
 
-    // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
     $feeds = $wpdb->get_results(
         $wpdb->prepare(
-            "SELECT * FROM {$table}
+            "SELECT * FROM {$wpdb->postmeta}
             WHERE post_id = %d
             AND (
             meta_value = %s
@@ -975,6 +989,7 @@ class GSC_Elementor_Integration
         $latest_id = wp_cache_get('gsc_latest_elementor_id');
         if (false === $latest_id) {
             global $wpdb;
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
             $result = $wpdb->get_results("SELECT MAX(id) as latest_id FROM {$wpdb->prefix}e_submissions");
             $latest_id = isset($result[0]->latest_id) ? $result[0]->latest_id : '';
             wp_cache_set('gsc_latest_elementor_id', $latest_id, '', 300); // Cache for 5 minutes
@@ -1589,7 +1604,7 @@ class GSC_Elementor_Integration
             WHERE pm.meta_key = '__elementor_forms_snapshot'
             AND p.post_type = 'page'
             ";
-            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
             $results = $wpdb->get_results($query);
             wp_cache_set($cache_key, $results, 'gsc_plugin', 300);
         }
@@ -1633,7 +1648,7 @@ class GSC_Elementor_Integration
             WHERE pm.meta_value = 'gscele_form_feeds'
             AND p.post_type = 'page'
             ";
-            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
             $results = $wpdb->get_results($query);
             wp_cache_set($cache_key, $results, 'gsc_plugin', 300);
         }
@@ -1720,7 +1735,7 @@ class GSC_Elementor_Integration
 
         // Get the postmeta table name safely using WordPress prefix
         $table = $wpdb->postmeta;
-
+         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.NoCaching
         $feedList = $wpdb->get_results(
             $wpdb->prepare(
                 "SELECT meta_id
@@ -1749,4 +1764,4 @@ class GSC_Elementor_Integration
     }
 }
 
-$gsc_elementor_integration = new GSC_Elementor_Integration();
+$gscef_elementor_integration = new GSC_Elementor_Integration();

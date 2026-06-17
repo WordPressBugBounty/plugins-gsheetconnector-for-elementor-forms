@@ -2,7 +2,7 @@
 if (!defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
-
+// phpcs:ignoreFile WordPress.NamingConventions.PrefixAllGlobals
 /**
  * Customize the WordPress admin footer text.
  *
@@ -110,9 +110,6 @@ function remove_footer_admin()
             esc_html(defined('GS_CONN_ELE_VERSION') ? GS_CONN_ELE_VERSION : '');
           ?>
         </div>
-
-
-
       </div>
 
     </div>

@@ -8,6 +8,7 @@ use Elementor\Utils;
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
+// phpcs:ignoreFile WordPress.NamingConventions.PrefixAllGlobals
 
 class gsc_elementor_sidemenu extends Settings_Page
 {
@@ -56,10 +57,10 @@ class gsc_elementor_sidemenu extends Settings_Page
 
         $active_tab = 'dashboard';
 
-        if (isset($_GET['tab'])) {
-            $tab = sanitize_text_field(wp_unslash($_GET['tab']));
-
-            $active_tab = $tab;
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading admin page tab parameter for UI state only.
+        if ( isset( $_GET['tab'] ) ) {
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading admin page tab parameter for UI state only.
+            $active_tab = sanitize_text_field( wp_unslash( $_GET['tab'] ) );
         }
 
         $active_tab_name = 'dashboard';
@@ -69,6 +70,8 @@ class gsc_elementor_sidemenu extends Settings_Page
             $active_tab_name = esc_html(__('Form Feeds', 'gsheetconnector-for-elementor-forms'));
         } elseif ($active_tab == 'settings') {
             $active_tab_name = esc_html(__('Settings', 'gsheetconnector-for-elementor-forms'));
+        }elseif ($active_tab == 'system_status') {
+            $active_tab_name = esc_html(__('System Status', 'gsheetconnector-for-elementor-forms'));
         } elseif ($active_tab == 'extensions') {
             $active_tab_name = esc_html(__('Extensions', 'gsheetconnector-for-elementor-forms'));
         }
@@ -109,13 +112,13 @@ class gsc_elementor_sidemenu extends Settings_Page
 
         $show_auth_notice =  !$gselef_is_authenticated;
         $show_showpro_notice =
-            !gselef_free_is_dismissed('showpro') &&
-            !gselef_free_is_snoozed('showpro');
+        !gselef_free_is_dismissed('showpro') &&
+        !gselef_free_is_snoozed('showpro');
 
 
         $show_enhance_notice =
-            !gselef_free_is_dismissed('enhance') &&
-            !gselef_free_is_snoozed('enhance');
+        !gselef_free_is_dismissed('enhance') &&
+        !gselef_free_is_snoozed('enhance');
 
         if (!get_option('elefgs_free_plugin_activated_at')) {
             update_option('elefgs_free_plugin_activated_at', time());
@@ -129,16 +132,16 @@ class gsc_elementor_sidemenu extends Settings_Page
         $is_snoozed = gselef_free_is_snoozed('review');
 
         $show_review_notice =
-            $is_time_passed &&
-            !$is_dismissed &&
-            !$is_snoozed;
+        $is_time_passed &&
+        !$is_dismissed &&
+        !$is_snoozed;
 
         $has_notice =
-            $show_showpro_notice ||
-            $show_review_notice ||
-            $show_auth_notice ||
-            $show_enhance_notice;
-?>
+        $show_showpro_notice ||
+        $show_review_notice ||
+        $show_auth_notice ||
+        $show_enhance_notice;
+        ?>
 
         <div class="gselef-free">
 
@@ -397,41 +400,47 @@ class gsc_elementor_sidemenu extends Settings_Page
 
             <?php
             echo '<div class="d-none">
-<div class="gselef-selected-method"
-data-value="' . esc_attr($selected_method) . '">'
-                . esc_html($selected_method) .
-                '</div>
-</div>';
+            <div class="gselef-selected-method"
+            data-value="' . esc_attr($selected_method) . '">'
+            . esc_html($selected_method) .
+            '</div>
+            </div>';
 
 
 
-            // Detect active settings sub tab
-            $active_settings_tab = isset($_GET['subtab']) ? sanitize_text_field($_GET['subtab']) : 'general_settings';
+            $active_settings_tab =
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading admin page subtab parameter for UI state only.
+            isset( $_GET['subtab'] )
+            ?
+             // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading admin page subtab parameter for UI state only.
+            sanitize_text_field( wp_unslash( $_GET['subtab'] ) )
+            : 'general_settings';
 
-            /*---------------------------------------------------
+          /*---------------------------------------------------
           MAIN TABS
           ---------------------------------------------------*/
 
-            $tabs = array(
-                'dashboard'          => esc_html__('Dashboard', 'gsheetconnector-for-elementor-forms'),
-                'integration'        => esc_html__('Integration', 'gsheetconnector-for-elementor-forms'),
-                'form_feed_settings' => esc_html__('Form Feeds', 'gsheetconnector-for-elementor-forms'),
-                'settings'           => esc_html__('Settings', 'gsheetconnector-for-elementor-forms'),
-                'extensions'         => esc_html__('Extensions', 'gsheetconnector-for-elementor-forms'),
-            );
+          $tabs = array(
+            'dashboard'          => esc_html__('Dashboard', 'gsheetconnector-for-elementor-forms'),
+            'integration'        => esc_html__('Integration', 'gsheetconnector-for-elementor-forms'),
+            'form_feed_settings' => esc_html__('Form Feeds', 'gsheetconnector-for-elementor-forms'),
+            'settings'           => esc_html__('Settings', 'gsheetconnector-for-elementor-forms'),
+            'system_status'    => esc_html__('System Status', 'gsheetconnector-for-elementor-forms'),
+            'extensions'         => esc_html__('Extensions', 'gsheetconnector-for-elementor-forms'),
+        );
 
-            echo '<div class="nav-tab-wrapper d-flex justify-flex-start w-100 m-0">';
+          echo '<div class="nav-tab-wrapper d-flex justify-flex-start w-100 m-0">';
 
-            foreach ($tabs as $tab => $name) {
+          foreach ($tabs as $tab => $name) {
 
-                $class = ($tab === $active_tab) ? ' nav-tab-active' : '';
+            $class = ($tab === $active_tab) ? ' nav-tab-active' : '';
 
-                $url = admin_url('admin.php?page=gsheetconnector-elementor-config&tab=' . urlencode($tab));
+            $url = admin_url('admin.php?page=gsheetconnector-elementor-config&tab=' . urlencode($tab));
 
-                echo '<a class="nav-tab text-decoration-none fw-500 text-center' . esc_attr($class) . '" href="' . esc_url($url) . '">' . esc_html($name) . '</a>';
-            }
+            echo '<a class="nav-tab text-decoration-none fw-500 text-center' . esc_attr($class) . '" href="' . esc_url($url) . '">' . esc_html($name) . '</a>';
+        }
 
-            echo '</div>';
+        echo '</div>';
 
 
             /*---------------------------------------------------
@@ -440,26 +449,29 @@ data-value="' . esc_attr($selected_method) . '">'
 
             switch ($active_tab) {
                 case 'dashboard':
-                    include(GS_CONN_ELE_PATH . "includes/pages/gsc-elementor-dashboard.php");
-                    break;
+                include(GS_CONN_ELE_PATH . "includes/pages/gsc-elementor-dashboard.php");
+                break;
 
                 /*--------------------------------
                     Integration Tab
                     --------------------------------*/
-                case 'integration':
+                    case 'integration':
 
                     echo '<div class="wrap w-100 m-0"><div class="inner-wrap w-100 bg-white p-40">';
                     include(GS_CONN_ELE_PATH . "includes/pages/gsc-integration.php");
                     echo '</div></div>';
                     break;
 
-                /*--------------------------------
+                   /*--------------------------------
                     Form Feed Tab
                     --------------------------------*/
-                case 'form_feed_settings':
+                    case 'form_feed_settings':
                     echo '<div class="wrap w-100 m-0"><div class="inner-wrap w-100 bg-white p-40">';
+                    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading admin page parameters for routing only.
                     if (isset($_GET['form_id']) && isset($_GET['feed_id'])) {
+                        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading admin page parameters for routing only.
                         $form_id = intval($_GET['form_id']);
+                        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading admin page parameters for routing only.
                         $feed_id = intval($_GET['feed_id']);
                         include(GS_CONN_ELE_PATH . "includes/pages/edit-sheet.php");
                     } else {
@@ -468,105 +480,113 @@ data-value="' . esc_attr($selected_method) . '">'
                     echo '</div></div>';
                     break;
 
-                /*--------------------------------
+                     /*--------------------------------
                     SETTINGS TAB WITH SUB TABS
                     --------------------------------*/
-                case 'settings':
+                    case 'settings':
                     include(GS_CONN_ELE_PATH . "includes/pages/gsc-sheet-setting.php");
                     break;
-                /*--------------------------------
+
+                    /*--------------------------------
+                    System Status Tab
+                    --------------------------------*/
+                    case 'system_status':
+                    include(GS_CONN_ELE_PATH . "includes/pages/gsc-system-status.php");
+                    break;
+
+                     /*--------------------------------
                     Extensions Tab
                     --------------------------------*/
-                case 'extensions':
+                    case 'extensions':
                     include(GS_CONN_ELE_PATH . "includes/pages/extensions/extensions.php");
                     break;
-            }
+                }
 
-            ?>
+                ?>
 
 
-            <!--Start Common Pro Feature-->
+                <!--Start Common Pro Feature-->
 
-            <?php if ($active_tab != 'dashboard') { ?>
-                <div class="gselef-free">
-                    <div class="common-section-gsc-promo-wrapper">
-                        <!-- Left Image Area -->
-                        <div class="d-flex flex-wrap gap-50 align-center">
-                            <div class="gselef-to-gsheet">
-                                <img src="<?php echo esc_url(GS_CONN_ELE_URL); ?>/assets/img/pro-elemntor-gsc.webp">
-                            </div>
-                            <!-- Right Content -->
-                            <div class="common-section-gsc-promo-content">
-                                <div class="common-section-heading"><?php echo esc_html(__('Advanced Tools for Easy Spreadsheet Control', 'gsheetconnector-for-elementor-forms')); ?></div>
-                                <p class="mb-0"><?php echo esc_html(__('Improve your sheet management with smart automation and flexible customization features.', 'gsheetconnector-for-elementor-forms')); ?></p>
-                                <div class="d-flex gap-40">
-                                    <ul>
-                                        <li><?php echo esc_html__('Google Sheets API v4', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                        <li><?php echo esc_html__('One-Click Authentication', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                        <li><?php echo esc_html__('Authenticated Email Display', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                        <li><?php echo esc_html__('Click & Fetch Automation', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                        <li><?php echo esc_html__('Create New Spreadsheet', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                        <li><?php echo esc_html__('Manual Sheet / Tab Name', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                    </ul>
-                                    <ul>
-                                        <li><?php echo esc_html__('Automated Sheet & Tab', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                        <li><?php echo esc_html__('Custom / Merge Tags', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                        <li><?php echo esc_html__('Drag-and-Drop Column Order', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                        <li><?php echo esc_html__('Headers On / Off + Rename', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                        <li><?php echo esc_html__('Image / PDF Attachment Link', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                        <li><?php echo esc_html__('Freeze & Color Headers', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                        <li><?php echo esc_html__('Conditional Options', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                    </ul>
-                                    <ul>
-                                        <li><?php echo esc_html__('Sync Past Entries', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                        <li><?php echo esc_html__('Role Management', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                        <li><?php echo esc_html__('Quick Configuration', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                        <li><?php echo esc_html__('Multi-Language Support', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                        <li><?php echo esc_html__('Multi-Site Support', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                        <li><?php echo esc_html__('Latest WP & PHP Support', 'gsheetconnector-for-elementor-forms'); ?></li>
-                                    </ul>
+                <?php if ($active_tab != 'dashboard') { ?>
+                    <div class="gselef-free">
+                        <div class="common-section-gsc-promo-wrapper">
+                            <!-- Left Image Area -->
+                            <div class="d-flex flex-wrap gap-50 align-center">
+                                <div class="gselef-to-gsheet">
+                                    <img src="<?php echo esc_url(GS_CONN_ELE_URL); ?>/assets/img/pro-elemntor-gsc.webp">
                                 </div>
-                                <div class="mt-30 d-flex align-center gap-20">
-                                    <a href="https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro" target="_blank" class="btn btn-primary link-hover-white text-decoration-none">Upgrade Now</a>
-                                    <a class="text-decoration-none free-pro-btn" href="https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro#compare" target="_blank">Free vs Pro</a>
+                                <!-- Right Content -->
+                                <div class="common-section-gsc-promo-content">
+                                    <div class="common-section-heading"><?php echo esc_html(__('Advanced Tools for Easy Spreadsheet Control', 'gsheetconnector-for-elementor-forms')); ?></div>
+                                    <p class="mb-0"><?php echo esc_html(__('Improve your sheet management with smart automation and flexible customization features.', 'gsheetconnector-for-elementor-forms')); ?></p>
+                                    <div class="d-flex gap-40">
+                                        <ul>
+                                            <li><?php echo esc_html__('Google Sheets API v4', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                            <li><?php echo esc_html__('One-Click Authentication', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                            <li><?php echo esc_html__('Authenticated Email Display', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                            <li><?php echo esc_html__('Click & Fetch Automation', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                            <li><?php echo esc_html__('Create New Spreadsheet', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                            <li><?php echo esc_html__('Manual Sheet / Tab Name', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                        </ul>
+                                        <ul>
+                                            <li><?php echo esc_html__('Automated Sheet & Tab', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                            <li><?php echo esc_html__('Custom / Merge Tags', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                            <li><?php echo esc_html__('Drag-and-Drop Column Order', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                            <li><?php echo esc_html__('Headers On / Off + Rename', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                            <li><?php echo esc_html__('Image / PDF Attachment Link', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                            <li><?php echo esc_html__('Freeze & Color Headers', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                            <li><?php echo esc_html__('Conditional Options', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                        </ul>
+                                        <ul>
+                                            <li><?php echo esc_html__('Sync Past Entries', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                            <li><?php echo esc_html__('Role Management', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                            <li><?php echo esc_html__('Quick Configuration', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                            <li><?php echo esc_html__('Multi-Language Support', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                            <li><?php echo esc_html__('Multi-Site Support', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                            <li><?php echo esc_html__('Latest WP & PHP Support', 'gsheetconnector-for-elementor-forms'); ?></li>
+                                        </ul>
+                                    </div>
+                                    <div class="mt-30 d-flex align-center gap-20">
+                                        <a href="https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro" target="_blank" class="btn btn-primary link-hover-white text-decoration-none">Upgrade Now</a>
+                                        <a class="text-decoration-none free-pro-btn" href="https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro#compare" target="_blank">Free vs Pro</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            <?php } ?>
-            <!--End Common Pro Feature-->
+                <?php } ?>
+                <!--End Common Pro Feature-->
 
 
 
-            <?php include(GS_CONN_ELE_PATH . "includes/pages/admin-footer.php"); ?>
-        </div>
-<?php
-    }
-
-    protected function create_tabs() {}
-
-    public function get_elements_form_data($form_data, $keyToFind)
-    {
-        foreach ($form_data as $key => $value) {
-            // If the key matches, return the value
-            if ($key === $keyToFind) {
-                return $value;
-            }
-
-            // If the value is an array, recurse into it
-            if (is_array($value)) {
-                $result = $this->get_elements_form_data($value, $keyToFind);
-                if ($result !== null) {
-                    return $result;
-                }
-            }
+                <?php include(GS_CONN_ELE_PATH . "includes/pages/admin-footer.php"); ?>
+            </div>
+            <?php
         }
 
+        protected function create_tabs() {}
+
+        public function get_elements_form_data($form_data, $keyToFind)
+        {
+            foreach ($form_data as $key => $value) {
+            // If the key matches, return the value
+                if ($key === $keyToFind) {
+                    return $value;
+                }
+
+            // If the value is an array, recurse into it
+                if (is_array($value)) {
+                    $result = $this->get_elements_form_data($value, $keyToFind);
+                    if ($result !== null) {
+                        return $result;
+                    }
+                }
+            }
+
         // If the key is not found, return null
-        return null;
+            return null;
+        }
     }
-}
 
 // Initialize the google sheet connector class
-$gsc_elementor_sidemenu = new gsc_elementor_sidemenu();
+    $gsc_elementor_sidemenu = new gsc_elementor_sidemenu();

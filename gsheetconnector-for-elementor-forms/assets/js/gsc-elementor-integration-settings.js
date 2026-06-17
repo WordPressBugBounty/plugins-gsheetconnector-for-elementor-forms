@@ -815,7 +815,7 @@ document.addEventListener("DOMContentLoaded", function () {
       navigator.clipboard
       .writeText(output)
       .then(function () {
-        showMessage("Copied successfully", "success");
+        showMessage("Copied successfully.", "success");
       })
       .catch(function () {
         fallbackCopy(output);
@@ -832,7 +832,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ta.select();
       try {
         document.execCommand("copy");
-        showMessage("Copied successfully", "success");
+        showMessage("Copied successfully.", "success");
       } catch (err) {
         showMessage("Copy failed. Please copy manually.", "error");
       }
@@ -1071,6 +1071,38 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("goToSlide not available");
     }
   }, 800);
+
+
+   // after get auth code scrolling client token in integration
+  // Check if URL has "code" parameter
+  const code = new URLSearchParams(window.location.search).get("code");
+
+  if (!code) return;
+
+  //  possible targets
+  const selectors = ["#ele-code"];
+
+  let target = null;
+
+  //  find which ID exists
+  for (let sel of selectors) {
+    if (document.querySelector(sel)) {
+      target = sel;
+      break;
+    }
+  }
+
+  if (target) {
+    //   set hash (URL update)
+    window.location.hash = target.replace("#", "");
+
+    //   scroll to element
+    document.querySelector(target).scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+  
 });
 
 /****Extenxion Counter****/

@@ -3,6 +3,7 @@
 if (! defined('ABSPATH')) {
   exit;
 }
+// phpcs:ignoreFile WordPress.NamingConventions.PrefixAllGlobals
 
 // 🔒 Prevent Subscribers from seeing sensitive info
 if (! current_user_can('manage_options')) {
@@ -11,7 +12,7 @@ if (! current_user_can('manage_options')) {
   );
 }
 
-$elementorForms_gs_tools_service = new GSC_Elementor_Init();
+$gsheetconnector_for_elementor_forms_tools_service = new GSC_Elementor_Init();
 
 ?>
 
@@ -36,44 +37,43 @@ $elementorForms_gs_tools_service = new GSC_Elementor_Init();
       global $wpdb;
 
     // Get WordPress version.
-      $wp_version = get_bloginfo('version');
+      $gsc_elementor_wp_version = get_bloginfo('version');
 
     // Get theme info.
-      $theme_data = wp_get_theme();
-      $theme_name_version = $theme_data->get('Name') . ' ' . $theme_data->get('Version');
-      $parent_theme = $theme_data->get('Template');
+      $gselef_theme_data = wp_get_theme();
+      $gselef_theme_name_version = $gselef_theme_data->get('Name') . ' ' . $gselef_theme_data->get('Version');
+      $gselef_parent_theme = $gselef_theme_data->get('Template');
 
-      if (!empty($parent_theme)) {
-        $parent_theme_data = wp_get_theme($parent_theme);
-        $parent_theme_name_version = $parent_theme_data->get('Name') . ' ' . $parent_theme_data->get('Version');
+      if (!empty($gselef_parent_theme)) {
+        $gselef_parent_theme_data = wp_get_theme($gselef_parent_theme);
+        $gselef_parent_theme_name_version = $gselef_parent_theme_data->get('Name') . ' ' . $gselef_parent_theme_data->get('Version');
       } else {
-        $parent_theme_name_version = 'N/A';
+        $gselef_parent_theme_name_version = 'N/A';
       }
 
     // Check plugin version and subscription plan.
-      $plugin_version = defined('GS_CONN_ELE_VERSION') ? GS_CONN_ELE_VERSION : 'N/A';
+      $gselef_plugin_version = defined('GS_CONN_ELE_VERSION') ? GS_CONN_ELE_VERSION : 'N/A';
 
-      $subscription_plan = 'FREE';
+      $gselef_subscription_plan = 'FREE';
 
-      $api_token_auto = get_option('elefgs_token');
-      $auth = "";
-      $gsc_gf_is_valid = get_option('elefgs_verify');
+      $gselef_api_token_auto = get_option('elefgs_token');
+      $gselef_auth = "";
+      $gselef_is_valid = get_option('elefgs_verify');
 
-      if ((!empty($api_token_auto) && $gsc_gf_is_valid == 'valid')) {
-        $google_sheet_auto = new GSC_Elementor_Free();
-        $email_account_auto = $google_sheet_auto->gsheet_print_google_account_email();
-        $connected_email = !empty($email_account_auto) ? esc_html($email_account_auto) : 'Not Auth';
+      if ((!empty($gselef_api_token_auto) && $gselef_is_valid == 'valid')) {
+        $gselef_google_sheet_auto = new GSC_Elementor_Free();
+        $gselef_email_account_auto = $gselef_google_sheet_auto->gsheet_print_google_account_email();
+        $gselef_connected_email = !empty($gselef_email_account_auto) ? esc_html($gselef_email_account_auto) : 'Not Auth';
 
-        $auth = 'Authenticated Using Existing Method';
+        $gselef_auth = 'Authenticated Using Existing Method';
       } else {
       // Auto authentication is the  method available.
-        $connected_email = 'Not Connected';
-        $auth = 'No Method';
+        $gselef_connected_email = 'Not Connected';
+        $gselef_auth = 'No Method';
       }
 
       /*  Check Google Permission. */
-      $gsc_verify_status = get_option('elefgs_verify');
-      $search_permission = ($gsc_verify_status === 'valid') ? 'Granted' : 'Denied';
+      $gselef_search_permission = ($gselef_is_valid === 'valid') ? 'Granted' : 'Denied';
       /*  Create the system info HTML. */
       ?>
 
@@ -95,21 +95,21 @@ $elementorForms_gs_tools_service = new GSC_Elementor_Init();
               <tr>
                 <td><?php echo esc_html__('Plugin Version', 'gsheetconnector-for-elementor-forms'); ?></td>
                 <td class="fw-600 common-badge-table info-name-blue">
-                  <?php echo esc_html($plugin_version); ?>
+                  <?php echo esc_html($gselef_plugin_version); ?>
                 </td>
               </tr>
 
               <tr>
                 <td><?php echo esc_html__('Plugin Subscription Plan', 'gsheetconnector-for-elementor-forms'); ?></td>
                 <td class="fw-600 common-badge-table pro-badge">
-                  <?php echo esc_html($subscription_plan); ?>
+                  <?php echo esc_html($gselef_subscription_plan); ?>
                 </td>
               </tr>
 
               <tr>
                 <td><?php echo esc_html__('Connected Email Account', 'gsheetconnector-for-elementor-forms'); ?></td>
                 <td class="fw-600">
-                  <?php echo esc_html($connected_email); ?>
+                  <?php echo esc_html($gselef_connected_email); ?>
                 </td>
               </tr>
 
@@ -117,24 +117,24 @@ $elementorForms_gs_tools_service = new GSC_Elementor_Init();
                 <td><?php echo esc_html__('Authentication method for connecting to Google Sheets', 'gsheetconnector-for-elementor-forms'); ?>
               </td>
               <td class="fw-600">
-                <?php echo esc_html($auth); ?>
+                <?php echo esc_html($gselef_auth); ?>
               </td>
             </tr>
             <?php
-            $permission_class = ($search_permission === 'Granted') ? 'permission-given' : 'permission-not-given';
+            $permission_class = ($gselef_search_permission === 'Granted') ? 'permission-given' : 'permission-not-given';
             ?>
 
             <tr>
               <td> <?php echo esc_html__('Google Drive Permission', 'gsheetconnector-for-elementor-forms'); ?></td>
               <td class="fw-700 permission-badge <?php echo esc_attr($permission_class); ?>">
-                <?php echo esc_html($search_permission); ?>
+                <?php echo esc_html($gselef_search_permission); ?>
               </td>
             </tr>
 
             <tr>
               <td><?php echo esc_html__('Google Sheet Permission', 'gsheetconnector-for-elementor-forms'); ?></td>
               <td class="fw-700 permission-badge <?php echo esc_attr($permission_class); ?>">
-                <?php echo  esc_html($search_permission); ?>
+                <?php echo  esc_html($gselef_search_permission); ?>
               </td>
             </tr>
           </table>
@@ -233,14 +233,14 @@ $elementorForms_gs_tools_service = new GSC_Elementor_Init();
         </td>
       </tr>
       <?php
-      $server_ip = isset($_SERVER['REMOTE_ADDR']) ? filter_var(wp_unslash($_SERVER['REMOTE_ADDR']), FILTER_VALIDATE_IP) : '';
+      $gselef_server_ip = isset($_SERVER['REMOTE_ADDR']) ? filter_var(wp_unslash($_SERVER['REMOTE_ADDR']), FILTER_VALIDATE_IP) : '';
 
-      if (filter_var($server_ip, FILTER_VALIDATE_IP) === false) {
-        $environment_type = __('Unknown', 'gsheetconnector-for-elementor-forms');
+      if (filter_var($gselef_server_ip, FILTER_VALIDATE_IP) === false) {
+        $gselef_environment_type = __('Unknown', 'gsheetconnector-for-elementor-forms');
       } else {
-        $known_local_ips = array('127.0.0.1', '::1');
-        $isLocalhost = in_array($server_ip, $known_local_ips, true);
-        $environment_type = $isLocalhost
+        $gselef_known_local_ips = array('127.0.0.1', '::1');
+        $gselef_isLocalhost = in_array($gselef_server_ip, $gselef_known_local_ips, true);
+        $gselef_environment_type = $gselef_isLocalhost
         ? __('Localhost', 'gsheetconnector-for-elementor-forms')
         : __('Production', 'gsheetconnector-for-elementor-forms');
       }
@@ -249,19 +249,19 @@ $elementorForms_gs_tools_service = new GSC_Elementor_Init();
       <tr>
         <td><?php echo esc_html__('Environment type', 'gsheetconnector-for-elementor-forms'); ?></td>
         <td class="fw-600 common-badge-table info-name-yellow">
-          <?php echo esc_html($environment_type); ?>
+          <?php echo esc_html($gselef_environment_type); ?>
         </td>
       </tr>
 
       <?php
-      $user_count  = count_users();
-      $total_users = isset($user_count['total_users']) ? (int) $user_count['total_users'] : 0;
+      $gselef_user_count  = count_users();
+      $gselef_total_users = isset($gselef_user_count['total_users']) ? (int) $gselef_user_count['total_users'] : 0;
       ?>
 
       <tr>
         <td><?php echo esc_html__('User Count', 'gsheetconnector-for-elementor-forms'); ?></td>
         <td class="fw-600">
-          <?php echo esc_html($total_users); ?>
+          <?php echo esc_html($gselef_total_users); ?>
         </td>
       </tr>
 
@@ -276,7 +276,7 @@ $elementorForms_gs_tools_service = new GSC_Elementor_Init();
 </div>
 <!-- Active Theme Information -->
 <?php
-$active_theme = wp_get_theme();
+$gselef_active_theme = wp_get_theme();
 ?>
 <div class="mb-20 mt-20">
   <button id="gselef-free-show-active-theme-button"
@@ -291,35 +291,35 @@ style="display:none;">
   <tr>
     <td><?php echo esc_html__('Name', 'gsheetconnector-for-elementor-forms'); ?></td>
     <td class="fw-600 common-badge-table info-name-blue">
-      <?php echo esc_html($active_theme->get('Name')); ?>
+      <?php echo esc_html($gselef_active_theme->get('Name')); ?>
     </td>
   </tr>
 
   <tr>
     <td><?php echo esc_html__('Version', 'gsheetconnector-for-elementor-forms'); ?></td>
     <td class="fw-600 common-badge-table info-name-blue">
-      <?php echo esc_html($active_theme->get('Version')); ?>
+      <?php echo esc_html($gselef_active_theme->get('Version')); ?>
     </td>
   </tr>
 
   <tr>
     <td><?php echo esc_html__('Author', 'gsheetconnector-for-elementor-forms'); ?></td>
     <td class="fw-600">
-      <?php echo wp_kses_post($active_theme->get('Author')); ?>
+      <?php echo wp_kses_post($gselef_active_theme->get('Author')); ?>
     </td>
   </tr>
 
   <tr>
     <td><?php echo esc_html__('Author website', 'gsheetconnector-for-elementor-forms'); ?></td>
     <td class="fw-600">
-      <?php echo esc_url($active_theme->get('AuthorURI')); ?>
+      <?php echo esc_url($gselef_active_theme->get('AuthorURI')); ?>
     </td>
   </tr>
 
   <tr>
     <td><?php echo esc_html__('Theme directory location', 'gsheetconnector-for-elementor-forms'); ?></td>
     <td class="fw-600">
-      <?php echo esc_html($active_theme->get_template_directory()); ?>
+      <?php echo esc_html($gselef_active_theme->get_template_directory()); ?>
     </td>
   </tr>
 
@@ -327,28 +327,28 @@ style="display:none;">
 </div>
 <?php
     // Get a list of other plugins you want to check compatibility with.
-$other_plugins = array(
+$gselef_other_plugins = array(
       'plugin-folder/plugin-file.php', // Replace with the actual plugin slug
       // Add more plugins as needed.
     );
-$active_plugins = get_option('active_plugins', array());
+$gselef_active_plugins = get_option('active_plugins', array());
     // Network Active Plugins.
 if (is_multisite()) {
-  $network_active_plugins = get_site_option('active_sitewide_plugins', array());
-  if (!empty($network_active_plugins)) { ?>
-    <div class="mb-20 mt-20"><button id="gscgff-show-netplug-info-button" class="info-button">Network Active
-      plugins<span class="dashicons dashicons-arrow-down"></span></button></div>';
-      <div id="netplug-info-container" class="info-content shadow-box pt-20 pb-20 pl-30 pr-30" style="display:none;">
+  $gselef_network_active_plugins = get_site_option('active_sitewide_plugins', array());
+  if (!empty($gselef_network_active_plugins)) { ?>
+    <div class="mb-20 mt-20"><button id="gscgff-show-netplug-info-button" class="info-button"><?php echo esc_html__('Network Active
+      plugins', 'gsheetconnector-for-elementor-forms'); ?><span class="dashicons dashicons-arrow-down"></span></button></div>';
+      <div id="netplug-info-container" class="info-content shadow-box pt-20 pb-20 pl-30 pr-30 d-none">
         ';
         <table>
           <?php
-          foreach ($network_active_plugins as $plugin => $plugin_data) {
+          foreach ($gselef_network_active_plugins as $gselef_plugin => $gselef_plugin_data) {
 
-            $plugin_data = get_plugin_data(WP_PLUGIN_DIR . '/' . $plugin);
+            $gselef_plugin_data = get_plugin_data(WP_PLUGIN_DIR . '/' . $gselef_plugin);
 
             echo '<tr>
-            <td>' . esc_html($plugin_data['Name']) . '</td>
-            <td>' . esc_html($plugin_data['Version']) . '</td>
+            <td>' . esc_html($gselef_plugin_data['Name']) . '</td>
+            <td>' . esc_html($gselef_plugin_data['Version']) . '</td>
             </tr>';
           }
           ?>
@@ -358,50 +358,50 @@ if (is_multisite()) {
     }
   }
 
-  $total_active_plugins = is_array($active_plugins) ? count($active_plugins) : 0;
+ $gselef_total_active_plugins = is_array($gselef_active_plugins) ? count($gselef_active_plugins) : 0;
   ?>
   <div class="mb-20 mt-20">
     <button id="gselef-free-show-acplug-info-button" class="info-button">
       <?php echo esc_html__('Active Plugins', 'gsheetconnector-for-elementor-forms'); ?>
-      (<?php echo esc_html($total_active_plugins); ?>)
+      (<?php echo esc_html($gselef_total_active_plugins); ?>)
       <span class="dashicons dashicons-arrow-down"></span>
     </button>
   </div>
 
-  <div id="acplug-gselef-free-info-container" class="info-content shadow-box pt-20 pb-20 pl-30 pr-30" style="display:none;">
+  <div id="acplug-gselef-free-info-container" class="info-content shadow-box pt-20 pb-20 pl-30 pr-30 d-none">
     <table>
       <?php
       /* Retrieve all active plugins data */
-      $active_plugins_data = array();
-      $active_plugins = get_option('active_plugins', array());
+      $gselef_active_plugins_data = array();
+      $gselef_active_plugins = get_option('active_plugins', array());
 
-      foreach ($active_plugins as $plugin) {
-        $plugin_data = get_plugin_data(WP_PLUGIN_DIR . '/' . $plugin);
-        $active_plugins_data[$plugin] = array(
-          'name' => $plugin_data['Name'],
-          'version' => $plugin_data['Version'],
+      foreach ($gselef_active_plugins as $gselef_plugin) {
+        $gselef_plugin_data = get_plugin_data(WP_PLUGIN_DIR . '/' . $gselef_plugin);
+        $gselef_active_plugins_data[$gselef_plugin] = array(
+          'name' => $gselef_plugin_data['Name'],
+          'version' => $gselef_plugin_data['Version'],
           'count' => 0, /* Initialize the count to zero */
         );
       }
 
       /* Count the number of active installations for each plugin */
-      $all_plugins = get_plugins();
-      foreach ($all_plugins as $plugin_file => $plugin_data) {
-        if (array_key_exists($plugin_file, $active_plugins_data)) {
-          $active_plugins_data[$plugin_file]['count']++;
+      $gselef_all_plugins = get_plugins();
+      foreach ($gselef_all_plugins as $gselef_plugin_file => $gselef_plugin_data) {
+        if (array_key_exists($gselef_plugin_file, $gselef_active_plugins_data)) {
+          $gselef_active_plugins_data[$gselef_plugin_file]['count']++;
         }
       }
 
       /* Sort plugins based on the number of active installations (descending order) */
-      uasort($active_plugins_data, function ($a, $b) {
+      uasort($gselef_active_plugins_data, function ($a, $b) {
         return $b['count'] - $a['count'];
       });
 
-      foreach ($active_plugins_data as $plugin_data) { ?>
+      foreach ($gselef_active_plugins_data as $gselef_plugin_data) { ?>
         <tr>
-          <td><?php echo esc_html($plugin_data['name']); ?></td>
+          <td><?php echo esc_html($gselef_plugin_data['name']); ?></td>
           <td class="fw-600 common-badge-table info-name-blue">
-            <?php echo esc_html($plugin_data['version']); ?>
+            <?php echo esc_html($gselef_plugin_data['version']); ?>
           </td>
         </tr>
       <?php } ?>
@@ -418,7 +418,7 @@ if (is_multisite()) {
       </button>
     </div>
 
-    <div id="server-gselef-free-info-container" class="info-content shadow-box pt-20 pb-20 pl-30 pr-30" style="display:none;">
+    <div id="server-gselef-free-info-container" class="info-content shadow-box pt-20 pb-20 pl-30 pr-30 d-none">
 
       <p class="text-dark">
         <b>
@@ -436,13 +436,13 @@ if (is_multisite()) {
         </tr>
 
         <?php
-        $server_software = isset($_SERVER['SERVER_SOFTWARE'])
+        $gselef_server_software = isset($_SERVER['SERVER_SOFTWARE'])
         ? sanitize_text_field(wp_unslash($_SERVER['SERVER_SOFTWARE']))
         : '';
         ?>
         <tr>
           <td><?php echo esc_html__('Web Server', 'gsheetconnector-for-elementor-forms'); ?></td>
-          <td class="fw-600"><?php echo esc_html($server_software); ?></td>
+          <td class="fw-600"><?php echo esc_html($gselef_server_software); ?></td>
         </tr>
 
         <tr>
@@ -525,21 +525,21 @@ if (is_multisite()) {
     </tr>
 
     <?php
-    global $wp_filesystem;
+    global $gselef_wp_filesystem;
 
-    if (empty($wp_filesystem)) {
+    if (empty($gselef_wp_filesystem)) {
       require_once ABSPATH . 'wp-admin/includes/file.php';
       WP_Filesystem();
     }
 
-    $htaccess_path = ABSPATH . '.htaccess';
-    $is_writable = (isset($wp_filesystem) && $wp_filesystem->exists($htaccess_path) && $wp_filesystem->is_writable($htaccess_path));
+    $gselef_htaccess_path = ABSPATH . '.htaccess';
+    $gselef_is_writable = (isset($gselef_wp_filesystem) && $gselef_wp_filesystem->exists($gselef_htaccess_path) && $gselef_wp_filesystem->is_writable($gselef_htaccess_path));
     ?>
 
     <tr>
       <td><?php echo esc_html__('.htaccess Rules', 'gsheetconnector-for-elementor-forms'); ?></td>
       <td class="fw-600">
-        <?php echo esc_html($is_writable ? __('Writable', 'gsheetconnector-for-elementor-forms') : __('Not Writable', 'gsheetconnector-for-elementor-forms')); ?>
+        <?php echo esc_html($gselef_is_writable ? __('Writable', 'gsheetconnector-for-elementor-forms') : __('Not Writable', 'gsheetconnector-for-elementor-forms')); ?>
       </td>
     </tr>
 
@@ -570,95 +570,98 @@ if (is_multisite()) {
   </button>
 </div>
 
-<div id="database-gselef-free-info-container" class="info-content shadow-box pt-20 pb-20 pl-30 pr-30" style="display:none;">
+<div id="database-gselef-free-info-container" class="info-content shadow-box pt-20 pb-20 pl-30 pr-30 d-none">
   <table>
     <?php
-    $database_extension = 'mysqli';
-    $database_server_version = $wpdb->get_var('SELECT VERSION() as version');
-    $database_client_version = $wpdb->db_version();
-    $database_username = DB_USER;
-    $database_host = DB_HOST;
-    $database_name = DB_NAME;
-    $table_prefix = $wpdb->prefix;
-    $database_charset = $wpdb->charset;
-    $database_collation = $wpdb->collate;
-    $max_allowed_packet_size = $wpdb->get_var("SHOW VARIABLES LIKE 'max_allowed_packet'");
-    $max_connections_number = $wpdb->get_var("SHOW VARIABLES LIKE 'max_connections'");
+    $gselef_database_extension = 'mysqli';
+    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+    $gselef_database_server_version = $wpdb->get_var('SELECT VERSION() as version');
+    $gselef_database_client_version = $wpdb->db_version();
+    $gselef_database_username = DB_USER;
+    $gselef_database_host = DB_HOST;
+    $gselef_database_name = DB_NAME;
+    $gselef_table_prefix = $wpdb->prefix;
+    $gselef_database_charset = $wpdb->charset;
+    $gselef_database_collation = $wpdb->collate;
+    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+    $gselef_max_allowed_packet_size = $wpdb->get_var("SHOW VARIABLES LIKE 'max_allowed_packet'");
+    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+    $gselef_max_connections_number = $wpdb->get_var("SHOW VARIABLES LIKE 'max_connections'");
     ?>
     <tr>
       <td><?php echo esc_html__('Extension', 'gsheetconnector-for-elementor-forms'); ?></td>
       <td class="fw-600">
-        <?php echo esc_html($database_extension); ?>
+        <?php echo esc_html($gselef_database_extension); ?>
       </td>
     </tr>
 
     <tr>
       <td><?php echo esc_html__('Server Version', 'gsheetconnector-for-elementor-forms'); ?></td>
       <td class="fw-600 common-badge-table info-name-blue">
-        <?php echo esc_html($database_server_version); ?>
+        <?php echo esc_html($gselef_database_server_version); ?>
       </td>
     </tr>
 
     <tr>
       <td><?php echo esc_html__('Client Version', 'gsheetconnector-for-elementor-forms'); ?></td>
       <td class="fw-600 common-badge-table info-name-blue">
-        <?php echo esc_html($database_client_version); ?>
+        <?php echo esc_html($gselef_database_client_version); ?>
       </td>
     </tr>
 
     <tr>
       <td><?php echo esc_html__('Database Username', 'gsheetconnector-for-elementor-forms'); ?></td>
       <td class="fw-600">
-        <?php echo esc_html($database_username); ?>
+        <?php echo esc_html($gselef_database_username); ?>
       </td>
     </tr>
 
     <tr>
       <td><?php echo esc_html__('Database Host', 'gsheetconnector-for-elementor-forms'); ?></td>
       <td class="fw-600 common-badge-table info-name-yellow">
-        <?php echo esc_html($database_host); ?>
+        <?php echo esc_html($gselef_database_host); ?>
       </td>
     </tr>
 
     <tr>
       <td><?php echo esc_html__('Database Name', 'gsheetconnector-for-elementor-forms'); ?></td>
       <td class="fw-600 common-badge-table info-name-blue">
-        <?php echo esc_html($database_name); ?>
+        <?php echo esc_html($gselef_database_name); ?>
       </td>
     </tr>
 
     <tr>
       <td><?php echo esc_html__('Table Prefix', 'gsheetconnector-for-elementor-forms'); ?></td>
       <td class="fw-600">
-        <?php echo esc_html($table_prefix); ?>
+        <?php echo esc_html($gselef_table_prefix); ?>
       </td>
     </tr>
 
     <tr>
       <td><?php echo esc_html__('Database Charset', 'gsheetconnector-for-elementor-forms'); ?></td>
       <td class="fw-600">
-        <?php echo esc_html($database_charset); ?>
+        <?php echo esc_html($gselef_database_charset); ?>
       </td>
     </tr>
 
     <tr>
       <td><?php echo esc_html__('Database Collation', 'gsheetconnector-for-elementor-forms'); ?></td>
       <td class="fw-600">
-        <?php echo esc_html($database_collation); ?>
+        <?php echo esc_html($gselef_database_collation); ?>
       </td>
     </tr>
 
     <tr>
       <td><?php echo esc_html__('Max Allowed Packet Size', 'gsheetconnector-for-elementor-forms'); ?></td>
       <td class="fw-600">
-        <?php echo esc_html($max_allowed_packet_size); ?>
+        <?php echo esc_html($gselef_max_allowed_packet_size); ?>
       </td>
     </tr>
 
     <tr>
       <td><?php echo esc_html__('Max Connections Number', 'gsheetconnector-for-elementor-forms'); ?></td>
       <td class="fw-600">
-        <?php echo esc_html($max_connections_number); ?>
+        <?php echo esc_html($gselef_max_connections_number); ?>
       </td>
     </tr>
   </table>
@@ -672,7 +675,7 @@ if (is_multisite()) {
   </button>
 </div>
 
-<div id="wrcons-gselef-free-info-container" class="info-content shadow-box pt-20 pb-20 pl-30 pr-30" style="display:none;">
+<div id="wrcons-gselef-free-info-container" class="info-content shadow-box pt-20 pb-20 pl-30 pr-30 d-none">
   <table>
 
     <tr>
@@ -762,14 +765,14 @@ if (is_multisite()) {
     </tr>
 
     <?php
-    $environment_type = function_exists('wp_get_environment_type')
+    $gselef_environment_type = function_exists('wp_get_environment_type')
     ? wp_get_environment_type()
     : 'production';
     ?>
 
     <tr>
       <td>WP_ENVIRONMENT_TYPE</td>
-      <td class="fw-600"><?php echo esc_html($environment_type); ?></td>
+      <td class="fw-600"><?php echo esc_html($gselef_environment_type); ?></td>
     </tr>
 
     <tr>
@@ -813,39 +816,39 @@ if (is_multisite()) {
 
 <table>
   <?php
-  global $wp_filesystem;
+  global $gselef_wp_filesystem;
 
-  if (empty($wp_filesystem)) {
+  if (empty($gselef_wp_filesystem)) {
     require_once ABSPATH . 'wp-admin/includes/file.php';
     WP_Filesystem();
   }
 
   /* Safer uploads directory */
-  $upload_dir = wp_get_upload_dir();
-  $uploads_path = isset($upload_dir['basedir']) ? $upload_dir['basedir'] : '';
+  $gselef_upload_dir = wp_get_upload_dir();
+  $gselef_uploads_path = isset($gselef_upload_dir['basedir']) ? $gselef_upload_dir['basedir'] : '';
 
-  $paths = array(
+  $gselef_paths = array(
     __('The main WordPress directory', 'gsheetconnector-for-elementor-forms') => ABSPATH,
     __('The wp-content directory', 'gsheetconnector-for-elementor-forms') => WP_CONTENT_DIR,
-    __('The uploads directory', 'gsheetconnector-for-elementor-forms') => $uploads_path,
+    __('The uploads directory', 'gsheetconnector-for-elementor-forms') => $gselef_uploads_path,
     __('The plugins directory', 'gsheetconnector-for-elementor-forms') => WP_PLUGIN_DIR,
     __('The themes directory', 'gsheetconnector-for-elementor-forms') => get_theme_root(),
   );
 
-  foreach ($paths as $label => $path) {
+  foreach ($gselef_paths as $gselef_label => $gselef_path) {
 
-    $writable = (
-      isset($wp_filesystem) &&
-      $wp_filesystem->exists($path) &&
-      $wp_filesystem->is_writable($path)
+    $gselef_writable = (
+      isset($gselef_wp_filesystem) &&
+      $gselef_wp_filesystem->exists($gselef_path) &&
+      $gselef_wp_filesystem->is_writable($gselef_path)
     );
     ?>
     <tr>
-      <td><?php echo esc_html($label); ?></td>
-      <td><?php echo  esc_html($path); ?></td>
+      <td><?php echo esc_html($gselef_label); ?></td>
+      <td><?php echo  esc_html($gselef_path); ?></td>
       <td class="fw-600"><?php echo
       esc_html(
-        $writable
+        $gselef_writable
         ? __('Writable', 'gsheetconnector-for-elementor-forms')
         : __('Not Writable', 'gsheetconnector-for-elementor-forms')
       ); ?>
@@ -859,14 +862,14 @@ if (is_multisite()) {
 </div>
 
 <?php
-$has_logs = $elementorForms_gs_tools_service->display_error_log(false);
+$gscef_has_logs = $gsheetconnector_for_elementor_forms_tools_service->display_error_log(false);
 ?>
 <div class="system-error shadow-box mt-40 p-30">
   <div class="error-container">
     <div class="error-log-head flex-wrap gap-20">
       <div class="heading mt-0 mb-0"><?php esc_html_e('Debug Log', 'gsheetconnector-for-elementor-forms'); ?>
     </div>
-    <?php if ($has_logs) : ?>
+    <?php if ($gscef_has_logs) : ?>
       <div class="errorlog-button-list">
         <span class="clear-content-logs-msg-elemnt"></span>
 
@@ -892,13 +895,13 @@ $has_logs = $elementorForms_gs_tools_service->display_error_log(false);
   <input type="hidden" name="gs-ajax-nonce-ele" id="gs-ajax-nonce-ele"
   value="<?php echo esc_attr(wp_create_nonce('gs-ajax-nonce-ele')); ?>" />
   <div class="gsc-copy-msg d-none">
-    <?php esc_html_e('copied successfully.', 'gsheetconnector-for-elementor-forms'); ?>
+    <?php esc_html_e('Copied successfully.', 'gsheetconnector-for-elementor-forms'); ?>
   </div>
 
   <!-- Log  Start-->
   <?php
-  $has_logs = 
-  $elementorForms_gs_tools_service->display_error_log(true);
+  $gscef_has_logs = 
+  $gsheetconnector_for_elementor_forms_tools_service->display_error_log(true);
 
   ?>
   <!--Log End -->

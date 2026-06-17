@@ -5,7 +5,7 @@
  * Description: Send your Elementor Form data to your Google Spreadsheet.
  * Requires at least: 5.6
  * Requires PHP: 7.4
- * Version: 1.3.1
+ * Version: 1.3.2
  * Author: GSheetConnector
  * Author URI: https://www.gsheetconnector.com/
  * Text Domain: gsheetconnector-for-elementor-forms
@@ -18,14 +18,16 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
+// phpcs:ignoreFile WordPress.NamingConventions.PrefixAllGlobals
+
 // Defined Global Variable for plugin activation
-global $activate_the_plugin;
-$activate_the_plugin = false;
+global $gsc_activate_the_plugin;
+$gsc_activate_the_plugin = false;
 
 $plugin = plugin_basename(__FILE__);
-$parent_plugins = 'elementor-pro/elementor-pro.php';
-$parent_plugins_free = 'elementor/elementor.php';
-$parent_plugins_metform = 'metform/metform.php';
+$gsc_parent_plugins = 'elementor-pro/elementor-pro.php';
+$gsc_parent_plugins_free = 'elementor/elementor.php';
+$gsc_parent_plugins_metform = 'metform/metform.php';
 $parent_plugin_pro_elements = 'pro-elements/pro-elements.php'; // Correct definition for Pro Elements
 
 /**
@@ -33,11 +35,11 @@ $parent_plugin_pro_elements = 'pro-elements/pro-elements.php'; // Correct defini
  * @since 1.0.11
  */
 
-$current_site_id = get_current_blog_id();
+$gsc_current_site_id = get_current_blog_id();
 
 // Check if Multisite and single site activated plugin code
 if ((is_multisite() && !empty($current_site_id))) {
-    function get_activated_plugins_for_site($site_id)
+    function gsc_get_activated_plugins_for_site($site_id)
     {
         // Switch to the specific site
         switch_to_blog($site_id);
@@ -51,10 +53,10 @@ if ((is_multisite() && !empty($current_site_id))) {
         return $activated_plugins;
     }
 
-    $active_plugins = get_activated_plugins_for_site($current_site_id);
+    $active_plugins = gsc_get_activated_plugins_for_site($current_site_id);
 
-    if ((in_array($parent_plugins, $active_plugins)) && (in_array($parent_plugins_free, $active_plugins)) || (in_array($parent_plugins_metform, $active_plugins)) || (in_array($parent_plugin_pro_elements, $active_plugins))) {
-        $activate_the_plugin = true;
+    if ((in_array($gsc_parent_plugins, $active_plugins)) && (in_array($gsc_parent_plugins_free, $active_plugins)) || (in_array($gsc_parent_plugins_metform, $active_plugins)) || (in_array($parent_plugin_pro_elements, $active_plugins))) {
+        $gsc_activate_the_plugin = true;
     }
 }
 
@@ -62,16 +64,16 @@ if ((is_multisite() && !empty($current_site_id))) {
 if (is_multisite()) {
     $active_plugins = get_site_option('active_sitewide_plugins');
 
-    if ((array_key_exists($parent_plugins, $active_plugins)) && (array_key_exists($parent_plugins_free, $active_plugins)) || (array_key_exists($parent_plugins_metform, $active_plugins)) || (array_key_exists($parent_plugin_pro_elements, $active_plugins))) {
-        $activate_the_plugin = true;
+    if ((array_key_exists($gsc_parent_plugins, $active_plugins)) && (array_key_exists($gsc_parent_plugins_free, $active_plugins)) || (array_key_exists($gsc_parent_plugins_metform, $active_plugins)) || (array_key_exists($parent_plugin_pro_elements, $active_plugins))) {
+        $gsc_activate_the_plugin = true;
     }
 }
 // Check if Singlesite activation of plugin code
 else {
     $active_plugins = get_option('active_plugins');
 
-    if ((in_array($parent_plugins, $active_plugins)) && (in_array($parent_plugins_free, $active_plugins)) || (in_array($parent_plugins_metform, $active_plugins)) || (in_array($parent_plugin_pro_elements, $active_plugins))) {
-        $activate_the_plugin = true;
+    if ((in_array($gsc_parent_plugins, $active_plugins)) && (in_array($gsc_parent_plugins_free, $active_plugins)) || (in_array($gsc_parent_plugins_metform, $active_plugins)) || (in_array($parent_plugin_pro_elements, $active_plugins))) {
+        $gsc_activate_the_plugin = true;
     }
 }
 
@@ -80,7 +82,7 @@ if (is_plugin_active('gsheetconnector-for-elementor-forms-pro/gsheetconnector-fo
     return; // Exit function
 }
 
-if ($activate_the_plugin) {
+if ($gsc_activate_the_plugin) {
     /* Freemius  Start */
     if (!function_exists('gfef_fs')) {
 
@@ -122,8 +124,8 @@ if ($activate_the_plugin) {
 /* Freemius End */
 
 // Declare some global constants
-define('GS_CONN_ELE_VERSION', '1.3.1');
-define('GS_CONN_ELE_DB_VERSION', '1.3.1');
+define('GS_CONN_ELE_VERSION', '1.3.2');
+define('GS_CONN_ELE_DB_VERSION', '1.3.2');
 define('GS_CONN_ELE_ROOT', dirname(__FILE__));
 define('GS_CONN_ELE_URL', plugins_url('/', __FILE__));
 define('GS_CONN_ELE_BASE_FILE', basename(dirname(__FILE__)) . '/gsheetconnector-for-elementor-forms.php');
@@ -134,10 +136,6 @@ define('GS_CONN_ELE_CURRENT_THEME', get_stylesheet_directory());
 define('GS_CONN_ELE_API_URL', 'https://oauth.gsheetconnector.com/api-cred.php');
 define('GS_CONN_ELE_STORE_URL', 'https://gsheetconnector.com');
 define('GS_CONN_ELE_TEXTDOMAIN', 'gsheetconnector-for-elementor-forms');
-
-
-//Include Library Files
-require_once GS_CONN_ELE_ROOT . '/lib/vendor/autoload.php';
 
 include_once(GS_CONN_ELE_ROOT . '/lib/google-sheets.php');
 
@@ -182,7 +180,7 @@ class GSC_Elementor_Init
         add_action('init', array($this, 'load_css_and_js_files'));
 
         // Load text domain
-        add_action('init', array($this, 'gsheetconnector_elementor_load_plugin_textdomain'));
+        // add_action('init', array($this, 'gsheetconnector_elementor_load_plugin_textdomain'));
 
         add_action('elementor/editor/before_enqueue_scripts', array($this, 'add_js_files'));
 
@@ -206,14 +204,14 @@ class GSC_Elementor_Init
  * @since 1.0.0
  * @return void
  */
-public function gsheetconnector_elementor_load_plugin_textdomain()
-{
-    load_plugin_textdomain(
-        'gsheetconnector-for-elementor-forms',
-        false,
-        plugin_basename(dirname(__FILE__)) . '/languages'
-    );
-}
+// public function gsheetconnector_elementor_load_plugin_textdomain()
+// {
+//     load_plugin_textdomain(
+//         'gsheetconnector-for-elementor-forms',
+//         false,
+//         plugin_basename(dirname(__FILE__)) . '/languages'
+//     );
+// }
 
 /**
  * Handle manual upgrade fix trigger via URL.
@@ -266,6 +264,7 @@ public static function gs_elemnt_uninstall()
     self::run_on_uninstall();
     if (function_exists('is_multisite') && is_multisite()) {
         /*  Get all blog ids; foreach of them call the uninstall procedure */
+         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Required for multisite uninstall cleanup.
         $blog_ids = $wpdb->get_col("SELECT blog_id FROM {$wpdb->base_prefix}blogs");
         /* Get all blog ids; foreach them and call the install procedure on each of them if the plugin table is found */
         foreach ($blog_ids as $blog_id) {
@@ -472,9 +471,10 @@ public static function gsc_elementor_after_save_settings($gsc_elementor_post_id,
         return;
     }
 
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended
     $gsc_elementor_data = json_decode(sanitize_text_field(wp_unslash($_REQUEST['actions'])), true);
     // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Elementor internal request
-    $elementor_post_id = isset($_REQUEST['editor_post_id']) ? intval($_REQUEST['editor_post_id']) : 0;
+    $elementor_post_id = isset( $_REQUEST['editor_post_id'] ) ? absint( wp_unslash( $_REQUEST['editor_post_id'] ) ): 0;
 
     $gsc_elementor_data = \ElementorPro\Plugin::elementor()->db->iterate_data(
         $gsc_elementor_data,
@@ -557,7 +557,9 @@ public static function gsc_elementor_after_save_settings($gsc_elementor_post_id,
                         }
                     }
                     $gsc_elementor_header_list = array_values(array_unique($gsc_elementor_header_list));
-                    update_post_meta($_REQUEST['editor_post_id'], 'gs_elementor_settings', $gsc_elementor_header_list);
+                    // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+                    update_post_meta($elementor_post_id,'gs_elementor_settings',$gsc_elementor_header_list);
+
                     $gsc_ef_settings = [
                         'spreadsheet_id' => $gsc_elementor_spreadsheetid,
                         'tab_id' => $gsc_elementor_sheetname,
@@ -603,7 +605,7 @@ public function load_all_classes()
 {
 
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- $GLOBALS['activate_the_plugin'] is internally controlled, not user input
-    if ($GLOBALS['activate_the_plugin'] == true) {
+    if ($GLOBALS['gsc_activate_the_plugin'] == true) {
 
         if (!class_exists('GSC_Elementor_Integration')) {
             include(GS_CONN_ELE_PATH . 'includes/class-gsc-elementor-integration.php');
@@ -710,6 +712,7 @@ public function add_js_files()
     }
 
     /** make condition for only elementor preview */
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended
     if (isset($_GET['elementor-preview']) || isset($_GET['action']) && $_GET['action'] === 'elementor') {
         wp_enqueue_style('gsc-elementor-inner-sidebar-css', GS_CONN_ELE_URL . 'assets/css/gsc-elementor-inner-sidebar.css', [], GS_CONN_ELE_VERSION);
     }
@@ -1045,15 +1048,59 @@ private static function delete_for_site()
         delete_option('Elegsc_api_creds');
         delete_site_option('Elegsc_api_creds');
 
-        /*  delete elementor Feeds table */
+        delete_option('elefgs_free_notice_review');
+        delete_option('elefgs_free_notice_review_time');
+
+        /* delete elementor Feeds table */
         global $wpdb;
+
         $feed_table = $wpdb->prefix . 'elementor_gsheet_submissions_values';
-        /*  Check if table exists */
-        if ($wpdb->get_var("SHOW TABLES LIKE '{$feed_table}'") == $feed_table) {
-            /*  Delete table */
-            $wpdb->query("DROP TABLE {$feed_table}");
+
+        $cache_key = 'table_exists_' . md5($feed_table);
+        $table_exists = wp_cache_get($cache_key, 'gsheetconnector');
+
+        if ( false === $table_exists ) {
+
+            $like_table = $wpdb->esc_like($feed_table);
+
+      // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
+            $table_exists = $wpdb->get_var(
+                $wpdb->prepare(
+                    "SHOW TABLES LIKE %s",
+                    $like_table
+                )
+            );
+
+            wp_cache_set($cache_key, $table_exists, 'gsheetconnector', 3600);
         }
-    }
+
+        if ( $table_exists === $feed_table ) {
+
+            $sql = "DROP TABLE IF EXISTS `$feed_table`";
+
+         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query( $sql );
+        }
+
+        $error_log_table = $wpdb->prefix . 'gscelef_error_logs';
+
+       // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
+        $table_exists = $wpdb->get_var(
+            $wpdb->prepare(
+                'SHOW TABLES LIKE %s',
+                $error_log_table
+            )
+        );
+
+        if ( $table_exists === $error_log_table ) {
+           
+          $sql = "DROP TABLE IF EXISTS `$error_log_table`";
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+          $wpdb->query( $sql );
+      }
+
+  }
 }
 
 /**
@@ -1196,7 +1243,7 @@ private function run_for_site()
 }
 
 // Initialize the google sheet connector class
-$init = new GSC_Elementor_Init();
+$gsc_init = new GSC_Elementor_Init();
 
 // Add custom link for our plugin
-add_filter('plugin_action_links_' . GS_CONN_ELE_BASE_NAME, array($init, 'elementor_gs_connector_pro_plugin_action_links'));
+add_filter('plugin_action_links_' . GS_CONN_ELE_BASE_NAME, array($gsc_init, 'elementor_gs_connector_pro_plugin_action_links'));
