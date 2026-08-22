@@ -59,6 +59,7 @@ $feedList = $wpdb->get_results(
 
 $authenticated = get_option('elefgs_token');
 $per = get_option('elefgs_verify');
+$gselef_email_account = get_option('gsc_elementor_email_account');
 $show_setting = 0;
 $selected_method = '';
 
@@ -66,9 +67,8 @@ $selected_method = '';
 $selected_method = esc_html(__('Existing Client / Secret Key (Auto Setup)', 'gsheetconnector-for-elementor-forms'));
 
 
-if (!empty($authenticated) && $per == "valid") {
-
-    $show_setting = 1;
+if (!empty($authenticated) && $per == "valid" && !empty($gselef_email_account)) {
+$show_setting = 1;
 } else { ?>
 
 

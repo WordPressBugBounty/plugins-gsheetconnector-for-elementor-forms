@@ -87,9 +87,10 @@ class gsc_elementor_sidemenu extends Settings_Page
         $selected_method = "";
         $authenticated = get_option('elefgs_token');
         $gselef_is_valid = get_option('elefgs_verify');
+        $gselef_email_account = get_option('gsc_elementor_email_account');
 
         $gselef_is_authenticated = false;
-        if ((!empty($authenticated) && $gselef_is_valid == 'valid')) {
+        if (!empty($authenticated) && $gselef_is_valid == 'valid' && !empty($gselef_email_account)) {
             $selected_method = esc_html__('Existing', 'gsheetconnector-for-elementor-forms');
             $gselef_is_authenticated = true;
         } else {

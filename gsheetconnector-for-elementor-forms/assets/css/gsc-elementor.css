@@ -770,8 +770,8 @@
 .gselef-free .shadow-box {
   border-radius: 6px;
   box-shadow:
-    rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
-    rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+  rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
+  rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
 }
 .gselef-free .custom-check input[type="checkbox"] {
   display: none;
@@ -983,18 +983,18 @@
   display: block;
 }
 .gselef-free
-  .form-field-toggle
-  .card-content
-  .toggle-button.disabled
-  .field-input {
+.form-field-toggle
+.card-content
+.toggle-button.disabled
+.field-input {
   background: #f3f4f6;
   pointer-events: none;
 }
 .gselef-free
-  .form-field-toggle
-  .card-content
-  .toggle-button.disabled
-  .card-label {
+.form-field-toggle
+.card-content
+.toggle-button.disabled
+.card-label {
   color: #9ca3af;
 }
 .gselef-free .toggle-switch .toggle-input {
@@ -2118,8 +2118,8 @@
   border-top: 4px solid #199436;
   padding: 20px 40px;
   box-shadow:
-    0 6px 17px rgba(25, 129, 20, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  0 6px 17px rgba(25, 129, 20, 0.2),
+  inset 0 1px 0 rgba(255, 255, 255, 0.15);
   overflow: hidden;
 }
 .gselef-free .gsc-about-hero .about-us-heading {
@@ -2978,3 +2978,97 @@
 
 /*End Pro Feature Section*/
 /***End Dashboard Css***/
+/*dashbord feed display css*/
+.gselef-free .gselef-feed-table-wrap {
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #ffffff;
+  overflow: hidden;
+}
+.gselef-free #gselef-feed-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+.gselef-free table#gselef-feed-table thead th {
+  text-align: left;
+  padding: 12px 18px;
+  background: #f9fafb;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: capitalize;
+  border-bottom: 1px solid #e5e7eb;
+}
+.gselef-free table#gselef-feed-table tbody td a {
+  color: #000000;
+  font-weight: 500;
+  text-decoration: none;
+}
+.gselef-free .dividb-feed-table-wrap {
+  width: 100%;
+}
+.gselef-free table#gselef-feed-table .gselef-not-connected {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 12px;
+  font-weight: 500;
+}
+.gselef-free table#gselef-feed-table tbody tr td:first-child {
+  padding: 14px 18px;
+  font-size: 14px;
+  color: #374151;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+.gselef-free table#gselef-feed-table tbody td {
+  padding: 14px 18px;
+  font-size: 12px;
+  color: #374151;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+  text-decoration: underline;
+}
+.gscdf #gselef-pagination-wrap {
+  padding-bottom: 15px;
+}
+.gselef-free table#gselef-feed-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+.gselef-free table#gselef-feed-table .gselef-feed-loading-row td {
+  text-align: center;
+  padding: 26px 18px;
+}
+
+.gselef-free .gselef-loader {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #dbeafe;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  vertical-align: middle;
+  animation: gselef-spin 0.7s linear infinite;
+}
+@keyframes gselef-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.gselef-free .gselef-loader-text {
+  margin-left: 10px;
+  color: #6b7280;
+  font-size: 13px;
+  vertical-align: middle;
+}

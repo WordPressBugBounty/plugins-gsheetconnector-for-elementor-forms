@@ -183,18 +183,21 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
     public function register_settings_section($widget)
     {
         $gsc_elementor_document = Plugin::elementor()->documents->get(get_the_ID());
-        global $gsc_elementor_headers, $gsc_elementor_exclude_headertype;
-        global $gsc_elementor_spreadsheetid, $gsc_elementor_sheetname, $gsc_elementor_sheet_headers, $gsc_elementor_sheetheaders, $existincurrentpage, $gsc_elementor_sheetheaders_new, $gsc_elementor_form_fields;
+        global $gsc_elementor_headers;
+        global $gsc_elementor_exclude_headertype;
+        global $gsc_elementor_spreadsheetid;
+        global $gsc_elementor_sheetname;
 
         // Get the verification and token options.
         $elefgs_verify = get_option('elefgs_verify');
         $elefgs_token = get_option('elefgs_token');
-
+        $elefgs_email_account = get_option('gsc_elementor_email_account');
 
         // Check if token is empty OR verification is invalid OR both conditions are true
-        if (empty($elefgs_token) || $elefgs_verify == "invalid-auth") {
+        if (empty($elefgs_token) || $elefgs_verify === 'invalid-auth' || empty($elefgs_email_account)) {
             $elefgs_verify = 'invalid-auth';
         }
+        $gsc_elementor_exclude_headertype = array('honeypot', 'recaptcha', 'recaptcha_v3', 'html');
 
         if ($gsc_elementor_document) {
             $gsc_elementor_data = $gsc_elementor_document->get_elements_data();
@@ -202,56 +205,58 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
 
             $gsc_elementor_data = Plugin::elementor()->db->iterate_data(
                 $gsc_elementor_data,
-                function ($element) use (&$do_update) {
+                function ($element) {
                     if (isset($element['widgetType']) && 'form' === (string) $element['widgetType']) {
-                        global $gsc_elementor_headers, $gsc_elementor_exclude_headertype;
-                        global $gsc_elementor_spreadsheetid, $gsc_elementor_sheetname, $gsc_elementor_sheet_headers;
-                        $gsc_elementor_exclude_headertype = array('honeypot', 'recaptcha', 'recaptcha_v3', 'html');
-                        if (isset($element['settings']['enable_manual_sheet_settings']) && $element['settings']['enable_manual_sheet_settings'] === 'yes') {
 
-                            $gsc_elementor_spreadsheetid = !empty($element['settings']['manual_sheet_id']) ? $element['settings']['manual_sheet_id'] : '';
-                            if (!empty($element['settings']['manual_tab_id'])) {
-                                $gsc_elementor_sheetname = $element['settings']['manual_tab_id'];
-                            } elseif (!empty($element['settings']['manual_tab_name'])) {
-                                $gsc_elementor_sheetname = $element['settings']['manual_tab_name'];
-                            } else {
-                                $gsc_elementor_sheetname = '';
-                            }
+                       if (isset($element['settings']['enable_manual_sheet_settings']) && $element['settings']['enable_manual_sheet_settings'] === 'yes') {
+
+                        $gsc_elementor_spreadsheetid = !empty($element['settings']['manual_sheet_id']) ? $element['settings']['manual_sheet_id'] : '';
+                        if (!empty($element['settings']['manual_tab_id'])) {
+                            $gsc_elementor_sheetname = $element['settings']['manual_tab_id'];
+                        } elseif (!empty($element['settings']['manual_tab_name'])) {
+                            $gsc_elementor_sheetname = $element['settings']['manual_tab_name'];
                         } else {
-
-                            if (isset($element['settings']['gs_spreadsheet_id'])) {
-                                $gsc_elementor_spreadsheetid = $element['settings']['gs_spreadsheet_id'];
-                            }
-                            if (isset($element['settings']['gs_spreadsheet_tab_name'])) {
-                                $gsc_elementor_sheetname = $element['settings']['gs_spreadsheet_tab_name'];
-                            }
+                            $gsc_elementor_sheetname = '';
                         }
+                    } else {
+
+                        if (isset($element['settings']['gs_spreadsheet_id'])) {
+                            $gsc_elementor_spreadsheetid = $element['settings']['gs_spreadsheet_id'];
+                        }
+                        if (isset($element['settings']['gs_spreadsheet_tab_name'])) {
+                            $gsc_elementor_sheetname = $element['settings']['gs_spreadsheet_tab_name'];
+                        }
+                    }
 
                         // Add "Entry ID" to the headers unconditionally
                         // $gsc_elementor_headers['Entry ID'] = 'Entry ID';
-
+                    if (
+                        isset($element['settings']['form_fields']) &&
+                        is_array($element['settings']['form_fields'])
+                    ) {
                         foreach ($element['settings']['form_fields'] as $formdata) {
+                            $gsc_elementor_exclude_headertype = array('honeypot', 'recaptcha', 'recaptcha_v3', 'html');
                             if (!isset($formdata['field_type']) || (isset($formdata['field_type']) && !in_array($formdata['field_type'], $gsc_elementor_exclude_headertype, true))) {
                                 $gsc_elementor_headers[$formdata['custom_id']] = isset($formdata['field_label']) && !empty($formdata['field_label']) ? $formdata['field_label'] : ucfirst($formdata['custom_id']);
                                 // $gsc_elementor_headers[$formdata['custom_id']] = $formdata['field_label'] ? $formdata['field_label'] : ucfirst($formdata['custom_id']);
                             }
                         }
-                        return $gsc_elementor_headers;
                     }
+                    return $gsc_elementor_headers;
                 }
-            );
+            }
+        );
             if (empty($gsc_elementor_headers)) {
                 Plugin::elementor()->db->iterate_data(
                     $gsc_elementor_data_global,
-                    function ($element) use (&$do_update) {
+                    function ($element) {
                         if (isset($element['widgetType']) && 'global' === (string) $element['widgetType']) {
                             if (!empty($element['templateID'])) {
                                 $global_form = get_post_meta($element['templateID'], '_elementor_data', true);
                                 $global_form_meta = json_decode($global_form, true);
                                 if ($global_form_meta) {
-                                    global $gsc_elementor_headers, $gsc_elementor_exclude_headertype;
-                                    global $gsc_elementor_spreadsheetid, $gsc_elementor_sheetname, $gsc_elementor_sheet_headers;
-                                    $gsc_elementor_exclude_headertype = array('honeypot', 'recaptcha', 'recaptcha_v3', 'html');
+
+
                                     if (isset($global_form_meta[0]['settings']['gs_spreadsheet_id'])) {
                                         $gsc_elementor_spreadsheetid = $global_form_meta[0]['settings']['gs_spreadsheet_id'];
                                     }
@@ -300,13 +305,13 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
         );
         // Fetch and display Sheet details
         $sheet_data = get_option('elefgs_sheetId');
-        $sheetId_array = isset($sheet_data) ? $sheet_data : array();
-        $tabId_data = get_option('elefgs_tabsId');;
-        $tabId_array = isset($tabId_data) ? $tabId_data : array();
+        $sheetId_array = is_array($sheet_data)
+        ? $sheet_data
+        : [];
+        $tabId_data = get_option('elefgs_tabsId');
+        $tabId_array = is_array($tabId_data) ? $tabId_data : array();
 
-        $sheet_id_name = array(
-            '' => esc_html__('Select Google Spreadsheet', 'gsheetconnector-for-elementor-forms'),
-        );
+
 
         $widget->add_control(
             'auth_integration_verify',
@@ -315,10 +320,10 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
                 'default' => $elefgs_verify,
             )
         );
-        $token = get_option('elefgs_token');
+        
         $email_account = '';
 
-        if (!empty($token)) {
+        if (!empty($elefgs_token)) {
             $google_sheet  = new GSC_Elementor_Free();
             $email_account = $google_sheet->gsheet_print_google_account_email();
         }
@@ -610,13 +615,13 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
             )
         );
 
-        $tab_data_json = json_encode($tabId_array, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_APOS | JSON_HEX_QUOT);
+
 
         $widget->add_control(
             'gs_elmentor_all_sheet_data',
             array(
                 'type' => \Elementor\Controls_Manager::HIDDEN,
-                'default' => isset($tabId_array) ? json_encode($tabId_array) : "",
+                'default' => wp_json_encode($tabId_array),
                 'condition' => [
                     'auth_integration_verify' => 'valid',
                 ],
@@ -640,54 +645,6 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
             )
         );
 
-        // $widget->add_control(
-        //     'gs_view_spreadsheet',
-        //     array(
-        //         'label' => 'VIEW SPREAD SHEET',
-        //         'type' => \Elementor\Controls_Manager::BUTTON,
-        //         'button_type' => 'viewspreadsheet',
-        //         'text' => __('VIEW SPREAD SHEET', 'gsheetconnector-for-elementor-forms'),
-        //         'event' => 'namespace:editor:gsceviewsheet',
-        //         'condition' => [
-        //             'auth_integration_verify' => 'valid',
-        //             'enable_manual_sheet_settings!' => 'yes'
-        //         ],
-
-        //     )
-        // );
-        //     $widget->add_control(
-        //         'gs_view_spreadsheet_manual',
-        //         array(
-        //             //'label' => 'VIEW SPREAD SHEET11',
-        //             'type' => \Elementor\Controls_Manager::BUTTON,
-        //             'button_type' => 'viewspreadsheet',
-        // 'classes' => 'btn-secondary',
-        //             'text' => __('Get Sheet URL', 'gsheetconnector-for-elementor-forms'),
-        //             'event' => 'namespace:editor:gsceviewsheetmanual',
-        //             'condition' => [
-        //                 'auth_integration_verify' => 'valid',
-        //                  'manual_sheet_name!' => '',
-        // 	'manual_sheet_id!' => '',
-        // 	'manual_tab_name!' => '',
-        // 	'manual_tab_id!' => '',
-
-        //             ],
-
-        //         )
-        //     );
-
-        //        $widget->add_control(
-        //            'gs_view_process_fetchsheet',
-        //            array(
-        //                'label' => '',
-        //                'type' => \Elementor\Controls_Manager::RAW_HTML,
-        //                'raw' => '<span class="loading-sign-process-fetch"></span>',
-        //                'condition' => [
-        //                    'auth_integration_verify' => 'valid',
-        //                ],
-        //
-        //            )
-        //        );
 
         $widget->add_control(
             'gs_feed_spreadsheet',
@@ -696,7 +653,11 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
                 'type' => \Elementor\Controls_Manager::RAW_HTML,
                 'classes' => 'feed-list-link',
                 'text' => __('Click here to configure Form Feeds', 'gsheetconnector-for-elementor-forms'),
-                'raw' => '<a href=' . esc_url(admin_url("admin.php?page=gsheetconnector-elementor-config&tab=form_feed_settings")) . ' " target="_blank">Click here to Setup form feeds settings to easily configure multiple feeds simultaneously</a>',
+                'raw' => '<a href="' . esc_url(
+                    admin_url('admin.php?page=gsheetconnector-elementor-config&tab=form_feed_settings')
+                ) . '" target="_blank">'
+                . esc_html__('Click here to Setup form feeds settings to easily configure multiple feeds simultaneously', 'gsheetconnector-for-elementor-forms')
+                . '</a>',
                 'condition' => [
                     'auth_integration_verify' => 'valid',
                 ],
@@ -818,126 +779,31 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
         }
 
         // Add switcher controls for each header
-        $widget->add_control(
-            'headers[Entry Date]',
-            [
-                'label' => esc_attr__('Entry Date', 'gsheetconnector-for-elementor-forms'),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'disabled'    => true,
-                'readonly'    => true,
-                'classes' => 'elementor-field-list-control special_mail_tags_bg gsc-switch-disabled',
-                'raw' => '',
-                'condition' => [
-                    'auth_integration_verify' => 'valid',
+        $system_headers = [
+            'Entry Date',
+            'Post ID',
+            'User Name',
+            'User IP',
+            'User Agent',
+            'User ID',
+            'Referrer',
+        ];
 
-                ],
-            ]
-        );
-
-        $widget->add_control(
-            'headers[Post ID]',
-            [
-                'label' => esc_attr__('Post ID', 'gsheetconnector-for-elementor-forms'),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'disabled'    => true,
-                'readonly'    => true,
-                'classes' => 'elementor-field-list-control special_mail_tags_bg gsc-switch-disabled',
-                'raw' => '',
-                'condition' => [
-                    'auth_integration_verify' => 'valid',
-
-                ],
-            ]
-        );
-
-        $widget->add_control(
-            'headers[User Name]',
-            [
-                'label' => esc_attr__('User Name', 'gsheetconnector-for-elementor-forms'),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'disabled'    => true,
-                'readonly'    => true,
-                'classes' => 'elementor-field-list-control special_mail_tags_bg gsc-switch-disabled',
-                'condition' => [
-                    'auth_integration_verify' => 'valid',
-
-                ],
-            ]
-        );
-
-        $widget->add_control(
-            'headers[User IP]',
-            [
-                'label' => esc_attr__('User IP', 'gsheetconnector-for-elementor-forms'),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'disabled'    => true,
-                'readonly'    => true,
-                'classes' => 'elementor-field-list-control special_mail_tags_bg gsc-switch-disabled',
-                'condition' => [
-                    'auth_integration_verify' => 'valid',
-
-                ],
-            ]
-        );
-
-        $widget->add_control(
-            'headers[User Agent]',
-            [
-                'label' => esc_attr__('User Agent', 'gsheetconnector-for-elementor-forms'),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'disabled'    => true,
-                'readonly'    => true,
-                'classes' => 'elementor-field-list-control special_mail_tags_bg gsc-switch-disabled',
-                'condition' => [
-                    'auth_integration_verify' => 'valid',
-
-                ],
-            ]
-        );
-
-        $widget->add_control(
-            'headers[User ID]',
-            [
-                'label' => esc_attr__('User ID', 'gsheetconnector-for-elementor-forms'),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'disabled'    => true,
-                'readonly'    => true,
-                'classes' => 'elementor-field-list-control special_mail_tags_bg gsc-switch-disabled',
-                'condition' => [
-                    'auth_integration_verify' => 'valid',
-
-                ],
-            ]
-        );
-
-        $widget->add_control(
-            'headers[Referrer]',
-            [
-                'label' => esc_attr__('Referrer', 'gsheetconnector-for-elementor-forms'),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'disabled'    => true,
-                'readonly'    => true,
-                'classes' => 'elementor-field-list-control special_mail_tags_bg gsc-switch-disabled',
-                'condition' => [
-                    'auth_integration_verify' => 'valid',
-
-                ],
-            ]
-        );
-
-
-        // Add a heading for "Form Fields"
-        //        $widget->add_control(
-        //            'form_fields_heading',
-        //            [
-        //                'type' => \Elementor\Controls_Manager::RAW_HTML,
-        //                'raw' => '<h3>Form Fields (Headers)</h3>',
-        //                'condition' => [
-        //                    'auth_integration_verify' => 'valid',
-        //                ],
-        //            ]
-        //        );
-
+        foreach ($system_headers as $header) {
+            $widget->add_control(
+                'headers[' . $header . ']',
+                [
+                    'label' => esc_html__($header, 'gsheetconnector-for-elementor-forms'),
+                    'type' => \Elementor\Controls_Manager::SWITCHER,
+                    'disabled' => true,
+                    'readonly' => true,
+                    'classes' => 'elementor-field-list-control special_mail_tags_bg gsc-switch-disabled',
+                    'condition' => [
+                        'auth_integration_verify' => 'valid',
+                    ],
+                ]
+            );
+        }
 
 
         $widget->add_control(
@@ -1004,19 +870,6 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
                 ],
             )
         );
-
-
-        //			$widget->add_control(
-        //            'default_form_fields_heading2',
-        //            [
-        //                'type' => \Elementor\Controls_Manager::RAW_HTML,
-        //                'raw' => '<div class="gsc-heading">Upgrade to GSheetConnector Pro</div>',
-        //                'condition' => [
-        //                    'auth_integration_verify' => 'valid',
-        //
-        //                ],
-        //            ]
-        //        );
 
 
         $widget->add_control(

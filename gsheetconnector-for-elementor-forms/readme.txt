@@ -1,11 +1,11 @@
-=== GSheetConnector for Elementor Forms – Sync Elementor Forms to Google Sheets ===
+=== GSheetConnector - Elementor Forms Google Sheet Connector to Sync Submissions to Google Sheets ===
 Contributors: westerndeal, abdullah17, gsheetconnector
 Donate link: https://www.paypal.me/WesternDeal
 Tags: elementor, elementor forms, elementor addons, metform google sheets, elementor forms to google sheets
 Requires at least: 5.6
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author URI: https://www.gsheetconnector.com/
@@ -198,6 +198,18 @@ Your Elementor Forms and MetForm submissions will now sync automatically.
 
 
 == Changelog ==
+
+= 1.3.3 (22-08-2026) =
+* Added: Connected feeds table with pagination to the Dashboard for quick access to Google Sheet connections.
+* Fixed: Improved the Elementor Forms dashboard widget to correctly display connected feed names and Google Sheet names, with clickable sheet links that open the configured Google Sheet directly.
+
+= 1.3.3-beta2 (19-06-2026) =
+* Improved: Optimized form feed retrieval using WordPress object caching to improve performance and reduce database load.
+* Improved: Added backward compatibility support for both legacy and new feed structures.
+* Fixed: Improved feed detection and processing for Elementor and MetForm integrations.
+
+= 1.3.3-beta1 (18-06-2026) =
+* Improved: Optimized feed retrieval queries with caching to reduce database load and improve performance.
 
 = 1.3.2 (17-06-2026) =
 * Improved: Optimized bundled library files by including only required components.

@@ -289,10 +289,10 @@ $(window).on("load", function () {
 });
 
   // Helper to decode HTML
-  function html_decode(input) {
-    return new DOMParser().parseFromString(input, "text/html").documentElement
-    .textContent;
-  }
+function html_decode(input) {
+  return new DOMParser().parseFromString(input, "text/html").documentElement
+  .textContent;
+}
 });
 
 jQuery(document).ready(function ($) {
@@ -319,41 +319,9 @@ jQuery(document).ready(function ($) {
 });
 
 /**
- * Display Error logs
- */
-
-/**
- * Clear debug for integration page
- */
- jQuery(document).on("click", ".debug-clear-elementor", function () {
-  jQuery(".clear-loading-sign").addClass("loading");
-  var data = {
-    action: "gscelementor_clear_debug_log",
-    security: jQuery("#gs-ajax-nonce-ele").val(),
-  };
-  jQuery.post(ajaxurl, data, function (response) {
-    var clear_msg = response.data;
-    if (response == -1) {
-      return false; // Invalid nonce
-    }
-
-    if (response.success) {
-      jQuery(".clear-loading-sign").removeClass("loading");
-      jQuery("#gs-validation-message").empty();
-      jQuery(
-        "<span class='gs-valid-message'>" + clear_msg + "</span>",
-        ).appendTo("#gs-validation-message");
-      setTimeout(function () {
-        location.reload();
-      }, 1000);
-    }
-  });
-});
-
-/**
  * Clear debug for system status tab
  */
- jQuery(document).on("click", ".gselef-free-clear-content-logs", function () {
+jQuery(document).on("click", ".gselef-free-clear-content-logs", function () {
   jQuery(".clear-loading-sign-logs-elemnt").addClass("loading");
   var data = {
     action: "gscelementor_log_elementor_systeminfo",
@@ -375,7 +343,7 @@ jQuery(document).ready(function ($) {
 });
 
  /* Select box JS Mitesh */
- document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
   // ONLY select with class "gsc-select"
   document.querySelectorAll("select.gsc-select").forEach((select) => {
     // skip already processed
@@ -436,7 +404,7 @@ jQuery(document).ready(function ($) {
   });
 });
 
- document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".gsc-slider-wrapper").forEach(function (wrapper) {
     const slider = wrapper.querySelector(".gsc-slider");
     const slides = wrapper.querySelectorAll(".gsc-slide");
@@ -462,7 +430,7 @@ jQuery(document).ready(function ($) {
 });
 
  /* Popup Code for Choose API Setting */
- jQuery(document).ready(function ($) {
+jQuery(document).ready(function ($) {
   $("#ele_dro_option").on("change", function () {
     var selectedValue = $(this).val();
 
@@ -481,7 +449,7 @@ jQuery(document).ready(function ($) {
     }
   });
 });
- jQuery(document).ready(function ($) {
+jQuery(document).ready(function ($) {
   $(".gselef-popup-close-pro, .gselef-popup-service-close-pro").on(
     "click",
     function () {
@@ -496,7 +464,7 @@ jQuery(document).ready(function ($) {
   });
 });
 
- jQuery(document).ready(function ($) {
+jQuery(document).ready(function ($) {
   jQuery(document).on("click", "#gselef-free-execute-reset", function (e) {
     e.preventDefault();
     jQuery(".loading-sign-reset").addClass("loading");
@@ -564,7 +532,7 @@ jQuery(document).ready(function ($) {
     );
 });
 
- document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
   const inputs = document.querySelectorAll(
     "#edit-sheet-name, #edit-sheet-id, #edit-tab-name, #edit-tab-id",
     );
@@ -618,79 +586,79 @@ jQuery(document).ready(function ($) {
      POPUP CONFIRM BUTTON
      ========================= */
 
-     $("#gselef-confirm-enable-uninstall-free").on("click", function () {
-      $checkbox.prop("checked", true);
+  $("#gselef-confirm-enable-uninstall-free").on("click", function () {
+    $checkbox.prop("checked", true);
 
-      $popup.addClass("d-none");
+    $popup.addClass("d-none");
 
-      $saveBtn.prop("disabled", false).removeClass("common-disable");
-    });
+    $saveBtn.prop("disabled", false).removeClass("common-disable");
+  });
 
   /* =========================
      POPUP CANCEL BUTTON
      ========================= */
 
-     $("#gselef-cancel-uninstall-free").on("click", function () {
-      $checkbox.prop("checked", false);
+  $("#gselef-cancel-uninstall-free").on("click", function () {
+    $checkbox.prop("checked", false);
 
-      $popup.addClass("d-none");
-    });
+    $popup.addClass("d-none");
+  });
 
   /* =========================
      SAVE SETTINGS
      ========================= */
 
-     $saveBtn.on("click", function (e) {
-      e.preventDefault();
+  $saveBtn.on("click", function (e) {
+    e.preventDefault();
 
-      var isChecked = $checkbox.is(":checked");
+    var isChecked = $checkbox.is(":checked");
 
-      $.ajax({
-        url: ajaxurl,
-        type: "POST",
-        dataType: "json",
-        data: {
-          action: "gscele_save_uninstall_settings",
-          uninstall_setting: isChecked ? 1 : 0,
-          security: $("#gscele-elementor-setting-ajax-nonce").val(),
-        },
+    $.ajax({
+      url: ajaxurl,
+      type: "POST",
+      dataType: "json",
+      data: {
+        action: "gscele_save_uninstall_settings",
+        uninstall_setting: isChecked ? 1 : 0,
+        security: $("#gscele-elementor-setting-ajax-nonce").val(),
+      },
 
-        beforeSend: function () {
-          $loader.addClass("loading");
-          $saveBtn.prop("disabled", true).addClass("common-disable");
-        },
+      beforeSend: function () {
+        $loader.addClass("loading");
+        $saveBtn.prop("disabled", true).addClass("common-disable");
+      },
 
-        success: function (response) {
-          if (!response.success) return;
+      success: function (response) {
+        if (!response.success) return;
 
-          $msg.removeClass("gsc-success gsc-error d-none");
+        $msg.removeClass("gsc-success gsc-error d-none");
 
-          $msg
-          .addClass("gsc-success")
-          .text("Plugin preferences updated successfully.");
+        $msg
+        .addClass("gsc-success")
+        .text("Plugin preferences updated successfully.");
 
-          setTimeout(function () {
-            $msg.addClass("d-none").text("");
-          }, 2000);
-        },
+        setTimeout(function () {
+          $msg.addClass("d-none").text("");
+        }, 2000);
+      },
 
-        error: function () {
-          $msg
-          .removeClass("d-none")
-          .addClass("gsc-error")
-          .text("Something went wrong");
+      error: function () {
+        $msg
+        .removeClass("d-none")
+        .addClass("gsc-error")
+        .text("Something went wrong");
 
-          $saveBtn.prop("disabled", false).removeClass("common-disable");
-        },
+        $saveBtn.prop("disabled", false).removeClass("common-disable");
+      },
 
-        complete: function () {
-          $loader.removeClass("loading");
-        },
-      });
+      complete: function () {
+        $loader.removeClass("loading");
+      },
     });
-   });
+  });
+});
 
- 
+
 //  jQuery(document).ready(function ($) {
 //   const noticeKey = "gselef-free_notice_hidden_until";
 //   const oneDay = 24 * 60 * 60 * 1000;
@@ -1136,5 +1104,53 @@ jQuery(document).ready(function ($) {
       },
     },
     );
+  });
+
+  function gselefreeLoadFeedPage(page) {
+    $.post(
+      ajaxurl,
+      {
+        action: "elefgs_free_paginate_feed_list",
+        paged: page,
+        security: $("#gselef-pagination-nonce").val(),
+      },
+      function (res) {
+        if (res.success) {
+          let rows = res.data.rows_html;
+          let pagination = res.data.pagination_html;
+
+          // Inject table rows
+          $("#gselef-feed-table-body").html(rows);
+
+          // Inject pagination links
+          $("#gselef-pagination-wrap").html(pagination);
+
+          // Toggle headers and pagination visibility based on feed existence
+          if (!res.data.has_feeds) {
+            $("#gselef-feed-table thead").hide();
+            $("#gselef-pagination-wrap").hide();
+          } else {
+            $("#gselef-feed-table thead").show();
+            $("#gselef-pagination-wrap").show();
+          }
+
+          $("#gselef-feed-table").attr("data-page", page);
+        }
+      },
+      );
+  }
+
+  // Initial load
+  $(document).ready(function () {
+    gselefreeLoadFeedPage(1);
+  });
+
+  // Event delegation for pagination buttons
+  $(document).on("click", ".gselef-page-link", function (e) {
+    e.preventDefault();
+    let page = $(this).data("page");
+    if (page) {
+      gselefreeLoadFeedPage(page);
+    }
   });
 });

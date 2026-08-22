@@ -1085,9 +1085,6 @@ public function gsheet_print_google_account_email()
 		$token = $this->token();
 
 		if (!$token) {
-
-			update_option('gsc_elementor_email_account', '');
-
 			return false;
 		}
 
@@ -1133,11 +1130,6 @@ public function gsheet_print_google_account_email()
 		return $email;
 
 	} catch (Exception $e) {
-
-		update_option(
-			'gsc_elementor_email_account',
-			''
-		);
 
 		GsEl_Connector_Utility::ele_gs_debug_log(
 			__METHOD__ .

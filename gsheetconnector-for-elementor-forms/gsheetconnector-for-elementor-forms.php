@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Plugin Name: GSheetConnector for Elementor Forms
  * Plugin URI: https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro
  * Description: Send your Elementor Form data to your Google Spreadsheet.
  * Requires at least: 5.6
  * Requires PHP: 7.4
- * Version: 1.3.2
+ * Version: 1.3.3
  * Author: GSheetConnector
  * Author URI: https://www.gsheetconnector.com/
  * Text Domain: gsheetconnector-for-elementor-forms
@@ -124,8 +125,8 @@ if ($gsc_activate_the_plugin) {
 /* Freemius End */
 
 // Declare some global constants
-define('GS_CONN_ELE_VERSION', '1.3.2');
-define('GS_CONN_ELE_DB_VERSION', '1.3.2');
+define('GS_CONN_ELE_VERSION', '1.3.3');
+define('GS_CONN_ELE_DB_VERSION', '1.3.3');
 define('GS_CONN_ELE_ROOT', dirname(__FILE__));
 define('GS_CONN_ELE_URL', plugins_url('/', __FILE__));
 define('GS_CONN_ELE_BASE_FILE', basename(dirname(__FILE__)) . '/gsheetconnector-for-elementor-forms.php');
@@ -761,9 +762,9 @@ public function gsc_elementor_widget()
  */
 public function run_on_upgrade()
 {
- $plugin_options = get_site_option('elefgs_info');
+   $plugin_options = get_site_option('elefgs_info');
 
- if (
+   if (
     is_array($plugin_options) &&
     isset($plugin_options['version']) &&
     $plugin_options['version'] === '1.0.23'
@@ -843,8 +844,7 @@ public function add_gsc_elementor_connector_summary_widget()
 */
 public function elementor_gs_connector_summary_dashboard()
 {
-        // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage -- Static plugin asset used in dashboard widget
-    echo '<img src="' . esc_url(GS_CONN_ELE_URL . 'assets/img/elementor-gsc.svg') . '" alt="' . esc_attr__('GSheetConnector Elementor', 'gsheetconnector-for-elementor-forms') . '" style="width:30px;">';
+ include_once(GS_CONN_ELE_ROOT . '/includes/pages/gsc-elementor-dashboard-widget.php');
 }
 
 /**
@@ -1093,7 +1093,7 @@ private static function delete_for_site()
         );
 
         if ( $table_exists === $error_log_table ) {
-           
+         
           $sql = "DROP TABLE IF EXISTS `$error_log_table`";
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
@@ -1198,20 +1198,20 @@ private function gselef_create_error_log_table(){
         $charset = $wpdb->get_charset_collate();
 
         $sql = "CREATE TABLE {$gselef_table} (
-        id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-        error_id VARCHAR(191) NOT NULL,
-        code INT NOT NULL,
-        message TEXT NOT NULL,
-        details LONGTEXT NULL,
-        created_at DATETIME NOT NULL,
-        PRIMARY KEY (id),
-        KEY error_id (error_id),
-        KEY code (code)
-    ) {$charset};";
+            id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+            error_id VARCHAR(191) NOT NULL,
+            code INT NOT NULL,
+            message TEXT NOT NULL,
+            details LONGTEXT NULL,
+            created_at DATETIME NOT NULL,
+            PRIMARY KEY (id),
+            KEY error_id (error_id),
+            KEY code (code)
+        ) {$charset};";
 
-    require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-    dbDelta( $sql );
-}
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+        dbDelta( $sql );
+    }
 }
 
 /**
