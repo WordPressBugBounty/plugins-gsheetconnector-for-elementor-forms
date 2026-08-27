@@ -318,7 +318,7 @@ public function elefgs_free_render_feed_page($rows, $paged, $first_page_count = 
             ?>
             <tr>
                 <td>
-                 <a href="<?php echo esc_url(
+                   <a href="<?php echo esc_url(
                     admin_url(
                         'admin.php?page=gsheetconnector-elementor-config'
                         . '&tab=form_feed_settings'
@@ -334,8 +334,8 @@ public function elefgs_free_render_feed_page($rows, $paged, $first_page_count = 
             </td>
             <td>
                 <?php if (! empty($row->sheet_id)) : ?>
-                 <a target="_blank"
-                 href="<?php echo esc_url(
+                   <a target="_blank"
+                   href="<?php echo esc_url(
                     'https://docs.google.com/spreadsheets/d/' .
                     rawurlencode( $row->sheet_id ) .
                     '/edit#gid=' .
@@ -392,11 +392,11 @@ return array(
 public function gselef_dismiss_pro_notice()
 {
 
-   $nonce = isset( $_POST['nonce'] )
-   ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) )
-   : '';
+ $nonce = isset( $_POST['nonce'] )
+ ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) )
+ : '';
 
-   if ( ! wp_verify_nonce( $nonce, 'gselef-ajax-nonce' ) ) {
+ if ( ! wp_verify_nonce( $nonce, 'gselef-ajax-nonce' ) ) {
     wp_send_json_error( 'Invalid nonce' );
 }
 
@@ -655,13 +655,43 @@ public function sync_google_account_gscelementor_unified()
 
     update_option('elefgs_sheetId', $sheetId_array);
 
+        /*
+         * Refresh the stored worksheet/tab names for spreadsheets we already
+         * know about. The "Fetch Sheets" button previously only refreshed the
+         * spreadsheet titles, so a renamed tab kept showing its old name in the
+         * "Sheet Tab Name" dropdown (which is rebuilt from `elefgs_tabsId` on
+         * page reload). We re-query Google for the current tab titles here so the
+         * dropdown reflects renamed tabs after the user clicks "Click here".
+         */
+        $stored_tabs = get_option('elefgs_tabsId');
+
+        if (is_array($stored_tabs) && ! empty($stored_tabs)) {
+
+            foreach (array_keys($stored_tabs) as $stored_spreadsheet_id) {
+
+            // Only refresh spreadsheets that still exist in the connected account.
+                if (! isset($sheetId_array[$stored_spreadsheet_id])) {
+                    continue;
+                }
+
+                $fresh_tabs = $doc->get_worktabs($stored_spreadsheet_id);
+
+            // Never overwrite good data with an empty result (e.g. API error).
+                if (is_array($fresh_tabs) && ! empty($fresh_tabs)) {
+                    $stored_tabs[$stored_spreadsheet_id] = $fresh_tabs;
+                }
+            }
+
+            update_option('elefgs_tabsId', $stored_tabs);
+        }
+
         // Response
-    if ($init === 'yes') {
-        wp_send_json_success(array("success" => 'yes'));
-    } else {
-        wp_send_json_success(array("success" => 'no'));
+        if ($init === 'yes') {
+            wp_send_json_success(array("success" => 'yes'));
+        } else {
+            wp_send_json_success(array("success" => 'no'));
+        }
     }
-}
 
 /**
 * AJAX handler to deactivate Google account authentication (manual method).
@@ -838,8 +868,11 @@ public function get_google_tab_list_by_sheetname()
 
         // Refresh logic
     if ($refresh == '1') {
-        $temp1[$spreadsheet_id] = $divifgs_sheetTabs;
-        update_option('elefgs_tabsId', $temp1);
+        // Force-refresh: store the freshly fetched tab list for this spreadsheet,
+        // merging with any previously stored data for other spreadsheets.
+        $existing_tabs = is_array($divifgs_sheetTabs) ? $divifgs_sheetTabs : array();
+        $existing_tabs[$spreadsheet_id] = $TabsId_array;
+        update_option('elefgs_tabsId', $existing_tabs);
     } else {
         if (empty($divifgs_sheetTabs)) {
             $temp1[$spreadsheet_id] = $TabsId_array;
@@ -972,8 +1005,8 @@ public function verify_gscelementor_integation()
         update_option('elefgs_manual_setting', '0');
         wp_send_json_success();
     } else {
-     wp_send_json_error();
- }
+       wp_send_json_error();
+   }
 }
 
 /**

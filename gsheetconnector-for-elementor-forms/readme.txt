@@ -5,7 +5,7 @@ Tags: elementor, elementor forms, elementor addons, metform google sheets, eleme
 Requires at least: 5.6
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author URI: https://www.gsheetconnector.com/
@@ -198,6 +198,9 @@ Your Elementor Forms and MetForm submissions will now sync automatically.
 
 
 == Changelog ==
+
+= 1.3.4 (27-08-2026) =
+* Fixed: Fixed an issue where renamed Google Sheet tab names were not refreshed and displayed correctly in the Elementor Forms feed settings.
 
 = 1.3.3 (22-08-2026) =
 * Added: Connected feeds table with pagination to the Dashboard for quick access to Google Sheet connections.
