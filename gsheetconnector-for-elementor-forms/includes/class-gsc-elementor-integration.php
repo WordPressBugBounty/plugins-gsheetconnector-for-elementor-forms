@@ -80,7 +80,45 @@ class GSC_Elementor_Integration
         add_action('elementor_pro/forms/new_record', array($this, 'send_form_submission_to_google_sheets_feed'), 10, 2);
 
         // add_action('elementor_pro/forms/new_record', array($this, 'send_form_submission_to_google_sheets_free'), 10, 2);
+
+        /*
+         * Elementor 4 "atomic" form ( <form data-element_type="e-form"> ) support.
+         *
+         * Atomic forms do NOT fire `elementor_pro/forms/new_record`; they submit
+         * to their own AJAX action (`elementor_pro_atomic_forms_send_form`).
+         *
+         * We sync on `elementor_pro/atomic_forms/spam_check` — the only point
+         * Elementor Pro exposes AFTER it has validated the nonce, resolved the
+         * form element and run its File_Upload_Handler (so the final uploaded
+         * file URLs are already available). Priority 20 is after Elementor's own
+         * Akismet check (priority 10): a submission already flagged as spam is
+         * skipped. The filter value is ALWAYS returned unchanged, so Elementor's
+         * own spam decision, JSON response and actions are never affected, and
+         * classic Form widgets are untouched.
+         */
+        add_filter('elementor_pro/atomic_forms/spam_check', array($this, 'gscelef_atomic_form_capture'), 20, 4);
+
+        /*
+         * Record the final URL of every file Elementor uploads during an atomic
+         * submission, keyed by the PHP tmp path (unique per file), so it can be
+         * mapped back to its form field WITHOUT re-uploading or re-validating.
+         * File_Storage::move() runs wp_handle_upload() with the atomic action, so
+         * the prefilter name is atomic-specific and `wp_handle_upload` only fires
+         * on a successful move with the final URL.
+         */
+        add_filter('elementor_pro_atomic_forms_send_form_prefilter', array($this, 'gscelef_atomic_capture_upload_src'));
+        add_filter('wp_handle_upload', array($this, 'gscelef_atomic_capture_upload_url'), 10, 2);
     }
+
+    /**
+     * @var string PHP tmp path of the atomic-form file currently inside wp_handle_upload().
+     */
+    private $gscelef_atomic_upload_src = '';
+
+    /**
+     * @var array<string,string> [ php_tmp_path => final_uploaded_url ] for the current request.
+     */
+    private $gscelef_atomic_uploaded = array();
 
 
 /**
@@ -150,14 +188,22 @@ public function elefgs_free_paginate_feed_list()
 
     if ( $row->post_type === 'metform-form' ) {
 
-        $row->form_name = $row->post_title;
+        // Display MetForm feeds with the "MetForm :" prefix.
+        $row->form_name = 'MetForm : ' . $row->post_title;
 
     } else {
 
-        $row->form_name = $this->elefgs_free_resolve_elementor_form_name(
+        $resolved = $this->elefgs_free_resolve_elementor_form_name(
             $row->post_id,
             $feed['element_id'] ?? ''
         );
+
+        // Display-only: tag Elementor 4 atomic forms so they read the same
+        // way they already do on the Form Feeds list and Edit Feed page
+        // ("Atomic Form : {name}"). Classic Form widgets are unchanged.
+        $row->form_name = ! empty( $resolved['is_atomic'] )
+        ? 'Atomic Form : ' . $resolved['form_name']
+        : $resolved['form_name'];
     }
 
     $row->sheet_name = $feed_data['sheet-name'] ?? '';
@@ -192,12 +238,18 @@ wp_send_json_success($result);
 * function, since two conflicting global functions with that name already
 * exist in other page templates (gsc-feed-google-sheet.php and edit-sheet.php).
 *
+* Recognises both the classic Elementor Pro Form widget (`widgetType = form`)
+* and the Elementor 4 atomic form element (`elType = e-form`) - the same two
+* shapes gscelef_form_node_info() / gsc_find_form_name_by_element_id() already
+* handle in the other two feed-listing templates.
+*
 * @since 1.3.3
 *
 * @param int    $post_id    The post/page ID the feed is attached to.
 * @param string $element_id Optional. The saved Elementor widget element_id.
-* @return string The resolved form name. Falls back to the post title only
-*                when the page has no _elementor_data or no form widgets at all.
+* @return array{form_name:string,is_atomic:bool} Falls back to the post title
+*              (is_atomic false) only when the page has no _elementor_data or
+*              no form widgets at all.
 */
 private function elefgs_free_resolve_elementor_form_name($post_id, $element_id = '')
 {
@@ -205,7 +257,7 @@ private function elefgs_free_resolve_elementor_form_name($post_id, $element_id =
     $data = is_array($elementor_data) ? $elementor_data : json_decode($elementor_data, true);
 
     if (!is_array($data)) {
-        return get_the_title($post_id);
+        return array('form_name' => get_the_title($post_id), 'is_atomic' => false);
     }
 
     $forms = $this->elefgs_free_collect_elementor_forms($data);
@@ -213,31 +265,62 @@ private function elefgs_free_resolve_elementor_form_name($post_id, $element_id =
     if (!empty($element_id)) {
         foreach ($forms as $form) {
             if (($form['element_id'] ?? '') === $element_id) {
-                return $form['form_name'] ?? '';
+                return array(
+                    'form_name' => $form['form_name'] ?? '',
+                    'is_atomic' => !empty($form['is_atomic']),
+                );
             }
         }
     }
 
-    return !empty($forms) ? ($forms[0]['form_name'] ?? '') : get_the_title($post_id);
+    if (!empty($forms)) {
+        return array(
+            'form_name' => $forms[0]['form_name'] ?? '',
+            'is_atomic' => !empty($forms[0]['is_atomic']),
+        );
+    }
+
+    return array('form_name' => get_the_title($post_id), 'is_atomic' => false);
 }
 
 /**
-* Recursively collects every Elementor Form widget on a page.
+* Recursively collects every Elementor form on a page - both the classic
+* Form widget and the Elementor 4 atomic form element.
 *
 * @since 1.3.3
 *
 * @param array $elements Elementor element tree (from _elementor_data).
 * @param array $forms    Accumulator, passed by reference.
-* @return array List of ['form_name' => ..., 'element_id' => ...].
+* @return array List of ['form_name' => ..., 'element_id' => ..., 'is_atomic' => bool].
 */
 private function elefgs_free_collect_elementor_forms($elements, &$forms = array())
 {
     foreach ($elements as $widget) {
         if (is_array($widget)) {
-            if (isset($widget['widgetType']) && $widget['widgetType'] === 'form') {
+
+            $widget_type = isset($widget['widgetType']) ? $widget['widgetType'] : '';
+            $el_type     = isset($widget['elType']) ? $widget['elType'] : '';
+
+            $is_classic_form = ('form' === $widget_type);
+            $is_atomic_form  = ('e-form' === $el_type || 'e-form' === $widget_type);
+
+            if ($is_classic_form || $is_atomic_form) {
+
+                if ($is_atomic_form) {
+                    // Atomic prop: settings['form-name'] = ['$$type'=>'string','value'=>'...'].
+                    $raw_name = isset($widget['settings']['form-name']) ? $widget['settings']['form-name'] : '';
+                    if (is_array($raw_name)) {
+                        $raw_name = isset($raw_name['value']) ? $raw_name['value'] : '';
+                    }
+                    $form_name = is_string($raw_name) ? trim($raw_name) : '';
+                } else {
+                    $form_name = isset($widget['settings']['form_name']) ? $widget['settings']['form_name'] : '';
+                }
+
                 $forms[] = array(
-                    'form_name'  => $widget['settings']['form_name'] ?? '',
-                    'element_id' => $widget['id'] ?? ''
+                    'form_name'  => $form_name,
+                    'element_id' => $widget['id'] ?? '',
+                    'is_atomic'  => $is_atomic_form,
                 );
             }
 
@@ -318,7 +401,7 @@ public function elefgs_free_render_feed_page($rows, $paged, $first_page_count = 
             ?>
             <tr>
                 <td>
-                   <a href="<?php echo esc_url(
+                 <a href="<?php echo esc_url(
                     admin_url(
                         'admin.php?page=gsheetconnector-elementor-config'
                         . '&tab=form_feed_settings'
@@ -334,8 +417,8 @@ public function elefgs_free_render_feed_page($rows, $paged, $first_page_count = 
             </td>
             <td>
                 <?php if (! empty($row->sheet_id)) : ?>
-                   <a target="_blank"
-                   href="<?php echo esc_url(
+                 <a target="_blank"
+                 href="<?php echo esc_url(
                     'https://docs.google.com/spreadsheets/d/' .
                     rawurlencode( $row->sheet_id ) .
                     '/edit#gid=' .
@@ -392,11 +475,11 @@ return array(
 public function gselef_dismiss_pro_notice()
 {
 
- $nonce = isset( $_POST['nonce'] )
- ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) )
- : '';
+   $nonce = isset( $_POST['nonce'] )
+   ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) )
+   : '';
 
- if ( ! wp_verify_nonce( $nonce, 'gselef-ajax-nonce' ) ) {
+   if ( ! wp_verify_nonce( $nonce, 'gselef-ajax-nonce' ) ) {
     wp_send_json_error( 'Invalid nonce' );
 }
 
@@ -1005,8 +1088,8 @@ public function verify_gscelementor_integation()
         update_option('elefgs_manual_setting', '0');
         wp_send_json_success();
     } else {
-       wp_send_json_error();
-   }
+     wp_send_json_error();
+ }
 }
 
 /**
@@ -1230,19 +1313,12 @@ public function send_form_submission_to_google_sheets_feed($record, $handler)
 
         $feed_id = $feed->meta_id;
 
-        
-
         $gselef_update_status = get_post_meta($feed_id, 'gselef_status', true);
 
         // Only process enabled feeds
         if (intval($gselef_update_status) !== 1) {
             continue;
         }
-
-       // Fetch feed configuration data
-        $spreadsheetDataRaw = get_post_meta($feed_id, 'gscele_form_feeds', true);
-
-        $spreadsheetData = maybe_unserialize($spreadsheetDataRaw);
 
         $data = array();
 
@@ -1271,81 +1347,601 @@ public function send_form_submission_to_google_sheets_feed($record, $handler)
         }
 
         // -----------------------------------------------------------------
-        // Spreadsheet config
+        // Send data to Google Sheets (shared with the atomic-form handler)
         // -----------------------------------------------------------------
-        $spreadsheet_id = esc_attr($spreadsheetData['sheet-id'] ?? '');
+        $this->gscelef_dispatch_feed_row($feed_id, $data);
+    }
+}
 
-        $tab_name = esc_attr($spreadsheetData['sheet-tab-name'] ?? '');
+/**
+ * Push one mapped submission row into the Google Sheet configured for a feed.
+ *
+ * This is the single place the plugin talks to Google Sheets for Elementor
+ * form feeds. It is shared by:
+ *   - send_form_submission_to_google_sheets_feed()  (classic Form widget)
+ *   - gscelef_atomic_form_capture()                 (Elementor 4 atomic e-form)
+ *
+ * @since 1.3.5
+ *
+ * @param int   $feed_id Feed postmeta meta_id (row that stores 'gscele_form_feeds').
+ * @param array $data    Associative array: Google Sheet header label => submitted value.
+ * @return void
+ */
+private function gscelef_dispatch_feed_row($feed_id, array $data)
+{
+    // Fetch feed configuration data.
+    $spreadsheetData = maybe_unserialize(get_post_meta($feed_id, 'gscele_form_feeds', true));
 
-        $tab_id = esc_attr($spreadsheetData['tab-id'] ?? '');
+    $spreadsheet_id = is_array($spreadsheetData) ? esc_attr($spreadsheetData['sheet-id'] ?? '') : '';
+    $tab_name       = is_array($spreadsheetData) ? esc_attr($spreadsheetData['sheet-tab-name'] ?? '') : '';
+    $tab_id         = is_array($spreadsheetData) ? esc_attr($spreadsheetData['tab-id'] ?? '') : '';
 
+    if ($spreadsheet_id === '' || $tab_name === '' || $tab_id === '') {
+        GsEl_Connector_Utility::ele_gs_debug_log(
+            'Missing spreadsheet configuration for feed ID: ' . $feed_id
+        );
+        return;
+    }
 
-        // Step 4: Prepare data
-        $latest_id = wp_cache_get('gsc_latest_elementor_id');
-        if (false === $latest_id) {
-            global $wpdb;
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-            $result = $wpdb->get_results("SELECT MAX(id) as latest_id FROM {$wpdb->prefix}e_submissions");
-            $latest_id = isset($result[0]->latest_id) ? $result[0]->latest_id : '';
-            wp_cache_set('gsc_latest_elementor_id', $latest_id, '', 300); // Cache for 5 minutes
+    // Entry ID (best effort — mirrors the classic handler).
+    $latest_id = wp_cache_get('gsc_latest_elementor_id');
+    if (false === $latest_id) {
+        global $wpdb;
+        $suppress = $wpdb->suppress_errors(true); // e_submissions may not exist (e.g. Elementor Pro forms unused)
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $result    = $wpdb->get_results("SELECT MAX(id) as latest_id FROM {$wpdb->prefix}e_submissions");
+        $wpdb->suppress_errors($suppress);
+        $latest_id = isset($result[0]->latest_id) ? $result[0]->latest_id : '';
+        wp_cache_set('gsc_latest_elementor_id', $latest_id, '', 300); // Cache for 5 minutes
+    }
+
+    try {
+
+        include_once GS_CONN_ELE_ROOT . '/lib/google-sheets.php';
+
+        $doc = new GSC_Elementor_Free();
+
+        $doc->auth();
+
+        $doc->setSpreadsheetId($spreadsheet_id);
+
+        $doc->setWorkTabId($tab_id);
+
+        // Local date/time.
+        $local_date = date_i18n(get_option('date_format'));
+        $local_time = date_i18n(get_option('time_format'));
+
+        // Default date/time headers (added, never overwriting a real field).
+        $data['Entry ID']        = $latest_id;
+        $data['date']            = $local_date;
+        $data['Entry Date']      = $local_date;
+        $data['Submission Date'] = $local_date;
+        $data['Date']            = $local_date;
+        $data['time']            = $local_time;
+
+        // Insert row.
+        $doc->add_row_feed($spreadsheet_id, $tab_name, $data, false);
+
+    } catch (Exception $e) {
+
+        GsEl_Connector_Utility::ele_gs_debug_log(
+            'Error sending data to Google Sheets for feed ID: ' . $feed_id . '. ' . $e->getMessage()
+        );
+    }
+}
+
+/**
+ * Record the tmp path of the atomic-form file currently entering wp_handle_upload().
+ *
+ * Hooked to `elementor_pro_atomic_forms_send_form_prefilter` — WordPress builds
+ * that filter name from the `action` Elementor passes to wp_handle_upload(), so
+ * it fires ONLY for atomic-form uploads. Paired with gscelef_atomic_capture_upload_url()
+ * (WP calls the two sequentially, once per file).
+ *
+ * @since 1.3.5
+ *
+ * @param array $file A single $_FILES-style element (name/type/tmp_name/error/size).
+ * @return array $file, unchanged.
+ */
+public function gscelef_atomic_capture_upload_src($file)
+{
+    $this->gscelef_atomic_upload_src = (is_array($file) && isset($file['tmp_name']))
+    ? (string) $file['tmp_name']
+    : '';
+
+    return $file;
+}
+
+/**
+ * Record the FINAL uploaded URL for the atomic-form file just moved by WordPress.
+ *
+ * Hooked to the core `wp_handle_upload` filter, which fires only on a successful
+ * move. We only act when gscelef_atomic_capture_upload_src() just set the tmp
+ * path, so media-library / other-plugin uploads are ignored.
+ *
+ * @since 1.3.5
+ *
+ * @param array  $upload  { file, url, type } for the moved file.
+ * @param string $context 'upload' or 'sideload'.
+ * @return array $upload, unchanged.
+ */
+public function gscelef_atomic_capture_upload_url($upload, $context = '')
+{
+    if (
+        '' !== $this->gscelef_atomic_upload_src
+        && is_array($upload)
+        && empty($upload['error'])
+        && ! empty($upload['url'])
+    ) {
+        $this->gscelef_atomic_uploaded[$this->gscelef_atomic_upload_src] = (string) $upload['url'];
+    }
+
+    $this->gscelef_atomic_upload_src = '';
+
+    return $upload;
+}
+
+/**
+ * Map the URLs captured via wp_handle_upload() back to their atomic form fields.
+ *
+ * `$_FILES['form_fields'][<key>][<field_index>]['value'][<file_index>]` mirrors
+ * `$_POST['form_fields'][<field_index>]` (Elementor's own File_Upload_Handler
+ * uses the same index -> element-id mapping). The tmp path is the join key.
+ *
+ * @since 1.3.5
+ *
+ * @param array $raw_fields Unslashed $_POST['form_fields'].
+ * @return array<string,string[]> [ element_id => [ url, ... ] ]
+ */
+private function gscelef_atomic_collect_file_urls(array $raw_fields)
+{
+    $out = array();
+
+    if (empty($this->gscelef_atomic_uploaded)) {
+        return $out;
+    }
+
+    // phpcs:ignore WordPress.Security.ValidatedSanitizedInput -- structural read; tmp paths are compared to our own captured map, never trusted or output.
+    $raw = isset($_FILES['form_fields']) && is_array($_FILES['form_fields']) ? $_FILES['form_fields'] : array();
+    if (empty($raw['tmp_name']) || ! is_array($raw['tmp_name'])) {
+        return $out;
+    }
+
+    foreach ($raw_fields as $index => $field) {
+
+        if (! is_array($field)) {
+            continue;
         }
 
-        // -----------------------------------------------------------------
-        // Send data to Google Sheets
-        // -----------------------------------------------------------------
-        if ($spreadsheet_id !== '' && $tab_name !== '' && $tab_id !== '') {
+        $element_id = isset($field['id']) ? sanitize_text_field($field['id']) : '';
+        if ('' === $element_id) {
+            continue;
+        }
 
-            try {
+        $branch = isset($raw['tmp_name'][$index]['value']) ? $raw['tmp_name'][$index]['value'] : null;
+        if (! is_array($branch)) {
+            continue;
+        }
 
-                include_once GS_CONN_ELE_ROOT . '/lib/google-sheets.php';
-
-                $doc = new GSC_Elementor_Free();
-
-                $doc->auth();
-
-                $doc->setSpreadsheetId($spreadsheet_id);
-
-                $doc->setWorkTabId($tab_id);
-
-                          // Local date/time
-                $local_date = date_i18n(get_option('date_format'));
-
-                $local_time = date_i18n(get_option('time_format'));
-
-                        // Default headers
-                       // Add date & time
-                $data['Entry ID'] = $latest_id;
-                $data['date'] = $local_date;
-                $data['Entry Date'] = $local_date;
-                $data['Submission Date'] = $local_date;
-                $data['Date'] = $local_date;
-                $data['time'] = $local_time;
-
-                // Insert row
-                $doc->add_row_feed(
-                    $spreadsheet_id,
-                    $tab_name,
-                    $data,
-                    false
-                );
-
-            } catch (Exception $e) {
-
-                GsEl_Connector_Utility::ele_gs_debug_log(
-                    'Error sending data to Google Sheets for feed ID: '
-                    . $feed_id . '. '
-                    . $e->getMessage()
-                );
+        $urls = array();
+        foreach ($branch as $tmp) {
+            $tmp = is_string($tmp) ? $tmp : '';
+            if ('' !== $tmp && isset($this->gscelef_atomic_uploaded[$tmp])) {
+                $urls[] = $this->gscelef_atomic_uploaded[$tmp];
             }
+        }
 
-        } else {
-
-            GsEl_Connector_Utility::ele_gs_debug_log(
-                'Missing spreadsheet configuration for feed ID: '
-                . $feed_id
-            );
+        if (! empty($urls)) {
+            $out[$element_id] = $urls;
         }
     }
+
+    return $out;
+}
+
+/**
+ * Capture an Elementor 4 "atomic" form submission and sync it to Google Sheets.
+ *
+ * Hooked to the `elementor_pro/atomic_forms/spam_check` FILTER (priority 20).
+ * That filter is the only point Elementor Pro exposes AFTER it has validated the
+ * nonce, resolved the form element and run File_Upload_Handler (so uploaded file
+ * URLs already exist, captured via wp_handle_upload). This method reads the
+ * filter value, does its sync, and ALWAYS returns the value unchanged — it never
+ * echoes, wp_die()s or alters Elementor's spam decision / response / actions.
+ *
+ * Request shape (Elementor core `atomic-widgets-form-handler.js`, verified):
+ *   $_POST['post_id']     = owning document id
+ *   $_POST['form_id']     = the e-form element id
+ *   $_POST['form_fields'] = [ ['id','type','label','name','options','value'], ... ]
+ *   $_FILES['form_fields']= file-upload fields (value key absent in $_POST)
+ *
+ * @since 1.3.5
+ *
+ * @param bool  $spam            Incoming spam-check result (returned unchanged).
+ * @param array $form_fields     Elementor's sanitised form_fields (submission signal).
+ * @param array $widget_settings Resolved form widget settings (unused).
+ * @param int   $post_id         Owning document id.
+ * @return bool The unchanged $spam value.
+ */
+public function gscelef_atomic_form_capture($spam = false, $form_fields = array(), $widget_settings = array(), $post_id = 0)
+{
+    static $processed = array();
+
+    // Another spam check already rejected this submission — do not sync.
+    if ($spam) {
+        return $spam;
+    }
+
+    try {
+
+        // Defensive re-check of the atomic-form nonce (Elementor validates it too).
+        $nonce = isset($_POST['_nonce']) ? sanitize_text_field(wp_unslash($_POST['_nonce'])) : '';
+        if (! wp_verify_nonce($nonce, 'elementor_pro_atomic_forms_send_form')) {
+            return $spam;
+        }
+
+        $post_id = $post_id ? absint($post_id)
+        : (isset($_POST['post_id']) ? absint(wp_unslash($_POST['post_id'])) : 0);
+        $form_id = isset($_POST['form_id']) ? sanitize_text_field(wp_unslash($_POST['form_id'])) : '';
+
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized per-field in gscelef_atomic_fields_to_data().
+        $raw_fields = isset($_POST['form_fields']) ? wp_unslash($_POST['form_fields']) : array();
+
+        if (! $post_id || '' === $form_id || ! is_array($raw_fields) || empty($raw_fields)) {
+            return $spam;
+        }
+
+        // Process a given submission only once per request.
+        $dedupe_key = $post_id . '|' . $form_id;
+        if (isset($processed[$dedupe_key])) {
+            return $spam;
+        }
+        $processed[$dedupe_key] = true;
+
+        // Same feed lookup used by the classic handler.
+        $feeds = $this->get_form_feeds($post_id);
+        if (empty($feeds)) {
+            return $spam;
+        }
+
+        // Grouped checkbox / radio fields do not carry their connected Label in
+        // the payload (Elementor's JS sends the group name instead) - resolve it
+        // from the saved form so a sheet header built from the visible label matches.
+        $group_labels = $this->gscelef_atomic_group_labels($post_id, $form_id);
+
+        // File-upload fields: value is not in $_POST. Elementor has already
+        // validated + uploaded the file(s); use the URL(s) it produced.
+        $file_urls = $this->gscelef_atomic_collect_file_urls($raw_fields);
+
+        // Build "sheet header => value", mirroring the classic mapping.
+        $data = $this->gscelef_atomic_fields_to_data($raw_fields, $group_labels, $file_urls);
+        if (empty($data)) {
+            return $spam;
+        }
+
+        foreach ($feeds as $feed) {
+
+            $feed_meta = maybe_unserialize($feed->meta_value);
+
+            // Atomic forms are always saved as the new element_id feed format.
+            $feed_element_id = (is_array($feed_meta) && ! empty($feed_meta['element_id']))
+            ? $feed_meta['element_id']
+            : '';
+
+            if ('' === $feed_element_id || $feed_element_id !== $form_id) {
+                continue;
+            }
+
+            if (intval(get_post_meta($feed->meta_id, 'gselef_status', true)) !== 1) {
+                continue;
+            }
+
+            $this->gscelef_dispatch_feed_row($feed->meta_id, $data);
+        }
+
+    } catch (Exception $e) {
+
+        if (class_exists('GsEl_Connector_Utility')) {
+            GsEl_Connector_Utility::ele_gs_debug_log('Atomic form Google Sheets sync error: ' . $e->getMessage());
+        }
+    } catch (\Throwable $t) {
+
+        if (class_exists('GsEl_Connector_Utility')) {
+            GsEl_Connector_Utility::ele_gs_debug_log('Atomic form Google Sheets sync fatal: ' . $t->getMessage());
+        }
+    }
+
+    // Never alter Elementor's spam decision / response / actions.
+    return $spam;
+}
+
+/**
+ * Convert an atomic form's `form_fields` payload into the "header => value" map
+ * used for Google Sheet column matching.
+ *
+ * RECOMMENDED CONVENTION: create the Google Sheet header from the field LABEL
+ * (same as the classic Elementor Form widget and Contact Form 7).
+ *
+ * The catch with Elementor 4 atomic fields: a field only reports a usable
+ * `label` in the submission payload when a Label widget is connected to it
+ * (field setting "Connected to input ID"), an aria-label is set, or - for text
+ * inputs only - a placeholder exists. A <select> (and checkbox / radio) has no
+ * placeholder, so a form whose Select has no connected Label sends the field's
+ * auto-generated CSS id as the "label", and the selected value never lands in
+ * the "Interest"-style column the user created.
+ *
+ * To make every field type sync without forcing the user to rebuild the form,
+ * the value is written under each distinct readable identifier the field
+ * exposes - its label, its `name`, and its CSS id - so the column matches
+ * whichever the user typed as the header. The primary key (label, or the
+ * field name / id when Elementor could not resolve a label) is written first
+ * and unconditionally, so sheets that already match on the label are unchanged;
+ * the extra aliases only ever fill a header no other field has claimed.
+ *
+ * The selected value of a <select> is the chosen option's `value` attribute
+ * (not its visible text); this is already present in the payload and is passed
+ * through unchanged.
+ *
+ * @since 1.3.5
+ *
+ * @param array $raw_fields    Unslashed $_POST['form_fields'].
+ * @param array $group_labels  Optional [ group_name => connected_label ] for
+ *                             checkbox/radio groups (see gscelef_atomic_group_labels()).
+ * @param array $file_urls     Optional [ element_id => [url,...] ] for file-upload
+ *                             fields (see gscelef_atomic_collect_file_urls()).
+ * @return array<string,string>
+ */
+private function gscelef_atomic_fields_to_data(array $raw_fields, array $group_labels = array(), array $file_urls = array())
+{
+    $data = array();
+
+    foreach ($raw_fields as $field) {
+
+        if (! is_array($field)) {
+            continue;
+        }
+
+        $label = isset($field['label']) ? sanitize_text_field($field['label']) : '';
+        $name  = isset($field['name'])  ? sanitize_text_field($field['name'])  : '';
+        $fid   = isset($field['id'])    ? sanitize_text_field($field['id'])    : '';
+
+        $value = isset($field['value']) ? $field['value'] : '';
+
+        if (is_array($value)) {
+            // checkbox / radio groups, multi-selects, file lists
+            $value = implode(', ', array_map('sanitize_text_field', $value));
+        } else {
+            $value = sanitize_text_field($value);
+        }
+
+        $field_type = isset($field['type']) ? sanitize_key($field['type']) : '';
+
+        // File-upload field: the value is never in $_POST (the browser puts the
+        // File in $_FILES). Use the final URL(s) Elementor produced for this
+        // element id, captured via the core wp_handle_upload filter - no second
+        // upload. Multiple files -> comma-separated URLs.
+        if (('file' === $field_type || isset($file_urls[$fid])) && ! empty($file_urls[$fid]) && is_array($file_urls[$fid])) {
+            $value = implode(', ', array_map('esc_url_raw', $file_urls[$fid]));
+        }
+
+        // A submitted label that is identical to the field's own `name` means
+        // the browser could not resolve a real connected-Label text for it -
+        // either a grouped checkbox/radio (Elementor's frontend JS always
+        // submits the shared group `name` as the label for these, never the
+        // connected Label widget) or a single field with no placeholder
+        // fallback, in practice a Select whose Label widget the browser could
+        // not associate. Swap in the label gscelef_atomic_group_labels()
+        // resolved from the saved form data, if any, so a sheet header made
+        // from the visible label still matches. `name` and the element id
+        // stay as aliases either way.
+        if (
+            '' !== $name
+            && $label === $name
+            && isset($group_labels[$name])
+            && '' !== $group_labels[$name]
+        ) {
+            $label = sanitize_text_field($group_labels[$name]);
+        }
+
+        // The atomic "Date picker" is an <input type="date"> and always submits
+        // an ISO date (YYYY-MM-DD). Convert it to the site's configured date
+        // format (Settings -> General -> Date Format) before it reaches the
+        // sheet, so it matches the date columns the plugin already writes with
+        // date_i18n(). Never hard-code a format; leave anything that is not a
+        // plain ISO date untouched.
+        if ('date' === $field_type && is_string($value) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $value)) {
+            $gscelef_date_ts = strtotime($value . ' 00:00:00');
+            if (false !== $gscelef_date_ts) {
+                $value = date_i18n(get_option('date_format'), $gscelef_date_ts);
+            }
+        }
+
+        // Candidate header keys, most human-readable first.
+        $keys = array();
+        if ('' !== $label) {
+            $keys[] = $label;
+        }
+        if ('' !== $name) {
+            $keys[] = $name;
+        }
+        if ('' !== $fid) {
+            $keys[] = $fid;
+        }
+        $keys = array_values(array_unique($keys));
+
+        if (empty($keys)) {
+            continue;
+        }
+
+        // Primary key: written unconditionally (existing behaviour for labelled fields).
+        $primary = array_shift($keys);
+        $data[$primary] = $value;
+
+        // Aliases: only fill a header not already claimed by another field.
+        foreach ($keys as $alias) {
+            if (! array_key_exists($alias, $data)) {
+                $data[$alias] = $value;
+            }
+        }
+    }
+
+    return $data;
+}
+
+/**
+ * Resolve the connected Label text for atomic-form fields whose submitted
+ * `label` is not usable as-is, keyed by the same identifier the field submits
+ * as its `name` (so gscelef_atomic_fields_to_data() can look it up directly).
+ *
+ * Two cases share this one lookup, both solved by the same underlying data —
+ * a `_cssid` -> connected-Label-text map read from `_elementor_data` (the same
+ * `<label for>` relation the browser uses):
+ *
+ *  - Grouped checkbox / radio: Elementor's frontend groups these inputs by
+ *    their shared `name` attribute and, for a group, submits that `name` as
+ *    the field label (the connected Label widget is only resolved by the
+ *    browser for single fields).
+ *  - A single field (Select, in practice) with a connected Label widget the
+ *    browser could not resolve to text: Select has no placeholder fallback,
+ *    so when it isn't connected the browser submits the field's own
+ *    auto-generated CSS id as both `label` and `name`.
+ *
+ * Returns [ name_or_group_name => label_text ].
+ *
+ * @since 1.3.5
+ *
+ * @param int    $post_id Owning document id (the popup / page).
+ * @param string $form_id The e-form element id.
+ * @return array<string,string>
+ */
+private function gscelef_atomic_group_labels($post_id, $form_id)
+{
+    $labels = array();
+
+    $raw  = get_post_meta($post_id, '_elementor_data', true);
+    $tree = is_array($raw) ? $raw : json_decode(is_string($raw) ? $raw : '', true);
+    if (! is_array($tree) || '' === (string) $form_id) {
+        return $labels;
+    }
+
+    // Locate the atomic form node.
+    $form_node = null;
+    $find = function ($nodes) use (&$find, $form_id, &$form_node) {
+        foreach ((array) $nodes as $n) {
+            if (! is_array($n)) {
+                continue;
+            }
+            if (('e-form' === ($n['elType'] ?? '')) && ((string) ($n['id'] ?? '') === (string) $form_id)) {
+                $form_node = $n;
+                return;
+            }
+            if (! empty($n['elements'])) {
+                $find($n['elements']);
+                if (null !== $form_node) {
+                    return;
+                }
+            }
+        }
+    };
+    $find($tree);
+    if (! is_array($form_node) || empty($form_node['elements'])) {
+        return $labels;
+    }
+
+    // Collect label text by input-id, the CSS ids that belong to each
+    // checkbox/radio group, and - for every OTHER single field type - the
+    // identifier it submits as `name` (its own `name` setting, or its `_cssid`
+    // when unset, mirroring the browser's own name-fallback).
+    $label_by_input = array();
+    $cssids_by_group = array();
+    $name_by_cssid  = array();
+    $single_field_types = array('e-form-input', 'e-form-textarea', 'e-form-select', 'e-form-date-picker', 'e-form-file-upload');
+    $walk = function ($nodes) use (&$walk, &$label_by_input, &$cssids_by_group, &$name_by_cssid, $single_field_types) {
+        foreach ((array) $nodes as $n) {
+            if (! is_array($n)) {
+                continue;
+            }
+            $wt = $n['widgetType'] ?? '';
+            $s  = (isset($n['settings']) && is_array($n['settings'])) ? $n['settings'] : array();
+
+            if ('e-form-label' === $wt) {
+                $for = $this->gscelef_atomic_prop($s, 'input-id');
+                $txt = $this->gscelef_atomic_prop($s, 'text');
+                if (is_array($txt)) {
+                    $txt = isset($txt['content']['value']) ? $txt['content']['value']
+                    : (isset($txt['content']) && is_string($txt['content']) ? $txt['content'] : '');
+                }
+                $txt = is_string($txt) ? trim(wp_strip_all_tags($txt)) : '';
+                if ('' !== $for && '' !== $txt) {
+                    $label_by_input[$for] = $txt;
+                }
+            }
+
+            if ('e-form-checkbox' === $wt || 'e-form-radio-button' === $wt) {
+                $group = $this->gscelef_atomic_prop($s, 'name');
+                $cssid = $this->gscelef_atomic_prop($s, '_cssid');
+                if (is_string($group) && '' !== $group && is_string($cssid) && '' !== $cssid) {
+                    $cssids_by_group[$group][] = $cssid;
+                }
+            }
+
+            if (in_array($wt, $single_field_types, true)) {
+                $cssid = $this->gscelef_atomic_prop($s, '_cssid');
+                $name  = $this->gscelef_atomic_prop($s, 'name');
+                $key   = (is_string($name) && '' !== $name) ? $name : $cssid;
+                if (is_string($cssid) && '' !== $cssid && is_string($key) && '' !== $key) {
+                    $name_by_cssid[$cssid] = $key;
+                }
+            }
+
+            if (! empty($n['elements'])) {
+                $walk($n['elements']);
+            }
+        }
+    };
+    $walk($form_node['elements']);
+
+    foreach ($cssids_by_group as $group => $cssids) {
+        foreach ($cssids as $cssid) {
+            if (isset($label_by_input[$cssid])) {
+                $labels[$group] = $label_by_input[$cssid];
+                break;
+            }
+        }
+    }
+
+    // Single fields (e.g. an unconnected Select) whose own cssid has a
+    // resolved connected-Label text - only fills a key the group logic above
+    // did not already claim.
+    foreach ($name_by_cssid as $cssid => $key) {
+        if (isset($label_by_input[$cssid]) && '' !== $label_by_input[$cssid] && ! isset($labels[$key])) {
+            $labels[$key] = $label_by_input[$cssid];
+        }
+    }
+
+    return $labels;
+}
+
+/**
+ * Read a possibly-transformable atomic prop value:
+ * [ '$$type' => '<type>', 'value' => X ]  ->  X   (otherwise the value as-is).
+ *
+ * @since 1.3.5
+ *
+ * @param array  $settings The element's settings array.
+ * @param string $key      Prop key.
+ * @return mixed
+ */
+private function gscelef_atomic_prop(array $settings, $key)
+{
+    if (! isset($settings[$key])) {
+        return '';
+    }
+    $v = $settings[$key];
+    if (is_array($v) && array_key_exists('value', $v)) {
+        return $v['value'];
+    }
+    return $v;
 }
 
 /**

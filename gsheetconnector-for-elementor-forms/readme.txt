@@ -1,42 +1,42 @@
 === GSheetConnector - Elementor Forms Google Sheet Connector to Sync Submissions to Google Sheets ===
 Contributors: westerndeal, abdullah17, gsheetconnector
 Donate link: https://www.paypal.me/WesternDeal
-Tags: elementor, elementor forms, elementor addons, metform google sheets, elementor forms to google sheets
+Tags: elementor, elementor forms, elementor addons, metform google sheets, atomic forms
 Requires at least: 5.6
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.4
+Stable tag: 1.3.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author URI: https://www.gsheetconnector.com/
 
-Sync Elementor Forms and MetForm to Google Sheets in real-time with secure Google Sheets integration and automatic form submission sync.
+Sync Elementor Forms, Elementor Atomic Forms, and MetForm to Google Sheets in real-time with secure Google Sheets integration and automatic form submission sync.
 
 == Description ==
 
-**GSheetConnector for Elementor Forms** is a powerful **Elementor Google Sheets integration plugin** that connects Elementor Forms and MetForm directly to Google Sheets.
+**GSheetConnector for Elementor Forms** is a powerful **Elementor Google Sheets integration plugin** that connects Elementor Forms, Elementor Atomic Forms, and MetForm directly to Google Sheets.
 
-GSheetConnector acts as a secure bridge between your WordPress site, Elementor Pro Forms or MetForm, and Google Sheets — enabling real-time form submission sync and automated spreadsheet management without manual exports.
+GSheetConnector acts as a secure bridge between your WordPress site, Elementor Pro Forms, Elementor Atomic Forms, or MetForm, and Google Sheets — enabling real-time form submission sync and automated spreadsheet management without manual exports.
 
 Automatically sync Elementor form submissions to Google Sheets in real-time and eliminate manual exports, CSV downloads, or copy-paste workflows. Every submission is securely transferred to your selected Google Spreadsheet instantly after form submission.
 
 Whether you collect leads, contact inquiries, bookings, registrations, or customer data, GSheetConnector ensures reliable Google Sheets sync and structured spreadsheet management directly from your WordPress site.
 
-Built specifically for Elementor Pro Forms and MetForm, this plugin delivers seamless Google Sheets integration with secure authentication and automatic data synchronization.
+Built specifically for Elementor Pro Forms, Elementor Atomic Forms, and MetForm, this plugin delivers seamless Google Sheets integration with secure authentication and automatic data synchronization.
 
 == Why Choose GSheetConnector? ==
 
 ✔ Sync Elementor Forms to Google Sheets instantly  
 ✔ Direct Google Sheets integration without third-party automation tools like Zapier  
-✔ Support for Elementor Pro and MetForm  
+✔ Support for Elementor Pro Forms, Elementor Atomic Forms, and MetForm  
 ✔ Secure Google OAuth 2.0 authentication  
 ✔ Lightweight, fast, and performance optimized  
 
-Built specifically for Elementor Pro Forms and MetForm users who need secure, real-time Google Sheets integration and reliable form submission sync.
+Built specifically for Elementor Pro Forms, Elementor Atomic Forms, and MetForm users who need secure, real-time Google Sheets integration and reliable form submission sync.
 
 == How Elementor to Google Sheets Sync Works ==
 
-When a visitor submits an Elementor Form (Elementor Pro) or MetForm (Free or Pro), GSheetConnector automatically syncs the form submission to Google Sheets in real-time by creating a new row in your connected Google Spreadsheet.
+When a visitor submits an Elementor Form (Elementor Pro), Elementor Atomic Form, or MetForm (Free or Pro), GSheetConnector automatically syncs the form submission to Google Sheets in real-time by creating a new row in your connected Google Spreadsheet.
 
 All standard and advanced form field types are supported. Submission date is recorded automatically, with extended metadata available in the Pro version.
 
@@ -45,7 +45,7 @@ Secure Google OAuth authentication ensures safe data transfer without complex AP
 == Core Features (Free Version) ==
 
 = Real-Time Elementor Forms to Google Sheets Sync =
-Automatically sync Elementor Forms and MetForm submissions to Google Sheets in real-time.
+Automatically sync Elementor Forms, Elementor Atomic Forms, and MetForm submissions to Google Sheets in real-time.
 
 = One-Time Google Authentication =
 Authenticate once and enable continuous automatic form submission sync.
@@ -63,7 +63,7 @@ Access your linked Google Sheet directly from plugin settings.
 Includes one-click Google authentication using official Google APIs.
 
 = Full Compatibility =
-Works with Elementor Pro Forms, MetForm (Free & Pro), latest WordPress versions, and modern PHP environments.
+Works with Elementor Pro Forms, Elementor Atomic Forms, MetForm (Free & Pro), latest WordPress versions, and modern PHP environments.
 
 == 🛠️ How to Send Elementor Forms Entries to Google Sheets ==
 
@@ -88,7 +88,7 @@ Upgrade to Elementor Forms Google Sheets Connector PRO for advanced automation a
 Generate Google Sheet column headers automatically from form fields.
 
 = Synchronize Existing Entries =
-Sync previously submitted Elementor or MetForm entries.
+Sync previously submitted Elementor, Elementor Atomic Form, or MetForm entries.
 
 = Advanced Field & Column Management =
 Edit, reorder, enable, or disable specific form fields before syncing.
@@ -161,6 +161,10 @@ No. Elementor Pro is required for the Form widget.
 
 Yes. MetForm (Free & Pro) is supported.
 
+= Are Elementor Atomic Forms supported? =
+
+Yes. Elementor Atomic Forms are supported for Google Sheets synchronization.
+
 = Why do I see “This app isn’t verified”? =
 
 This appears when using custom API credentials (Pro).  
@@ -184,7 +188,7 @@ Manual API and Service Account options are available in Pro.
 
 Alternatively, open the Elementor editor → select the Form widget → enable “Actions After Submit” → choose “GSheetConnector” → enter your sheet details.
 
-Your Elementor Forms and MetForm submissions will now sync automatically.
+Your Elementor Forms, Elementor Atomic Forms, and MetForm submissions will now sync automatically.
 
 == Screenshots ==
 
@@ -198,6 +202,13 @@ Your Elementor Forms and MetForm submissions will now sync automatically.
 
 
 == Changelog ==
+
+= 1.3.5 (12-09-2026) =
+* Added: Compatibility with Elementor Atomic Forms, including Google Sheets submission synchronization, form and field detection, field mapping, date picker, file upload, Select, Checkbox, and Radio field support.
+* Improved: Elementor Atomic Forms are now identified in the Form Feeds and Edit Feed pages with the correct form name and "[Atomic Form]" label.
+* Fixed: Atomic Form fields with connected Label widgets are now correctly mapped to their corresponding Google Sheet columns.
+* Fixed: Elementor Forms inside private Elementor templates, Popups, Landing Pages, Floating Buttons, and custom post types are now correctly detected in the Form Feeds dropdown.
+* Fixed: MetForm feeds now correctly display the MetForm name instead of "Unnamed Form" in the Form Feeds and Edit Feed pages.
 
 = 1.3.4 (27-08-2026) =
 * Fixed: Fixed an issue where renamed Google Sheet tab names were not refreshed and displayed correctly in the Elementor Forms feed settings.

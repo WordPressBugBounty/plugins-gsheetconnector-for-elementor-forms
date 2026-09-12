@@ -149,44 +149,74 @@ if ($elementor_data) {
 
             foreach ($elements as $element) {
 
-                // Elementor form widget
-                if (
-                    isset($element['widgetType']) &&
-                    $element['widgetType'] === 'form'
-                ) {
+                if (!is_array($element)) {
+                    continue;
+                }
+
+                /*
+                 * Recognise BOTH form representations Elementor can persist:
+                 *
+                 *  - Classic Elementor Pro Form widget:
+                 *      elType 'widget' + widgetType 'form',
+                 *      name in settings['form_name'] (plain string)
+                 *
+                 *  - Elementor 4 atomic form (<form data-element_type="e-form">):
+                 *      elType 'e-form' (NO widgetType key),
+                 *      name in settings['form-name'] as a transformable prop
+                 *      [ '$$type' => 'string', 'value' => '...' ]
+                 *
+                 * This mirrors the detection already used by the Form Feeds
+                 * dropdown (gscelef_form_node_info / get_form_by_element_id) so
+                 * the edit page resolves the same name.
+                 */
+                $gsc_el_type     = isset($element['elType']) ? $element['elType'] : '';
+                $gsc_widget_type = isset($element['widgetType']) ? $element['widgetType'] : '';
+
+                $gsc_is_classic_form = ('form' === $gsc_widget_type);
+                $gsc_is_atomic_form  = ('e-form' === $gsc_el_type || 'e-form' === $gsc_widget_type);
+
+                if ($gsc_is_classic_form || $gsc_is_atomic_form) {
 
                     $current_element_id = isset($element['id'])
                     ? $element['id']
                     : '';
 
-                    // -----------------------------------------------------------------
-                    // NEW USERS
-                    // Match exact Elementor ID
-                    // -----------------------------------------------------------------
-                    if (!empty($saved_element_id)) {
+                    // NEW USERS: match the saved Elementor element id.
+                    // OLD USERS (no saved id): first form found (unchanged).
+                    if (empty($saved_element_id) || $saved_element_id === $current_element_id) {
 
-                        if ($saved_element_id === $current_element_id) {
+                        if ($gsc_is_atomic_form) {
 
-                            return array(
-                                'form_name' => isset($element['settings']['form_name'])
-                                ? $element['settings']['form_name']
-                                : 'Unnamed Form',
+                            $gsc_atomic_name = isset($element['settings']['form-name'])
+                            ? $element['settings']['form-name']
+                            : '';
 
-                                'element_id' => $current_element_id
-                            );
-                        }
-                    } else {
+                            if (is_array($gsc_atomic_name)) {
+                                $gsc_atomic_name = isset($gsc_atomic_name['value'])
+                                ? $gsc_atomic_name['value']
+                                : '';
+                            }
 
-                        // -------------------------------------------------------------
-                        // OLD USERS
-                        // First form fallback
-                        // -------------------------------------------------------------
-                        return array(
-                            'form_name' => isset($element['settings']['form_name'])
+                            $gsc_atomic_name = is_string($gsc_atomic_name)
+                            ? trim($gsc_atomic_name)
+                            : '';
+
+                            $gsc_form_name = ('' !== $gsc_atomic_name)
+                            ? $gsc_atomic_name
+                            : 'Unnamed Form';
+
+                        } else {
+
+                            // Classic — unchanged from the original behaviour.
+                            $gsc_form_name = isset($element['settings']['form_name'])
                             ? $element['settings']['form_name']
-                            : 'Unnamed Form',
+                            : 'Unnamed Form';
+                        }
 
-                            'element_id' => $current_element_id
+                        return array(
+                            'form_name'  => $gsc_form_name,
+                            'element_id' => $current_element_id,
+                            'is_atomic'  => $gsc_is_atomic_form,
                         );
                     }
                 }
@@ -221,7 +251,13 @@ if ($elementor_data) {
 
         if (!empty($form_result['form_name'])) {
 
-            $form_title = $form_result['form_name'];
+            // Display-only: prefix atomic forms so the Edit Feed page matches the
+            // Form Feeds list ("Atomic Form : {name}"). Uses the is_atomic flag
+            // already returned by gsc_find_form_name_by_element_id(). Classic
+            // forms are shown exactly as before.
+            $form_title = !empty($form_result['is_atomic'])
+            ? 'Atomic Form : ' . $form_result['form_name']
+            : $form_result['form_name'];
 
            // Show Elementor ID for new users only
             if (!empty($element_id)) {
@@ -229,6 +265,17 @@ if ($elementor_data) {
             }
         }
     }
+}
+
+// -----------------------------------------------------------------------------
+// MetForm forms have no `_elementor_data` at all, so the block above never
+// runs for them and $form_title keeps its 'Unnamed Form' default. The feed's
+// form_id IS the metform-form CPT post id, so that post's own title (already
+// resolved above as $page_name) is the form name - matching the "MetForm: "
+// convention already used by the New Feed form-picker dropdown.
+// -----------------------------------------------------------------------------
+if ('Unnamed Form' === $form_title && 'metform-form' === get_post_type($form_id)) {
+    $form_title = 'MetForm: ' . $page_name;
 }
 
 
@@ -1361,17 +1408,158 @@ function get_form_name($data)
     return null;
 }
 
+/**
+ * Read a possibly-transformable atomic prop value:
+ * [ '$$type' => '<type>', 'value' => X ]  ->  X   (otherwise the value as-is).
+ *
+ * Local to this file on purpose - mirrors GSC_Elementor_Integration's own
+ * gscelef_atomic_prop() (edit-sheet.php and the sync class are loaded on
+ * mutually exclusive requests; see gsc_find_form_name_by_element_id() above
+ * for the same pattern already used in this file).
+ *
+ * @since 1.3.5
+ */
+function gsc_atomic_prop($settings, $key)
+{
+    if (!isset($settings[$key])) {
+        return '';
+    }
+    $v = $settings[$key];
+    return (is_array($v) && array_key_exists('value', $v)) ? $v['value'] : $v;
+}
+
+/**
+ * Build the "Select Fields to Sync" list for an Elementor 4 atomic form,
+ * shaped like classic Elementor Pro's `form_fields` repeater (an array of
+ * ['field_label' => ...]) so the existing caller in this file needs no change.
+ *
+ * Per field, the label shown mirrors the same precedence the atomic sync
+ * mapper resolves at submission time (gscelef_atomic_fields_to_data() /
+ * gscelef_atomic_group_labels() in class-gsc-elementor-integration.php):
+ * a connected Label widget's text, else the field's placeholder, else its
+ * `name` setting, else its CSS id. Grouped checkbox/radio inputs collapse to
+ * one entry per shared group name, matching the single sheet column they
+ * write to.
+ *
+ * @since 1.3.5
+ *
+ * @param array $form_node The matched `e-form` element (with its 'elements').
+ * @return array<int,array{field_label:string}>
+ */
+function gsc_get_atomic_form_field_labels($form_node)
+{
+    $label_by_input   = array();
+    $singles          = array();
+    $choice_groups    = array();
+    $single_types     = array('e-form-input', 'e-form-textarea', 'e-form-select', 'e-form-date-picker', 'e-form-file-upload');
+    $choice_types     = array('e-form-checkbox', 'e-form-radio-button');
+
+    $walk = function ($nodes) use (&$walk, &$label_by_input, &$singles, &$choice_groups, $single_types, $choice_types) {
+        foreach ((array) $nodes as $n) {
+
+            if (!is_array($n)) {
+                continue;
+            }
+
+            $wt = isset($n['widgetType']) ? $n['widgetType'] : '';
+            $s  = (isset($n['settings']) && is_array($n['settings'])) ? $n['settings'] : array();
+
+            if ('e-form-label' === $wt) {
+                $for = gsc_atomic_prop($s, 'input-id');
+                $txt = gsc_atomic_prop($s, 'text');
+                if (is_array($txt)) {
+                    $txt = isset($txt['content']['value']) ? $txt['content']['value']
+                        : (isset($txt['content']) && is_string($txt['content']) ? $txt['content'] : '');
+                }
+                $txt = is_string($txt) ? trim(wp_strip_all_tags($txt)) : '';
+                if (is_string($for) && '' !== $for && '' !== $txt) {
+                    $label_by_input[$for] = $txt;
+                }
+            }
+
+            if (in_array($wt, $single_types, true)) {
+                $cssid = gsc_atomic_prop($s, '_cssid');
+                if (is_string($cssid) && '' !== $cssid) {
+                    $placeholder = gsc_atomic_prop($s, 'placeholder');
+                    $name        = gsc_atomic_prop($s, 'name');
+                    $singles[]   = array(
+                        'cssid'       => $cssid,
+                        'placeholder' => is_string($placeholder) ? $placeholder : '',
+                        'name'        => is_string($name) ? $name : '',
+                    );
+                }
+            }
+
+            if (in_array($wt, $choice_types, true)) {
+                $group = gsc_atomic_prop($s, 'name');
+                $cssid = gsc_atomic_prop($s, '_cssid');
+                if (is_string($group) && '' !== $group) {
+                    if (!isset($choice_groups[$group])) {
+                        $choice_groups[$group] = array();
+                    }
+                    if (is_string($cssid) && '' !== $cssid) {
+                        $choice_groups[$group][] = $cssid;
+                    }
+                }
+            }
+
+            if (!empty($n['elements'])) {
+                $walk($n['elements']);
+            }
+        }
+    };
+    $walk(isset($form_node['elements']) ? $form_node['elements'] : array());
+
+    $out = array();
+
+    foreach ($singles as $f) {
+        if (isset($label_by_input[$f['cssid']]) && '' !== $label_by_input[$f['cssid']]) {
+            $label = $label_by_input[$f['cssid']];
+        } elseif ('' !== $f['placeholder']) {
+            $label = $f['placeholder'];
+        } elseif ('' !== $f['name']) {
+            $label = $f['name'];
+        } else {
+            $label = $f['cssid'];
+        }
+        $out[] = array('field_label' => $label);
+    }
+
+    foreach ($choice_groups as $group_name => $cssids) {
+        $label = $group_name;
+        foreach ($cssids as $cssid) {
+            if (isset($label_by_input[$cssid]) && '' !== $label_by_input[$cssid]) {
+                $label = $label_by_input[$cssid];
+                break;
+            }
+        }
+        $out[] = array('field_label' => $label);
+    }
+
+    return $out;
+}
+
 function get_specific_form_fields($elements, $saved_element_id = '')
 {
     $fields = array();
 
     foreach ($elements as $element) {
 
+        if (!is_array($element)) {
+            continue;
+        }
+
+        $gsc_el_type     = isset($element['elType']) ? $element['elType'] : '';
+        $gsc_widget_type = isset($element['widgetType']) ? $element['widgetType'] : '';
+
+        $gsc_is_classic_form = ('form' === $gsc_widget_type);
+
+        // Elementor 4 atomic form: elType 'e-form' (no widgetType), same
+        // detection already used by gsc_find_form_name_by_element_id() above.
+        $gsc_is_atomic_form = ('e-form' === $gsc_el_type || 'e-form' === $gsc_widget_type);
+
         // Match only selected form
-        if (
-            isset($element['widgetType']) &&
-            $element['widgetType'] === 'form'
-        ) {
+        if ($gsc_is_classic_form) {
 
             $current_element_id = isset($element['id'])
                 ? $element['id']
@@ -1405,6 +1593,21 @@ function get_specific_form_fields($elements, $saved_element_id = '')
                 ) {
 
                     return $element['settings']['form_fields'];
+                }
+            }
+        } elseif ($gsc_is_atomic_form) {
+
+            $current_element_id = isset($element['id'])
+                ? $element['id']
+                : '';
+
+            // Same NEW/OLD-user matching as the classic branch above.
+            if (empty($saved_element_id) || $saved_element_id === $current_element_id) {
+
+                $atomic_fields = gsc_get_atomic_form_field_labels($element);
+
+                if (!empty($atomic_fields)) {
+                    return $atomic_fields;
                 }
             }
         }

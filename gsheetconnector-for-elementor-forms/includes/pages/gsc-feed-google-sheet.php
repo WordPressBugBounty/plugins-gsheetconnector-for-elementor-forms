@@ -10,11 +10,133 @@ if (!defined('ABSPATH')) {
 }
 // phpcs:ignoreFile WordPress.NamingConventions.PrefixAllGlobals
 
+if (!function_exists('gscelef_form_node_info')) {
+    /**
+     * Normalise a single Elementor element node into form information.
+     *
+     * Elementor can persist a form in `_elementor_data` in TWO different shapes,
+     * and both have to be recognised:
+     *
+     *   1. Classic Elementor Pro "Form" widget
+     *        [ 'elType' => 'widget', 'widgetType' => 'form', 'id' => 'abc123',
+     *          'settings' => [ 'form_name' => 'New Form' ] ]
+     *
+     *   2. Elementor 4 "Atomic" form element — rendered on the front end as
+     *      <form data-element_type="e-form" data-e-type="e-form">
+     *        [ 'elType' => 'e-form', 'id' => 'aafc77b',
+     *          'settings' => [ 'form-name' => [ '$$type' => 'string', 'value' => 'Form' ] ] ]
+     *      Atomic *elements* carry no 'widgetType' key at all, and their prop
+     *      values are stored in the transformable shape
+     *      [ '$$type' => '<type>', 'value' => <value> ]. The form-name key also
+     *      switches from `form_name` (underscore) to `form-name` (hyphen).
+     *
+     * @param mixed $node One entry from a decoded `_elementor_data` tree.
+     * @return array{is_form:bool, form_name:string, element_id:string, is_atomic:bool}
+     *               `is_atomic` is true only for the Elementor 4 atomic `e-form`
+     *               element; false for the classic Form widget. Discovery,
+     *               feed values and submission handling are identical for both -
+     *               this flag is used purely for the dropdown display label.
+     */
+    function gscelef_form_node_info($node)
+    {
+        $empty = array('is_form' => false, 'form_name' => '', 'element_id' => '', 'is_atomic' => false);
+
+        if (is_object($node)) {
+            $node = (array) $node;
+        }
+        if (!is_array($node)) {
+            return $empty;
+        }
+
+        $el_type     = isset($node['elType']) ? $node['elType'] : '';
+        $widget_type = isset($node['widgetType']) ? $node['widgetType'] : '';
+
+        $is_classic_form = ('form' === $widget_type);
+        $is_atomic_form  = ('e-form' === $el_type || 'e-form' === $widget_type);
+
+        if (!$is_classic_form && !$is_atomic_form) {
+            return $empty;
+        }
+
+        $settings = (isset($node['settings']) && is_array($node['settings'])) ? $node['settings'] : array();
+
+        if ($is_atomic_form) {
+            $raw_name = isset($settings['form-name']) ? $settings['form-name'] : '';
+            if (is_array($raw_name)) {
+                // Transformable atomic prop: [ '$$type' => 'string', 'value' => '...' ].
+                $raw_name = isset($raw_name['value']) ? $raw_name['value'] : '';
+            }
+        } else {
+            $raw_name = isset($settings['form_name']) ? $settings['form_name'] : '';
+        }
+
+        return array(
+            'is_form'    => true,
+            'form_name'  => is_string($raw_name) ? trim($raw_name) : '',
+            'element_id' => isset($node['id']) ? (string) $node['id'] : '',
+            'is_atomic'  => $is_atomic_form,
+        );
+    }
+}
+
+/* --------------------------------------------------------------------------
+ * Discover every post/page/template that can hold an Elementor Form widget.
+ *
+ * Elementor keeps the form widget inside the `_elementor_data` meta of the post
+ * that owns the document. That owner can be:
+ *   - a normal post / page,
+ *   - an Elementor Landing Page      (post type `e-landing-page`),
+ *   - a Floating Buttons document    (post type `e-floating-buttons`),
+ *   - an `elementor_library` entry   (popup, section, container, header,
+ *     footer, loop item, ...)        <-- popup forms live here,
+ *   - any public custom post type that has the Elementor editor enabled.
+ *
+ * All of Elementor's own CPTs are registered with `public => true`, so instead
+ * of hard-coding a post-type list (which silently dropped popup forms saved as
+ * `private`, floating-button forms and CPT forms) we ask WordPress for every
+ * public post type and let the `_elementor_data` meta key do the filtering.
+ *
+ * Status: Elementor treats BOTH `publish` and `private` as "published"
+ * (\Elementor\Core\Base\Document::is_published()). A popup that is live on the
+ * front end but stored as `private` must therefore be included too.
+ * -------------------------------------------------------------------------- */
+$gscelef_form_post_types = get_post_types(array('public' => true));
+unset($gscelef_form_post_types['attachment']);
+
+/**
+ * Filter the list of post types scanned for Elementor Form widgets when building
+ * the Form Feeds "Select Form" dropdown.
+ *
+ * @since 1.3.5
+ *
+ * @param string[] $post_types Array of post type slugs.
+ */
+$gscelef_form_post_types = apply_filters(
+    'gscelef_form_feed_form_post_types',
+    array_values($gscelef_form_post_types)
+);
+
+/**
+ * Filter the post statuses considered "live" when listing Elementor forms.
+ *
+ * Defaults to Elementor's own definition of a published document
+ * (\Elementor\Core\Base\Document::is_published() -> publish | private).
+ *
+ * @since 1.3.5
+ *
+ * @param string[] $statuses Array of post status slugs.
+ */
+$gscelef_form_post_status = apply_filters(
+    'gscelef_form_feed_form_post_status',
+    array('publish', 'private')
+);
+
 // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Needed to fetch all Elementor-designed posts
 $args = array(
-    'post_type' => array('post', 'page', 'elementor_library', 'e-landing-page'),
-    'post_status' => 'publish',
+    'post_type' => $gscelef_form_post_types,
+    'post_status' => $gscelef_form_post_status,
     'posts_per_page' => -1,
+    'no_found_rows' => true,
     // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Needed to fetch all Elementor-designed posts
     'meta_query' => array(
         array(
@@ -150,10 +272,16 @@ if ($show_setting == 1) {
                                         {
                                             $forms = [];
                                             foreach ($data as $element) {
-                                                if (isset($element['widgetType']) && $element['widgetType'] === 'form') {
+                                                $info = gscelef_form_node_info($element);
+                                                if ($info['is_form']) {
                                                     $forms[] = [
-                                                        'form_name' => $element['settings']['form_name'] ?? esc_html__('Unnamed Form', 'gsheetconnector-for-elementor-forms'),
-                                                        'element_id' => $element['id'] ?? esc_html__('Unknown Element ID', 'gsheetconnector-for-elementor-forms')
+                                                        'form_name' => ('' !== $info['form_name'])
+                                                            ? $info['form_name']
+                                                            : esc_html__('Unnamed Form', 'gsheetconnector-for-elementor-forms'),
+                                                        'element_id' => ('' !== $info['element_id'])
+                                                            ? $info['element_id']
+                                                            : esc_html__('Unknown Element ID', 'gsheetconnector-for-elementor-forms'),
+                                                        'is_atomic' => ! empty($info['is_atomic'])
                                                     ];
                                                 }
                                                 if (isset($element['elements']) && is_array($element['elements'])) {
@@ -174,7 +302,12 @@ if ($show_setting == 1) {
                                                     $form_name = $form['form_name'];
                                                     $element_id = $form['element_id'];
                                                     $form_source = ($f->post_type == 'elementor_library' && get_post_meta($f->ID, '_elementor_template_type', true) == 'popup') ? 'Popup: ' : 'Page/Post: ';
-                                                    echo '<option value="' . esc_attr($form_id . '|' . $element_id) . '">' . esc_html($form_source . $form_name . ' (Element ID: ' . $element_id . ')') . '</option>';
+                                                    // Display-only tag so admins can tell Elementor 4 atomic forms
+                                                    // apart from the classic Form widget. The option value is unchanged.
+                                                    $form_type_tag = ! empty($form['is_atomic'])
+                                                        ? ' ' . esc_html__('[Atomic Form]', 'gsheetconnector-for-elementor-forms')
+                                                        : '';
+                                                    echo '<option value="' . esc_attr($form_id . '|' . $element_id) . '">' . esc_html($form_source . $form_name . $form_type_tag . ' (Element ID: ' . $element_id . ')') . '</option>';
                                                 }
                                             }
                                         }
@@ -242,6 +375,7 @@ if ($show_setting == 1) {
 
                         $form_name = '';
                         $form_title = 'Unnamed Form';
+                        $form_result = null;
 
                         if ($elementor_data) {
 
@@ -296,9 +430,30 @@ if ($show_setting == 1) {
     }
 }
 
-$form_title = !empty($form_name)
-? $form_name
-: 'Unnamed Form';
+// MetForm forms have no `_elementor_data` at all, so $form_name is still
+// empty at this point for them. The feed's post_id IS the metform-form CPT
+// post id, so that post's own title (already fetched above as $post_title)
+// is the form name - matching the "MetForm: " convention already used by
+// the New Feed form-picker dropdown.
+if (empty($form_name) && 'metform-form' === get_post_type($form_id)) {
+    $form_name = $post_title;
+}
+
+if (!empty($form_name)) {
+    // Display-only: tag feeds that belong to an Elementor 4 atomic form or a
+    // MetForm form. Reuses the structural is_atomic flag from
+    // gscelef_form_node_info(); the stored feed name / form ID / element ID
+    // are untouched either way.
+    if (is_array($form_result) && !empty($form_result['is_atomic'])) {
+        $form_title = 'Atomic Form : ' . $form_name;
+    } elseif ('metform-form' === get_post_type($form_id)) {
+        $form_title = 'MetForm: ' . $form_name;
+    } else {
+        $form_title = $form_name;
+    }
+} else {
+    $form_title = 'Unnamed Form';
+}
 
 /* timezone */
 $timezone_string = get_option('timezone_string');
@@ -479,6 +634,9 @@ value="1"
 
 /**
  * Get first form name (Old feeds support)
+ *
+ * Recognises both the classic Form widget and the Elementor 4 atomic `e-form`
+ * element via gscelef_form_node_info().
  */
 function get_form_name($data)
 {
@@ -486,19 +644,14 @@ function get_form_name($data)
 
         if (is_array($widget) || is_object($widget)) {
 
-            if (
-                isset($widget['widgetType']) &&
-                $widget['widgetType'] === 'form'
-            ) {
+            $info = gscelef_form_node_info($widget);
+
+            if ($info['is_form']) {
 
                 return array(
-                    'form_name' => isset($widget['settings']['form_name'])
-                    ? $widget['settings']['form_name']
-                    : '',
-
-                    'element_id' => isset($widget['id'])
-                    ? $widget['id']
-                    : ''
+                    'form_name'  => $info['form_name'],
+                    'element_id' => $info['element_id'],
+                    'is_atomic'  => ! empty($info['is_atomic']),
                 );
             }
 
@@ -521,6 +674,9 @@ function get_form_name($data)
 
 /**
  * Get form by Elementor element ID (New feeds support)
+ *
+ * Recognises both the classic Form widget and the Elementor 4 atomic `e-form`
+ * element via gscelef_form_node_info().
  */
 function get_form_by_element_id($data, $target_element_id)
 {
@@ -528,19 +684,18 @@ function get_form_by_element_id($data, $target_element_id)
 
         if (is_array($widget) || is_object($widget)) {
 
+            $info = gscelef_form_node_info($widget);
+
             if (
-                isset($widget['widgetType']) &&
-                $widget['widgetType'] === 'form' &&
-                isset($widget['id']) &&
-                $widget['id'] === $target_element_id
+                $info['is_form'] &&
+                '' !== $info['element_id'] &&
+                $info['element_id'] === $target_element_id
             ) {
 
                 return array(
-                    'form_name' => isset($widget['settings']['form_name'])
-                    ? $widget['settings']['form_name']
-                    : '',
-
-                    'element_id' => $widget['id']
+                    'form_name'  => $info['form_name'],
+                    'element_id' => $info['element_id'],
+                    'is_atomic'  => ! empty($info['is_atomic']),
                 );
             }
 

@@ -6,7 +6,7 @@
  * Description: Send your Elementor Form data to your Google Spreadsheet.
  * Requires at least: 5.6
  * Requires PHP: 7.4
- * Version: 1.3.4
+ * Version: 1.3.5
  * Author: GSheetConnector
  * Author URI: https://www.gsheetconnector.com/
  * Text Domain: gsheetconnector-for-elementor-forms
@@ -125,8 +125,8 @@ if ($gsc_activate_the_plugin) {
 /* Freemius End */
 
 // Declare some global constants
-define('GS_CONN_ELE_VERSION', '1.3.4');
-define('GS_CONN_ELE_DB_VERSION', '1.3.4');
+define('GS_CONN_ELE_VERSION', '1.3.5');
+define('GS_CONN_ELE_DB_VERSION', '1.3.5');
 define('GS_CONN_ELE_ROOT', dirname(__FILE__));
 define('GS_CONN_ELE_URL', plugins_url('/', __FILE__));
 define('GS_CONN_ELE_BASE_FILE', basename(dirname(__FILE__)) . '/gsheetconnector-for-elementor-forms.php');
