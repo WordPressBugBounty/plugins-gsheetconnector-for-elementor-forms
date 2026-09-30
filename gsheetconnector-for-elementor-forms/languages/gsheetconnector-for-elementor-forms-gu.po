@@ -1,17 +1,27 @@
+# Translation file
+
 msgid ""
 msgstr ""
-"Project-Id-Version: Elementor Forms GSheetConnector Free\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-13 10:37:09+00:00\n"
-"PO-Revision-Date: 2026-08-22 16:18+0530\n"
-"Last-Translator: POForge <noreply@poforge.com>\n"
-"Language-Team: gu <noreply@poforge.com>\n"
 "Language: gu\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.9\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "View Documentation"
+msgstr "દસ્તાવેજીકરણ જુઓ"
+
+msgid "Docs"
+msgstr "દસ્તાવેજો"
+
+msgid "Get Support"
+msgstr "સહાય મેળવો"
+
+msgid "Support"
+msgstr "સમર્થન"
+
+msgid "Google Sheet Connector Elementor Add-on requires Elementor Pro or Pro Elements or MetForm Plugin to be installed and activated."
+msgstr "ગૂગલ શીટ કનેક્ટર એલિમેન્ટર એડ-ઓનને એલિમેન્ટર પ્રો અથવા પ્રો એલિમેન્ટ્સ અથવા મેટફોર્મ પ્લગિન ઇન્સ્ટોલ અને સક્રિય કરવાની જરૂર છે."
+
+msgid "GSheetConnector For Elementor Forms"
+msgstr "એલિમેન્ટર ફોર્મ માટે GSheetConnector"
 
 msgid "Get Elementor Google Sheet Pro"
 msgstr "એલિમેન્ટર ગૂગલ શીટ પ્રો મેળવો"
@@ -19,26 +29,71 @@ msgstr "એલિમેન્ટર ગૂગલ શીટ પ્રો મે�
 msgid "No error logs found."
 msgstr "કોઈ ભૂલ લોગ્સ મળ્યા નથી."
 
+msgid "No Form Feeds Created Yet"
+msgstr "No Form Feeds Created Yet"
+
+msgid "Connect your form to Google Sheets to automatically sync submissions in real time. Create a feed to start sending data to your spreadsheet."
+msgstr "ડિવી ફોર્મ્સને ગૂગલ શીટ્સ સાથે એકીકૃત કરો અને આપોઆપ સબમિશન્સને વાસ્તવિક સમયમાં સમન્વયિત કરો. ગ્રાહક ડેટાને સુરક્ષિત રીતે સંગ્રહિત કરો, પૂછપરછને અસરકારક રીતે ટ્રેક કરો, અને મેન્યુઅલ સ્પ્રેડશીટ અપડેટ્સને દૂર કરો."
+
+msgid "Not connected"
+msgstr "જોડાયેલ"
+
 msgid "You do not have permission to perform this action."
 msgstr "આ ક્રિયા કરવા માટે તમારી પાસે પરવાનગી નથી."
 
 msgid "Uninstall settings saved successfully."
 msgstr "અનઇન્સ્ટોલ સેટિંગ્સ સફળતાપૂર્વક સાચવાઈ ગઈ."
 
+msgid "GSheetConnector"
+msgstr "GSheetConnector"
+
 msgid "Enable Manual Google Sheets Configuration"
 msgstr "હેન્ડલ ગૂગલ શીટ્સ કન્ફિગરેશન સક્રિય કરો"
+
+msgid "Yes"
+msgstr "હા"
+
+msgid "No"
+msgstr "ના"
+
+msgid "Sheet Name"
+msgstr "શીટનું નામ"
+
+msgid "Sheet ID"
+msgstr "શીટ ID"
+
+msgid "Tab Name"
+msgstr "ટેબનું નામ"
+
+msgid "Tab ID"
+msgstr "ટેબ ID"
 
 msgid "Sheet Tab Name"
 msgstr "શીટ ટેબ નામ"
 
+msgid "View Spreadsheet"
+msgstr "સ્પ્રેડશીટ જુઓ"
+
 msgid "Fetch Sheets"
 msgstr "શીટ્સ મેળવો"
+
+msgid "Click here to configure Form Feeds"
+msgstr "ફોર્મ ફીડ્સ કન્ફિગર કરવા માટે અહીં ક્લિક કરો"
+
+msgid "Click here to Setup form feeds settings to easily configure multiple feeds simultaneously"
+msgstr "Click here to Setup form feeds settings to easily configure multiple feeds simultaneously"
 
 msgid "Upgrade to GSheetConnector Pro"
 msgstr "જીશીટકનેક્ટર પ્રો માટે અપગ્રેડ કરો"
 
 msgid "Entry ID"
 msgstr "એન્ટ્રી ID"
+
+msgid "Freeze Header"
+msgstr "હેડર જમાવવો"
+
+msgid "Error Log"
+msgstr "ભૂલ લોગ"
 
 msgid "Error logs are saved in the database. Please clear them regularly to avoid increasing the database size."
 msgstr "ભૂલ લોગ્સ ડેટાબેસમાં સાચવવામાં આવ્યા છે. કૃપા કરીને ડેટાબેસના કદ વધારવા ટાળવા માટે નિયમિત રીતે તેમને સાફ કરો."
@@ -48,6 +103,9 @@ msgstr "લોગ્સ સાફ કરો"
 
 msgid "Download CSV"
 msgstr "CSV ડાઉનલોડ કરો"
+
+msgid "Copy Logs"
+msgstr "લોગ્સ નકલ કરો"
 
 msgid "Date"
 msgstr "તારીખ"
@@ -67,6 +125,24 @@ msgstr "વિગતો"
 msgid "Permission denied."
 msgstr "પરવાનગી નકારી."
 
+msgid "Google Sheet"
+msgstr "ગૂગલ શીટ"
+
+msgid "Integration"
+msgstr "એકીકરણ"
+
+msgid "Form Feeds"
+msgstr "ફોર્મ ફીડ્સ"
+
+msgid "Settings"
+msgstr "સેટિંગ્સ"
+
+msgid "System Status"
+msgstr "સિસ્ટમ સ્થિતિ"
+
+msgid "Extensions"
+msgstr "વિસ્તરણ"
+
 msgid "Existing"
 msgstr "અસ્તિત્વમાં"
 
@@ -82,8 +158,7 @@ msgstr "પ્રો માટે અપગ્રેડ કરવાનું"
 msgid "Unlock Advance Features of Elementor Forms Pro version 🚀"
 msgstr "એલિમેન્ટર ફોર્મ્સ પ્રો સંસ્કરણના અદ્યતન ફીચર્સ અનલોક કરો 🚀"
 
-msgid ""
-"Use advanced features like Manual Authentication and automatic field mapping, no need to create columns in Google Sheets manually."
+msgid "Use advanced features like Manual Authentication and automatic field mapping, no need to create columns in Google Sheets manually."
 msgstr "હેન્ડલ ઓથન્ટિકેશન અને સ્વચાલિત ફીલ્ડ મેપિંગ જેવી અદ્યતન ફીચર્સનો ઉપયોગ કરો, ગૂગલ શીટ્સમાં કૉલમ બનાવવાની જરૂર નથી."
 
 msgid "Choose only the fields you need with simple toggles, use advanced tags, sync past form entries, and get priority support."
@@ -102,8 +177,7 @@ msgid "Enjoying the Plugin?"
 msgstr "પ્લગિનનો આનંદ માણી રહ્યા છો?"
 
 msgid "If you are enjoying the plugin, please consider leaving a 5-star review. Your support helps us improve and grow."
-msgstr ""
-"જો તમે પ્લગિનનો આનંદ માણી રહ્યા છો, તો કૃપા કરીને 5-તારાની સમીક્ષા છોડી દેવા પર વિચાર કરો. તમારો સમર્થન અમને સુધારવા અને વધારવામાં મદદ કરે છે."
+msgstr "જો તમે પ્લગિનનો આનંદ માણી રહ્યા છો, તો કૃપા કરીને 5-તારાની સમીક્ષા છોડી દેવા પર વિચાર કરો. તમારો સમર્થન અમને સુધારવા અને વધારવામાં મદદ કરે છે."
 
 msgid "Ok, you deserve it!"
 msgstr "બરાબર, તમે આને હકદાર છો!"
@@ -156,6 +230,9 @@ msgstr "સ્માર્ટ ઓટોમેશન અને લવચીક �
 msgid "Google Sheets API v4"
 msgstr "Google Sheets API v4"
 
+msgid "One-Click Authentication"
+msgstr "એક-ક્લિક પ્રમાણન"
+
 msgid "Authenticated Email Display"
 msgstr "પ્રમાણિત ઇમેઇલ પ્રદર્શિત"
 
@@ -180,6 +257,9 @@ msgstr "ડ્રેગ-એન્ડ-ડ્રોપ કૉલમ ઓર્ડ�
 msgid "Headers On / Off + Rename"
 msgstr "હેડર્સ ચાલુ / બંધ + નામ બદલો"
 
+msgid "Image / PDF Attachment Link"
+msgstr "છબી / PDF સંલગ્નતા લિંક"
+
 msgid "Freeze & Color Headers"
 msgstr "ફ્રીઝ અને રંગ હેડર્સ"
 
@@ -188,6 +268,12 @@ msgstr "શરતી વિકલ્પો"
 
 msgid "Sync Past Entries"
 msgstr "ગયા એન્ટ્રીઓ સમંકલન"
+
+msgid "Role Management"
+msgstr "ભૂમિકા વ્યવસ્થાપન"
+
+msgid "Quick Configuration"
+msgstr "ઝડપી રૂપરેખાંકન"
 
 msgid "Multi-Language Support"
 msgstr "બહુભાષી સપોર્ટ"
@@ -198,11 +284,20 @@ msgstr "બહુસાઇટ સપોર્ટ"
 msgid "Latest WP & PHP Support"
 msgstr "તાજેતરના WP & PHP સપોર્ટ"
 
+msgid "There's something wrong with your code..."
+msgstr "તમારા કોડમાં કંઈક ખોટું છે..."
+
 msgid "Please rate"
 msgstr "કૃપા કરીને રેટ કરો"
 
+msgid "GSheetConnector for Elementor Forms"
+msgstr "GSheetConnector for Elementor Forms"
+
 msgid "on"
 msgstr "પર"
+
+msgid "WordPress.org"
+msgstr "WordPress.org"
 
 msgid "to help us spread the word."
 msgstr "અમને માહિતી ફેલાવવા માટે મદદ કરવા માટે."
@@ -213,6 +308,9 @@ msgstr "આવૃત્તિ:"
 msgid "Plugins"
 msgstr "પ્લગઇન્સ"
 
+msgid "Back to Feeds List"
+msgstr "ફીડ્સ યાદીમાં પાછા જાઓ"
+
 msgid "Feed Details"
 msgstr "ફીડ વિગતો"
 
@@ -222,18 +320,23 @@ msgstr "ગૂગલ શીટ્સ સમન્વય માટે ઉપય�
 msgid "Form ID"
 msgstr "ફોર્મ ID"
 
+msgid "Feed Name"
+msgstr "ફીડ નામ"
+
+msgid "Form Name"
+msgstr "ફોર્મ નામ"
+
+msgid "Page Name"
+msgstr "પેજ નામ"
+
 msgid "Timestamp"
 msgstr "ટાઈમસ્ટેમ્પ"
 
 msgid "Manual Google Sheets Configuration"
 msgstr "મેન્યુઅલ ગૂગલ શીટ્સ રૂપરેખાંકન"
 
-msgid ""
-"Manual connect your Elementor Form with Google Sheets by entering the Sheet Name, Sheet ID, Tab Name, and Tab ID. This ensures "
-"that form submissions are stored directly in your chosen Google Sheet."
-msgstr ""
-"શીટ નામ, શીટ ID, ટેબ નામ અને ટેબ ID દાખલ કરીને તમારા એલિમેન્ટર ફોર્મને ગૂગલ શીટ્સ સાથે મેન્યુઅલ કનેક્ટ કરો. આ સુનિશ્ચિત કરે છે કે ફોર્મ સબમિશન સીધા "
-"તમારા પસંદ કરેલ ગૂગલ શીટમાં સંગ્રહિત થાય છે."
+msgid "Manual connect your Elementor Form with Google Sheets by entering the Sheet Name, Sheet ID, Tab Name, and Tab ID. This ensures that form submissions are stored directly in your chosen Google Sheet."
+msgstr "શીટ નામ, શીટ ID, ટેબ નામ અને ટેબ ID દાખલ કરીને તમારા એલિમેન્ટર ફોર્મને ગૂગલ શીટ્સ સાથે મેન્યુઅલ કનેક્ટ કરો. આ સુનિશ્ચિત કરે છે કે ફોર્મ સબમિશન સીધા તમારા પસંદ કરેલ ગૂગલ શીટમાં સંગ્રહિત થાય છે."
 
 msgid "Go to your Google account, open Google Sheets, and select or create the sheet you want to connect."
 msgstr "તમારા ગૂગલ એકાઉન્ટમાં જાઓ, ગૂગલ શીટ્સ ખોલો, અને તમે કનેક્ટ કરવા માંગતા શીટને પસંદ કરો અથવા બનાવો."
@@ -322,14 +425,35 @@ msgstr "અનલોક કરવા માટે અપગ્રેડ કર�
 msgid "Automatic Google Sheets Configuration"
 msgstr "આટોમેટિક Google Sheets કન્ફિગરેશન"
 
+msgid "PRO"
+msgstr "PRO"
+
 msgid "Automatic configure your Google Sheets and start syncing form submissions in real time."
 msgstr "તમારા Google Sheets ને આપમેળે કન્ફિગર કરો અને વાસ્તવિક સમયમાં ફોર્મ સબમિશનને સમન્વયિત કરવાનું શરૂ કરો."
 
 msgid "If sheets are not fetched, you can still add sheet and tab details manually."
 msgstr "જો શીટ્સ લાવવામાં ન આવે, તો તમે હજી પણ શીટ અને ટેબ વિગતો હસ્તકથી ઉમેરવા કરી શકો છો."
 
+msgid "Select"
+msgstr "ચૂંટો"
+
+msgid "Create New"
+msgstr "નવું બનાવો"
+
 msgid "If tabs are not fetched, you can still add the tab name manually."
 msgstr "જો ટેબ્સ લાવવામાં ન આવે, તો તમે હજી પણ ટેબનું નામ હસ્તકથી ઉમેરવા કરી શકો છો."
+
+msgid "Create Spreadsheet"
+msgstr "સ્પ્રેડશીટ બનાવો"
+
+msgid "Spreadsheet Name and URL not showing?"
+msgstr "સ્પ્રેડશીટનું નામ અને URL દર્શાવતું નથી?"
+
+msgid "Click Here"
+msgstr "અહીં ક્લિક કરો"
+
+msgid "to fetch sheets."
+msgstr "શીટ્સ લાવવા માટે."
 
 msgid "Enable the fields you want to send to Google Sheets and rename columns if needed."
 msgstr "તમે Google Sheets પર મોકલવા માંગતા ક્ષેત્રોને સક્રિય કરો અને જરૂર પડે તો કૉલમનું નામ બદલો."
@@ -340,6 +464,9 @@ msgstr "ક્ષેત્રોની યાદી"
 msgid "Special Mail Tags"
 msgstr "વિશેષ મેલ ટેગ્સ"
 
+msgid "Select All"
+msgstr "બધા પસંદ કરો"
+
 msgid "Header Settings"
 msgstr "હેડર સેટિંગ્સ"
 
@@ -349,11 +476,20 @@ msgstr "તમારા શીટના હેડર અને પંક્ત�
 msgid "Header Behavior"
 msgstr "હેડર વર્તન"
 
+msgid "Sheet Sorting"
+msgstr "શીટ સોર્ટિંગ"
+
 msgid "Sort Column"
 msgstr "કૉલમ ક્રમબદ્ધ કરો"
 
 msgid "Sort Order"
 msgstr "ક્રમબદ્ધતા ક્રમ"
+
+msgid "Ascending"
+msgstr "ઉપરવાળા"
+
+msgid "Descending"
+msgstr "નીચેવાળા"
 
 msgid "Header Style"
 msgstr "હેડર શૈલી"
@@ -403,11 +539,17 @@ msgstr "ડાઉનલોડ"
 msgid "Google Sheets Data Sync"
 msgstr "ગૂગલ શીટ્સ ડેટા સિંક"
 
-msgid ""
-"Easily sync past form submissions to your connected Google Sheet. Choose a date range and ensure your spreadsheet stays complete "
-"and up to date."
-msgstr ""
-"તમારા જોડાયેલા ગૂગલ શીટમાં ભૂતકાળની ફોર્મ સબમિશન સરળતાથી સિંક કરો. તારીખ શ્રેણી પસંદ કરો અને ખાતરી કરો કે તમારી સ્પ્રેડશીટ સંપૂર્ણ અને અપડેટ રહે."
+msgid "Easily sync past form submissions to your connected Google Sheet. Choose a date range and ensure your spreadsheet stays complete and up to date."
+msgstr "તમારા જોડાયેલા ગૂગલ શીટમાં ભૂતકાળની ફોર્મ સબમિશન સરળતાથી સિંક કરો. તારીખ શ્રેણી પસંદ કરો અને ખાતરી કરો કે તમારી સ્પ્રેડશીટ સંપૂર્ણ અને અપડેટ રહે."
+
+msgid "From Date"
+msgstr "તારીખથી"
+
+msgid "To Date"
+msgstr "તારીખ સુધી"
+
+msgid "Sync Entries"
+msgstr "એન્ટ્રીઓ સમન્વયિત કરો"
 
 msgid "Close"
 msgstr "બંધ કરો"
@@ -418,12 +560,8 @@ msgstr "GSheetConnector વિશે"
 msgid "Built by Experts. Trusted by Thousands."
 msgstr "વિશેષજ્ઞો દ્વારા બનાવેલ. હજારો દ્વારા વિશ્વસનીય."
 
-msgid ""
-"Led by experienced developers and powered by a passionate team, GSheetConnector helps WordPress users automate their workflows "
-"with confidence."
-msgstr ""
-"અનુભવી ડેવલપર્સ દ્વારા નેતૃત્વ અને ઉત્સાહી ટીમ દ્વારા શક્તિશાળી, GSheetConnector વોર્ડપ્રેસ વપરાશકર્તાઓને તેમના કાર્યપ્રવાહને આત્મવિશ્વાસ સાથે સ્વચાલિત "
-"કરવામાં મદદ કરે છે."
+msgid "Led by experienced developers and powered by a passionate team, GSheetConnector helps WordPress users automate their workflows with confidence."
+msgstr "અનુભવી ડેવલપર્સ દ્વારા નેતૃત્વ અને ઉત્સાહી ટીમ દ્વારા શક્તિશાળી, GSheetConnector વોર્ડપ્રેસ વપરાશકર્તાઓને તેમના કાર્યપ્રવાહને આત્મવિશ્વાસ સાથે સ્વચાલિત કરવામાં મદદ કરે છે."
 
 msgid "We focus on building tools that are fast, secure, and easy to use - so you can spend less time managing data."
 msgstr "અમે એવા સાધનો બનાવવામાં ધ્યાન કેન્દ્રિત કરીએ છીએ જે ઝડપી, સુરક્ષિત અને ઉપયોગમાં સરળ હોય - જેથી તમે ડેટા વ્યવસ્થાપનમાં ઓછો સમય વિતાવી શકો."
@@ -434,8 +572,7 @@ msgstr "અમારી મુખ્ય ટીમને મળો"
 msgid "Our Mission"
 msgstr "અમારી મિશન"
 
-msgid ""
-"Our mission is to make form automation simple, secure, and reliable for every WordPress user - from beginners to enterprise teams."
+msgid "Our mission is to make form automation simple, secure, and reliable for every WordPress user - from beginners to enterprise teams."
 msgstr "અમારી મિશન એ છે કે દરેક વોર્ડપ્રેસ વપરાશકર્તા માટે ફોર્મ ઓટોમેશનને સરળ, સુરક્ષિત અને વિશ્વસનીય બનાવવું - શરુઆતથી એન્ટરપ્રાઇઝ ટીમો સુધી."
 
 msgid "Fast & Reliable Data Sync"
@@ -468,20 +605,14 @@ msgstr "નિષ્ઠાવાન સપોર્ટ"
 msgid "Add-ons & Extensions"
 msgstr "એડ-ઓન્સ અને એક્સટેંશન્સ"
 
-msgid ""
-"Extend your Google Sheets integration with powerful add-ons. Install, manage, and activate extensions to unlock advanced features."
-msgstr ""
-"તમારા ગૂગલ શીટ્સ ઇન્ટિગ્રેશનને શક્તિશાળી એડ-ઓન્સ સાથે વિસ્તારો. સ્થાપિત કરો, વ્યવસ્થાપિત કરો અને વિસ્તરણોને સક્રિય કરો જેથી અદ્યતન સુવિધાઓ અનલોક થાય."
+msgid "Extend your Google Sheets integration with powerful add-ons. Install, manage, and activate extensions to unlock advanced features."
+msgstr "તમારા ગૂગલ શીટ્સ ઇન્ટિગ્રેશનને શક્તિશાળી એડ-ઓન્સ સાથે વિસ્તારો. સ્થાપિત કરો, વ્યવસ્થાપિત કરો અને વિસ્તરણોને સક્રિય કરો જેથી અદ્યતન સુવિધાઓ અનલોક થાય."
 
 msgid "CF7 Google Sheet Connector"
 msgstr "CF7 ગૂગલ શીટ કનેક્ટર"
 
-msgid ""
-"Easily connect Contact Form 7 to Google Sheets and automatically sync form submissions in real-time. Every entry is instantly "
-"added to your selected spreadsheet, helping you manage leads, inquiries, and customer data efficiently without manual export."
-msgstr ""
-"સહેલાઈથી કોન્ટેક્ટ ફોર્મ 7 ને ગૂગલ શીટ્સ સાથે જોડો અને વાસ્તવિક-સમયમાં ફોર્મ સબમિશન આપોઆપ સિંક કરો. દરેક પ્રવેશ તરત જ તમારી પસંદ કરેલી સ્પ્રેડશીટમાં "
-"ઉમેરવામાં આવે છે, જે તમને નેતૃત્વ, પૂછપરછ અને ગ્રાહક ડેટાને કાર્યક્ષમ રીતે વ્યવસ્થાપિત કરવામાં મદદ કરે છે."
+msgid "Easily connect Contact Form 7 to Google Sheets and automatically sync form submissions in real-time. Every entry is instantly added to your selected spreadsheet, helping you manage leads, inquiries, and customer data efficiently without manual export."
+msgstr "સહેલાઈથી કોન્ટેક્ટ ફોર્મ 7 ને ગૂગલ શીટ્સ સાથે જોડો અને વાસ્તવિક-સમયમાં ફોર્મ સબમિશન આપોઆપ સિંક કરો. દરેક પ્રવેશ તરત જ તમારી પસંદ કરેલી સ્પ્રેડશીટમાં ઉમેરવામાં આવે છે, જે તમને નેતૃત્વ, પૂછપરછ અને ગ્રાહક ડેટાને કાર્યક્ષમ રીતે વ્યવસ્થાપિત કરવામાં મદદ કરે છે."
 
 msgid "Install"
 msgstr "સ્થાપિત કરો"
@@ -489,42 +620,26 @@ msgstr "સ્થાપિત કરો"
 msgid "WPForms Google Sheet Connector"
 msgstr "WPForms ગૂગલ શીટ કનેક્ટર"
 
-msgid ""
-"Integrate WPForms with Google Sheets and send form entries directly to your spreadsheet automatically. Track leads, manage "
-"customer data, and streamline reporting with seamless Google Sheets integration and real-time sync."
-msgstr ""
-"WPForms ને ગૂગલ શીટ્સ સાથે એકીકૃત કરો અને ફોર્મ પ્રવેશોને આપોઆપ તમારા સ્પ્રેડશીટમાં મોકલો. લીડ્સને ટ્રેક કરો, ગ્રાહક ડેટાને સંચાલિત કરો, અને સરળ ગૂગલ "
-"શીટ્સ એકીકરણ અને વાસ્તવિક સમય સમન્વય સાથે અહેવાલને સરળ બનાવો."
+msgid "Integrate WPForms with Google Sheets and send form entries directly to your spreadsheet automatically. Track leads, manage customer data, and streamline reporting with seamless Google Sheets integration and real-time sync."
+msgstr "WPForms ને ગૂગલ શીટ્સ સાથે એકીકૃત કરો અને ફોર્મ પ્રવેશોને આપોઆપ તમારા સ્પ્રેડશીટમાં મોકલો. લીડ્સને ટ્રેક કરો, ગ્રાહક ડેટાને સંચાલિત કરો, અને સરળ ગૂગલ શીટ્સ એકીકરણ અને વાસ્તવિક સમય સમન્વય સાથે અહેવાલને સરળ બનાવો."
 
 msgid "Gravity Forms Google Sheet Connector"
 msgstr "ગ્રેવિટી ફોર્મ્સ ગૂગલ શીટ કનેક્ટર"
 
-msgid ""
-"Connect Gravity Forms to Google Sheets and automatically push form submissions to your spreadsheet. Simplify data management, "
-"improve workflow automation, and keep all entries organized in one secure location."
-msgstr ""
-"ગ્રેવિટી ફોર્મ્સને ગૂગલ શીટ્સ સાથે જોડો અને આપોઆપ ફોર્મ સબમિશન્સને તમારા સ્પ્રેડશીટમાં મોકલો. ડેટા વ્યવસ્થાપનને સરળ બનાવો, વર્કફ્લો ઓટોમેશનમાં સુધારો, અને "
-"તમામ પ્રવેશોને એક સુરક્ષિત સ્થાનમાં ગોઠવો."
+msgid "Connect Gravity Forms to Google Sheets and automatically push form submissions to your spreadsheet. Simplify data management, improve workflow automation, and keep all entries organized in one secure location."
+msgstr "ગ્રેવિટી ફોર્મ્સને ગૂગલ શીટ્સ સાથે જોડો અને આપોઆપ ફોર્મ સબમિશન્સને તમારા સ્પ્રેડશીટમાં મોકલો. ડેટા વ્યવસ્થાપનને સરળ બનાવો, વર્કફ્લો ઓટોમેશનમાં સુધારો, અને તમામ પ્રવેશોને એક સુરક્ષિત સ્થાનમાં ગોઠવો."
 
 msgid "Ninja Forms Google Sheet Connector"
 msgstr "નinja ફોર્મ્સ ગૂગલ શીટ કનેક્ટર"
 
-msgid ""
-"Automatically sync Ninja Forms submissions to Google Sheets with one-click integration. Capture leads, monitor responses, and "
-"manage data efficiently with instant spreadsheet updates and easy reporting."
-msgstr ""
-"નinja ફોર્મ્સ સબમિશન્સને ગૂગલ શીટ્સમાં એક ક્લિકના એકીકરણ સાથે આપોઆપ સમન્વયિત કરો. લીડ્સને કેચ કરો, પ્રતિસાદોને મોનિટર કરો, અને તાત્કાલિક સ્પ્રેડશીટ "
-"અપડેટ્સ અને સરળ અહેવાલ સાથે ડેટાને અસરકારક રીતે સંચાલિત કરો."
+msgid "Automatically sync Ninja Forms submissions to Google Sheets with one-click integration. Capture leads, monitor responses, and manage data efficiently with instant spreadsheet updates and easy reporting."
+msgstr "નinja ફોર્મ્સ સબમિશન્સને ગૂગલ શીટ્સમાં એક ક્લિકના એકીકરણ સાથે આપોઆપ સમન્વયિત કરો. લીડ્સને કેચ કરો, પ્રતિસાદોને મોનિટર કરો, અને તાત્કાલિક સ્પ્રેડશીટ અપડેટ્સ અને સરળ અહેવાલ સાથે ડેટાને અસરકારક રીતે સંચાલિત કરો."
 
 msgid "Forminator Forms Google Sheet Connector"
 msgstr "ફોર્મિનેટર ફોર્મ્સ ગૂગલ શીટ કનેક્ટર"
 
-msgid ""
-"Integrate Forminator Forms with Google Sheets to automatically store form entries in your spreadsheet. Eliminate manual data "
-"entry and ensure accurate, real-time syncing for better data tracking and analysis."
-msgstr ""
-"ફોર્મિનેટર ફોર્મ્સને ગૂગલ શીટ્સ સાથે એકીકૃત કરો જેથી ફોર્મ પ્રવેશોને આપોઆપ તમારા સ્પ્રેડશીટમાં સંગ્રહિત કરી શકાય. મેન્યુઅલ ડેટા એન્ટ્રીને દૂર કરો અને વધુ સારી "
-"ડેટા ટ્રેકિંગ અને વિશ્લેષણ માટે ચોક્કસ, વાસ્તવિક સમય સમન્વય સુનિશ્ચિત કરો."
+msgid "Integrate Forminator Forms with Google Sheets to automatically store form entries in your spreadsheet. Eliminate manual data entry and ensure accurate, real-time syncing for better data tracking and analysis."
+msgstr "ફોર્મિનેટર ફોર્મ્સને ગૂગલ શીટ્સ સાથે એકીકૃત કરો જેથી ફોર્મ પ્રવેશોને આપોઆપ તમારા સ્પ્રેડશીટમાં સંગ્રહિત કરી શકાય. મેન્યુઅલ ડેટા એન્ટ્રીને દૂર કરો અને વધુ સારી ડેટા ટ્રેકિંગ અને વિશ્લેષણ માટે ચોક્કસ, વાસ્તવિક સમય સમન્વય સુનિશ્ચિત કરો."
 
 msgid "Free"
 msgstr "મફત"
@@ -532,44 +647,26 @@ msgstr "મફત"
 msgid "Formidable Forms Google Sheet Connector"
 msgstr "ફોર્મિડેબલ ફોર્મ્સ ગૂગલ શીટ કનેક્ટર"
 
-msgid ""
-"Automatically sync Formidable Forms entries to Google Sheets. Manage leads, track submissions, and simplify data reporting with "
-"real-time integration."
-msgstr ""
-"ફોર્મિડેબલ ફોર્મ્સના પ્રવેશોને ગૂગલ શીટ્સમાં આપોઆપ સમન્વયિત કરો. લીડ્સને સંચાલિત કરો, સબમિશન્સને ટ્રેક કરો, અને વાસ્તવિક સમયના એકીકરણ સાથે ડેટા અહેવાલને "
-"સરળ બનાવો."
+msgid "Automatically sync Formidable Forms entries to Google Sheets. Manage leads, track submissions, and simplify data reporting with real-time integration."
+msgstr "ફોર્મિડેબલ ફોર્મ્સના પ્રવેશોને ગૂગલ શીટ્સમાં આપોઆપ સમન્વયિત કરો. લીડ્સને સંચાલિત કરો, સબમિશન્સને ટ્રેક કરો, અને વાસ્તવિક સમયના એકીકરણ સાથે ડેટા અહેવાલને સરળ બનાવો."
 
 msgid "Fluent Forms Google Sheet Connector"
 msgstr "ફ્લુએન્ટ ફોર્મ્સ ગૂગલ શીટ કનેક્ટર"
 
-msgid ""
-"Automatically sync Fluent Forms submissions to Google Sheets in real-time. Every form entry is instantly added to your selected "
-"spreadsheet, helping you manage leads, customer inquiries, and business data without manual export. Streamline your workflow, "
-"improve reporting accuracy, and keep all submissions organized with seamless Google Sheets integration."
-msgstr ""
-"ફ્લુએન્ટ ફોર્મ્સના સબમિશન્સને વાસ્તવિક સમયમાં ગૂગલ શીટ્સમાં આપોઆપ સમન્વયિત કરો. દરેક ફોર્મ પ્રવેશ તરત જ તમારા પસંદ કરેલા સ્પ્રેડશીટમાં ઉમેરવામાં આવે છે, જે "
-"તમને મેન્યુઅલ નિકાસ વિના લીડ્સ, ગ્રાહક પૂછપરછ અને વ્યવસાય ડેટાને સંચાલિત કરવામાં મદદ કરે છે. તમારા વર્કફ્લોને સરળ બનાવો, અહેવાલની ચોકસાઈમાં સુધારો, અને "
-"સરળ ગૂગલ શીટ્સ એકીકરણ સાથે તમામ સબમિશન્સને ગોઠવો."
+msgid "Automatically sync Fluent Forms submissions to Google Sheets in real-time. Every form entry is instantly added to your selected spreadsheet, helping you manage leads, customer inquiries, and business data without manual export. Streamline your workflow, improve reporting accuracy, and keep all submissions organized with seamless Google Sheets integration."
+msgstr "ફ્લુએન્ટ ફોર્મ્સના સબમિશન્સને વાસ્તવિક સમયમાં ગૂગલ શીટ્સમાં આપોઆપ સમન્વયિત કરો. દરેક ફોર્મ પ્રવેશ તરત જ તમારા પસંદ કરેલા સ્પ્રેડશીટમાં ઉમેરવામાં આવે છે, જે તમને મેન્યુઅલ નિકાસ વિના લીડ્સ, ગ્રાહક પૂછપરછ અને વ્યવસાય ડેટાને સંચાલિત કરવામાં મદદ કરે છે. તમારા વર્કફ્લોને સરળ બનાવો, અહેવાલની ચોકસાઈમાં સુધારો, અને સરળ ગૂગલ શીટ્સ એકીકરણ સાથે તમામ સબમિશન્સને ગોઠવો."
 
 msgid "Elementor Forms Google Sheet Connector"
 msgstr "એલિમેન્ટર ફોર્મ્સ ગૂગલ શીટ કનેક્ટર"
 
-msgid ""
-"Sync Elementor Forms with Google Sheets instantly. Automatically add new form submissions to your spreadsheet, manage leads "
-"efficiently, and simplify reporting with real-time data synchronization."
-msgstr ""
-"એલિમેન્ટર ફોર્મ્સને ગૂગલ શીટ્સ સાથે તરત જ સમન્વયિત કરો. આપોઆપ નવા ફોર્મ સબમિશન્સને તમારા સ્પ્રેડશીટમાં ઉમેરો, લીડ્સને અસરકારક રીતે સંચાલિત કરો, અને "
-"વાસ્તવિક સમયના ડેટા સમન્વય સાથે અહેવાલને સરળ બનાવો."
+msgid "Sync Elementor Forms with Google Sheets instantly. Automatically add new form submissions to your spreadsheet, manage leads efficiently, and simplify reporting with real-time data synchronization."
+msgstr "એલિમેન્ટર ફોર્મ્સને ગૂગલ શીટ્સ સાથે તરત જ સમન્વયિત કરો. આપોઆપ નવા ફોર્મ સબમિશન્સને તમારા સ્પ્રેડશીટમાં ઉમેરો, લીડ્સને અસરકારક રીતે સંચાલિત કરો, અને વાસ્તવિક સમયના ડેટા સમન્વય સાથે અહેવાલને સરળ બનાવો."
 
 msgid "Avada Forms Google Sheet Connector"
 msgstr "અવાડા ફોર્મ્સ ગૂગલ શીટ કનેક્ટર"
 
-msgid ""
-"Connect Avada Forms to Google Sheets and automatically transfer form entries to your spreadsheet. Streamline lead management, "
-"automate data collection, and improve business reporting with seamless integration."
-msgstr ""
-"અવાડા ફોર્મ્સને ગૂગલ શીટ્સ સાથે જોડો અને આપોઆપ ફોર્મ પ્રવેશોને તમારા સ્પ્રેડશીટમાં ટ્રાન્સફર કરો. લીડ મેનેજમેન્ટને સરળ બનાવો, ડેટા એકત્રિત કરવા માટે ઓટોમેટ "
-"કરો, અને સરળ એકીકરણ સાથે વ્યવસાય અહેવાલમાં સુધારો."
+msgid "Connect Avada Forms to Google Sheets and automatically transfer form entries to your spreadsheet. Streamline lead management, automate data collection, and improve business reporting with seamless integration."
+msgstr "અવાડા ફોર્મ્સને ગૂગલ શીટ્સ સાથે જોડો અને આપોઆપ ફોર્મ પ્રવેશોને તમારા સ્પ્રેડશીટમાં ટ્રાન્સફર કરો. લીડ મેનેજમેન્ટને સરળ બનાવો, ડેટા એકત્રિત કરવા માટે ઓટોમેટ કરો, અને સરળ એકીકરણ સાથે વ્યવસાય અહેવાલમાં સુધારો."
 
 msgid "Available PRO Version"
 msgstr "ઉપલબ્ધ PRO સંસ્કરણ"
@@ -577,53 +674,41 @@ msgstr "ઉપલબ્ધ PRO સંસ્કરણ"
 msgid "Divi Forms Google Sheet Connector"
 msgstr "ડિવી ફોર્મ્સ ગૂગલ શીટ કનેક્ટર"
 
-msgid ""
-"Integrate Divi Forms with Google Sheets and automatically sync submissions in real-time. Store customer data securely, track "
-"inquiries efficiently, and eliminate manual spreadsheet updates."
-msgstr ""
-"ડિવી ફોર્મ્સને ગૂગલ શીટ્સ સાથે એકીકૃત કરો અને આપોઆપ સબમિશન્સને વાસ્તવિક સમયમાં સમન્વયિત કરો. ગ્રાહક ડેટાને સુરક્ષિત રીતે સંગ્રહિત કરો, પૂછપરછને અસરકારક "
-"રીતે ટ્રેક કરો, અને મેન્યુઅલ સ્પ્રેડશીટ અપડેટ્સને દૂર કરો."
+msgid "Integrate Divi Forms with Google Sheets and automatically sync submissions in real-time. Store customer data securely, track inquiries efficiently, and eliminate manual spreadsheet updates."
+msgstr "ડિવી ફોર્મ્સને ગૂગલ શીટ્સ સાથે એકીકૃત કરો અને આપોઆપ સબમિશન્સને વાસ્તવિક સમયમાં સમન્વયિત કરો. ગ્રાહક ડેટાને સુરક્ષિત રીતે સંગ્રહિત કરો, પૂછપરછને અસરકારક રીતે ટ્રેક કરો, અને મેન્યુઅલ સ્પ્રેડશીટ અપડેટ્સને દૂર કરો."
 
 msgid "WP Core Google Sheet Connector"
 msgstr "WP કોર ગૂગલ શીટ કનેક્ટર"
 
-msgid ""
-"Automatically send WordPress core data (like comments or custom submissions) to Google Sheets. Simplify website data tracking, "
-"automate record keeping, and centralize important information in one organized spreadsheet."
-msgstr ""
-"વર્ડપ્રેસ કોર ડેટા (જેમ કે ટિપ્પણો અથવા કસ્ટમ સબમિશન્સ) ને ગૂગલ શીટ્સમાં આપોઆપ મોકલો. વેબસાઇટ ડેટા ટ્રેકિંગને સરળ બનાવો, રેકોર્ડ રાખવાની પ્રક્રિયાને "
-"ઓટોમેટ કરો, અને એક ગોઠવેલા સ્પ્રેડશીટમાં મહત્વપૂર્ણ માહિતી કેન્દ્રિત કરો."
+msgid "Automatically send WordPress core data (like comments or custom submissions) to Google Sheets. Simplify website data tracking, automate record keeping, and centralize important information in one organized spreadsheet."
+msgstr "વર્ડપ્રેસ કોર ડેટા (જેમ કે ટિપ્પણો અથવા કસ્ટમ સબમિશન્સ) ને ગૂગલ શીટ્સમાં આપોઆપ મોકલો. વેબસાઇટ ડેટા ટ્રેકિંગને સરળ બનાવો, રેકોર્ડ રાખવાની પ્રક્રિયાને ઓટોમેટ કરો, અને એક ગોઠવેલા સ્પ્રેડશીટમાં મહત્વપૂર્ણ માહિતી કેન્દ્રિત કરો."
 
 msgid "WooCommerce Google Sheet Connector"
 msgstr "વૂકોમર્સ ગૂગલ શીટ કનેક્ટર"
 
-msgid ""
-"Sync WooCommerce orders with Google Sheets automatically. Store order details, customer information, and transaction data in real-"
-"time for easy reporting, accounting, and business analysis."
-msgstr ""
-"વૂકોમર્સ ઓર્ડરોને ગૂગલ શીટ્સ સાથે આપોઆપ સમન્વયિત કરો. ઓર્ડર વિગતો, ગ્રાહક માહિતી, અને વ્યવહાર ડેટાને વાસ્તવિક સમયમાં સરળ અહેવાલ, હિસાબ, અને વ્યવસાય "
-"વિશ્લેષણ માટે સંગ્રહિત કરો."
+msgid "Sync WooCommerce orders with Google Sheets automatically. Store order details, customer information, and transaction data in real-time for easy reporting, accounting, and business analysis."
+msgstr "વૂકોમર્સ ઓર્ડરોને ગૂગલ શીટ્સ સાથે આપોઆપ સમન્વયિત કરો. ઓર્ડર વિગતો, ગ્રાહક માહિતી, અને વ્યવહાર ડેટાને વાસ્તવિક સમયમાં સરળ અહેવાલ, હિસાબ, અને વ્યવસાય વિશ્લેષણ માટે સંગ્રહિત કરો."
 
 msgid "Easy Digital Downloads Google Sheet Connector"
 msgstr "ઇઝી ડિજિટલ ડાઉનલોડ્સ ગૂગલ શીટ કનેક્ટર"
 
-msgid ""
-"Automatically send Easy Digital Downloads (EDD) order details to Google Sheets. Track digital product sales, monitor "
-"transactions, and manage customer data effortlessly with real-time spreadsheet integration."
-msgstr ""
-"ઇઝી ડિજિટલ ડાઉનલોડ્સ (EDD) ઓર્ડર વિગતોને ગૂગલ શીટ્સમાં આપોઆપ મોકલો. ડિજિટલ ઉત્પાદન વેચાણને ટ્રેક કરો, વ્યવહારોને મોનિટર કરો, અને વાસ્તવિક સમયના "
-"સ્પ્રેડશીટ એકીકરણ સાથે ગ્રાહક ડેટાને સરળતાથી સંચાલિત કરો."
+msgid "Automatically send Easy Digital Downloads (EDD) order details to Google Sheets. Track digital product sales, monitor transactions, and manage customer data effortlessly with real-time spreadsheet integration."
+msgstr "ઇઝી ડિજિટલ ડાઉનલોડ્સ (EDD) ઓર્ડર વિગતોને ગૂગલ શીટ્સમાં આપોઆપ મોકલો. ડિજિટલ ઉત્પાદન વેચાણને ટ્રેક કરો, વ્યવહારોને મોનિટર કરો, અને વાસ્તવિક સમયના સ્પ્રેડશીટ એકીકરણ સાથે ગ્રાહક ડેટાને સરળતાથી સંચાલિત કરો."
 
 msgid "Installed & Active Plugins"
 msgstr "સ્થાપિત અને સક્રિય પ્લગઇન્સ"
 
-msgid ""
-"View and manage all currently installed and active connectors on your site. You can activate, deactivate, or upgrade plugins from "
-"here."
+msgid "View and manage all currently installed and active connectors on your site. You can activate, deactivate, or upgrade plugins from here."
 msgstr "તમારી સાઇટ પર હાલમાં સ્થાપિત અને સક્રિય કનેક્ટર્સને જુઓ અને સંચાલિત કરો. તમે અહીંથી પ્લગઇન્સને સક્રિય, નિષ્ક્રિય અથવા અપગ્રેડ કરી શકો છો."
+
+msgid "Pro"
+msgstr "પ્રો"
 
 msgid "View Docs"
 msgstr "દસ્તાવેજો જુઓ"
+
+msgid "Deactivate"
+msgstr "અક્ષમ કરો"
 
 msgid "Recommended Plugins"
 msgstr "સૂચવેલ પ્લગઇન્સ"
@@ -631,11 +716,17 @@ msgstr "સૂચવેલ પ્લગઇન્સ"
 msgid "Discover recommended plugins that enhance your workflow and help you get more value from your Google Sheets integration."
 msgstr "તમારા કાર્યપ્રવાહને સુધારવા અને તમારા Google Sheets ઇન્ટિગ્રેશનમાંથી વધુ મૂલ્ય મેળવવામાં મદદ કરવા માટેની સૂચવેલ પ્લગઇન્સ શોધો."
 
+msgid "Activate"
+msgstr "સક્રિય કરો"
+
 msgid "Explore More Plugins"
 msgstr "વધુ પ્લગઇન્સ શોધો"
 
 msgid "Discover the right connector for your workflow and automate data syncing."
 msgstr "તમારા કાર્યપ્રવાહ માટે યોગ્ય કનેક્ટર શોધો અને ડેટા સમન્વયને સ્વચાલિત કરો."
+
+msgid "All"
+msgstr "બધા"
 
 msgid "Forms"
 msgstr "ફોર્મ"
@@ -658,31 +749,31 @@ msgstr "શું તમે ખરેખર આ પ્લગઇન નિષ્�
 msgid "Cancel"
 msgstr "રદ કરવું"
 
-msgid "Invalid security token"
+msgid "Invalid security token."
 msgstr "અમાન્ય સુરક્ષા ટોકન"
 
-msgid "You do not have permission to install plugin"
+msgid "You do not have permission to install plugin."
 msgstr "તમે પ્લગઇન ઇન્સ્ટોલ કરવા માટે પરવાનગી નથી"
 
-msgid "Missing required parameters"
+msgid "Missing required parameters."
 msgstr "આવશ્યક પેરામીટર્સ ગુમ છે"
 
 msgid "Installation failed: "
 msgstr "ઇન્સ્ટોલેશન નિષ્ફળ ગયું: "
 
-msgid "Plugin installed successfully"
+msgid "Plugin installed successfully."
 msgstr "પ્લગઇન સફળતાપૂર્વક ઇન્સ્ટોલ થયું"
 
-msgid "You do not have permission to activate plugin"
+msgid "You do not have permission to activate plugin."
 msgstr "તમે પ્લગઇન સક્રિય કરવા માટે પરવાનગી નથી"
 
-msgid "Plugin slug is missing"
+msgid "Plugin slug is missing."
 msgstr "પ્લગઇન સ્લગ ગુમ છે"
 
-msgid "Plugin is already activated"
+msgid "Plugin is already activated."
 msgstr "પ્લગઇન પહેલેથી જ સક્રિય છે"
 
-msgid "Plugin activated successfully"
+msgid "Plugin activated successfully."
 msgstr "પ્લગઇન સફળતાપૂર્વક સક્રિય થયું"
 
 msgid "Unlock Beta Version Control"
@@ -754,12 +845,8 @@ msgstr "ક્યારે પણ ચાલુ/બંધ કરો"
 msgid "Beta Program Access"
 msgstr "બેટા પ્રોગ્રામ ઍક્સેસ"
 
-msgid ""
-"Get early access to upcoming features and improvements before they are officially released. Beta versions may include "
-"experimental updates and should be used for testing purposes only."
-msgstr ""
-"આગામી ફીચર્સ અને સુધારાઓ માટે સત્તાવાર રિલીઝ પહેલા વહેલી ઍક્સેસ મેળવો. બેટા વર્ઝન્સમાં પ્રયોગાત્મક અપડેટ્સ હોઈ શકે છે અને તે માત્ર ટેસ્ટિંગના હેતુઓ માટે "
-"ઉપયોગમાં લેવાય જોઈએ."
+msgid "Get early access to upcoming features and improvements before they are officially released. Beta versions may include experimental updates and should be used for testing purposes only."
+msgstr "આગામી ફીચર્સ અને સુધારાઓ માટે સત્તાવાર રિલીઝ પહેલા વહેલી ઍક્સેસ મેળવો. બેટા વર્ઝન્સમાં પ્રયોગાત્મક અપડેટ્સ હોઈ શકે છે અને તે માત્ર ટેસ્ટિંગના હેતુઓ માટે ઉપયોગમાં લેવાય જોઈએ."
 
 msgid "Enable Beta Updates"
 msgstr "બેટા અપડેટ્સ સક્રિય કરો"
@@ -785,17 +872,35 @@ msgstr "અમે ભલામણ કરીએ છીએ કે બેટા મ
 msgid "Beta versions are intended for testing purposes. Do not enable on live production websites without proper backups."
 msgstr "બેટા વર્ઝન્સ ટેસ્ટિંગના હેતુઓ માટે છે. યોગ્ય બેકઅપ વિના લાઇવ પ્રોડક્શન વેબસાઇટ્સ પર સક્રિય ન કરો."
 
+msgid "Elementor Forms Connected Sheets using Pagebuilder"
+msgstr "Elementor ફોર્મ્સ કનેક્ટેડ શીટ્સ ઉપયોગ કરીને પેજબિલ્ડર"
+
+msgid "Sheet URL"
+msgstr "શીટ"
+
+msgid "No Elementor Forms are connected with Google Sheets."
+msgstr "કોઈ Elementor ફોર્મ્સ Google Sheets સાથે કનેક્ટેડ નથી."
+
 msgid "Welcome To GSheetConnector"
 msgstr "GSheetConnector માં આપનું સ્વાગત છે"
 
-msgid ""
-"GSheetConnector is a powerful automation plugin that syncs WordPress data with Google Sheets in real time. It supports "
-"WooCommerce, Easy Digital Downloads, and popular form plugins such as Gravity Forms, Contact Form 7, Elementor Forms, along with "
-"10+ additional WordPress integrations for efficient data management."
-msgstr ""
-"GSheetConnector એક શક્તિશાળી ઓટોમેશન પ્લગિન છે જે વોર્ડપ્રેસ ડેટાને ગૂગલ શીટ્સ સાથે વાસ્તવિક સમયમાં સમન્વયિત કરે છે. તે WooCommerce, Easy Digital "
-"Downloads, અને Gravity Forms, Contact Form 7, Elementor Forms જેવા લોકપ્રિય ફોર્મ પ્લગિનને સપોર્ટ કરે છે, તેમજ કાર્યક્ષમ ડેટા વ્યવસ્થાપન માટે 10+ "
-"વધારાના વોર્ડપ્રેસ ઇન્ટિગ્રેશન."
+msgid "GSheetConnector is a powerful automation plugin that syncs WordPress data with Google Sheets in real time. It supports WooCommerce, Easy Digital Downloads, and popular form plugins such as Gravity Forms, Contact Form 7, Elementor Forms, along with 10+ additional WordPress integrations for efficient data management."
+msgstr "GSheetConnector એક શક્તિશાળી ઓટોમેશન પ્લગિન છે જે વોર્ડપ્રેસ ડેટાને ગૂગલ શીટ્સ સાથે વાસ્તવિક સમયમાં સમન્વયિત કરે છે. તે WooCommerce, Easy Digital Downloads, અને Gravity Forms, Contact Form 7, Elementor Forms જેવા લોકપ્રિય ફોર્મ પ્લગિનને સપોર્ટ કરે છે, તેમજ કાર્યક્ષમ ડેટા વ્યવસ્થાપન માટે 10+ વધારાના વોર્ડપ્રેસ ઇન્ટિગ્રેશન."
+
+msgid "Authenticated Using Existing Method"
+msgstr "ગૂગલ સાથે ઇન્ટિગ્રેશન (હાલની પદ્ધતિ)"
+
+msgid "Google Account Connection"
+msgstr "Google ખાતા કનેક્શન"
+
+msgid "Connected Email Account"
+msgstr "જોડાયેલ ઇમેઇલ ખાતું"
+
+msgid " Connected"
+msgstr "જોડાયેલ"
+
+msgid "Loading..."
+msgstr "Loading..."
 
 msgid "Let's Connect"
 msgstr "ચાલો જોડાઈએ"
@@ -880,6 +985,9 @@ msgstr "WP કોર કનેક્ટર"
 
 msgid "1 plugin available"
 msgstr "1 પ્લગઇન ઉપલબ્ધ"
+
+msgid "Free Plugins"
+msgstr "મફત પ્લગઇન્સ"
 
 msgid "12 plugin available"
 msgstr "12 પ્લગઇન ઉપલબ્ધ"
@@ -986,6 +1094,24 @@ msgstr "શીટ સિંક ફીડ્સ બનાવો"
 msgid "Select a form and give your feed a name to start syncing form submissions with Google Sheets in real time."
 msgstr "એક ફોર્મ પસંદ કરો અને તમારા ફીડને નામ આપો જેથી ગૂગલ શીટ્સ સાથે વાસ્તવિક સમયમાં ફોર્મ સબમિશન્સને સિંક કરવા શરૂ કરી શકો."
 
+msgid "Select Form"
+msgstr "ફોર્મ પસંદ કરો"
+
+msgid "Unnamed Form"
+msgstr "નામહીન ફોર્મ"
+
+msgid "Unknown Element ID"
+msgstr "અજ્ઞાત એલિમેન્ટ ID"
+
+msgid "[Atomic Form]"
+msgstr "[Atomic Form]"
+
+msgid "MetForm: "
+msgstr "MetForm: "
+
+msgid "Submit"
+msgstr "સબમિટ કરો"
+
 msgid "Actions"
 msgstr "ક્રિયાઓ"
 
@@ -997,6 +1123,9 @@ msgstr "ફીડ કાઢી નાખો"
 
 msgid "Are you sure you want to Delete Feed."
 msgstr "શું તમે ખાતરી રાખો છો કે તમે ફીડ કાઢી નાખવા માંગો છો."
+
+msgid "Delete"
+msgstr "મિટાવો"
 
 msgid "« Prev"
 msgstr "« અગાઉ"
@@ -1031,8 +1160,7 @@ msgstr "અસત્ય સેટિંગ્સ તમામ સંવેદન
 msgid "Confirm Data Deletion"
 msgstr "ડેટા કાઢી નાખવાની પુષ્ટિ કરો"
 
-msgid ""
-"Enabling this option will permanently delete all plugin data, including settings and integrations, when the plugin is uninstalled."
+msgid "Enabling this option will permanently delete all plugin data, including settings and integrations, when the plugin is uninstalled."
 msgstr "આ વિકલ્પને સક્રિય કરવાથી પ્લગિન અનઇન્સ્ટોલ કરતી વખતે તમામ પ્લગિન ડેટા, સેટિંગ્સ અને ઇન્ટિગ્રેશન્સ સહિત, શાશ્વત રીતે કાઢી નાખવામાં આવશે."
 
 msgid "If you plan to upgrade from Free to Pro, you may lose your existing configuration data."
@@ -1047,6 +1175,9 @@ msgstr "કાઢી નાખવાની સક્રિયતા"
 msgid "Google Sheets Integration for Elementor Forms"
 msgstr "Elementor Forms માટે Google Sheets ઇન્ટિગ્રેશન"
 
+msgid "Choose Google API Setting"
+msgstr "Google API સેટિંગ પસંદ કરો"
+
 msgid "Manual Client/Secret Key (Use Your Google API Configuration)"
 msgstr "મેન્યુઅલ ક્લાયન્ટ/સિક્રેટ કી (તમારી Google API કન્ફિગરેશનનો ઉપયોગ કરો)"
 
@@ -1056,18 +1187,14 @@ msgstr "સેવા ખાતું (સૂચવાયું)"
 msgid "Select how Elementor Forms should authenticate with Google Sheets."
 msgstr "Elementor Forms ને Google Sheets સાથે ઓથેન્ટિકેટ કરવા માટે પસંદ કરો."
 
-msgid "Google Account Connection"
-msgstr "Google ખાતા કનેક્શન"
-
 msgid "Auto Setup"
 msgstr "ઓટો સેટઅપ"
 
-msgid ""
-"Sign in with your Google account to connect Elementor Forms with Google Sheets. Once connected, your data syncs based on your "
-"settings. Learn more in the documentation"
-msgstr ""
-"Elementor Forms ને Google Sheets સાથે કનેક્ટ કરવા માટે તમારા Google ખાતા સાથે સાઇન ઇન કરો. એકવાર કનેક્ટ થયા પછી, તમારા ડેટા તમારા સેટિંગ્સના "
-"આધારે સમન્વયિત થાય છે. દસ્તાવેજમાં વધુ જાણો"
+msgid "Sign in with your Google account to connect Elementor Forms with Google Sheets. Once connected, your data syncs based on your settings. Learn more in the documentation"
+msgstr "Elementor Forms ને Google Sheets સાથે કનેક્ટ કરવા માટે તમારા Google ખાતા સાથે સાઇન ઇન કરો. એકવાર કનેક્ટ થયા પછી, તમારા ડેટા તમારા સેટિંગ્સના આધારે સમન્વયિત થાય છે. દસ્તાવેજમાં વધુ જાણો"
+
+msgid "click here"
+msgstr "અહીં ક્લિક કરો"
 
 msgid "Click on the <strong>Sign in with Google</strong> button."
 msgstr "<strong>Google સાથે સાઇન ઇન</strong> બટન પર ક્લિક કરો."
@@ -1081,6 +1208,12 @@ msgstr "તે Google ખાતા પસંદ કરો જ્યાં તમ
 msgid "Grant access to:"
 msgstr "પ્રવેશ પરવાનગી આપો:"
 
+msgid "Google Drive"
+msgstr "ગૂગલ ડ્રાઇવ"
+
+msgid "Google Sheets"
+msgstr "ગૂગલ શીટ્સ"
+
 msgid "Click <strong>Allow</strong> to finish authorization."
 msgstr "પ્રમાણિકરણ પૂર્ણ કરવા માટે <strong>આગે વધો</strong> પર ક્લિક કરો."
 
@@ -1090,20 +1223,16 @@ msgstr "જો સૂચવવામાં આવે તો પ્રમાણ�
 msgid "This allows the plugin to securely sync your form data with Google Sheets."
 msgstr "આ પ્લગિનને તમારા ફોર્મ ડેટાને Google Sheets સાથે સુરક્ષિત રીતે સમન્વયિત કરવાની મંજૂરી આપે છે."
 
-msgid ""
-"<p class=\"fw-400 text-dark\"><strong>Google Drive</strong> and <strong>Google Sheets</strong> permissions were not granted "
-"during authentication with Google.</p>\n"
-"                                        <p class=\"fw-400 text-dark\"><strong>Refer to Step 4 in the Connection Guide shown "
-"alongside.</strong><br> Then, deactivate the connection and re-authorize it, ensuring both Google Drive and Google Sheets "
-"permissions are enabled.</p>"
-msgstr ""
-"<p class=\"fw-400 text-dark\"><strong>ગૂગલ ડ્રાઈવ</strong> અને <strong>ગૂગલ શીટ્સ</strong> પરવાનગીઓ ગૂગલ સાથેની માન્યતાના સમયે આપવામાં આવી "
-"નથી.</p>\n"
-"                                        <p class=\"fw-400 text-dark\"><strong>સાથે દર્શાવેલ કનેક્શન માર્ગદર્શિકા માં પગલું 4 ને જુઓ.</"
-"strong><br> પછી, કનેક્શનને નિષ્ક્રિય કરો અને ફરીથી અધિકૃત કરો, ખાતરી કરો કે ગૂગલ ડ્રાઈવ અને ગૂગલ શીટ્સ પરવાનગીઓ સક્રિય છે.</p>"
+msgid "<p class="fw-400 text-dark"><strong>Google Drive</strong> and <strong>Google Sheets</strong> permissions were not granted during authentication with Google.</p>
+                                        <p class="fw-400 text-dark"><strong>Refer to Step 4 in the Connection Guide shown alongside.</strong><br> Then, deactivate the connection and re-authorize it, ensuring both Google Drive and Google Sheets permissions are enabled.</p>"
+msgstr "<p class="fw-400 text-dark"><strong>ગૂગલ ડ્રાઈવ</strong> અને <strong>ગૂગલ શીટ્સ</strong> પરવાનગીઓ ગૂગલ સાથેની માન્યતાના સમયે આપવામાં આવી નથી.</p>
+                                        <p class="fw-400 text-dark"><strong>સાથે દર્શાવેલ કનેક્શન માર્ગદર્શિકા માં પગલું 4 ને જુઓ.</strong><br> પછી, કનેક્શનને નિષ્ક્રિય કરો અને ફરીથી અધિકૃત કરો, ખાતરી કરો કે ગૂગલ ડ્રાઈવ અને ગૂગલ શીટ્સ પરવાનગીઓ સક્રિય છે.</p>"
 
 msgid "Connected"
 msgstr "જોડાયેલ"
+
+msgid "Authentication failed. Your Google access token may be expired or invalid. Please re-authenticate your account with the required permissions."
+msgstr "Authentication failed. Your Google access token may be expired or invalid. Please re-authenticate your account with the required permissions."
 
 msgid "Connect Your Google Account"
 msgstr "તમારો ગૂગલ એકાઉન્ટ કનેક્ટ કરો"
@@ -1111,18 +1240,17 @@ msgstr "તમારો ગૂગલ એકાઉન્ટ કનેક્ટ �
 msgid "Securely link your Google account to start syncing form entries automatically."
 msgstr "ફોર્મ એન્ટ્રીઓને આપમેળે સમંકલન કરવા માટે તમારા ગૂગલ એકાઉન્ટને સુરક્ષિત રીતે લિંક કરો."
 
+msgid "Sign in with Google"
+msgstr "Google સાથે સાઇન ઇન કરો"
+
 msgid "Client Token"
 msgstr "ક્લાયન્ટ ટોકન"
 
 msgid "Save Client Token"
 msgstr "ક્લાયન્ટ ટોકન સાચવો"
 
-msgid ""
-"We do not store any of the data from your Google account on our servers, everything is processed & stored on your server. We take "
-"your privacy extremely seriously and ensure it is never misused. Learn more in the documentation"
-msgstr ""
-"અમે તમારા ગૂગલ એકાઉન્ટમાંથી કોઈપણ ડેટા અમારી સર્વર્સ પર સંગ્રહિત નથી કરતા, બધું તમારા સર્વર પર પ્રક્રિયા અને સંગ્રહિત થાય છે. અમે તમારી ગોપનીયતા ખૂબ "
-"જ ગંભીરતાથી લેતા છીએ અને ખાતરી કરીએ છીએ કે તેનો ક્યારેય દુરૂપયોગ ન થાય. દસ્તાવેજોમાં વધુ જાણો"
+msgid "We do not store any of the data from your Google account on our servers, everything is processed & stored on your server. We take your privacy extremely seriously and ensure it is never misused. Learn more in the documentation"
+msgstr "અમે તમારા ગૂગલ એકાઉન્ટમાંથી કોઈપણ ડેટા અમારી સર્વર્સ પર સંગ્રહિત નથી કરતા, બધું તમારા સર્વર પર પ્રક્રિયા અને સંગ્રહિત થાય છે. અમે તમારી ગોપનીયતા ખૂબ જ ગંભીરતાથી લેતા છીએ અને ખાતરી કરીએ છીએ કે તેનો ક્યારેય દુરૂપયોગ ન થાય. દસ્તાવેજોમાં વધુ જાણો"
 
 msgid "click here."
 msgstr "અહીં ક્લિક કરો."
@@ -1130,13 +1258,14 @@ msgstr "અહીં ક્લિક કરો."
 msgid "Connection Status & Next Steps"
 msgstr "કનેક્શન સ્થિતિ & આગામી પગલાં"
 
-msgid ""
-"Your Google account has been successfully connected. You are now ready to sync your form submissions with Google Sheets securely "
-"and automatically."
+msgid "Your Google account has been successfully connected. You are now ready to sync your form submissions with Google Sheets securely and automatically."
 msgstr "તમારો ગૂગલ એકાઉન્ટ સફળતાપૂર્વક જોડાયો છે. તમે હવે ગૂગલ શીટ્સ સાથે તમારા ફોર્મ સબમિશન્સને સુરક્ષિત અને આપમેળે સમંકલન કરવા માટે તૈયાર છો."
 
 msgid "Create New Feed"
 msgstr "નવું ફીડ બનાવો"
+
+msgid "Select Google Spreadsheet"
+msgstr "ગૂગલ સ્પ્રેડશીટ પસંદ કરો"
 
 msgid "Add Labels in Sheet Headers Manually"
 msgstr "શીટ હેડર્સમાં મેન્યુઅલી લેબલ્સ ઉમેરો"
@@ -1204,14 +1333,12 @@ msgstr "તમારો Google ખાતો હવે સફળતાપૂર�
 msgid "Manual Google Sheets Integration"
 msgstr "હસ્તચાલિત Google Sheets એકીકરણ"
 
-msgid ""
-"Connect Elementor Forms to Google Sheets using your own Google Cloud project.\n"
-"                            Ideal for advanced users who need full API control, custom OAuth setup,\n"
-"                            and independent credential management."
-msgstr ""
-"તમારા પોતાના Google Cloud પ્રોજેક્ટનો ઉપયોગ કરીને Elementor Forms ને Google Sheets સાથે જોડો.\n"
-"                            સંપૂર્ણ API નિયંત્રણ, કસ્ટમ OAuth સેટઅપ,\n"
-"                            અને સ્વતંત્ર પ્રમાણપત્ર વ્યવસ્થાપનની જરૂર હોય તેવા અદ્યતન વપરાશકર્તાઓ માટે આદર્શ."
+msgid "Connect Elementor Forms to Google Sheets using your own Google Cloud project.
+                            Ideal for advanced users who need full API control, custom OAuth setup,
+                            and independent credential management."
+msgstr "તમારા પોતાના Google Cloud પ્રોજેક્ટનો ઉપયોગ કરીને Elementor Forms ને Google Sheets સાથે જોડો.
+                            સંપૂર્ણ API નિયંત્રણ, કસ્ટમ OAuth સેટઅપ,
+                            અને સ્વતંત્ર પ્રમાણપત્ર વ્યવસ્થાપનની જરૂર હોય તેવા અદ્યતન વપરાશકર્તાઓ માટે આદર્શ."
 
 msgid "Custom API Credentials"
 msgstr "કસ્ટમ API પ્રમાણપત્રો"
@@ -1243,12 +1370,8 @@ msgstr "પ્રો ફીચર્સ જુઓ"
 msgid "Service Account Google Sheets Integration"
 msgstr "સેવા ખાતા Google Sheets એકીકરણ"
 
-msgid ""
-"Securely connect Elementor Forms to Google Sheets using a Google Cloud Service Account JSON key. Ideal for automated server-to-"
-"server syncing without requiring manual Google login."
-msgstr ""
-"Google Cloud Service Account JSON કીનો ઉપયોગ કરીને Elementor Forms ને Google Sheets સાથે સુરક્ષિત રીતે જોડો. મેન્યુઅલ Google લોગિનની જરૂર "
-"વગર સ્વચાલિત સર્વર-થી-સર્વર સમન્વય માટે આદર્શ."
+msgid "Securely connect Elementor Forms to Google Sheets using a Google Cloud Service Account JSON key. Ideal for automated server-to-server syncing without requiring manual Google login."
+msgstr "Google Cloud Service Account JSON કીનો ઉપયોગ કરીને Elementor Forms ને Google Sheets સાથે સુરક્ષિત રીતે જોડો. મેન્યુઅલ Google લોગિનની જરૂર વગર સ્વચાલિત સર્વર-થી-સર્વર સમન્વય માટે આદર્શ."
 
 msgid "Secure JSON Authentication"
 msgstr "સુરક્ષિત JSON પ્રમાણિકતા"
@@ -1277,12 +1400,13 @@ msgstr "વ્યવસાયિક અને ઉચ્ચ ટ્રાફિક
 msgid "Deactivate Integration"
 msgstr "એકીકરણ અક્ષમ કરો"
 
-msgid ""
-"Are you sure you want to deactivate Google Sheets integration?\n"
-"        This will stop syncing your form entries."
-msgstr ""
-"શું તમે Google Sheets એકીકરણ અક્ષમ કરવા માંગો છો?\n"
-"        આ તમારા ફોર્મ પ્રવેશોને સમન્વયિત થવા રોકશે."
+msgid "Are you sure you want to deactivate Google Sheets integration?
+        This will stop syncing your form entries."
+msgstr "શું તમે Google Sheets એકીકરણ અક્ષમ કરવા માંગો છો?
+        આ તમારા ફોર્મ પ્રવેશોને સમન્વયિત થવા રોકશે."
+
+msgid "Permission Not Allowed"
+msgstr "પરવાનગી મંજૂર નથી"
 
 msgid "Unlock Role-Based Access Control"
 msgstr "રોલ આધારિત ઍક્સેસ નિયંત્રણ અનલોક કરો"
@@ -1359,6 +1483,9 @@ msgstr "પ્લગિન ઍક્સેસ નિયંત્રણ"
 msgid "Control who can access and manage the GSheetConnector plugin settings."
 msgstr "કંટ્રોલ કરો કે કોણ GSheetConnector પ્લગિન સેટિંગ્સને ઍક્સેસ અને મેનેજ કરી શકે છે."
 
+msgid "Administrator"
+msgstr "પ્રશાસક"
+
 msgid "Permission Guidelines"
 msgstr "પરવાનગી માર્ગદર્શિકા"
 
@@ -1383,12 +1510,14 @@ msgstr "સામાન્ય સેટિંગ્સ"
 msgid "Version Control"
 msgstr "વર્ષન નિયંત્રણ"
 
+msgid "You do not have permission to access this page."
+msgstr "આ પૃષ્ઠ પર ઍક્સેસ કરવાની તમારી પાસે પરવાનગી નથી."
+
 msgid "System Information"
 msgstr "સિસ્ટમ માહિતી"
 
-msgid ""
-"View detailed information about your plugin, server, and WordPress setup for troubleshooting and support.\n"
-"    "
+msgid "View detailed information about your plugin, server, and WordPress setup for troubleshooting and support.
+    "
 msgstr "તમારા પ્લગિન, સર્વર, અને વોર્ડપ્રેસ સેટઅપ વિશેની વિગતવાર માહિતી જુઓ, જે સમસ્યાઓને ઉકેલવા અને સપોર્ટ માટે છે."
 
 msgid "Copy System Info"
@@ -1481,11 +1610,18 @@ msgstr "સક્રિય થીમ"
 msgid "Name"
 msgstr "નામ"
 
+msgid "Author"
+msgstr "લેખક"
+
 msgid "Author website"
 msgstr "લેખકની વેબસાઇટ"
 
 msgid "Theme directory location"
 msgstr "થિમ ડિરેક્ટરી સ્થાન"
+
+msgid "Network Active
+      plugins"
+msgstr "સક્રિય પ્લગઇન્સ"
 
 msgid "Active Plugins"
 msgstr "સક્રિય પ્લગઇન્સ"
@@ -1544,6 +1680,9 @@ msgstr "Imagick લાઇબ્રેરી ઉપલબ્ધ છે?"
 msgid "Are Pretty Permalinks Supported?"
 msgstr "પ્રેટી પર્માલિંક્સ સમર્થિત છે?"
 
+msgid ".htaccess Rules"
+msgstr ".હ્ટアクセス નિયમો"
+
 msgid "Writable"
 msgstr "લખવા યોગ્ય"
 
@@ -1561,6 +1700,9 @@ msgstr "વર્તમાન સર્વર સમય"
 
 msgid "Database"
 msgstr "ડેટાબેસ"
+
+msgid "Extension"
+msgstr "વિસ્તાર"
 
 msgid "Server Version"
 msgstr "સર્વર આવૃત્તિ"
@@ -1601,268 +1743,6 @@ msgstr "ફાઇલસિસ્ટમ પરમિશન"
 msgid "Shows whether WordPress is able to write to the directories it needs access to."
 msgstr "આ બતાવે છે કે WordPress તે ડિરેક્ટરીઝમાં લખવા માટે સક્ષમ છે, જેમાં તેને ઍક્સેસની જરૂર છે."
 
-msgid "copied successfully."
-msgstr "સફળતાપૂર્વક નકલ કરવામાં આવી."
-
-msgid "View Documentation"
-msgstr "દસ્તાવેજીકરણ જુઓ"
-
-msgid "Docs"
-msgstr "દસ્તાવેજો"
-
-msgid "Get Support"
-msgstr "સહાય મેળવો"
-
-msgid "Support"
-msgstr "સમર્થન"
-
-msgid ""
-"Google Sheet Connector Elementor Add-on requires Elementor Pro or Pro Elements or MetForm Plugin to be installed and activated."
-msgstr "ગૂગલ શીટ કનેક્ટર એલિમેન્ટર એડ-ઓનને એલિમેન્ટર પ્રો અથવા પ્રો એલિમેન્ટ્સ અથવા મેટફોર્મ પ્લગિન ઇન્સ્ટોલ અને સક્રિય કરવાની જરૂર છે."
-
-msgid "GSheetConnector For Elementor Forms"
-msgstr "એલિમેન્ટર ફોર્મ માટે GSheetConnector"
-
-msgid "GSheetConnector Elementor"
-msgstr "GSheetConnector એલિમેન્ટર"
-
-msgid "GSheetConnector"
-msgstr "GSheetConnector"
-
-msgid "Select Google Spreadsheet"
-msgstr "ગૂગલ સ્પ્રેડશીટ પસંદ કરો"
-
-msgid "Yes"
-msgstr "હા"
-
-msgid "No"
-msgstr "ના"
-
-msgid "Sheet Name"
-msgstr "શીટનું નામ"
-
-msgid "Sheet ID"
-msgstr "શીટ ID"
-
-msgid "Tab Name"
-msgstr "ટેબનું નામ"
-
-msgid "Tab ID"
-msgstr "ટેબ ID"
-
-msgid "View Spreadsheet"
-msgstr "સ્પ્રેડશીટ જુઓ"
-
-msgid "Click here to configure Form Feeds"
-msgstr "ફોર્મ ફીડ્સ કન્ફિગર કરવા માટે અહીં ક્લિક કરો"
-
-msgid "Entry Date"
-msgstr "એન્ટ્રી તારીખ"
-
-msgid "Post ID"
-msgstr "પોસ્ટ ID"
-
-msgid "User Name"
-msgstr "વપરાશકર્તા નામ"
-
-msgid "User IP"
-msgstr "વપરાશકર્તા IP"
-
-msgid "User Agent"
-msgstr "વપરાશકર્તા એજન્ટ"
-
-msgid "User ID"
-msgstr "વપરાશકર્તા ID"
-
-msgid "Referrer"
-msgstr "રેફરર"
-
-msgid "Freeze Header"
-msgstr "હેડર જમાવવો"
-
-msgid "Error Log"
-msgstr "ભૂલ લોગ"
-
-msgid "Copy Logs"
-msgstr "લોગ્સ નકલ કરો"
-
-msgid "Google Sheet"
-msgstr "ગૂગલ શીટ"
-
-msgid "Integration"
-msgstr "એકીકરણ"
-
-msgid "Form Feeds"
-msgstr "ફોર્મ ફીડ્સ"
-
-msgid "Settings"
-msgstr "સેટિંગ્સ"
-
-msgid "Extensions"
-msgstr "વિસ્તરણ"
-
-msgid "One-Click Authentication"
-msgstr "એક-ક્લિક પ્રમાણન"
-
-msgid "Image / PDF Attachment Link"
-msgstr "છબી / PDF સંલગ્નતા લિંક"
-
-msgid "Role Management"
-msgstr "ભૂમિકા વ્યવસ્થાપન"
-
-msgid "Quick Configuration"
-msgstr "ઝડપી રૂપરેખાંકન"
-
-msgid "There's something wrong with your code..."
-msgstr "તમારા કોડમાં કંઈક ખોટું છે..."
-
-msgid "GSheetConnector for Elementor Forms"
-msgstr "GSheetConnector for Elementor Forms"
-
-msgid "WordPress.org"
-msgstr "WordPress.org"
-
-msgid "Back to Feeds List"
-msgstr "ફીડ્સ યાદીમાં પાછા જાઓ"
-
-msgid "Feed Name"
-msgstr "ફીડ નામ"
-
-msgid "Form Name"
-msgstr "ફોર્મ નામ"
-
-msgid "Page Name"
-msgstr "પેજ નામ"
-
-msgid "PRO"
-msgstr "PRO"
-
-msgid "Select"
-msgstr "ચૂંટો"
-
-msgid "Create New"
-msgstr "નવું બનાવો"
-
-msgid "Create Spreadsheet"
-msgstr "સ્પ્રેડશીટ બનાવો"
-
-msgid "Spreadsheet Name and URL not showing?"
-msgstr "સ્પ્રેડશીટનું નામ અને URL દર્શાવતું નથી?"
-
-msgid "Click Here"
-msgstr "અહીં ક્લિક કરો"
-
-msgid "to fetch sheets."
-msgstr "શીટ્સ લાવવા માટે."
-
-msgid "Select All"
-msgstr "બધા પસંદ કરો"
-
-msgid "Sheet Sorting"
-msgstr "શીટ સોર્ટિંગ"
-
-msgid "Ascending"
-msgstr "ઉપરવાળા"
-
-msgid "Descending"
-msgstr "નીચેવાળા"
-
-msgid "From Date"
-msgstr "તારીખથી"
-
-msgid "To Date"
-msgstr "તારીખ સુધી"
-
-msgid "Sync Entries"
-msgstr "એન્ટ્રીઓ સમન્વયિત કરો"
-
-msgid "Pro"
-msgstr "પ્રો"
-
-msgid "Deactivate"
-msgstr "અક્ષમ કરો"
-
-msgid "Activate"
-msgstr "સક્રિય કરો"
-
-msgid "All"
-msgstr "બધા"
-
-msgid "Elementor Forms Connected Sheets using Pagebuilder"
-msgstr "Elementor ફોર્મ્સ કનેક્ટેડ શીટ્સ ઉપયોગ કરીને પેજબિલ્ડર"
-
-msgid "Sheetlink"
-msgstr "શીટલિંક"
-
-msgid "No Sheets are connected."
-msgstr "કોઈ શીટ્સ કનેક્ટેડ નથી."
-
-msgid "No Elementor Forms are connected with Google Sheets."
-msgstr "કોઈ Elementor ફોર્મ્સ Google Sheets સાથે કનેક્ટેડ નથી."
-
-msgid "Free Plugins"
-msgstr "મફત પ્લગઇન્સ"
-
-msgid "Select Form"
-msgstr "ફોર્મ પસંદ કરો"
-
-msgid "Unnamed Form"
-msgstr "નામહીન ફોર્મ"
-
-msgid "Unknown Element ID"
-msgstr "અજ્ઞાત એલિમેન્ટ ID"
-
-msgid "MetForm: "
-msgstr "MetForm: "
-
-msgid "Submit"
-msgstr "સબમિટ કરો"
-
-msgid "Delete"
-msgstr "મિટાવો"
-
-msgid "Choose Google API Setting"
-msgstr "Google API સેટિંગ પસંદ કરો"
-
-msgid "click here"
-msgstr "અહીં ક્લિક કરો"
-
-msgid "Google Drive"
-msgstr "ગૂગલ ડ્રાઇવ"
-
-msgid "Google Sheets"
-msgstr "ગૂગલ શીટ્સ"
-
-msgid "Connected Email Account"
-msgstr "જોડાયેલ ઇમેઇલ ખાતું"
-
-msgid "Something wrong ! Your Auth Code may be wrong or expired. Please deactivate and do Re-Authentication again. "
-msgstr "કંઈક ખોટું છે! તમારો ઓથ કોડ ખોટો અથવા સમાપ્ત થઈ ગયો હોઈ શકે છે. કૃપા કરીને ડિએક્ટિવેટ કરો અને ફરીથી પુનઃપ્રમાણિત કરો."
-
-msgid "Sign in with Google"
-msgstr "Google સાથે સાઇન ઇન કરો"
-
-msgid "Permission Not Allowed"
-msgstr "પરવાનગી મંજૂર નથી"
-
-msgid "Administrator"
-msgstr "પ્રશાસક"
-
-msgid "System Status"
-msgstr "સિસ્ટમ સ્થિતિ"
-
-msgid "You do not have permission to access this page."
-msgstr "આ પૃષ્ઠ પર ઍક્સેસ કરવાની તમારી પાસે પરવાનગી નથી."
-
-msgid "Author"
-msgstr "લેખક"
-
-msgid ".htaccess Rules"
-msgstr ".હ્ટアクセス નિયમો"
-
-msgid "Extension"
-msgstr "વિસ્તાર"
-
 msgid "The main WordPress directory"
 msgstr "મુખ્ય વર્ડપ્રેસ ડિરેક્ટરી"
 
@@ -1880,6 +1760,9 @@ msgstr "થિમ્સ ડિરેક્ટરી"
 
 msgid "Debug Log"
 msgstr "ડિબગ લોગ"
+
+msgid "Copied successfully."
+msgstr "સફળતાપૂર્વક નકલ કરવામાં આવી."
 
 msgid "https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro"
 msgstr "https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro"

@@ -6,7 +6,7 @@
  * Description: Send your Elementor Form data to your Google Spreadsheet.
  * Requires at least: 5.6
  * Requires PHP: 7.4
- * Version: 1.3.5
+ * Version: 1.3.6
  * Author: GSheetConnector
  * Author URI: https://www.gsheetconnector.com/
  * Text Domain: gsheetconnector-for-elementor-forms
@@ -36,46 +36,32 @@ $parent_plugin_pro_elements = 'pro-elements/pro-elements.php'; // Correct defini
  * @since 1.0.11
  */
 
-$gsc_current_site_id = get_current_blog_id();
-
-// Check if Multisite and single site activated plugin code
-if ((is_multisite() && !empty($current_site_id))) {
-    function gsc_get_activated_plugins_for_site($site_id)
-    {
-        // Switch to the specific site
-        switch_to_blog($site_id);
-
-        // Get the list of activated plugins for the current site
-        $activated_plugins = get_option('active_plugins');
-
-        // Restore the current site
-        restore_current_blog();
-
-        return $activated_plugins;
-    }
-
-    $active_plugins = gsc_get_activated_plugins_for_site($current_site_id);
-
-    if ((in_array($gsc_parent_plugins, $active_plugins)) && (in_array($gsc_parent_plugins_free, $active_plugins)) || (in_array($gsc_parent_plugins_metform, $active_plugins)) || (in_array($parent_plugin_pro_elements, $active_plugins))) {
-        $gsc_activate_the_plugin = true;
-    }
+// is_plugin_active() lives in wp-admin/includes/plugin.php, which is not loaded yet
+// when plugins are included on the front end or when network-active plugins load.
+if (!function_exists('is_plugin_active')) {
+    require_once ABSPATH . 'wp-admin/includes/plugin.php';
 }
 
-// Check if Multisite and network activated plugin code
+// Current site's active plugins, plus network-activated plugins on Multisite.
+$active_plugins = (array) get_option('active_plugins', array());
+
 if (is_multisite()) {
-    $active_plugins = get_site_option('active_sitewide_plugins');
-
-    if ((array_key_exists($gsc_parent_plugins, $active_plugins)) && (array_key_exists($gsc_parent_plugins_free, $active_plugins)) || (array_key_exists($gsc_parent_plugins_metform, $active_plugins)) || (array_key_exists($parent_plugin_pro_elements, $active_plugins))) {
-        $gsc_activate_the_plugin = true;
-    }
+    $active_plugins = array_merge(
+        $active_plugins,
+        array_keys((array) get_site_option('active_sitewide_plugins', array()))
+    );
 }
-// Check if Singlesite activation of plugin code
-else {
-    $active_plugins = get_option('active_plugins');
 
-    if ((in_array($gsc_parent_plugins, $active_plugins)) && (in_array($gsc_parent_plugins_free, $active_plugins)) || (in_array($gsc_parent_plugins_metform, $active_plugins)) || (in_array($parent_plugin_pro_elements, $active_plugins))) {
-        $gsc_activate_the_plugin = true;
-    }
+// Elementor (base plugin) is required, together with Elementor Pro, MetForm or Pro Elements.
+if (
+    in_array($gsc_parent_plugins_free, $active_plugins)
+    && (
+        in_array($gsc_parent_plugins, $active_plugins)
+        || in_array($gsc_parent_plugins_metform, $active_plugins)
+        || in_array($parent_plugin_pro_elements, $active_plugins)
+    )
+) {
+    $gsc_activate_the_plugin = true;
 }
 
 // If Elementor Pro version of plugin is active, stop execution
@@ -125,8 +111,8 @@ if ($gsc_activate_the_plugin) {
 /* Freemius End */
 
 // Declare some global constants
-define('GS_CONN_ELE_VERSION', '1.3.5');
-define('GS_CONN_ELE_DB_VERSION', '1.3.5');
+define('GS_CONN_ELE_VERSION', '1.3.6');
+define('GS_CONN_ELE_DB_VERSION', '1.3.6');
 define('GS_CONN_ELE_ROOT', dirname(__FILE__));
 define('GS_CONN_ELE_URL', plugins_url('/', __FILE__));
 define('GS_CONN_ELE_BASE_FILE', basename(dirname(__FILE__)) . '/gsheetconnector-for-elementor-forms.php');
@@ -357,6 +343,13 @@ public function get_googlesheet_object()
 public function gsc_elementor_validate_parent_plugin_exists()
 {
     $plugin = plugin_basename(__FILE__);
+
+    // Never deactivate a network-active plugin because one subsite lacks its parent plugin.
+    // Only validate at network activation time (Network Admin right after activating).
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Activation context, handled by WordPress core
+    if (is_multisite() && is_plugin_active_for_network($plugin) && !(is_network_admin() && isset($_GET['activate']))) {
+        return;
+    }
 
     if (
         !is_plugin_active('elementor-pro/elementor-pro.php') &&
@@ -762,9 +755,9 @@ public function gsc_elementor_widget()
  */
 public function run_on_upgrade()
 {
-   $plugin_options = get_site_option('elefgs_info');
+ $plugin_options = get_site_option('elefgs_info');
 
-   if (
+ if (
     is_array($plugin_options) &&
     isset($plugin_options['version']) &&
     $plugin_options['version'] === '1.0.23'
@@ -830,6 +823,11 @@ public function upgrade_helper_18()
  */
 public function add_gsc_elementor_connector_summary_widget()
 {
+    // The widget needs the integration classes, which load only when the plugin is activated for this site.
+    if (empty($GLOBALS['gsc_activate_the_plugin'])) {
+        return;
+    }
+
     $img_src = GS_CONN_ELE_URL . "assets/img/elementor-gsc.svg";
     $title = __("GSheetConnector For Elementor Forms", 'gsheetconnector-for-elementor-forms');
         // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage -- Static plugin asset used in dashboard widget
@@ -844,7 +842,7 @@ public function add_gsc_elementor_connector_summary_widget()
 */
 public function elementor_gs_connector_summary_dashboard()
 {
- include_once(GS_CONN_ELE_ROOT . '/includes/pages/gsc-elementor-dashboard-widget.php');
+   include_once(GS_CONN_ELE_ROOT . '/includes/pages/gsc-elementor-dashboard-widget.php');
 }
 
 /**
@@ -1093,7 +1091,7 @@ private static function delete_for_site()
         );
 
         if ( $table_exists === $error_log_table ) {
-         
+
           $sql = "DROP TABLE IF EXISTS `$error_log_table`";
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared

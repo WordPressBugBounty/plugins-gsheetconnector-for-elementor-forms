@@ -1347,6 +1347,17 @@ public function send_form_submission_to_google_sheets_feed($record, $handler)
         }
 
         // -----------------------------------------------------------------
+        // Capture UTM Campaign from the submission URL
+        // -----------------------------------------------------------------
+        $utm_campaign = isset($_GET['utm_campaign'])
+        ? sanitize_text_field(wp_unslash($_GET['utm_campaign']))
+        : '';
+
+        if ($utm_campaign !== '') {
+            $data['UTM campaign'] = $utm_campaign;
+        }
+
+        // -----------------------------------------------------------------
         // Send data to Google Sheets (shared with the atomic-form handler)
         // -----------------------------------------------------------------
         $this->gscelef_dispatch_feed_row($feed_id, $data);

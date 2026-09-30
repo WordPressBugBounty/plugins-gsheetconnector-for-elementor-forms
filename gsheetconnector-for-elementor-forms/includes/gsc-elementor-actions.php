@@ -145,6 +145,15 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
                     $key = trim($field['title']);
                     $gsele_value_data[$key] = $field['value'];
                 }
+                // Capture UTM Campaign from the submission URL.
+                $utm_campaign = isset($_GET['utm_campaign'])
+                ? sanitize_text_field(wp_unslash($_GET['utm_campaign']))
+                : '';
+
+                if ($utm_campaign !== '') {
+                    $gsele_value_data['UTM campaign'] = $utm_campaign;
+                }
+
                 $gsele_value_data['Entry Date'] =  $local_date;
                 $gsele_value_data['date'] =  $local_date;
                 $gsele_value_data['Date'] =  $local_date;

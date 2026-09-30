@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Elementor Forms GSheetConnector\n"
-"POT-Creation-Date: 2026-08-22 16:17+0530\n"
+"POT-Creation-Date: 2026-09-30 16:56+0530\n"
 "PO-Revision-Date: 2023-08-14 18:58+0530\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,77 +20,77 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: gsheetconnector-for-elementor-forms.php:301
+#: gsheetconnector-for-elementor-forms.php:287
 msgid "View Documentation"
 msgstr ""
 
-#: gsheetconnector-for-elementor-forms.php:301
+#: gsheetconnector-for-elementor-forms.php:287
 #: includes/pages/admin-footer.php:135
 msgid "Docs"
 msgstr ""
 
-#: gsheetconnector-for-elementor-forms.php:302
+#: gsheetconnector-for-elementor-forms.php:288
 msgid "Get Support"
 msgstr ""
 
-#: gsheetconnector-for-elementor-forms.php:302
+#: gsheetconnector-for-elementor-forms.php:288
 #: includes/pages/admin-footer.php:155
 msgid "Support"
 msgstr ""
 
-#: gsheetconnector-for-elementor-forms.php:393
+#: gsheetconnector-for-elementor-forms.php:386
 msgid ""
 "Google Sheet Connector Elementor Add-on requires Elementor Pro or Pro "
 "Elements or MetForm Plugin to be installed and activated."
 msgstr ""
 
-#: gsheetconnector-for-elementor-forms.php:834
+#: gsheetconnector-for-elementor-forms.php:832
 #: includes/gsc-elementor-sidemenu.php:350
 msgid "GSheetConnector For Elementor Forms"
 msgstr ""
 
-#: gsheetconnector-for-elementor-forms.php:858
+#: gsheetconnector-for-elementor-forms.php:856
 msgid "Get Elementor Google Sheet Pro"
 msgstr ""
 
-#: gsheetconnector-for-elementor-forms.php:935
+#: gsheetconnector-for-elementor-forms.php:933
 #: includes/gsc-elementor-error-logs.php:294
 msgid "No error logs found."
 msgstr ""
 
-#: includes/class-gsc-elementor-integration.php:304
+#: includes/class-gsc-elementor-integration.php:387
 msgid "No Form Feeds Created Yet"
 msgstr ""
 
-#: includes/class-gsc-elementor-integration.php:308
+#: includes/class-gsc-elementor-integration.php:391
 msgid ""
 "Connect your form to Google Sheets to automatically sync submissions in real "
 "time. Create a feed to start sending data to your spreadsheet."
 msgstr ""
 
-#: includes/class-gsc-elementor-integration.php:347
+#: includes/class-gsc-elementor-integration.php:430
 #: includes/pages/gsc-elementor-dashboard-widget.php:243
 msgid "Not connected"
 msgstr ""
 
-#: includes/class-gsc-elementor-integration.php:494
+#: includes/class-gsc-elementor-integration.php:577
 msgid "You do not have permission to perform this action."
 msgstr ""
 
-#: includes/class-gsc-elementor-integration.php:516
+#: includes/class-gsc-elementor-integration.php:599
 msgid "Uninstall settings saved successfully."
 msgstr ""
 
 #. Author of the plugin/theme
-#: includes/gsc-elementor-actions.php:47 includes/gsc-elementor-actions.php:300
+#: includes/gsc-elementor-actions.php:47 includes/gsc-elementor-actions.php:309
 msgid "GSheetConnector"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:348
+#: includes/gsc-elementor-actions.php:357
 msgid "Enable Manual Google Sheets Configuration"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:351
+#: includes/gsc-elementor-actions.php:360
 #: includes/pages/gsc-system-status.php:202
 #: includes/pages/gsc-system-status.php:209
 #: includes/pages/gsc-system-status.php:217
@@ -110,7 +110,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:352
+#: includes/gsc-elementor-actions.php:361
 #: includes/pages/gsc-system-status.php:202
 #: includes/pages/gsc-system-status.php:209
 #: includes/pages/gsc-system-status.php:217
@@ -130,57 +130,57 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:382
-#: includes/gsc-elementor-actions.php:468 includes/pages/edit-sheet.php:577
-#: includes/pages/edit-sheet.php:806
+#: includes/gsc-elementor-actions.php:391
+#: includes/gsc-elementor-actions.php:477 includes/pages/edit-sheet.php:624
+#: includes/pages/edit-sheet.php:853
 #: includes/pages/gsc-elementor-dashboard.php:91
 msgid "Sheet Name"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:399 includes/pages/edit-sheet.php:598
+#: includes/gsc-elementor-actions.php:408 includes/pages/edit-sheet.php:645
 msgid "Sheet ID"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:416 includes/pages/edit-sheet.php:619
-#: includes/pages/edit-sheet.php:828
+#: includes/gsc-elementor-actions.php:425 includes/pages/edit-sheet.php:666
+#: includes/pages/edit-sheet.php:875
 msgid "Tab Name"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:433 includes/pages/edit-sheet.php:640
+#: includes/gsc-elementor-actions.php:442 includes/pages/edit-sheet.php:687
 msgid "Tab ID"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:488
+#: includes/gsc-elementor-actions.php:497
 msgid "Sheet Tab Name"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:521 includes/pages/edit-sheet.php:665
+#: includes/gsc-elementor-actions.php:530 includes/pages/edit-sheet.php:712
 msgid "View Spreadsheet"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:606 includes/pages/edit-sheet.php:863
+#: includes/gsc-elementor-actions.php:615 includes/pages/edit-sheet.php:910
 msgid "Fetch Sheets"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:655
+#: includes/gsc-elementor-actions.php:664
 msgid "Click here to configure Form Feeds"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:659
+#: includes/gsc-elementor-actions.php:668
 msgid ""
 "Click here to Setup form feeds settings to easily configure multiple feeds "
 "simultaneously"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:699
+#: includes/gsc-elementor-actions.php:708
 msgid "Upgrade to GSheetConnector Pro"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:750
+#: includes/gsc-elementor-actions.php:759
 msgid "Entry ID"
 msgstr ""
 
-#: includes/gsc-elementor-actions.php:825 includes/pages/edit-sheet.php:1085
+#: includes/gsc-elementor-actions.php:834 includes/pages/edit-sheet.php:1132
 msgid "Freeze Header"
 msgstr ""
 
@@ -518,187 +518,187 @@ msgstr ""
 msgid "Plugins"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:471
+#: includes/pages/edit-sheet.php:518
 msgid "Back to Feeds List"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:480
+#: includes/pages/edit-sheet.php:527
 msgid "Feed Details"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:484
+#: includes/pages/edit-sheet.php:531
 msgid ""
 "Displays the form and feed information used for Google Sheets "
 "synchronization."
 msgstr ""
 
-#: includes/pages/edit-sheet.php:492
-#: includes/pages/gsc-feed-google-sheet.php:226
+#: includes/pages/edit-sheet.php:539
+#: includes/pages/gsc-feed-google-sheet.php:359
 msgid "Form ID"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:503
+#: includes/pages/edit-sheet.php:550
 #: includes/pages/gsc-elementor-dashboard-widget.php:83
 #: includes/pages/gsc-elementor-dashboard.php:90
-#: includes/pages/gsc-feed-google-sheet.php:136
-#: includes/pages/gsc-feed-google-sheet.php:227
+#: includes/pages/gsc-feed-google-sheet.php:258
+#: includes/pages/gsc-feed-google-sheet.php:360
 msgid "Feed Name"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:514
+#: includes/pages/edit-sheet.php:561
 #: includes/pages/gsc-elementor-dashboard.php:89
-#: includes/pages/gsc-feed-google-sheet.php:228
+#: includes/pages/gsc-feed-google-sheet.php:361
 msgid "Form Name"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:527
-#: includes/pages/gsc-feed-google-sheet.php:229
+#: includes/pages/edit-sheet.php:574
+#: includes/pages/gsc-feed-google-sheet.php:362
 msgid "Page Name"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:542
-#: includes/pages/gsc-feed-google-sheet.php:230
+#: includes/pages/edit-sheet.php:589
+#: includes/pages/gsc-feed-google-sheet.php:363
 msgid "Timestamp"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:565
+#: includes/pages/edit-sheet.php:612
 msgid "Manual Google Sheets Configuration"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:569
+#: includes/pages/edit-sheet.php:616
 msgid ""
 "Manual connect your Elementor Form with Google Sheets by entering the Sheet "
 "Name, Sheet ID, Tab Name, and Tab ID. This ensures that form submissions are "
 "stored directly in your chosen Google Sheet."
 msgstr ""
 
-#: includes/pages/edit-sheet.php:579
+#: includes/pages/edit-sheet.php:626
 msgid ""
 "Go to your Google account, open Google Sheets, and select or create the "
 "sheet you want to connect."
 msgstr ""
 
-#: includes/pages/edit-sheet.php:600
+#: includes/pages/edit-sheet.php:647
 msgid "You can get the Sheet ID from your Google Sheet URL."
 msgstr ""
 
-#: includes/pages/edit-sheet.php:621
+#: includes/pages/edit-sheet.php:668
 msgid ""
 "Open your Google Sheet and copy the tab name shown at the bottom where you "
 "want entries stored."
 msgstr ""
 
-#: includes/pages/edit-sheet.php:642
+#: includes/pages/edit-sheet.php:689
 msgid "You can get the Tab ID from your Google Sheet URL after gid=."
 msgstr ""
 
-#: includes/pages/edit-sheet.php:679 includes/pages/gsc-beta-version.php:149
+#: includes/pages/edit-sheet.php:726 includes/pages/gsc-beta-version.php:149
 #: includes/pages/gsc-general-setting.php:65
 #: includes/pages/gsc-role-setting.php:206
 msgid "Save Settings"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:685
+#: includes/pages/edit-sheet.php:732
 msgid "Reset"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:715
+#: includes/pages/edit-sheet.php:762
 msgid "Unlock Advanced Features with Form Feeds"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:716 includes/pages/gsc-role-setting.php:47
+#: includes/pages/edit-sheet.php:763 includes/pages/gsc-role-setting.php:47
 msgid "Advanced options are available in PRO"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:723
+#: includes/pages/edit-sheet.php:770
 msgid "Automatically Google Sheet Configuration"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:726
+#: includes/pages/edit-sheet.php:773
 msgid "Auto fetch Google Sheets list"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:727
+#: includes/pages/edit-sheet.php:774
 msgid "Auto detect sheet tabs"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:728
+#: includes/pages/edit-sheet.php:775
 msgid "One-click configuration"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:729
+#: includes/pages/edit-sheet.php:776
 msgid "Real-time entry sync"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:735 includes/pages/edit-sheet.php:889
+#: includes/pages/edit-sheet.php:782 includes/pages/edit-sheet.php:936
 msgid "Select Fields to Sync"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:738
+#: includes/pages/edit-sheet.php:785
 msgid "Drag & drop field reordering"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:739
+#: includes/pages/edit-sheet.php:786
 msgid "Rename column headers"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:740
+#: includes/pages/edit-sheet.php:787
 msgid "Select specific fields to sync"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:746
+#: includes/pages/edit-sheet.php:793
 msgid "Header Settings & Sheet Sorting"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:749
+#: includes/pages/edit-sheet.php:796
 msgid "Freeze header row"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:750
+#: includes/pages/edit-sheet.php:797
 msgid "Custom font styling"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:751
+#: includes/pages/edit-sheet.php:798
 msgid "Header & row color control"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:752
+#: includes/pages/edit-sheet.php:799
 msgid "Sort by any column"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:758
+#: includes/pages/edit-sheet.php:805
 msgid "Spreadsheet Download & Google Sheets Sync"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:761
+#: includes/pages/edit-sheet.php:808
 msgid "Download spreadsheet as file"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:762
+#: includes/pages/edit-sheet.php:809
 msgid "Bulk sync past entries"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:763
+#: includes/pages/edit-sheet.php:810
 msgid "Date range sync"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:764
+#: includes/pages/edit-sheet.php:811
 msgid "Real-time entry updates"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:775 includes/pages/gsc-beta-version.php:85
+#: includes/pages/edit-sheet.php:822 includes/pages/gsc-beta-version.php:85
 #: includes/pages/gsc-integration.php:560
 #: includes/pages/gsc-integration.php:658
 #: includes/pages/gsc-role-setting.php:115
 msgid "Upgrade to Unlock"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:792
+#: includes/pages/edit-sheet.php:839
 msgid "Automatic Google Sheets Configuration"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:793 includes/pages/edit-sheet.php:889
-#: includes/pages/edit-sheet.php:1077 includes/pages/edit-sheet.php:1282
+#: includes/pages/edit-sheet.php:840 includes/pages/edit-sheet.php:936
+#: includes/pages/edit-sheet.php:1124 includes/pages/edit-sheet.php:1329
 #: includes/pages/extensions/extensions.php:167
 #: includes/pages/extensions/extensions.php:187
 #: includes/pages/extensions/extensions.php:207
@@ -713,180 +713,180 @@ msgstr ""
 msgid "PRO"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:797
+#: includes/pages/edit-sheet.php:844
 msgid ""
 "Automatic configure your Google Sheets and start syncing form submissions in "
 "real time."
 msgstr ""
 
-#: includes/pages/edit-sheet.php:808
+#: includes/pages/edit-sheet.php:855
 msgid ""
 "If sheets are not fetched, you can still add sheet and tab details manually."
 msgstr ""
 
-#: includes/pages/edit-sheet.php:816 includes/pages/edit-sheet.php:838
+#: includes/pages/edit-sheet.php:863 includes/pages/edit-sheet.php:885
 msgid "Select"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:817
+#: includes/pages/edit-sheet.php:864
 msgid "Create New"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:830
+#: includes/pages/edit-sheet.php:877
 msgid "If tabs are not fetched, you can still add the tab name manually."
 msgstr ""
 
-#: includes/pages/edit-sheet.php:850
+#: includes/pages/edit-sheet.php:897
 msgid "Create Spreadsheet"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:867
+#: includes/pages/edit-sheet.php:914
 msgid "Spreadsheet Name and URL not showing?"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:869
+#: includes/pages/edit-sheet.php:916
 msgid "Click Here"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:871
+#: includes/pages/edit-sheet.php:918
 msgid "to fetch sheets."
 msgstr ""
 
-#: includes/pages/edit-sheet.php:892
+#: includes/pages/edit-sheet.php:939
 msgid ""
 "Enable the fields you want to send to Google Sheets and rename columns if "
 "needed."
 msgstr ""
 
-#: includes/pages/edit-sheet.php:899
+#: includes/pages/edit-sheet.php:946
 msgid "Field List"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:904
+#: includes/pages/edit-sheet.php:951
 msgid "Special Mail Tags"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:916
+#: includes/pages/edit-sheet.php:963
 msgid "Select All"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1077
+#: includes/pages/edit-sheet.php:1124
 msgid "Header Settings"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1078
+#: includes/pages/edit-sheet.php:1125
 msgid ""
 "Customize the appearance and behavior of your sheet headers and rows for "
 "better readability and organization."
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1082
+#: includes/pages/edit-sheet.php:1129
 msgid "Header Behavior"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1096
+#: includes/pages/edit-sheet.php:1143
 msgid "Sheet Sorting"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1108
+#: includes/pages/edit-sheet.php:1155
 msgid "Sort Column"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1114
+#: includes/pages/edit-sheet.php:1161
 msgid "Sort Order"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1116
+#: includes/pages/edit-sheet.php:1163
 msgid "Ascending"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1117
+#: includes/pages/edit-sheet.php:1164
 msgid "Descending"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1122
+#: includes/pages/edit-sheet.php:1169
 msgid "Header Style"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1127
+#: includes/pages/edit-sheet.php:1174
 msgid "Header Appearance"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1140 includes/pages/edit-sheet.php:1203
+#: includes/pages/edit-sheet.php:1187 includes/pages/edit-sheet.php:1250
 msgid "Font Style"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1143 includes/pages/edit-sheet.php:1206
+#: includes/pages/edit-sheet.php:1190 includes/pages/edit-sheet.php:1253
 msgid "Normal"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1145 includes/pages/edit-sheet.php:1208
+#: includes/pages/edit-sheet.php:1192 includes/pages/edit-sheet.php:1255
 msgid "Italic"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1146 includes/pages/edit-sheet.php:1209
+#: includes/pages/edit-sheet.php:1193 includes/pages/edit-sheet.php:1256
 msgid "Bold"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1152 includes/pages/edit-sheet.php:1215
+#: includes/pages/edit-sheet.php:1199 includes/pages/edit-sheet.php:1262
 msgid "Font Size"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1164 includes/pages/edit-sheet.php:1227
+#: includes/pages/edit-sheet.php:1211 includes/pages/edit-sheet.php:1274
 msgid "Font Color"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1172
+#: includes/pages/edit-sheet.php:1219
 msgid "Header Background"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1188
+#: includes/pages/edit-sheet.php:1235
 msgid "Row Style"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1191
+#: includes/pages/edit-sheet.php:1238
 msgid "Row Appearance"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1235
+#: includes/pages/edit-sheet.php:1282
 msgid "Odd Row Color"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1243
+#: includes/pages/edit-sheet.php:1290
 msgid "Even Row Color"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1254
+#: includes/pages/edit-sheet.php:1301
 msgid "Spreadsheet Download"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1268
+#: includes/pages/edit-sheet.php:1315
 msgid "Download"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1282
+#: includes/pages/edit-sheet.php:1329
 msgid "Google Sheets Data Sync"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1283
+#: includes/pages/edit-sheet.php:1330
 msgid ""
 "Easily sync past form submissions to your connected Google Sheet. Choose a "
 "date range and ensure your spreadsheet stays complete and up to date."
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1288
+#: includes/pages/edit-sheet.php:1335
 msgid "From Date"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1293
+#: includes/pages/edit-sheet.php:1340
 msgid "To Date"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1299
+#: includes/pages/edit-sheet.php:1346
 msgid "Sync Entries"
 msgstr ""
 
-#: includes/pages/edit-sheet.php:1308
+#: includes/pages/edit-sheet.php:1355
 msgid "Close"
 msgstr ""
 
@@ -1233,7 +1233,7 @@ msgstr ""
 
 #: includes/pages/extensions/extensions.php:926
 #: includes/pages/extensions/extensions.php:951
-#: includes/pages/gsc-feed-google-sheet.php:409
+#: includes/pages/gsc-feed-google-sheet.php:564
 #: includes/pages/gsc-general-setting.php:98
 #: includes/pages/gsc-integration.php:683
 msgid "Cancel"
@@ -1658,123 +1658,127 @@ msgstr ""
 msgid "Video Tutorials"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:67
+#: includes/pages/gsc-feed-google-sheet.php:189
 #: includes/pages/gsc-integration.php:32
 msgid "Existing Client / Secret Key (Auto Setup)"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:83
+#: includes/pages/gsc-feed-google-sheet.php:205
 msgid "Google Sheets Setup Required"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:84
+#: includes/pages/gsc-feed-google-sheet.php:206
 msgid "your selected Method is : "
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:85
+#: includes/pages/gsc-feed-google-sheet.php:207
 msgid ""
 "To start sending form entries to Google Sheets, please connect your Google "
 "account first."
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:87
+#: includes/pages/gsc-feed-google-sheet.php:209
 msgid "✔ Click on the Sign in with Google button"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:88
+#: includes/pages/gsc-feed-google-sheet.php:210
 msgid "✔ Log in using your Google account"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:89
+#: includes/pages/gsc-feed-google-sheet.php:211
 msgid "✔ Select the Google account where your Sheets are stored"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:90
+#: includes/pages/gsc-feed-google-sheet.php:212
 msgid "✔ Grant access to: Google Drive & Google Sheets"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:91
+#: includes/pages/gsc-feed-google-sheet.php:213
 msgid "✔ Save the authentication code if prompted"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:94
+#: includes/pages/gsc-feed-google-sheet.php:216
 msgid "Go to Integration Setup"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:111
+#: includes/pages/gsc-feed-google-sheet.php:233
 msgid "Sheet Sync Feeds"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:112
+#: includes/pages/gsc-feed-google-sheet.php:234
 msgid ""
 "Create, connect, manage, and monitor how your form submissions are "
 "automatically synced to Google Sheets in real time."
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:119
+#: includes/pages/gsc-feed-google-sheet.php:241
 msgid "+ Add Form Feed"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:122
+#: includes/pages/gsc-feed-google-sheet.php:244
 msgid "- Close Form Feed"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:127
+#: includes/pages/gsc-feed-google-sheet.php:249
 msgid "Create Sheet Sync Feeds"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:128
+#: includes/pages/gsc-feed-google-sheet.php:250
 msgid ""
 "Select a form and give your feed a name to start syncing form submissions "
 "with Google Sheets in real time."
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:144
-#: includes/pages/gsc-feed-google-sheet.php:147
+#: includes/pages/gsc-feed-google-sheet.php:266
+#: includes/pages/gsc-feed-google-sheet.php:269
 msgid "Select Form"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:155
+#: includes/pages/gsc-feed-google-sheet.php:280
 msgid "Unnamed Form"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:156
+#: includes/pages/gsc-feed-google-sheet.php:283
 msgid "Unknown Element ID"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:189
+#: includes/pages/gsc-feed-google-sheet.php:308
+msgid "[Atomic Form]"
+msgstr ""
+
+#: includes/pages/gsc-feed-google-sheet.php:322
 msgid "MetForm: "
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:203
+#: includes/pages/gsc-feed-google-sheet.php:336
 msgid "Submit"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:231
+#: includes/pages/gsc-feed-google-sheet.php:364
 msgid "Actions"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:232
+#: includes/pages/gsc-feed-google-sheet.php:365
 msgid "Status"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:399
+#: includes/pages/gsc-feed-google-sheet.php:554
 msgid "Delete Feed"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:403
+#: includes/pages/gsc-feed-google-sheet.php:558
 msgid "Are you sure you want to Delete Feed."
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:413
+#: includes/pages/gsc-feed-google-sheet.php:568
 msgid "Delete"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:456
+#: includes/pages/gsc-feed-google-sheet.php:611
 msgid "« Prev"
 msgstr ""
 
-#: includes/pages/gsc-feed-google-sheet.php:457
+#: includes/pages/gsc-feed-google-sheet.php:612
 msgid "Next »"
 msgstr ""
 
