@@ -5,7 +5,7 @@ Tags: elementor, elementor forms, elementor addons, metform google sheets, atomi
 Requires at least: 5.6
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.6
+Stable tag: 1.3.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author URI: https://www.gsheetconnector.com/
@@ -202,6 +202,10 @@ Your Elementor Forms, Elementor Atomic Forms, and MetForm submissions will now s
 
 
 == Changelog ==
+
+= 1.3.7 (09-10-2026) =
+* Improved: Optimized Elementor form feed data retrieval by caching feed queries, reducing repeated database scans and improving overall database performance and resource usage.
+* Updated: Updated Freemius integration code and related files.
 
 = 1.3.6 (30-09-2026) =
 * Fixed: Resolved plugin activation and compatibility issues on WordPress Multisite, including per-site and network activation with Elementor and supported integrations.

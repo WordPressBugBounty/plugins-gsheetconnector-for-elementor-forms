@@ -32,6 +32,12 @@ class GSC_Elementor_Integration
             $this->maybe_migrate_gselef_feed_status();
         }
 
+        // Flush the cached feed-discovery results whenever feed data changes.
+        add_action('added_post_meta', array(__CLASS__, 'gselef_maybe_flush_feed_cache'), 10, 4);
+        add_action('updated_post_meta', array(__CLASS__, 'gselef_maybe_flush_feed_cache'), 10, 4);
+        add_action('deleted_post_meta', array(__CLASS__, 'gselef_maybe_flush_feed_cache'), 10, 4);
+        add_action('delete_post_meta', array(__CLASS__, 'gselef_maybe_flush_before_delete'), 10, 4);
+
         add_action('wp_ajax_verify_gscelementor_integation', array($this, 'verify_gscelementor_integation'));
         add_action('wp_ajax_deactivate_gscelementor_integation', array($this, 'deactivate_gscelementor_integation'));
 
@@ -141,36 +147,31 @@ public function elefgs_free_paginate_feed_list()
     $first_page_count = 3;
     $per_page         = 4;
 
-    global $wpdb;
+    // Cached table-wide feed discovery (see get_cached_feed_rows()).
+    $query = self::get_cached_feed_rows( true );
 
-    $query = $wpdb->get_results(
-        $wpdb->prepare(
-            "
-            SELECT
-            pm.meta_id,
-            pm.post_id,
-            pm.meta_key,
-            pm.meta_value,
-            p.post_title,
-            p.post_type,
-            p.post_status
-            FROM {$wpdb->postmeta} pm
-            INNER JOIN {$wpdb->posts} p
-            ON p.ID = pm.post_id
-            WHERE pm.meta_value LIKE %s OR pm.meta_key = %s
-            ORDER BY pm.meta_id DESC
-            ",
-            '%gscele_form_feeds%',
-            'metform_gs_settings'
-        )
-    );
-    
     foreach ( $query as &$row ) {
 
         $feed = maybe_unserialize( $row->meta_value );
 
         if ( ! is_array( $feed ) ) {
-            continue;
+
+            if ( 'gscele_form_feeds' !== $feed ) {
+                // Not a feed record: keep the row, but with empty display
+                // values so the renderer never reads undefined properties.
+                $row->feed_name  = '';
+                $row->form_name  = '';
+                $row->sheet_name = '';
+                $row->sheet_id   = '';
+                $row->tab_id     = '0';
+                continue;
+            }
+
+            // Legacy feed: meta_value is the plain string 'gscele_form_feeds'
+            // and carries no element_id / feed-name. Resolve it the same way
+            // as a current feed that has neither (feed name = meta key,
+            // form = first form widget on the page).
+            $feed = array();
         }
 
         $row->feed_name = ! empty( $feed['feed-name'] )
@@ -997,8 +998,28 @@ public function gselef_free_delete_feed()
         $feed_id = isset($_POST['feed_id']) ? intval(wp_unslash($_POST['feed_id'])) : 0;
 
         if ($feed_id) {
+            /*
+             * A feed's status is stored as 'gselef_status' against a post ID
+             * equal to the feed's meta ID. Only when the row being deleted is
+             * really a feed record, remember that so the status row can be
+             * removed with it (never the shared settings meta, which on older
+             * installs can live on the form post itself).
+             */
+            $feed_row = get_metadata_by_mid('post', $feed_id);
+            $is_feed  = $feed_row && (
+                'gscele_form_feeds' === $feed_row->meta_value
+                || ( is_array($feed_row->meta_value)
+                    && isset($feed_row->meta_value['type'])
+                    && 'gscele_form_feeds' === $feed_row->meta_value['type'] )
+            );
+
             /* Delete post meta using meta ID */
             $deleted = delete_metadata_by_mid('post', $feed_id);
+
+            /* Remove the deleted feed's own status row (orphan cleanup) */
+            if ($deleted && $is_feed) {
+                delete_post_meta($feed_id, 'gselef_status');
+            }
 
             /* Output response based on deletion result */
             if ($deleted) {
@@ -2095,32 +2116,160 @@ public function get_forms_connected_to_sheet()
 */
 public function get_forms_feeds_connected_to_sheet()
 {
-    global $wpdb;
-
-    $query = $wpdb->get_results(
-        $wpdb->prepare(
-            "
-            SELECT
-            pm.meta_id,
-            pm.post_id,
-            pm.meta_key,
-            pm.meta_value,
-            p.post_title,
-            p.post_type,
-            p.post_status
-            FROM {$wpdb->postmeta} pm
-            INNER JOIN {$wpdb->posts} p
-            ON p.ID = pm.post_id
-            WHERE pm.meta_value LIKE %s OR pm.meta_key = %s
-            ORDER BY pm.meta_id DESC
-            ",
-            '%gscele_form_feeds%',
-            'metform_gs_settings'
-        )
-    );
+    $query = self::get_cached_feed_rows( true );
 
     return !empty($query) ? $query : [];
 
+}
+
+/**
+ * Table-wide feed discovery, cached in a transient.
+ *
+ * Feed rows are found by searching meta_value for 'gscele_form_feeds'
+ * (legacy rows hold the plain string, current rows a serialized array with
+ * 'type' => 'gscele_form_feeds'), which cannot use an index and scans the
+ * whole postmeta table. The result is cached and flushed by
+ * gselef_maybe_flush_feed_cache() whenever feed data changes; the TTL is
+ * only a safety net (e.g. renamed form titles).
+ *
+ * @since 1.3.7
+ *
+ * @param bool $with_posts True for the posts-joined list (feed list / widget),
+ *                         false for the raw postmeta rows (Form Feeds page).
+ *
+ * @return array Same rows the original queries returned.
+ */
+public static function get_cached_feed_rows( $with_posts = true )
+{
+    $cache_key = $with_posts ? 'gselef_feed_rows_joined' : 'gselef_feed_rows_raw';
+
+    $rows = get_transient( $cache_key );
+
+    if ( is_array( $rows ) ) {
+        return $rows;
+    }
+
+    global $wpdb;
+
+    if ( $with_posts ) {
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Result is cached in a transient.
+        $rows = $wpdb->get_results(
+            $wpdb->prepare(
+                "
+                SELECT
+                pm.meta_id,
+                pm.post_id,
+                pm.meta_key,
+                pm.meta_value,
+                p.post_title,
+                p.post_type,
+                p.post_status
+                FROM {$wpdb->postmeta} pm
+                INNER JOIN {$wpdb->posts} p
+                ON p.ID = pm.post_id
+                WHERE pm.meta_value LIKE %s OR pm.meta_key = %s
+                ORDER BY pm.meta_id DESC
+                ",
+                '%gscele_form_feeds%',
+                'metform_gs_settings'
+            )
+        );
+    } else {
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Result is cached in a transient.
+        $rows = $wpdb->get_results(
+            $wpdb->prepare(
+                "SELECT *
+                FROM {$wpdb->postmeta}
+                WHERE meta_value = %s
+                OR meta_value LIKE %s
+                ORDER BY meta_id DESC",
+                'gscele_form_feeds',
+                '%gscele_form_feeds%'
+            )
+        );
+    }
+
+    // Do not cache a failed query (null).
+    if ( ! is_array( $rows ) ) {
+        return array();
+    }
+
+    set_transient( $cache_key, $rows, 10 * MINUTE_IN_SECONDS );
+
+    return $rows;
+}
+
+/**
+ * Flush the cached feed-discovery results.
+ *
+ * @since 1.3.7
+ *
+ * @return void
+ */
+public static function gselef_flush_feed_cache()
+{
+    delete_transient( 'gselef_feed_rows_joined' );
+    delete_transient( 'gselef_feed_rows_raw' );
+}
+
+/**
+ * Post meta hook callback: flush the feed cache when a feed row, its
+ * settings or its status is added, updated or deleted.
+ *
+ * Hooked to added_/updated_/deleted_post_meta, so it covers every feed
+ * write path (create, save, status update, reset, delete).
+ *
+ * @since 1.3.7
+ *
+ * @param int|array $meta_id    Meta ID(s).
+ * @param int       $object_id  Post ID.
+ * @param string    $meta_key   Meta key.
+ * @param mixed     $meta_value Meta value.
+ *
+ * @return void
+ */
+public static function gselef_maybe_flush_feed_cache( $meta_id, $object_id, $meta_key = '', $meta_value = '' )
+{
+    $is_feed = in_array( $meta_key, array( 'gscele_form_feeds', 'gselef_status', 'metform_gs_settings' ), true )
+        || 'gscele_form_feeds' === $meta_value
+        || ( is_array( $meta_value ) && isset( $meta_value['type'] ) && 'gscele_form_feeds' === $meta_value['type'] );
+
+    if ( $is_feed ) {
+        self::gselef_flush_feed_cache();
+    }
+}
+
+/**
+ * Pre-delete hook: flush the feed cache when a key-only delete
+ * (delete_post_meta( $id, $key ) with no value, e.g. WP-CLI) removes feed rows.
+ *
+ * deleted_post_meta receives an empty value in that case, so the rows are
+ * inspected here, before they are removed. Value-specific deletes and
+ * delete_metadata_by_mid() already pass the value and are handled by
+ * gselef_maybe_flush_feed_cache().
+ *
+ * @since 1.3.7
+ *
+ * @param array  $meta_ids   Meta IDs about to be deleted.
+ * @param int    $object_id  Post ID.
+ * @param string $meta_key   Meta key.
+ * @param mixed  $meta_value Value passed to delete_post_meta() ('' if none).
+ *
+ * @return void
+ */
+public static function gselef_maybe_flush_before_delete( $meta_ids, $object_id, $meta_key = '', $meta_value = '' )
+{
+    if ( '' !== $meta_value || ! is_array( $meta_ids ) ) {
+        return;
+    }
+
+    foreach ( $meta_ids as $mid ) {
+        $row = get_metadata_by_mid( 'post', $mid );
+
+        if ( $row ) {
+            self::gselef_maybe_flush_feed_cache( $mid, $object_id, $row->meta_key, $row->meta_value );
+        }
+    }
 }
 
 /**
@@ -2214,14 +2363,25 @@ private function maybe_migrate_gselef_feed_status()
 
 
 
+    // Query failed: leave the flag unset so the migration retries later.
+    if (null === $feedList) {
+        return;
+    }
+
+    // No existing feeds to migrate. Feeds created from now on get
+    // 'gselef_status' at creation, so mark the migration as done instead of
+    // re-running this full postmeta scan on every request.
     if (empty($feedList)) {
+        update_option('gselef_feed_status_migrated_pro', 1);
         return;
     }
 
         // If matching records found, update post meta
     foreach ($feedList as $value) {
 
-        if (!empty($value->meta_id)) {
+        // Only give a default status to feeds that have none yet, so a
+        // re-run never overrides an existing enabled/disabled choice.
+        if (!empty($value->meta_id) && !metadata_exists('post', $value->meta_id, 'gselef_status')) {
             update_post_meta($value->meta_id, 'gselef_status', 1);
         }
     }

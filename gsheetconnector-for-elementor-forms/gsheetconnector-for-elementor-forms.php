@@ -6,7 +6,7 @@
  * Description: Send your Elementor Form data to your Google Spreadsheet.
  * Requires at least: 5.6
  * Requires PHP: 7.4
- * Version: 1.3.6
+ * Version: 1.3.7
  * Author: GSheetConnector
  * Author URI: https://www.gsheetconnector.com/
  * Text Domain: gsheetconnector-for-elementor-forms
@@ -82,20 +82,22 @@ if ($gsc_activate_the_plugin) {
                 // Include Freemius SDK.
                 require_once dirname(__FILE__) . '/lib/vendor/freemius/start.php';
 
-                $gfef_fs = fs_dynamic_init(array(
-                    'id' => '11322',
-                    'slug' => 'gsheetconnector-for-elementor-forms',
-                    'type' => 'plugin',
-                    'public_key' => 'pk_ad6fbd1729351c72fb0d9db6220ec',
-                    'is_premium' => false,
-                    'has_addons' => false,
-                    'has_paid_plans' => false,
-                    'menu' => array(
-                        'slug' => 'gsheetconnector-elementor-config',
-                        'account' => false,
-                        'support' => false,
-                    ),
-                ));
+                $gfef_fs = fs_dynamic_init( array(
+                'id'                  => '11322',
+                'slug'                => 'gsheetconnector-for-elementor-forms',
+                'type'                => 'plugin',
+                'public_key'          => 'pk_ad6fbd1729351c72fb0d9db6220ec',
+                'is_premium'          => false,
+                'has_addons'          => false,
+                'has_paid_plans'      => false,
+                'is_org_compliant'    => true,
+                'menu'                => array(
+                    'slug'           => 'gsheetconnector-elementor-config',
+                    'first-path'     => 'admin.php?page=gsheetconnector-elementor-config',
+                    'account'        => false,
+                    'support'        => false,
+                ),
+            ) );
             }
 
             return $gfef_fs;
@@ -111,8 +113,8 @@ if ($gsc_activate_the_plugin) {
 /* Freemius End */
 
 // Declare some global constants
-define('GS_CONN_ELE_VERSION', '1.3.6');
-define('GS_CONN_ELE_DB_VERSION', '1.3.6');
+define('GS_CONN_ELE_VERSION', '1.3.7');
+define('GS_CONN_ELE_DB_VERSION', '1.3.7');
 define('GS_CONN_ELE_ROOT', dirname(__FILE__));
 define('GS_CONN_ELE_URL', plugins_url('/', __FILE__));
 define('GS_CONN_ELE_BASE_FILE', basename(dirname(__FILE__)) . '/gsheetconnector-for-elementor-forms.php');
@@ -472,7 +474,7 @@ public static function gsc_elementor_after_save_settings($gsc_elementor_post_id,
 
     $gsc_elementor_data = \ElementorPro\Plugin::elementor()->db->iterate_data(
         $gsc_elementor_data,
-        function ($gsc_elementor_element) use (&$gsc_elementor_spreadsheetid, &$gsc_elementor_header_list) {
+        function ($gsc_elementor_element) use (&$gsc_elementor_spreadsheetid, &$gsc_elementor_header_list, $elementor_post_id) {
             $get_create_sheet_name = get_option('gsc_create_sheet_elementor_settings');
             $gsc_elementor_settings = $gsc_elementor_element['settings'];
 

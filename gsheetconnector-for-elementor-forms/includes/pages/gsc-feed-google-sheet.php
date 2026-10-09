@@ -166,17 +166,8 @@ $feed = $wpdb->prefix . 'postmeta';
  * )
  * -------------------------------------------------------------------------- */
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
-$feedList = $wpdb->get_results(
-    $wpdb->prepare(
-        "SELECT *
-        FROM {$wpdb->postmeta}
-        WHERE meta_value = %s
-        OR meta_value LIKE %s
-        ORDER BY meta_id DESC",
-        'gscele_form_feeds',
-        '%gscele_form_feeds%'
-    )
-);
+// Cached table-wide discovery; flushed whenever feed data changes.
+$feedList = GSC_Elementor_Integration::get_cached_feed_rows( false );
 
 
 $authenticated = get_option('elefgs_token');

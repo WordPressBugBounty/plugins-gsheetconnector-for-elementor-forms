@@ -89,6 +89,15 @@ class gsc_elementor_sidemenu extends Settings_Page
         $gselef_is_valid = get_option('elefgs_verify');
         $gselef_email_account = get_option('gsc_elementor_email_account');
 
+        // The connected email is stored lazily (it is written when the page body
+        // later calls gsheet_print_google_account_email()). Resolve it here first
+        // so the badge reflects the real connection state on the very first load.
+        if (!empty($authenticated) && $gselef_is_valid == 'valid' && empty($gselef_email_account) && class_exists('GSC_Elementor_Free')) {
+            $gselef_google_sheet = new GSC_Elementor_Free();
+            $gselef_google_sheet->gsheet_print_google_account_email();
+            $gselef_email_account = get_option('gsc_elementor_email_account');
+        }
+
         $gselef_is_authenticated = false;
         if (!empty($authenticated) && $gselef_is_valid == 'valid' && !empty($gselef_email_account)) {
             $selected_method = esc_html__('Existing', 'gsheetconnector-for-elementor-forms');
