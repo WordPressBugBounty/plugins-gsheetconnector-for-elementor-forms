@@ -1312,6 +1312,20 @@ public function send_form_submission_to_google_sheets_feed($record, $handler)
     ? sanitize_text_field($gs_ele_settings['id'])
     : '';
 
+    // Elementor Global Widget: the submitted id is the widget instance on the
+    // page, while feeds are saved against the template's own form element id.
+    if (
+        $form_id &&
+        isset($gs_ele_settings['edit_post_id']) &&
+        absint($gs_ele_settings['edit_post_id']) !== $form_id
+    ) {
+        $gsc_template_doc = \Elementor\Plugin::$instance->documents->get($form_id);
+        $gsc_template_data = $gsc_template_doc ? $gsc_template_doc->get_elements_data() : array();
+        if (!empty($gsc_template_data[0]['id'])) {
+            $current_element_id = sanitize_text_field($gsc_template_data[0]['id']);
+        }
+    }
+
     foreach ($feeds as $feed) {
 
         // -----------------------------------------------------------------

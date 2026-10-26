@@ -259,6 +259,7 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
                 Plugin::elementor()->db->iterate_data(
                     $gsc_elementor_data_global,
                     function ($element) {
+                        global $gsc_elementor_headers, $gsc_elementor_exclude_headertype, $gsc_elementor_spreadsheetid, $gsc_elementor_sheetname;
                         if (isset($element['widgetType']) && 'global' === (string) $element['widgetType']) {
                             if (!empty($element['templateID'])) {
                                 $global_form = get_post_meta($element['templateID'], '_elementor_data', true);

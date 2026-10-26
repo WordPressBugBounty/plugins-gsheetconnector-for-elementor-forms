@@ -5,7 +5,7 @@ Tags: elementor, elementor forms, elementor addons, metform google sheets, atomi
 Requires at least: 5.6
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.7
+Stable tag: 1.3.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author URI: https://www.gsheetconnector.com/
@@ -202,6 +202,10 @@ Your Elementor Forms, Elementor Atomic Forms, and MetForm submissions will now s
 
 
 == Changelog ==
+
+= 1.3.8 (26-10-2026) =
+* Fixed: Resolved an issue where form submissions from Elementor Global Widget forms were not syncing to Google Sheets.
+* Fixed: Resolved a PHP fatal error caused by an undefined global variable in the Global Widget form submission process.
 
 = 1.3.7 (09-10-2026) =
 * Improved: Optimized Elementor form feed data retrieval by caching feed queries, reducing repeated database scans and improving overall database performance and resource usage.
