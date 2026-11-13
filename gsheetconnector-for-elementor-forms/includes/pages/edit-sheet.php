@@ -621,7 +621,7 @@ if (!empty($sheet_header_names_metfrom)) {
             <div class="col-6 res-top-20">
                 <div class="form-group field-row mr-10">
                     <label for="edit-sheet-name">
-                        <?php esc_html_e('Sheet Name', 'gsheetconnector-for-elementor-forms'); ?>
+                        <?php esc_html_e('Google Spreadsheet Name', 'gsheetconnector-for-elementor-forms'); ?>
                         <span class="tooltip"
                         data-tooltip="<?php echo esc_attr__('Go to your Google account, open Google Sheets, and select or create the sheet you want to connect.', 'gsheetconnector-for-elementor-forms'); ?>"
                         data-tooltip-pos="right"
@@ -642,7 +642,7 @@ if (!empty($sheet_header_names_metfrom)) {
         <div class="col-6 res-top-20">
             <div class="form-group field-row mr-10">
                 <label for="edit-sheet-id">
-                    <?php esc_html_e('Sheet ID', 'gsheetconnector-for-elementor-forms'); ?>
+                    <?php esc_html_e('Google Spreadsheet ID', 'gsheetconnector-for-elementor-forms'); ?>
                     <span class="tooltip"
                     data-tooltip="<?php echo esc_attr__('You can get the Sheet ID from your Google Sheet URL.', 'gsheetconnector-for-elementor-forms'); ?>"
                     data-tooltip-pos="right"
@@ -663,7 +663,7 @@ if (!empty($sheet_header_names_metfrom)) {
     <div class="col-6 mt-20">
         <div class="form-group field-row mr-10">
             <label for="edit-tab-name">
-                <?php esc_html_e('Tab Name', 'gsheetconnector-for-elementor-forms'); ?>
+                <?php esc_html_e('Google Spreadsheet Tab Name', 'gsheetconnector-for-elementor-forms'); ?>
                 <span class="tooltip"
                 data-tooltip="<?php echo esc_attr__('Open your Google Sheet and copy the tab name shown at the bottom where you want entries stored.', 'gsheetconnector-for-elementor-forms'); ?>"
                 data-tooltip-pos="right"
@@ -684,7 +684,7 @@ if (!empty($sheet_header_names_metfrom)) {
 <div class="col-6 mt-20">
     <div class="form-group field-row mr-10">
         <label for="edit-tab-id">
-            <?php esc_html_e('Tab ID', 'gsheetconnector-for-elementor-forms'); ?>
+            <?php esc_html_e('Google Spreadsheet Tab ID', 'gsheetconnector-for-elementor-forms'); ?>
             <span class="tooltip"
             data-tooltip="<?php echo esc_attr__('You can get the Tab ID from your Google Sheet URL after gid=.', 'gsheetconnector-for-elementor-forms'); ?>"
             data-tooltip-pos="right"
@@ -850,7 +850,7 @@ if (!empty($sheet_header_names_metfrom)) {
                     <div class="col-4 res-top-20">
                         <div class="form-group field-row mr-10">
                             <label for="gs-elementor-sheet-id">
-                                <?php esc_html_e('Sheet Name', 'gsheetconnector-for-elementor-forms'); ?>
+                                <?php esc_html_e('Google Spreadsheet Name', 'gsheetconnector-for-elementor-forms'); ?>
                                 <span class="tooltip"
                                 data-tooltip="<?php echo esc_attr__('If sheets are not fetched, you can still add sheet and tab details manually.', 'gsheetconnector-for-elementor-forms'); ?>"
                                 data-tooltip-pos="right"
@@ -872,7 +872,7 @@ if (!empty($sheet_header_names_metfrom)) {
                 <div class="col-4 res-top-20">
                     <div class="form-group field-row mr-10">
                         <label for="gs-sheet-tab-name">
-                            <?php esc_html_e('Tab Name', 'gsheetconnector-for-elementor-forms'); ?>
+                            <?php esc_html_e('Google Spreadsheet Tab Name', 'gsheetconnector-for-elementor-forms'); ?>
                             <span class="tooltip"
                             data-tooltip="<?php echo esc_attr__('If tabs are not fetched, you can still add the tab name manually.', 'gsheetconnector-for-elementor-forms'); ?>"
                             data-tooltip-pos="right"
@@ -1131,7 +1131,15 @@ if (!empty($sheet_header_names_metfrom)) {
                         <div class="toggle-button freeze-header-toggle d-flex align-items-center justify-between mb-15">
                             <span class="label-text fw-400"><?php echo esc_html(__('Freeze Header', 'gsheetconnector-for-elementor-forms')); ?></span>
                             <label class="switch">
-                                <input type="checkbox" id="freeze-header-checkbox" name="gscf-ff[freeze_header]"
+                                <input type="checkbox" id="freeze-header-checkbox" name="elementorform-gs[freeze_header]"
+                                value="true" checked>
+                                <span class="slider round button-toggle"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-button freeze-column-toggle d-flex align-items-center justify-between mb-15">
+                            <span class="label-text fw-400"><?php echo esc_html(__('Freeze Column', 'gsheetconnector-for-elementor-forms')); ?></span>
+                            <label class="switch">
+                                <input type="checkbox" id="freeze-column-checkbox" name="elementorform-gs[freeze_column]"
                                 value="true" checked>
                                 <span class="slider round button-toggle"></span>
                             </label>
@@ -1143,7 +1151,7 @@ if (!empty($sheet_header_names_metfrom)) {
                                 <span class="label-text fw-400"><?php echo esc_html(__('Sheet Sorting', 'gsheetconnector-for-elementor-forms')); ?></span>
                                 <label class="switch" for="sheet-sorting-checkbox">
                                     <input type="checkbox" id="sheet-sorting-checkbox"
-                                    name="gscf-ff[sheet_sorting]" value="1" checked>
+                                    name="elementorform-gs[sheet_sorting]" value="1" checked>
                                     <span class="slider round button-toggle"></span>
                                 </label>
                             </div>
@@ -1154,12 +1162,12 @@ if (!empty($sheet_header_names_metfrom)) {
                                     <label for="sort-column-name">
                                         <?php echo esc_html__('Sort Column', 'gsheetconnector-for-elementor-forms'); ?>
                                     </label>
-                                    <select id="sort-column-name" name="gscf-ff[sort_column]">
+                                    <select id="sort-column-name" name="elementorform-gs[sort_column]">
                                     </select>
                                 </div>
                                 <div class="gscfrmnt-row form-group">
                                     <label for="sort-order"><?php echo esc_html__('Sort Order', 'gsheetconnector-for-elementor-forms'); ?></label>
-                                    <select id="sort-order" name="gscf-ff[sort_order]">
+                                    <select id="sort-order" name="elementorform-gs[sort_order]">
                                         <option value="ASCENDING"><?php echo esc_html__('Ascending', 'gsheetconnector-for-elementor-forms'); ?></option>
                                         <option value="DESCENDING"><?php echo esc_html__('Descending', 'gsheetconnector-for-elementor-forms'); ?></option>
                                     </select>
@@ -1175,7 +1183,7 @@ if (!empty($sheet_header_names_metfrom)) {
                                 </span>
                                 <label class="switch" for="sheet_formatting-header-checkbox">
                                     <input type="checkbox" id="sheet_formatting-header-checkbox"
-                                    name="gscf-ff[sheet_formatting_header]" value="1" checked>
+                                    name="elementorform-gs[sheet_formatting_header]" value="1" checked>
                                     <span class="slider round button-toggle"></span>
                                 </label>
                             </div>
@@ -1209,7 +1217,7 @@ if (!empty($sheet_header_names_metfrom)) {
                                         <div class="font-color row-format form-group">
                                             <label
                                             for="font-color"><?php echo esc_html__('Font Color', 'gsheetconnector-for-elementor-forms'); ?></label>
-                                            <input type="color" id="font-color" name="gscf-ff[font_color]" class="bg-color-set-input"
+                                            <input type="color" id="font-color" name="elementorform-gs[font_color]" class="bg-color-set-input"
                                             value="">
                                         </div>
                                         <div class="gscfrmnt-cards-sbg gscfrmnt-cards-sbg form-group">
@@ -1218,7 +1226,7 @@ if (!empty($sheet_header_names_metfrom)) {
                                             <label>
                                                 <?php echo esc_html__('Header Background', 'gsheetconnector-for-elementor-forms'); ?>
                                             </label>
-                                            <input type="color" id="header-color" name="gscf-ff[header-color]" class="bg-color-set-input"
+                                            <input type="color" id="header-color" name="elementorform-gs[header-color]" class="bg-color-set-input"
                                             value="< ?php echo esc_attr($header_color); ?>">
                                         </div>
                                     </div>
@@ -1239,7 +1247,7 @@ if (!empty($sheet_header_names_metfrom)) {
                                 </span>
                                 <label class="switch" for="sheet_formatting-row-checkbox">
                                     <input type="checkbox" id="sheet_formatting-row-checkbox"
-                                    name="gscf-ff[sheet_formatting_row]" value="1" checked>
+                                    name="elementorform-gs[sheet_formatting_row]" value="1" checked>
                                     <span class="slider round button-toggle"></span>
                                 </label>
                             </div>
@@ -1272,7 +1280,7 @@ if (!empty($sheet_header_names_metfrom)) {
                                         <div class="font-color row-format form-group">
                                             <label
                                             for="font-color-row"><?php echo esc_html__('Font Color', 'gsheetconnector-for-elementor-forms'); ?></label>
-                                            <input type="color" id="font-color-row" name="gscf-ff[font_color_row]" class="bg-color-set-input"
+                                            <input type="color" id="font-color-row" name="elementorform-gs[font_color_row]" class="bg-color-set-input"
                                             value="">
                                         </div>
                                         <div class="gscfrmnt-cards-sbg gscfrmnt-cards-sbg form-group">
@@ -1281,7 +1289,7 @@ if (!empty($sheet_header_names_metfrom)) {
                                             <label>
                                                 <?php echo esc_html__('Odd Row Color', 'gsheetconnector-for-elementor-forms'); ?>
                                             </label>
-                                            <input type="color" id="odd-color" name="gscf-ff[odd-color]" class="bg-color-set-input"
+                                            <input type="color" id="odd-color" name="elementorform-gs[odd-color]" class="bg-color-set-input"
                                             value="< ?php echo esc_attr($odd_color); ?>">
                                         </div>
                                         <div class="gscfrmnt-cards-sbg gscfrmnt-cards-sbg form-group">
@@ -1289,7 +1297,7 @@ if (!empty($sheet_header_names_metfrom)) {
                                             <label>
                                                 <?php echo esc_html__('Even Row Color', 'gsheetconnector-for-elementor-forms'); ?>
                                             </label>
-                                            <input type="color" id="even-color" name="gscf-ff[even-color]" class="bg-color-set-input"
+                                            <input type="color" id="even-color" name="elementorform-gs[even-color]" class="bg-color-set-input"
                                             value="< ?php echo esc_attr($even_color); ?>">
                                         </div>
                                     </div>
@@ -1302,7 +1310,7 @@ if (!empty($sheet_header_names_metfrom)) {
                                     <label class="switch" for="download-toggle-checkbox">
                                         <input type="checkbox"
                                         id="download-toggle-checkbox"
-                                        name="gscf-ff[download_spreadsheet]"
+                                        name="elementorform-gs[download_spreadsheet]"
                                         value="1" checked>
                                         <span class="slider round button-toggle"></span>
                                     </label>

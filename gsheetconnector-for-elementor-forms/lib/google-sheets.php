@@ -17,9 +17,12 @@ class GSC_Elementor_Free
 */
 private static function creds()
 {
-	return is_multisite()
+	$creds = is_multisite()
 	? get_site_option('Elegsc_api_creds')
 	: get_option('Elegsc_api_creds');
+
+	// Since 1.3.9 stored encrypted; plaintext from older versions passes through.
+	return is_array($creds) ? GsEl_Connector_Utility::decrypt_credentials($creds) : $creds;
 }
 
 
@@ -98,10 +101,13 @@ public static function updateToken( $tokenData ) {
 
 		update_option('gsc_elementor_email_account', '');
 
-		update_option(
-			'elefgs_token',
-			wp_json_encode($tokenData)
-		);
+		// Never keep Google's error body as the "token": it made the site look
+		// connected and hid the Sign in button. A working token is left alone.
+		if (!GsEl_Connector_Utility::has_live_token()) {
+			delete_option('elefgs_token');
+			// Keep the failure visible after reload (see has_auth_failure()).
+			update_option(GsEl_Connector_Utility::AUTH_FAILED_OPTION, 1, false);
+		}
 
 		if (class_exists('gscelef_error_logs')) {
 
@@ -149,7 +155,8 @@ public static function updateToken( $tokenData ) {
 			}
 		}
 		$tokenJson = json_encode( $tokenData );
-		update_option( 'elefgs_token', $tokenJson );
+		delete_option( GsEl_Connector_Utility::AUTH_FAILED_OPTION );
+		update_option( 'elefgs_token', GSC_Elementor_Credential_Crypto::encrypt( $tokenJson ) );
 	} catch ( Exception $e ) {
 		GsEl_Connector_Utility::ele_gs_debug_log($e->getMessage());
 		return;
@@ -225,10 +232,12 @@ public function get_active_token()
 private function token()
 {
 	try {
-		$tokenJson = get_option('elefgs_token');
-		$tokenData = json_decode($tokenJson, true);
+		$tokenJson = GSC_Elementor_Credential_Crypto::decrypt(get_option('elefgs_token'));
+		$tokenData = json_decode((string) $tokenJson, true);
 
 		if (empty($tokenData)) {
+			// Unusable token: not connected. The last connected email is kept by the option hook.
+			update_option('gsc_elementor_email_account', '');
 			return false;
 		}
 

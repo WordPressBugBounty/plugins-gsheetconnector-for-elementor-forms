@@ -6,7 +6,7 @@
  * Description: Send your Elementor Form data to your Google Spreadsheet.
  * Requires at least: 5.6
  * Requires PHP: 7.4
- * Version: 1.3.8
+ * Version: 1.3.9
  * Author: GSheetConnector
  * Author URI: https://www.gsheetconnector.com/
  * Text Domain: gsheetconnector-for-elementor-forms
@@ -113,8 +113,8 @@ if ($gsc_activate_the_plugin) {
 /* Freemius End */
 
 // Declare some global constants
-define('GS_CONN_ELE_VERSION', '1.3.8');
-define('GS_CONN_ELE_DB_VERSION', '1.3.8');
+define('GS_CONN_ELE_VERSION', '1.3.9');
+define('GS_CONN_ELE_DB_VERSION', '1.3.9');
 define('GS_CONN_ELE_ROOT', dirname(__FILE__));
 define('GS_CONN_ELE_URL', plugins_url('/', __FILE__));
 define('GS_CONN_ELE_BASE_FILE', basename(dirname(__FILE__)) . '/gsheetconnector-for-elementor-forms.php');
@@ -131,6 +131,14 @@ include_once(GS_CONN_ELE_ROOT . '/lib/google-sheets.php');
 if (!class_exists('GsEl_Connector_Utility')) {
     include(GS_CONN_ELE_ROOT . '/includes/gsc-elementor-utility.php');
 }
+
+// Since 1.3.9: encrypt stored Google credentials and remember the last connected email.
+if (!class_exists('GSC_Elementor_Credential_Crypto')) {
+    include(GS_CONN_ELE_ROOT . '/includes/class-gsc-elementor-credential-crypto.php');
+}
+add_action('plugins_loaded', array('GsEl_Connector_Utility', 'maybe_migrate_credentials_encryption'));
+add_action('admin_init', array('GsEl_Connector_Utility', 'maybe_repair_invalid_token'), 5);
+GsEl_Connector_Utility::register_last_email_hooks();
 
 /*
  * Main connector class
@@ -616,6 +624,15 @@ public function load_all_classes()
         if (!class_exists('gscelef_error_logs')) {
             include GS_CONN_ELE_PATH . '/includes/gsc-elementor-error-logs.php';
         }
+        if (!function_exists('gselef_free_global_notices')) {
+            include GS_CONN_ELE_PATH . 'includes/gsc-elementor-global-notices.php';
+        }
+        if (!class_exists('GSC_Elementor_Entries_Analytics')) {
+            include GS_CONN_ELE_PATH . 'includes/class-gsc-elementor-entries-analytics.php';
+        }
+        if (!class_exists('GSC_Elementor_Privacy_Notices')) {
+            include GS_CONN_ELE_PATH . 'includes/class-gsc-elementor-privacy-notices.php';
+        }
     }
 }
 
@@ -680,6 +697,13 @@ public function add_js_files()
         wp_enqueue_script(
             'system-debug-js',
             GS_CONN_ELE_URL . 'assets/js/system-debug.js',
+            array('jquery'),
+            GS_CONN_ELE_VERSION,
+            true
+        );
+        wp_enqueue_script(
+            'gsc-elementor-privacy',
+            GS_CONN_ELE_URL . 'assets/js/gsc-elementor-privacy.js',
             array('jquery'),
             GS_CONN_ELE_VERSION,
             true
@@ -1035,6 +1059,17 @@ private static function delete_for_site()
         delete_option('elefgs_token');
         delete_option('is_new_client_secret_elefgscpro');
         delete_option('gsc_elementor_email_account');
+        // Must run after the live email is deleted: that delete re-saves the last connected email.
+        delete_option('gsc_elementor_last_connected_email');
+        delete_option('gselef_credentials_encrypted_v1');
+        delete_option('gselef_token_repaired');
+        delete_option('elefgs_auth_failed');
+
+        /* GDPR & Privacy Policy notices */
+        delete_option('gselef_free_privacy_settings');
+        delete_option('gselef_privacy_cache_cleared');
+        delete_option('gselef_privacy_cache_cleared_v2');
+
 
 
         /*  elementor feeds settings */
@@ -1050,6 +1085,8 @@ private static function delete_for_site()
 
         delete_option('elefgs_free_notice_review');
         delete_option('elefgs_free_notice_review_time');
+        delete_option('elefgs_free_notice_auth_time');
+        delete_transient('gselef_free_global_auth_state');
 
         /* delete elementor Feeds table */
         global $wpdb;

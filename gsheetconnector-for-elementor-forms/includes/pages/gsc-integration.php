@@ -5,7 +5,8 @@ if (!defined('ABSPATH')) {
 // phpcs:ignoreFile WordPress.NamingConventions.PrefixAllGlobals
 
 // phpcs:disable
-$token = get_option('elefgs_token');
+// "Connected" means a usable token is stored (access/refresh token), not merely a non-empty option.
+$token = GsEl_Connector_Utility::has_live_token() ? get_option('elefgs_token') : '';
 // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Safe: tab selection used for UI only, no sensitive action
 $Code = "";
 update_option('elefgs_manual_setting', 0);
@@ -17,6 +18,10 @@ if (isset($_GET['code'])) {
     }
 }
 // phpcs:enable
+
+// Failed authentication (invalid/expired token): same screen as Fluent Forms, i.e. the failure
+// message with the last connected email and a Deactivate button to start over.
+$gselef_failure_view = empty($token) && empty($Code) && GsEl_Connector_Utility::has_auth_failure();
 
 ?>
 <div class="heading mt-0 mb-0"><?php echo esc_html(__('Google Sheets Integration for Elementor Forms', 'gsheetconnector-for-elementor-forms')); ?></div>
@@ -73,7 +78,7 @@ if (isset($_GET['code'])) {
 
                 <div class="card-wp ele_apiesc_html_existing_setting">
                     <div class="elem-inside">
-                        <?php if (empty($token) && $token == "") { ?>
+                        <?php if (empty($token) && $token == "" && !$gselef_failure_view) { ?>
                             <?php if (empty($Code)) { ?>
 
                                 <div class="gsc-auth-steps mt-30">
@@ -131,6 +136,12 @@ if (isset($_GET['code'])) {
 
                         if (!empty($gselef_free_verify) && $gselef_free_verify == 'invalid-auth') {
                             ?>
+                            <?php
+                            // Resolve the account first so its email is stored and can be shown below.
+                            if (!empty($token)) {
+                                (new GSC_Elementor_Free())->gsheet_print_google_account_email();
+                            }
+                            ?>
                             <div class="gsc-msg gsc-error fw-400 gselef-permission-error text-dark pt-10 pb-10 manual-margin">
                                 <?php echo wp_kses_post(
                                     __(
@@ -138,13 +149,15 @@ if (isset($_GET['code'])) {
                                         <p class="fw-400 text-dark"><strong>Refer to Step 4 in the Connection Guide shown alongside.</strong><br> Then, deactivate the connection and re-authorize it, ensuring both Google Drive and Google Sheets permissions are enabled.</p>',
                                         'gsheetconnector-for-elementor-forms'
                                     )
-                                ); ?>
+                                );
+                                /* translators: %s: Google account email. */
+                                GsEl_Connector_Utility::render_last_connected_email(__('Last connected with %s.', 'gsheetconnector-for-elementor-forms'));
+                                ?>
                             </div>
                             <?php
                         } else {
 
                             // If no permission issues, show connected email account or error message
-                            $token = get_option('elefgs_token');
                             if (!empty($token) && $token !== "") {
                                 $google_sheet = new GSC_Elementor_Free();
                                 $email_account = $google_sheet->gsheet_print_google_account_email();
@@ -182,11 +195,26 @@ if (isset($_GET['code'])) {
                                 <?php } else { ?>
                                     <div class="gsc-msg gsc-error fw-400 text-dark text-center pt-10 pb-10 manual-margin">
                                      <?php echo esc_html(__('Authentication failed. Your Google access token may be expired or invalid. Please re-authenticate your account with the required permissions.', 'gsheetconnector-for-elementor-forms')); ?>
+                                     <?php
+                                     /* translators: %s: Google account email. */
+                                     GsEl_Connector_Utility::render_last_connected_email(__('Last connected with %s.', 'gsheetconnector-for-elementor-forms'), 'mt-10 mb-0');
+                                     ?>
                                  </div>
 
                                  <?php
 
                              }
+                         } elseif ($gselef_failure_view) {
+                            // No usable token is stored (failed handshake or an invalid token saved manually).
+                            ?>
+                            <div class="gsc-msg gsc-error fw-400 text-dark text-center pt-10 pb-10 manual-margin">
+                                <?php echo esc_html(__('Authentication failed. Your Google access token may be expired or invalid. Please re-authenticate your account with the required permissions.', 'gsheetconnector-for-elementor-forms')); ?>
+                                <?php
+                                /* translators: %s: Google account email. */
+                                GsEl_Connector_Utility::render_last_connected_email(__('Last connected with %s.', 'gsheetconnector-for-elementor-forms'), 'mt-10 mb-0');
+                                ?>
+                            </div>
+                            <?php
                          }
                      }
                      ?>
@@ -194,7 +222,7 @@ if (isset($_GET['code'])) {
 
                      <?php
                         // If token exists, show disabled input and deactivate button
-                     if (!empty($token) && $token !== "") {
+                     if ((!empty($token) && $token !== "") || $gselef_failure_view) {
                         ?>
                         <div class="button-container mt-20">
                             <button type="button" name="deactivate-log-ele" id="deactivate-log-ele"
@@ -220,6 +248,10 @@ if (isset($_GET['code'])) {
                                     <div class="gsc-google-auth-text">
                                         <strong><?php echo esc_html__('Connect Your Google Account', 'gsheetconnector-for-elementor-forms'); ?></strong>
                                         <p><?php echo esc_html__('Securely link your Google account to start syncing form entries automatically.', 'gsheetconnector-for-elementor-forms'); ?></p>
+                                        <?php
+                                        /* translators: %s: Google account email. */
+                                        GsEl_Connector_Utility::render_last_connected_email(__('Last connected with %s. Sign in with the same account so your existing sheets and feeds keep working.', 'gsheetconnector-for-elementor-forms'));
+                                        ?>
                                     </div>
                                 </div>
 
@@ -677,6 +709,10 @@ if (isset($_GET['code'])) {
         <p class="gsc-modal-text"><?php echo esc_html__('Are you sure you want to deactivate Google Sheets integration?
         This will stop syncing your form entries.', 'gsheetconnector-for-elementor-forms'); ?>
     </p>
+    <?php
+    /* translators: %s: Google account email. */
+    GsEl_Connector_Utility::render_last_connected_email(__('Currently connected as %s. Note this account, you will need to sign in with it again.', 'gsheetconnector-for-elementor-forms'), 'gsc-modal-text');
+    ?>
 
     <div class="popup-actions d-flex justify-center gap-10">
         <button type="button" class="btn deactivate-btn" id="gselef-deactive-popup-free-cancel">

@@ -143,10 +143,6 @@ public function elefgs_free_paginate_feed_list()
 // Nonce check.
     check_ajax_referer( 'gselef-pagination-nonce', 'security' );
 
-    $paged            = isset($_POST['paged']) ? absint($_POST['paged']) : 1;
-    $first_page_count = 3;
-    $per_page         = 4;
-
     // Cached table-wide feed discovery (see get_cached_feed_rows()).
     $query = self::get_cached_feed_rows( true );
 
@@ -216,12 +212,7 @@ public function elefgs_free_paginate_feed_list()
 
 unset( $row );
 
-$result = $this->elefgs_free_render_feed_page(
-    $query,
-    $paged,
-    $first_page_count,
-    $per_page
-);
+$result = $this->elefgs_free_render_feed_page( $query );
 
 wp_send_json_success($result);
 }
@@ -335,46 +326,23 @@ private function elefgs_free_collect_elementor_forms($elements, &$forms = array(
 }
 
 /**
-* Renders the HTML output for the feed table rows and pagination controls.
-*
-* Offsets results dynamically to accommodate different item counts between page 1 
-* and subsequent pages.
+* Renders the HTML output for the Dashboard feed table rows (every feed; the list scrolls in its card).
 *
 * @since 1.3.3
 *
+* @param array $rows Feed rows.
 * @return array {
 *     Structured HTML data and state status.
 *
-*     @type string $rows_html       Rendered HTML for the <tr> table rows.
-*     @type string $pagination_html Rendered HTML for pagination buttons.
-*     @type bool   $has_feeds       Whether any database rows exist.
+*     @type string $rows_html Rendered HTML for the <tr> table rows.
+*     @type bool   $has_feeds Whether any database rows exist.
 * }
 */
-public function elefgs_free_render_feed_page($rows, $paged, $first_page_count = 3, $per_page = 4)
+public function elefgs_free_render_feed_page($rows)
 {
 
-    $total_rows = count($rows);
-
-            // Calculate total pages with standard + custom first page count
-    if ($total_rows <= $first_page_count) {
-        $total_pages = 1;
-    } else {
-        $remaining_rows = $total_rows - $first_page_count;
-        $total_pages    = 1 + (int) ceil($remaining_rows / $per_page);
-    }
-
-    $paged = max(1, min($paged, $total_pages));
-
-            // Compute dynamic offset based on current page
-    if ($paged === 1) {
-        $offset       = 0;
-        $slice_length = $first_page_count;
-    } else {
-        $offset       = $first_page_count + (($paged - 2) * $per_page);
-        $slice_length = $per_page;
-    }
-
-    $paged_rows = array_slice($rows, $offset, $slice_length);
+            // The Dashboard shows every feed; the list scrolls inside its card.
+    $paged_rows = $rows;
 
             // 1. Render Table Rows HTML
     ob_start();
@@ -438,27 +406,9 @@ public function elefgs_free_render_feed_page($rows, $paged, $first_page_count = 
 
 $rows_html = ob_get_clean();
 
-// 2. Render Pagination HTML
-ob_start();
-
-if ($total_pages > 1) {
-    for ($i = 1; $i <= $total_pages; $i++) {
-        ?>
-        <a href="javascript:void(0)"
-        class="gselef-page-link <?php echo $i == $paged ? 'active' : ''; ?>"
-        data-page="<?php echo esc_attr($i); ?>">
-        <?php echo esc_html($i); ?>
-    </a>
-    <?php
-}
-}
-
-$pagination_html = ob_get_clean();
-
 return array(
-    'rows_html'       => $rows_html,
-    'pagination_html' => $pagination_html,
-    'has_feeds'       => ! empty($rows),
+    'rows_html' => $rows_html,
+    'has_feeds' => ! empty($rows),
 );
 }
 
@@ -799,6 +749,7 @@ public function deactivate_auth_gscelementor()
         delete_option('elefgs_token');
         delete_option('elefgs_access_manual_code');
         delete_option('elefgs_verify');
+        delete_option('elefgs_auth_failed');
 
         wp_send_json_success();
     } else {
@@ -1062,6 +1013,7 @@ public function deactivate_gscelementor_integation()
         delete_option('elefgs_token');
         delete_option('elefgs_access_code');
         delete_option('elefgs_verify');
+        delete_option('elefgs_auth_failed');
 
         wp_send_json_success();
     } else {

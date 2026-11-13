@@ -171,6 +171,10 @@
     "#acplug-gselef-free-info-container",
     );
   accordionToggle(
+    "#gselef-free-show-inplug-info-button",
+    "#inplug-gselef-free-info-container",
+    );
+  accordionToggle(
     "#gselef-free-show-server-info-button",
     "#server-gselef-free-info-container",
     );

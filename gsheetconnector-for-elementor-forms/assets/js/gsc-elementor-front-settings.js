@@ -330,14 +330,54 @@ function options_selected_sheet(sheetnameId) {
   const tabs_arr = all_tab_array[sheetnameId];
 
   if (tabs_arr && typeof tabs_arr === "object") {
+    const $tabSelect = jQuery("[data-setting=gs_spreadsheet_tab_name]");
+    const previousTab = $tabSelect.val();
+
+    // Which spreadsheet were the current options built for? Set when this function last ran; on the first
+    // run in this editor session the options came from PHP, so infer it from the tab IDs they contain
+    // (every sheet has a tab "0", so that one proves nothing).
+    let builtFor = $tabSelect.data("gselefSheet");
+    if (builtFor === undefined) {
+      const existing = $tabSelect
+        .find("option")
+        .map(function () {
+          return this.value;
+        })
+        .get();
+      builtFor = existing.some(function (key) {
+        return key !== "0" && Object.prototype.hasOwnProperty.call(tabs_arr, key);
+      })
+        ? sheetnameId
+        : null;
+    }
+
+    // Keep the saved tab only for the same spreadsheet and only if it still exists there.
+    const keepTab =
+      builtFor === sheetnameId &&
+      previousTab !== null &&
+      Object.prototype.hasOwnProperty.call(tabs_arr, previousTab);
+
     let tabs_option = "";
     jQuery.each(tabs_arr, function (key, value) {
-      tabs_option += '<option value="' + key + '">' + value + "</option>";
+      tabs_option +=
+        '<option value="' +
+        key +
+        '"' +
+        (keepTab && String(key) === String(previousTab) ? " selected" : "") +
+        ">" +
+        value +
+        "</option>";
     });
 
     if (tabs_option) {
-      jQuery("[data-setting=gs_spreadsheet_tab_name]").html(tabs_option);
-      jQuery("[data-setting=gs_spreadsheet_tab_name]").trigger("change");
+      $tabSelect.html(tabs_option);
+      $tabSelect.data("gselefSheet", sheetnameId);
+      if (keepTab) {
+        $tabSelect.val(previousTab);
+      } else {
+        // New spreadsheet (or the old tab is gone): the first tab is selected and saved.
+        $tabSelect.trigger("change");
+      }
     }
   }
 }

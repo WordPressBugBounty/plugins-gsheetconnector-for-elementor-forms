@@ -1,6 +1,15 @@
 jQuery(document).ready(function ($) {
   // Verify the API code
   $(document).on("click", "#save-ele-code", function () {
+    var $saveBtn = $(this);
+    // Only one submission at a time: ignore further clicks while disabled.
+    if ($saveBtn.prop("disabled")) return;
+    // Disable and fade the button immediately; it is restored only if the request fails.
+    $saveBtn.prop("disabled", true).css({ opacity: 0.5, cursor: "not-allowed" });
+    var enableSaveBtn = function () {
+      $saveBtn.prop("disabled", false).css({ opacity: "", cursor: "" });
+    };
+
     $(this).parent().children(".loading-sign").addClass("loading");
     var data = {
       action: "verify_gscelementor_integation",
@@ -10,7 +19,10 @@ jQuery(document).ready(function ($) {
     $.post(ajaxurl, data, function (response) {
       $(".loading-sign").removeClass("loading");
 
-      if (response == -1) return;
+      if (response == -1) {
+        enableSaveBtn();
+        return;
+      }
 
       $("#gs-validation-message").empty();
 
@@ -18,6 +30,7 @@ jQuery(document).ready(function ($) {
         $(
           "<div class='gsc-msg gsc-error fw-400 text-dark text-center pt-10 pb-10 manual-margin'>Access code Can't be blank.</div>",
           ).appendTo("#gs-validation-message");
+        enableSaveBtn();
       } else {
         $(
           "<div class='gsc-msg gsc-success fw-400 text-dark text-center pt-10 pb-10 manual-margin'>Your Google Access Code is Authorized and Saved.</div>",
@@ -26,6 +39,10 @@ jQuery(document).ready(function ($) {
           window.location.href = $("#redirect_auth_eleforms").val();
         }, 1000);
       }
+    }).fail(function () {
+      // Network/server error: allow the user to retry.
+      $(".loading-sign").removeClass("loading");
+      enableSaveBtn();
     });
   });
 
@@ -885,7 +902,7 @@ jQuery(document).ready(function ($) {
   /** Dismiss notification */
   $(document).on(
     "click",
-    ".gselef-review-close, .gselef-review-dismiss-btn, .gselef-showpro-close, .gselef-addons-close, .gselef-enhance-btn-later, .gselef-review-btn-later, .gselef-enhance-close",
+    ".gselef-review-close, .gselef-review-dismiss-btn, .gselef-showpro-close, .gselef-addons-close, .gselef-enhance-btn-later, .gselef-enhance-close",
     function () {
       var key = $(this).data("key");
       var currentSlide = $(this).closest(".notification-gselef-slide");
@@ -1106,35 +1123,21 @@ jQuery(document).ready(function ($) {
     );
   });
 
-  function gselefreeLoadFeedPage(page) {
+  // Loads every feed into the Dashboard Feeds list (the list scrolls inside its card).
+  function gselefreeLoadFeeds() {
     $.post(
       ajaxurl,
       {
         action: "elefgs_free_paginate_feed_list",
-        paged: page,
         security: $("#gselef-pagination-nonce").val(),
       },
       function (res) {
         if (res.success) {
-          let rows = res.data.rows_html;
-          let pagination = res.data.pagination_html;
-
           // Inject table rows
-          $("#gselef-feed-table-body").html(rows);
+          $("#gselef-feed-table-body").html(res.data.rows_html);
 
-          // Inject pagination links
-          $("#gselef-pagination-wrap").html(pagination);
-
-          // Toggle headers and pagination visibility based on feed existence
-          if (!res.data.has_feeds) {
-            $("#gselef-feed-table thead").hide();
-            $("#gselef-pagination-wrap").hide();
-          } else {
-            $("#gselef-feed-table thead").show();
-            $("#gselef-pagination-wrap").show();
-          }
-
-          $("#gselef-feed-table").attr("data-page", page);
+          // Toggle the header based on feed existence
+          $("#gselef-feed-table thead").toggle(!!res.data.has_feeds);
         }
       },
       );
@@ -1142,15 +1145,6 @@ jQuery(document).ready(function ($) {
 
   // Initial load
   $(document).ready(function () {
-    gselefreeLoadFeedPage(1);
-  });
-
-  // Event delegation for pagination buttons
-  $(document).on("click", ".gselef-page-link", function (e) {
-    e.preventDefault();
-    let page = $(this).data("page");
-    if (page) {
-      gselefreeLoadFeedPage(page);
-    }
+    gselefreeLoadFeeds();
   });
 });

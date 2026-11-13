@@ -408,6 +408,47 @@ if (is_multisite()) {
     </table>
   </div>
 
+  <!-- Inactive Plugins -->
+  <?php
+  $gselef_inactive_plugins = array();
+  $gselef_active_list      = (array) get_option('active_plugins', array());
+  $gselef_network_list     = is_multisite() ? array_keys((array) get_site_option('active_sitewide_plugins', array())) : array();
+
+  foreach (get_plugins() as $gselef_plugin_file => $gselef_plugin_info) {
+    if (in_array($gselef_plugin_file, $gselef_active_list, true) || in_array($gselef_plugin_file, $gselef_network_list, true)) {
+      continue;
+    }
+    $gselef_inactive_plugins[$gselef_plugin_file] = array(
+      'name'    => $gselef_plugin_info['Name'],
+      'version' => $gselef_plugin_info['Version'],
+    );
+  }
+
+  uasort(
+    $gselef_inactive_plugins,
+    function ($a, $b) {
+      return strcasecmp($a['name'], $b['name']);
+    }
+  );
+  ?>
+  <div class="mb-20 mt-20">
+    <button id="gselef-free-show-inplug-info-button" class="info-button">
+      <?php echo esc_html__('Inactive Plugins', 'gsheetconnector-for-elementor-forms'); ?>
+      (<?php echo esc_html(count($gselef_inactive_plugins)); ?>)
+      <span class="dashicons dashicons-arrow-down"></span>
+    </button>
+  </div>
+
+  <div id="inplug-gselef-free-info-container" class="info-content shadow-box pt-20 pb-20 pl-30 pr-30 d-none">
+    <table>
+      <?php foreach ($gselef_inactive_plugins as $gselef_plugin_info) : ?>
+        <tr>
+          <td><?php echo esc_html($gselef_plugin_info['name']); ?></td>
+          <td class="fw-600 common-badge-table info-name-blue"><?php echo esc_html($gselef_plugin_info['version']); ?></td>
+        </tr>
+      <?php endforeach; ?>
+    </table>
+  </div>
     <!-- Webserver Configuration
     -->
 

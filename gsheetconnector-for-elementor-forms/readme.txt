@@ -5,7 +5,7 @@ Tags: elementor, elementor forms, elementor addons, metform google sheets, atomi
 Requires at least: 5.6
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.8
+Stable tag: 1.3.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author URI: https://www.gsheetconnector.com/
@@ -202,6 +202,17 @@ Your Elementor Forms, Elementor Atomic Forms, and MetForm submissions will now s
 
 
 == Changelog ==
+
+= 1.3.9 (13-11-2026) =
+* Added: GDPR & Privacy Policy tab to manage the GDPR notice shown below Elementor forms, the Privacy Policy page notice and an optional "Powered by GSheetConnector" credit.
+* Added: Entries analytics on the Dashboard tab (stat cards, form filter, "Entries Over Time" chart and "Entries by Status" chart) built from Elementor Pro form submissions.
+* Added: Google authentication and plugin review notices are now shown on all WordPress admin pages (until authenticated / until dismissed), with the same dismiss options as the plugin page.
+* Added: JetFormBuilder Google Sheet Connector to the Extensions tab.
+* Improved: The GDPR notice and "Powered by" credit now also appear below Elementor Atomic Forms and MetForm forms (widget, shortcode and form page), and MetForm forms can be selected and previewed in the GDPR & Privacy Policy tab.
+* Improved: Google OAuth token and API credentials are now stored encrypted (existing saved data is migrated automatically).
+* Improved: The last connected Google account email is now shown on the sign-in screen, in the expired-authentication message and in the deactivate popup.
+* Fixed: A failed Google authentication no longer leaves the integration looking connected and hides the "Sign in with Google" button.
+* Fixed: Extensions tab detected and linked the wrong plugins for Fluent Forms, WP Core, Gravity Forms Pro, Ninja Forms Pro, WPForms Pro, Formidable Pro, Avada, Divi, WooCommerce Pro and Easy Digital Downloads. Plugin paths, download links and host-plugin checks now match the installed GSheetConnector plugins.
 
 = 1.3.8 (26-10-2026) =
 * Fixed: Resolved an issue where form submissions from Elementor Global Widget forms were not syncing to Google Sheets.

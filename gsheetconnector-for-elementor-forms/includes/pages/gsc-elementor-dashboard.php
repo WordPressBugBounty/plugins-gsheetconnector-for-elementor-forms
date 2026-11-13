@@ -30,14 +30,16 @@ if (!defined('ABSPATH')) {
 
                            $elefgs_auth_method           = get_option('elegs_auth_method', 'ele_existing');
                            $elefgs_selected_method       = '';
-                           $elefgs_connected_email ="Not Connected";
+                           // Stays empty unless the connected account email is actually resolved (as in Fluent Forms),
+                           // so the "Let's Connect" screen shows whenever the account is not connected.
+                           $elefgs_connected_email = '';
 
-                           if ($elefgs_auth_method === 'ele_existing' && !empty($elefgs_authenticated) && $elefgs_per == 'valid') {
-                            $elefgs_selected_method = esc_html__('Authenticated Using Existing Method', 'gsheetconnector-for-elementor-forms');
+                           if ($elefgs_auth_method === 'ele_existing' && GsEl_Connector_Utility::has_live_token() && $elefgs_per == 'valid') {
+                            $elefgs_selected_method = esc_html__('Existing Client / Secret Key (Auto Setup)', 'gsheetconnector-for-elementor-forms');
 
                             $elefgs_google_sheet_auto = new GSC_Elementor_Free();
                             $elefgs_email_account_auto = $elefgs_google_sheet_auto->gsheet_print_google_account_email();
-                            $elefgs_connected_email = !empty($elefgs_email_account_auto) ? esc_html($elefgs_email_account_auto) : 'Not Connected';
+                            $elefgs_connected_email = !empty($elefgs_email_account_auto) ? $elefgs_email_account_auto : '';
                         } 
 
                         if (!empty($elefgs_connected_email)) { ?>
@@ -83,7 +85,7 @@ if (!defined('ABSPATH')) {
                             </div>
                         </div>
                         <div class="gselef-feed-table-wrap">
-                            <table class="widefat" id="gselef-feed-table" data-page="1">
+                            <table class="widefat" id="gselef-feed-table">
                                 <thead>
                                     <tr>
                                         <th><?php esc_html_e('Form Name', 'gsheetconnector-for-elementor-forms'); ?></th>
@@ -103,8 +105,6 @@ if (!defined('ABSPATH')) {
                                 </tr>
                             </tbody>
                         </table>
-
-                        <div id="gselef-pagination-wrap" class="d-flex justify-center gap-10 mt-15"></div>
 
                         <input type="hidden"
                         id="gselef-pagination-nonce"
@@ -180,7 +180,7 @@ if (!defined('ABSPATH')) {
             <?php echo esc_html__('Find the perfect connector for your WordPress workflow.', 'gsheetconnector-for-elementor-forms'); ?>
         </p>
         <div class="plugin-category-section">
-            <a href="https://www.gsheetconnector.com/plugins#contactform" target="_blank" class="plugin-category-box text-decoration-none">
+            <a href="https://www.gsheetconnector.com/plugins" target="_blank" class="plugin-category-box text-decoration-none">
                 <div class="plugin-category-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text w-6 h-6 text-emerald-600" aria-hidden="true">
                         <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
@@ -206,7 +206,7 @@ if (!defined('ABSPATH')) {
                 </div>
             </a>
 
-            <a href="https://www.gsheetconnector.com/plugins#ecommerce" target="_blank" class="plugin-category-box text-decoration-none">
+            <a href="https://www.gsheetconnector.com/plugins" target="_blank" class="plugin-category-box text-decoration-none">
                 <div class="plugin-category-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart w-6 h-6 text-emerald-600" aria-hidden="true">
                         <circle cx="8" cy="21" r="1"></circle>
@@ -230,7 +230,7 @@ if (!defined('ABSPATH')) {
                 </div>
             </a>
 
-            <a href="https://www.gsheetconnector.com/plugins#pagebuilderform" target="_blank" class="plugin-category-box text-decoration-none">
+            <a href="https://www.gsheetconnector.com/plugins" target="_blank" class="plugin-category-box text-decoration-none">
                 <div class="plugin-category-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-panels-top-left w-6 h-6 text-emerald-600" aria-hidden="true">
                         <rect width="18" height="18" x="3" y="3" rx="2"></rect>
@@ -280,7 +280,7 @@ if (!defined('ABSPATH')) {
                 </div>
             </a>
 
-            <a href="https://profiles.wordpress.org/gsheetconnector/" class="plugin-category-box text-decoration-none" target="_blank">
+            <a href="https://profiles.wordpress.org/westerndeal/" class="plugin-category-box text-decoration-none" target="_blank">
                 <div class="plugin-category-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-gift w-6 h-6 text-emerald-600" aria-hidden="true">
                         <rect x="3" y="8" width="18" height="4" rx="1"></rect>
@@ -354,6 +354,12 @@ if (!defined('ABSPATH')) {
 </div>
 
 
+<?php
+// Entries analytics (stat cards, form filter and charts).
+if (class_exists('GSC_Elementor_Entries_Analytics')) {
+    GSC_Elementor_Entries_Analytics::instance()->render_entries_dashboard();
+}
+?>
 <!---Start PRO FEATURE--->
 <div class="pro-container mt-30 welcome-wrapper">
     <span class="pro-badge"><?php echo esc_html(__('Amazing Key Features', 'gsheetconnector-for-elementor-forms')); ?></span>

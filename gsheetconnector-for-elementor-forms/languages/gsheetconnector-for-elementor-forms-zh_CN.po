@@ -1,9 +1,99 @@
-# Translation file
-
 msgid ""
 msgstr ""
+"Project-Id-Version: Elementor Forms GSheetConnector\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-13 18:58+0530\n"
+"PO-Revision-Date: 2026-11-13 19:15+0530\n"
+"Last-Translator: POForge <noreply@poforge.com>\n"
+"Language-Team: zh_CN <noreply@poforge.com>\n"
 "Language: zh_CN\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
+
+msgid ""
+"Google Sheet Connector: your saved Google credentials are currently stored "
+"without encryption because the PHP OpenSSL extension is not enabled on this "
+"server. The plugin will keep working, but please ask your hosting provider to "
+"enable OpenSSL so these credentials can be encrypted at rest."
+msgstr ""
+"Google Sheet 连接器：您保存的 Google 凭据当前未加密存储，因为此服务器上未启用 PHP "
+"OpenSSL 扩展。插件将继续正常工作，但请请求您的主机提供商启用 OpenSSL，以便这些凭据"
+"可以在静态时加密。"
+
+msgid ""
+"Track how your Elementor Forms submissions are coming in and which ones still "
+"need attention."
+msgstr "跟踪您的 Elementor 表单提交情况以及哪些仍需关注。"
+
+msgid ""
+"No Elementor form submissions found yet. Entries are read from Elementor Pro’s "
+"Submissions list, so keep “Collect Submissions” enabled on your forms."
+msgstr ""
+"尚未找到 Elementor 表单提交。条目是从 Elementor Pro 的提交列表中读取的，因此请确保"
+"在表单上启用“收集提交”。"
+
+msgid "Entries Over Time (Last 30 Days)"
+msgstr "随时间变化的条目（过去 30 天）"
+
+msgid "Form preview"
+msgstr "表单预览"
+
+msgid "Unable to load form preview."
+msgstr "无法加载表单预览。"
+
+msgid ""
+"Click here to Setup form feeds settings to easily configure multiple feeds "
+"simultaneously"
+msgstr "点击这里设置表单源设置，以便轻松同时配置多个源"
+
+msgid ""
+"Your Google connection for <strong>GSheetConnector for Elementor Forms</strong> "
+"is missing or expired. Please authenticate to continue syncing data without "
+"interruptions."
+msgstr ""
+"您的 <strong>GSheetConnector for Elementor Forms</strong> 的 Google 连接丢失或已过"
+"期。请进行身份验证以继续无干扰同步数据。"
+
+msgid ""
+"If you are enjoying <strong>GSheetConnector for Elementor Forms</strong>, please "
+"consider leaving a 5-star review. Your support helps us improve and grow."
+msgstr ""
+"如果您喜欢 <strong>GSheetConnector for Elementor Forms</strong>，请考虑留下 5 星好"
+"评。您的支持帮助我们改进和成长。"
+
+msgid ""
+"Connect JetFormBuilder to Google Sheets and send every form submission straight "
+"to your spreadsheet automatically. Map form fields to columns, capture leads and "
+"customer inquiries in real time, and skip manual exports. Keep your team working "
+"from a single, always up-to-date sheet for faster reporting and analysis."
+msgstr ""
+"将 JetFormBuilder 连接到 Google Sheets，并自动将每个表单提交直接发送到您的电子表"
+"格。将表单字段映射到列，实时捕获潜在客户和客户咨询，跳过手动导出。让您的团队始终在"
+"单一的最新电子表格上工作，以便更快的报告和分析。"
+
+msgid ""
+"Display a notice below Elementor forms connected to Google Sheets through "
+"GSheetConnector."
+msgstr "在通过 GSheetConnector 连接到 Google Sheets 的 Elementor 表单下方显示通知。"
+
+msgid "Show a small credit link below your Elementor forms."
+msgstr "在您的 Elementor 表单下方显示一个小的版权链接。"
+
+msgid "No Elementor forms found."
+msgstr "未找到 Elementor 表单。"
+
+msgid "[Atomic Form]"
+msgstr "[原子表单]"
+
+msgid ""
+"Network Active\n"
+"      plugins"
+msgstr ""
+"网络活动\n"
+"      插件"
 
 msgid "View Documentation"
 msgstr "查看文档"
@@ -17,8 +107,12 @@ msgstr "获取支持"
 msgid "Support"
 msgstr "支持"
 
-msgid "Google Sheet Connector Elementor Add-on requires Elementor Pro or Pro Elements or MetForm Plugin to be installed and activated."
-msgstr "Google Sheet Connector Elementor 插件需要安装并激活 Elementor Pro 或 Pro Elements 或 MetForm 插件。"
+msgid ""
+"Google Sheet Connector Elementor Add-on requires Elementor Pro or Pro Elements or "
+"MetForm Plugin to be installed and activated."
+msgstr ""
+"Google Sheet Connector Elementor 插件需要安装并激活 Elementor Pro 或 Pro Elements "
+"或 MetForm 插件。"
 
 msgid "GSheetConnector For Elementor Forms"
 msgstr "GSheetConnector 用于 Elementor 表单"
@@ -29,20 +123,166 @@ msgstr "获取 Elementor Google Sheet Pro"
 msgid "No error logs found."
 msgstr "未找到错误日志。"
 
-msgid "No Form Feeds Created Yet"
-msgstr "No Form Feeds Created Yet"
+msgid "Entries"
+msgstr "条目"
 
-msgid "Connect your form to Google Sheets to automatically sync submissions in real time. Create a feed to start sending data to your spreadsheet."
-msgstr "将 Divi 表单与 Google 表格集成，并实时自动同步提交。安全存储客户数据，高效跟踪查询，消除手动更新电子表格的工作。"
+msgid "Read"
+msgstr "已读"
+
+msgid "Unread"
+msgstr "未读"
+
+msgid "Total"
+msgstr "总计"
+
+msgid "Permission denied."
+msgstr "权限被拒绝。"
+
+msgid "Total Entries"
+msgstr "总条目"
+
+msgid "New Today"
+msgstr "今天的新提交"
+
+msgid "Entries Dashboard"
+msgstr "条目仪表板"
+
+msgid "Form"
+msgstr "表单"
+
+msgid "All Forms (%s)"
+msgstr "所有表单 (%s)"
+
+msgid "%1$s (%2$s)"
+msgstr "%1$s (%2$s)"
+
+msgid "Entries by Status"
+msgstr "按状态分类的条目"
+
+msgid "View All Entries"
+msgstr "查看所有条目"
+
+msgid "No Form Feeds Created Yet"
+msgstr "尚未创建任何表单 Feed"
+
+msgid ""
+"Connect your form to Google Sheets to automatically sync submissions in real "
+"time. Create a feed to start sending data to your spreadsheet."
+msgstr ""
+"将您的表单连接到 Google Sheets，即可自动实时同步提交内容。创建一个 Feed 开始将数据"
+"发送到您的电子表格。"
 
 msgid "Not connected"
-msgstr "已连接"
+msgstr "未连接"
 
 msgid "You do not have permission to perform this action."
 msgstr "您没有权限执行此操作。"
 
 msgid "Uninstall settings saved successfully."
 msgstr "卸载设置已成功保存。"
+
+msgid "Powered by"
+msgstr "由…提供支持"
+
+msgid "Privacy Policy"
+msgstr "隐私政策"
+
+msgid "GSheetConnector Privacy Policy"
+msgstr "GSheetConnector 隐私政策"
+
+msgid "Contact Form Submissions and Google Sheets Integration"
+msgstr "联系表单提交与 Google 表格集成"
+
+msgid ""
+"When you submit an inquiry through our website's contact forms, we collect the "
+"personal information you provide, such as your name, email address, phone number, "
+"and message details, for the purpose of processing your submission, responding to "
+"your inquiry, and providing relevant support."
+msgstr ""
+"当您通过我们网站的联系表单提交查询时，我们收集您提供的个人信息，例如您的姓名、电子"
+"邮件地址、电话号码和消息详细信息，以便处理您的提交、响应您的查询和提供相关支持。"
+
+msgid "Use of Third-Party Services"
+msgstr "使用第三方服务"
+
+msgid ""
+"To manage and process form submissions, we may use the following third-party "
+"services:"
+msgstr "为了管理和处理表单提交，我们可能使用以下第三方服务："
+
+msgid "Google Sheets (Google LLC):"
+msgstr "Google 表格（Google LLC）："
+
+msgid ""
+"When a form is connected to Google Sheets, the submitted information may be "
+"transmitted to and stored in the connected Google spreadsheet. This allows us to "
+"organize submissions, manage inquiries, and follow up on requests. Google's "
+"handling of personal information is described in its"
+msgstr ""
+"当表单连接到 Google 表格时，提交的信息可能会被传输并存储到连接的 Google 电子表格"
+"中。这使我们能够整理提交、管理查询和跟进请求。Google 对个人信息的处理方式在其"
+
+msgid "GSheetConnector:"
+msgstr "GSheetConnector："
+
+msgid ""
+"We use GSheetConnector to integrate supported website forms with Google Sheets. "
+"The integration facilitates the transfer of form submission data between the "
+"website and the connected Google services. For more information about "
+"GSheetConnector's data handling practices, please review the"
+msgstr ""
+"我们使用 GSheetConnector 将支持的网站表单与 Google 表格集成。这项集成促进了网站与"
+"连接的 Google 服务之间的表单提交数据传输。有关 GSheetConnector 数据处理方式的更多"
+"信息，请查看"
+
+msgid "Data Sharing and Retention"
+msgstr "数据共享和保留"
+
+msgid ""
+"We do not sell personal information collected through our contact forms. Access "
+"to submitted information is limited to authorized personnel and service providers "
+"as necessary for the purposes described in this policy."
+msgstr ""
+"我们不会出售通过我们的联系表单收集的个人信息。提交信息的访问限制于授权人员和服务提"
+"供商，必要时用于本政策中描述的目的。"
+
+msgid ""
+"We retain personal information only for as long as reasonably necessary to "
+"fulfill the purpose for which it was collected, provide support, maintain "
+"relevant records, or comply with applicable legal obligations. When the "
+"information is no longer required, we take appropriate steps to delete it, "
+"subject to applicable retention requirements."
+msgstr ""
+"我们仅在合理必要的情况下保留个人信息，以完成收集的目的、提供支持、维护相关记录或遵"
+"守适用的法律义务。当不再需要该信息时，我们会采取适当措施将其删除，遵循适用的保留要"
+"求。"
+
+msgid "Your Privacy Rights"
+msgstr "您的隐私权利"
+
+msgid ""
+"Depending on your location and applicable data protection laws, you may have the "
+"right to request access to, correction of, or deletion of your personal "
+"information, or to object to or restrict certain processing activities. To "
+"exercise applicable rights or ask questions about how your information is "
+"handled, please contact us using the contact details provided on this website."
+msgstr ""
+"根据您的位置和适用的数据保护法，您可能有权请求访问、更正或删除您的个人信息，或反对"
+"或限制某些处理活动。要行使适用权利或询问关于您信息的处理方式，请使用本网站提供的联"
+"系信息与我们联系。"
+
+msgid ""
+"Your form submission will be securely sent to and stored in Google Sheets to help "
+"us process your request and respond to your inquiry."
+msgstr ""
+"您的表单提交将安全地发送到并存储在 Google 表格中，以帮助我们处理您的请求并响应您的"
+"查询。"
+
+msgid "Privacy, GDPR & Branding settings saved successfully."
+msgstr "隐私、GDPR 和品牌设置已成功保存。"
+
+msgid "Unnamed Form"
+msgstr "未命名表单"
 
 msgid "GSheetConnector"
 msgstr "GSheetConnector"
@@ -56,20 +296,17 @@ msgstr "是"
 msgid "No"
 msgstr "否"
 
-msgid "Sheet Name"
-msgstr "表格名称"
+msgid "Google Spreadsheet Name"
+msgstr "Google 电子表格名称"
 
-msgid "Sheet ID"
-msgstr "表格 ID"
+msgid "Google Spreadsheet ID"
+msgstr "Google 电子表格 ID"
 
-msgid "Tab Name"
-msgstr "标签名称"
+msgid "Google Spreadsheet Tab Name"
+msgstr "Google 电子表格选项卡名称"
 
-msgid "Tab ID"
-msgstr "标签 ID"
-
-msgid "Sheet Tab Name"
-msgstr "表格标签名称"
+msgid "Google Spreadsheet Tab ID"
+msgstr "Google 电子表格选项卡 ID"
 
 msgid "View Spreadsheet"
 msgstr "查看电子表格"
@@ -79,9 +316,6 @@ msgstr "获取表格"
 
 msgid "Click here to configure Form Feeds"
 msgstr "点击这里配置表单数据"
-
-msgid "Click here to Setup form feeds settings to easily configure multiple feeds simultaneously"
-msgstr "Click here to Setup form feeds settings to easily configure multiple feeds simultaneously"
 
 msgid "Upgrade to GSheetConnector Pro"
 msgstr "升级到 GSheetConnector Pro"
@@ -95,7 +329,9 @@ msgstr "冻结标题"
 msgid "Error Log"
 msgstr "错误日志"
 
-msgid "Error logs are saved in the database. Please clear them regularly to avoid increasing the database size."
+msgid ""
+"Error logs are saved in the database. Please clear them regularly to avoid "
+"increasing the database size."
 msgstr "错误日志已保存在数据库中。请定期清理以避免增加数据库大小。"
 
 msgid "Clear Logs"
@@ -122,8 +358,35 @@ msgstr "消息"
 msgid "Details"
 msgstr "详细信息"
 
-msgid "Permission denied."
-msgstr "权限被拒绝。"
+msgid "Authenticate with Your Google Account"
+msgstr "使用您的 Google 帐户进行身份验证"
+
+msgid "Your connection has expired or hasn’t been set up yet."
+msgstr "您的连接已过期或尚未设置。"
+
+msgid "Authenticate Now"
+msgstr "立即验证"
+
+msgid "Learn How"
+msgstr "了解如何"
+
+msgid "Dismiss"
+msgstr "忽略"
+
+msgid "Enjoying the Plugin?"
+msgstr "您喜欢这个插件吗？"
+
+msgid "Ok, you deserve it!"
+msgstr "好的，您值得拥有！"
+
+msgid "I already did"
+msgstr "我已经做了"
+
+msgid "I need help"
+msgstr "我需要帮助"
+
+msgid "Maybe Later"
+msgstr "也许稍后"
 
 msgid "Google Sheet"
 msgstr "Google 表格"
@@ -140,6 +403,9 @@ msgstr "设置"
 msgid "System Status"
 msgstr "系统状态"
 
+msgid "GDPR & Privacy Policy"
+msgstr "GDPR 和隐私政策"
+
 msgid "Extensions"
 msgstr "扩展"
 
@@ -149,8 +415,11 @@ msgstr "现有"
 msgid "Auth Required"
 msgstr "需要认证"
 
-msgid "You're using GSheetConnector for Elementor Forms Lite. To unlock more features, consider "
-msgstr "您正在使用 GSheetConnector for Elementor Forms Lite。要解锁更多功能，请考虑 "
+msgid ""
+"You're using GSheetConnector for Elementor Forms Lite. To unlock more features, "
+"consider "
+msgstr ""
+"您正在使用 GSheetConnector for Elementor Forms Lite。要解锁更多功能，请考虑 "
 
 msgid "upgrading to Pro"
 msgstr "升级到专业版"
@@ -158,35 +427,23 @@ msgstr "升级到专业版"
 msgid "Unlock Advance Features of Elementor Forms Pro version 🚀"
 msgstr "解锁 Elementor Forms Pro 版本的高级功能 🚀"
 
-msgid "Use advanced features like Manual Authentication and automatic field mapping, no need to create columns in Google Sheets manually."
+msgid ""
+"Use advanced features like Manual Authentication and automatic field mapping, no "
+"need to create columns in Google Sheets manually."
 msgstr "使用手动身份验证和自动字段映射等高级功能，无需手动在 Google 表格中创建列。"
 
-msgid "Choose only the fields you need with simple toggles, use advanced tags, sync past form entries, and get priority support."
-msgstr "仅选择您需要的字段，使用简单的切换，使用高级标签，同步过去的表单条目，并获得优先支持。"
+msgid ""
+"Choose only the fields you need with simple toggles, use advanced tags, sync past "
+"form entries, and get priority support."
+msgstr ""
+"仅选择您需要的字段，使用简单的切换，使用高级标签，同步过去的表单条目，并获得优先支"
+"持。"
 
 msgid "View License Types"
 msgstr "查看许可证类型"
 
 msgid "Compare Features"
 msgstr "比较功能"
-
-msgid "Maybe Later"
-msgstr "也许稍后"
-
-msgid "Enjoying the Plugin?"
-msgstr "您喜欢这个插件吗？"
-
-msgid "If you are enjoying the plugin, please consider leaving a 5-star review. Your support helps us improve and grow."
-msgstr "如果您喜欢这个插件，请考虑留下 5 星评价。您的支持帮助我们改进和成长。"
-
-msgid "Ok, you deserve it!"
-msgstr "好的，您值得拥有！"
-
-msgid "I already did"
-msgstr "我已经做了"
-
-msgid "I need help"
-msgstr "我需要帮助"
 
 msgid " Enhance Your Setup"
 msgstr "增强您的设置"
@@ -200,21 +457,6 @@ msgstr "发现无缝集成的工具，帮助您完成更多工作。"
 msgid "View Details"
 msgstr "查看详情"
 
-msgid "Authenticate with Your Google Account"
-msgstr "使用您的 Google 帐户进行身份验证"
-
-msgid "Your connection has expired or hasn’t been set up yet."
-msgstr "您的连接已过期或尚未设置。"
-
-msgid "Please reauthenticate with your google account to continue syncing data without interruptions."
-msgstr "请使用您的 Google 账户重新验证，以继续无中断地同步数据。"
-
-msgid "Authenticate Now"
-msgstr "立即验证"
-
-msgid "Learn How"
-msgstr "了解如何"
-
 msgid "v"
 msgstr "版本"
 
@@ -224,7 +466,9 @@ msgstr "仪表板"
 msgid "Advanced Tools for Easy Spreadsheet Control"
 msgstr "用于轻松控制电子表格的高级工具"
 
-msgid "Improve your sheet management with smart automation and flexible customization features."
+msgid ""
+"Improve your sheet management with smart automation and flexible customization "
+"features."
 msgstr "通过智能自动化和灵活的自定义功能改善您的表格管理。"
 
 msgid "Google Sheets API v4"
@@ -314,7 +558,8 @@ msgstr "返回到数据列表"
 msgid "Feed Details"
 msgstr "表单详情"
 
-msgid "Displays the form and feed information used for Google Sheets synchronization."
+msgid ""
+"Displays the form and feed information used for Google Sheets synchronization."
 msgstr "显示用于 Google Sheets 同步的表单和馈送信息。"
 
 msgid "Form ID"
@@ -335,16 +580,25 @@ msgstr "时间戳"
 msgid "Manual Google Sheets Configuration"
 msgstr "手动 Google Sheets 配置"
 
-msgid "Manual connect your Elementor Form with Google Sheets by entering the Sheet Name, Sheet ID, Tab Name, and Tab ID. This ensures that form submissions are stored directly in your chosen Google Sheet."
-msgstr "手动将您的 Elementor 表单与 Google Sheets 连接，输入表格名称、表格 ID、标签名称和标签 ID。这确保表单提交直接存储在您选择的 Google 表格中。"
+msgid ""
+"Manual connect your Elementor Form with Google Sheets by entering the Sheet Name, "
+"Sheet ID, Tab Name, and Tab ID. This ensures that form submissions are stored "
+"directly in your chosen Google Sheet."
+msgstr ""
+"手动将您的 Elementor 表单与 Google Sheets 连接，输入表格名称、表格 ID、标签名称和"
+"标签 ID。这确保表单提交直接存储在您选择的 Google 表格中。"
 
-msgid "Go to your Google account, open Google Sheets, and select or create the sheet you want to connect."
+msgid ""
+"Go to your Google account, open Google Sheets, and select or create the sheet you "
+"want to connect."
 msgstr "前往您的 Google 账户，打开 Google Sheets，选择或创建您想要连接的表格。"
 
 msgid "You can get the Sheet ID from your Google Sheet URL."
 msgstr "您可以从 Google 表格 URL 中获取表格 ID。"
 
-msgid "Open your Google Sheet and copy the tab name shown at the bottom where you want entries stored."
+msgid ""
+"Open your Google Sheet and copy the tab name shown at the bottom where you want "
+"entries stored."
 msgstr "打开您的 Google 表格并复制您希望存储条目的标签名称，该名称显示在底部。"
 
 msgid "You can get the Tab ID from your Google Sheet URL after gid=."
@@ -428,7 +682,9 @@ msgstr "自动 Google Sheets 配置"
 msgid "PRO"
 msgstr "专业版"
 
-msgid "Automatic configure your Google Sheets and start syncing form submissions in real time."
+msgid ""
+"Automatic configure your Google Sheets and start syncing form submissions in real "
+"time."
 msgstr "自动配置您的 Google Sheets，并开始实时同步表单提交。"
 
 msgid "If sheets are not fetched, you can still add sheet and tab details manually."
@@ -455,7 +711,8 @@ msgstr "点击这里"
 msgid "to fetch sheets."
 msgstr "以获取表格。"
 
-msgid "Enable the fields you want to send to Google Sheets and rename columns if needed."
+msgid ""
+"Enable the fields you want to send to Google Sheets and rename columns if needed."
 msgstr "启用您想要发送到 Google Sheets 的字段，并在需要时重命名列。"
 
 msgid "Field List"
@@ -470,11 +727,16 @@ msgstr "全选"
 msgid "Header Settings"
 msgstr "标题设置"
 
-msgid "Customize the appearance and behavior of your sheet headers and rows for better readability and organization."
+msgid ""
+"Customize the appearance and behavior of your sheet headers and rows for better "
+"readability and organization."
 msgstr "自定义您的表头和行的外观和行为，以提高可读性和组织性。"
 
 msgid "Header Behavior"
 msgstr "标题行为"
+
+msgid "Freeze Column"
+msgstr "冻结列"
 
 msgid "Sheet Sorting"
 msgstr "表格排序"
@@ -539,8 +801,12 @@ msgstr "下载"
 msgid "Google Sheets Data Sync"
 msgstr "Google Sheets 数据同步"
 
-msgid "Easily sync past form submissions to your connected Google Sheet. Choose a date range and ensure your spreadsheet stays complete and up to date."
-msgstr "轻松同步过去的表单提交到您连接的 Google 表格。选择一个日期范围，确保您的电子表格保持完整和最新。"
+msgid ""
+"Easily sync past form submissions to your connected Google Sheet. Choose a date "
+"range and ensure your spreadsheet stays complete and up to date."
+msgstr ""
+"轻松同步过去的表单提交到您连接的 Google 表格。选择一个日期范围，确保您的电子表格保"
+"持完整和最新。"
 
 msgid "From Date"
 msgstr "开始日期"
@@ -560,10 +826,16 @@ msgstr "关于 GSheetConnector"
 msgid "Built by Experts. Trusted by Thousands."
 msgstr "由专家构建，受到数千人的信任。"
 
-msgid "Led by experienced developers and powered by a passionate team, GSheetConnector helps WordPress users automate their workflows with confidence."
-msgstr "由经验丰富的开发者领导，拥有一支充满热情的团队，GSheetConnector 帮助 WordPress 用户自信地自动化他们的工作流程。"
+msgid ""
+"Led by experienced developers and powered by a passionate team, GSheetConnector "
+"helps WordPress users automate their workflows with confidence."
+msgstr ""
+"由经验丰富的开发者领导，拥有一支充满热情的团队，GSheetConnector 帮助 WordPress 用"
+"户自信地自动化他们的工作流程。"
 
-msgid "We focus on building tools that are fast, secure, and easy to use - so you can spend less time managing data."
+msgid ""
+"We focus on building tools that are fast, secure, and easy to use - so you can "
+"spend less time managing data."
 msgstr "我们专注于构建快速、安全、易于使用的工具，让您可以花更少的时间管理数据。"
 
 msgid "Meet Our Core Team"
@@ -572,8 +844,12 @@ msgstr "认识我们的核心团队"
 msgid "Our Mission"
 msgstr "我们的使命"
 
-msgid "Our mission is to make form automation simple, secure, and reliable for every WordPress user - from beginners to enterprise teams."
-msgstr "我们的使命是让表单自动化对每个 WordPress 用户来说都简单、安全和可靠——从初学者到企业团队。"
+msgid ""
+"Our mission is to make form automation simple, secure, and reliable for every "
+"WordPress user - from beginners to enterprise teams."
+msgstr ""
+"我们的使命是让表单自动化对每个 WordPress 用户来说都简单、安全和可靠——从初学者到企"
+"业团队。"
 
 msgid "Fast & Reliable Data Sync"
 msgstr "快速可靠的数据同步"
@@ -605,14 +881,24 @@ msgstr "专属支持"
 msgid "Add-ons & Extensions"
 msgstr "附加组件与扩展"
 
-msgid "Extend your Google Sheets integration with powerful add-ons. Install, manage, and activate extensions to unlock advanced features."
-msgstr "通过强大的附加组件扩展您的 Google Sheets 集成。安装、管理和激活扩展以解锁高级功能。"
+msgid ""
+"Extend your Google Sheets integration with powerful add-ons. Install, manage, and "
+"activate extensions to unlock advanced features."
+msgstr ""
+"通过强大的附加组件扩展您的 Google Sheets 集成。安装、管理和激活扩展以解锁高级功"
+"能。"
 
 msgid "CF7 Google Sheet Connector"
 msgstr "CF7 Google Sheet 连接器"
 
-msgid "Easily connect Contact Form 7 to Google Sheets and automatically sync form submissions in real-time. Every entry is instantly added to your selected spreadsheet, helping you manage leads, inquiries, and customer data efficiently without manual export."
-msgstr "轻松将联系表单 7 连接到 Google 表格，并实时自动同步表单提交。每个条目会立即添加到您选择的电子表格中，帮助您高效管理潜在客户、咨询和客户数据，无需手动导出。"
+msgid ""
+"Easily connect Contact Form 7 to Google Sheets and automatically sync form "
+"submissions in real-time. Every entry is instantly added to your selected "
+"spreadsheet, helping you manage leads, inquiries, and customer data efficiently "
+"without manual export."
+msgstr ""
+"轻松将联系表单 7 连接到 Google 表格，并实时自动同步表单提交。每个条目会立即添加到"
+"您选择的电子表格中，帮助您高效管理潜在客户、咨询和客户数据，无需手动导出。"
 
 msgid "Install"
 msgstr "安装"
@@ -620,26 +906,46 @@ msgstr "安装"
 msgid "WPForms Google Sheet Connector"
 msgstr "WPForms Google Sheet 连接器"
 
-msgid "Integrate WPForms with Google Sheets and send form entries directly to your spreadsheet automatically. Track leads, manage customer data, and streamline reporting with seamless Google Sheets integration and real-time sync."
-msgstr "将 WPForms 与 Google 表格集成，自动将表单条目直接发送到您的电子表格中。通过无缝的 Google 表格集成和实时同步，跟踪潜在客户、管理客户数据并简化报告。"
+msgid ""
+"Integrate WPForms with Google Sheets and send form entries directly to your "
+"spreadsheet automatically. Track leads, manage customer data, and streamline "
+"reporting with seamless Google Sheets integration and real-time sync."
+msgstr ""
+"将 WPForms 与 Google 表格集成，自动将表单条目直接发送到您的电子表格中。通过无缝的 "
+"Google 表格集成和实时同步，跟踪潜在客户、管理客户数据并简化报告。"
 
 msgid "Gravity Forms Google Sheet Connector"
 msgstr "Gravity Forms Google Sheet 连接器"
 
-msgid "Connect Gravity Forms to Google Sheets and automatically push form submissions to your spreadsheet. Simplify data management, improve workflow automation, and keep all entries organized in one secure location."
-msgstr "将 Gravity Forms 连接到 Google 表格，并自动将表单提交推送到您的电子表格中。简化数据管理，改善工作流程自动化，并将所有条目组织在一个安全的位置。"
+msgid ""
+"Connect Gravity Forms to Google Sheets and automatically push form submissions to "
+"your spreadsheet. Simplify data management, improve workflow automation, and keep "
+"all entries organized in one secure location."
+msgstr ""
+"将 Gravity Forms 连接到 Google 表格，并自动将表单提交推送到您的电子表格中。简化数"
+"据管理，改善工作流程自动化，并将所有条目组织在一个安全的位置。"
 
 msgid "Ninja Forms Google Sheet Connector"
 msgstr "Ninja Forms Google Sheet 连接器"
 
-msgid "Automatically sync Ninja Forms submissions to Google Sheets with one-click integration. Capture leads, monitor responses, and manage data efficiently with instant spreadsheet updates and easy reporting."
-msgstr "通过一键集成自动将 Ninja Forms 提交同步到 Google 表格。捕获潜在客户，监控响应，并通过即时电子表格更新和简单报告高效管理数据。"
+msgid ""
+"Automatically sync Ninja Forms submissions to Google Sheets with one-click "
+"integration. Capture leads, monitor responses, and manage data efficiently with "
+"instant spreadsheet updates and easy reporting."
+msgstr ""
+"通过一键集成自动将 Ninja Forms 提交同步到 Google 表格。捕获潜在客户，监控响应，并"
+"通过即时电子表格更新和简单报告高效管理数据。"
 
 msgid "Forminator Forms Google Sheet Connector"
 msgstr "Forminator Forms Google Sheet 连接器"
 
-msgid "Integrate Forminator Forms with Google Sheets to automatically store form entries in your spreadsheet. Eliminate manual data entry and ensure accurate, real-time syncing for better data tracking and analysis."
-msgstr "将 Forminator 表单与 Google 表格集成，以自动将表单条目存储在您的电子表格中。消除手动数据输入，确保准确的实时同步，以便更好地跟踪和分析数据。"
+msgid ""
+"Integrate Forminator Forms with Google Sheets to automatically store form entries "
+"in your spreadsheet. Eliminate manual data entry and ensure accurate, real-time "
+"syncing for better data tracking and analysis."
+msgstr ""
+"将 Forminator 表单与 Google 表格集成，以自动将表单条目存储在您的电子表格中。消除手"
+"动数据输入，确保准确的实时同步，以便更好地跟踪和分析数据。"
 
 msgid "Free"
 msgstr "免费"
@@ -647,26 +953,51 @@ msgstr "免费"
 msgid "Formidable Forms Google Sheet Connector"
 msgstr "Formidable Forms Google Sheet 连接器"
 
-msgid "Automatically sync Formidable Forms entries to Google Sheets. Manage leads, track submissions, and simplify data reporting with real-time integration."
-msgstr "自动将 Formidable 表单条目同步到 Google 表格。管理潜在客户，跟踪提交，并通过实时集成简化数据报告。"
+msgid ""
+"Automatically sync Formidable Forms entries to Google Sheets. Manage leads, track "
+"submissions, and simplify data reporting with real-time integration."
+msgstr ""
+"自动将 Formidable 表单条目同步到 Google 表格。管理潜在客户，跟踪提交，并通过实时集"
+"成简化数据报告。"
 
 msgid "Fluent Forms Google Sheet Connector"
 msgstr "Fluent Forms Google Sheet 连接器"
 
-msgid "Automatically sync Fluent Forms submissions to Google Sheets in real-time. Every form entry is instantly added to your selected spreadsheet, helping you manage leads, customer inquiries, and business data without manual export. Streamline your workflow, improve reporting accuracy, and keep all submissions organized with seamless Google Sheets integration."
-msgstr "实时自动将 Fluent Forms 提交同步到 Google Sheets。每个表单条目会立即添加到您选择的电子表格中，帮助您管理潜在客户、客户咨询和业务数据，无需手动导出。简化您的工作流程，提高报告准确性，并通过无缝的 Google Sheets 集成保持所有提交的有序。"
+msgid ""
+"Automatically sync Fluent Forms submissions to Google Sheets in real-time. Every "
+"form entry is instantly added to your selected spreadsheet, helping you manage "
+"leads, customer inquiries, and business data without manual export. Streamline "
+"your workflow, improve reporting accuracy, and keep all submissions organized "
+"with seamless Google Sheets integration."
+msgstr ""
+"实时自动将 Fluent Forms 提交同步到 Google Sheets。每个表单条目会立即添加到您选择的"
+"电子表格中，帮助您管理潜在客户、客户咨询和业务数据，无需手动导出。简化您的工作流"
+"程，提高报告准确性，并通过无缝的 Google Sheets 集成保持所有提交的有序。"
 
 msgid "Elementor Forms Google Sheet Connector"
 msgstr "Elementor Forms Google Sheet 连接器"
 
-msgid "Sync Elementor Forms with Google Sheets instantly. Automatically add new form submissions to your spreadsheet, manage leads efficiently, and simplify reporting with real-time data synchronization."
-msgstr "立即将 Elementor 表单与 Google 表格同步。自动将新表单提交添加到您的电子表格中，高效管理潜在客户，并通过实时数据同步简化报告。"
+msgid ""
+"Sync Elementor Forms with Google Sheets instantly. Automatically add new form "
+"submissions to your spreadsheet, manage leads efficiently, and simplify reporting "
+"with real-time data synchronization."
+msgstr ""
+"立即将 Elementor 表单与 Google 表格同步。自动将新表单提交添加到您的电子表格中，高"
+"效管理潜在客户，并通过实时数据同步简化报告。"
 
 msgid "Avada Forms Google Sheet Connector"
 msgstr "Avada Forms Google Sheet 连接器"
 
-msgid "Connect Avada Forms to Google Sheets and automatically transfer form entries to your spreadsheet. Streamline lead management, automate data collection, and improve business reporting with seamless integration."
-msgstr "将 Avada 表单连接到 Google 表格，并自动将表单条目转移到您的电子表格中。简化潜在客户管理，自动化数据收集，并通过无缝集成改善业务报告。"
+msgid ""
+"Connect Avada Forms to Google Sheets and automatically transfer form entries to "
+"your spreadsheet. Streamline lead management, automate data collection, and "
+"improve business reporting with seamless integration."
+msgstr ""
+"将 Avada 表单连接到 Google 表格，并自动将表单条目转移到您的电子表格中。简化潜在客"
+"户管理，自动化数据收集，并通过无缝集成改善业务报告。"
+
+msgid "Get Pro"
+msgstr "获得专业版"
 
 msgid "Available PRO Version"
 msgstr "可用的专业版"
@@ -674,32 +1005,58 @@ msgstr "可用的专业版"
 msgid "Divi Forms Google Sheet Connector"
 msgstr "Divi Forms Google Sheet 连接器"
 
-msgid "Integrate Divi Forms with Google Sheets and automatically sync submissions in real-time. Store customer data securely, track inquiries efficiently, and eliminate manual spreadsheet updates."
-msgstr "将 Divi 表单与 Google 表格集成，并实时自动同步提交。安全存储客户数据，高效跟踪查询，消除手动更新电子表格的工作。"
+msgid ""
+"Integrate Divi Forms with Google Sheets and automatically sync submissions in "
+"real-time. Store customer data securely, track inquiries efficiently, and "
+"eliminate manual spreadsheet updates."
+msgstr ""
+"将 Divi 表单与 Google 表格集成，并实时自动同步提交。安全存储客户数据，高效跟踪查"
+"询，消除手动更新电子表格的工作。"
 
 msgid "WP Core Google Sheet Connector"
 msgstr "WP Core Google Sheet 连接器"
 
-msgid "Automatically send WordPress core data (like comments or custom submissions) to Google Sheets. Simplify website data tracking, automate record keeping, and centralize important information in one organized spreadsheet."
-msgstr "自动将 WordPress 核心数据（如评论或自定义提交）发送到 Google 表格。简化网站数据跟踪，自动化记录保存，并在一个有序的电子表格中集中重要信息。"
+msgid ""
+"Automatically send WordPress core data (like comments or custom submissions) to "
+"Google Sheets. Simplify website data tracking, automate record keeping, and "
+"centralize important information in one organized spreadsheet."
+msgstr ""
+"自动将 WordPress 核心数据（如评论或自定义提交）发送到 Google 表格。简化网站数据跟"
+"踪，自动化记录保存，并在一个有序的电子表格中集中重要信息。"
+
+msgid "JetFormBuilder Google Sheet Connector"
+msgstr "JetFormBuilder Google 表格连接器"
 
 msgid "WooCommerce Google Sheet Connector"
 msgstr "WooCommerce Google Sheet 连接器"
 
-msgid "Sync WooCommerce orders with Google Sheets automatically. Store order details, customer information, and transaction data in real-time for easy reporting, accounting, and business analysis."
-msgstr "自动将 WooCommerce 订单与 Google 表格同步。实时存储订单详情、客户信息和交易数据，以便于报告、会计和业务分析。"
+msgid ""
+"Sync WooCommerce orders with Google Sheets automatically. Store order details, "
+"customer information, and transaction data in real-time for easy reporting, "
+"accounting, and business analysis."
+msgstr ""
+"自动将 WooCommerce 订单与 Google 表格同步。实时存储订单详情、客户信息和交易数据，"
+"以便于报告、会计和业务分析。"
 
 msgid "Easy Digital Downloads Google Sheet Connector"
 msgstr "Easy Digital Downloads Google Sheet 连接器"
 
-msgid "Automatically send Easy Digital Downloads (EDD) order details to Google Sheets. Track digital product sales, monitor transactions, and manage customer data effortlessly with real-time spreadsheet integration."
-msgstr "自动将 Easy Digital Downloads (EDD) 订单详情发送到 Google 表格。轻松跟踪数字产品销售，监控交易，并通过实时电子表格集成管理客户数据。"
+msgid ""
+"Automatically send Easy Digital Downloads (EDD) order details to Google Sheets. "
+"Track digital product sales, monitor transactions, and manage customer data "
+"effortlessly with real-time spreadsheet integration."
+msgstr ""
+"自动将 Easy Digital Downloads (EDD) 订单详情发送到 Google 表格。轻松跟踪数字产品销"
+"售，监控交易，并通过实时电子表格集成管理客户数据。"
 
 msgid "Installed & Active Plugins"
 msgstr "已安装和激活的插件"
 
-msgid "View and manage all currently installed and active connectors on your site. You can activate, deactivate, or upgrade plugins from here."
-msgstr "查看和管理您网站上当前安装和激活的所有连接器。您可以从这里激活、停用或升级插件。"
+msgid ""
+"View and manage all currently installed and active connectors on your site. You "
+"can activate, deactivate, or upgrade plugins from here."
+msgstr ""
+"查看和管理您网站上当前安装和激活的所有连接器。您可以从这里激活、停用或升级插件。"
 
 msgid "Pro"
 msgstr "专业版"
@@ -713,8 +1070,11 @@ msgstr "停用"
 msgid "Recommended Plugins"
 msgstr "推荐插件"
 
-msgid "Discover recommended plugins that enhance your workflow and help you get more value from your Google Sheets integration."
-msgstr "发现推荐的插件，以增强您的工作流程，并帮助您从 Google Sheets 集成中获得更多价值。"
+msgid ""
+"Discover recommended plugins that enhance your workflow and help you get more "
+"value from your Google Sheets integration."
+msgstr ""
+"发现推荐的插件，以增强您的工作流程，并帮助您从 Google Sheets 集成中获得更多价值。"
 
 msgid "Activate"
 msgstr "激活"
@@ -750,31 +1110,31 @@ msgid "Cancel"
 msgstr "取消"
 
 msgid "Invalid security token."
-msgstr "无效的安全令牌"
+msgstr "无效的安全令牌。"
 
 msgid "You do not have permission to install plugin."
-msgstr "您没有权限安装插件"
+msgstr "您没有权限安装插件。"
 
 msgid "Missing required parameters."
-msgstr "缺少必需的参数"
+msgstr "缺少必需的参数。"
 
 msgid "Installation failed: "
 msgstr "安装失败："
 
 msgid "Plugin installed successfully."
-msgstr "插件安装成功"
+msgstr "插件安装成功。"
 
 msgid "You do not have permission to activate plugin."
-msgstr "您没有权限激活插件"
+msgstr "您没有权限激活插件。"
 
 msgid "Plugin slug is missing."
-msgstr "插件标识缺失"
+msgstr "插件名称丢失。"
 
 msgid "Plugin is already activated."
-msgstr "插件已经激活"
+msgstr "插件已激活。"
 
 msgid "Plugin activated successfully."
-msgstr "插件激活成功"
+msgstr "插件激活成功。"
 
 msgid "Unlock Beta Version Control"
 msgstr "解锁 Beta 版本控制"
@@ -845,13 +1205,20 @@ msgstr "随时切换开/关"
 msgid "Beta Program Access"
 msgstr "Beta 程序访问"
 
-msgid "Get early access to upcoming features and improvements before they are officially released. Beta versions may include experimental updates and should be used for testing purposes only."
-msgstr "在即将发布的功能和改进正式发布之前，提前获取访问权限。Beta 版本可能包含实验性更新，仅应用于测试目的。"
+msgid ""
+"Get early access to upcoming features and improvements before they are officially "
+"released. Beta versions may include experimental updates and should be used for "
+"testing purposes only."
+msgstr ""
+"在即将发布的功能和改进正式发布之前，提前获取访问权限。Beta 版本可能包含实验性更"
+"新，仅应用于测试目的。"
 
 msgid "Enable Beta Updates"
 msgstr "启用 Beta 更新"
 
-msgid "Receive notifications and access to beta releases. Updates will not be installed automatically."
+msgid ""
+"Receive notifications and access to beta releases. Updates will not be installed "
+"automatically."
 msgstr "接收通知并访问 Beta 版本。更新将不会自动安装。"
 
 msgid "Beta Usage Notice"
@@ -869,14 +1236,16 @@ msgstr "可能会出现小错误或性能问题"
 msgid "We recommend enabling beta only on test or staging sites"
 msgstr "我们建议仅在测试或暂存网站上启用测试版"
 
-msgid "Beta versions are intended for testing purposes. Do not enable on live production websites without proper backups."
+msgid ""
+"Beta versions are intended for testing purposes. Do not enable on live production "
+"websites without proper backups."
 msgstr "测试版旨在用于测试目的。请勿在没有适当备份的情况下启用在生产网站上。"
 
 msgid "Elementor Forms Connected Sheets using Pagebuilder"
 msgstr "使用 Pagebuilder 的 Elementor 表单连接的 Sheets"
 
 msgid "Sheet URL"
-msgstr "表格"
+msgstr "表格 URL"
 
 msgid "No Elementor Forms are connected with Google Sheets."
 msgstr "没有与 Google Sheets 连接的 Elementor 表单。"
@@ -884,11 +1253,19 @@ msgstr "没有与 Google Sheets 连接的 Elementor 表单。"
 msgid "Welcome To GSheetConnector"
 msgstr "欢迎使用 GSheetConnector"
 
-msgid "GSheetConnector is a powerful automation plugin that syncs WordPress data with Google Sheets in real time. It supports WooCommerce, Easy Digital Downloads, and popular form plugins such as Gravity Forms, Contact Form 7, Elementor Forms, along with 10+ additional WordPress integrations for efficient data management."
-msgstr "GSheetConnector 是一个强大的自动化插件，可以实时同步 WordPress 数据与 Google Sheets。它支持 WooCommerce、Easy Digital Downloads 以及流行的表单插件，如 Gravity Forms、Contact Form 7、Elementor Forms，以及 10 多个额外的 WordPress 集成，以实现高效的数据管理。"
+msgid ""
+"GSheetConnector is a powerful automation plugin that syncs WordPress data with "
+"Google Sheets in real time. It supports WooCommerce, Easy Digital Downloads, and "
+"popular form plugins such as Gravity Forms, Contact Form 7, Elementor Forms, "
+"along with 10+ additional WordPress integrations for efficient data management."
+msgstr ""
+"GSheetConnector 是一个强大的自动化插件，可以实时同步 WordPress 数据与 Google "
+"Sheets。它支持 WooCommerce、Easy Digital Downloads 以及流行的表单插件，如 Gravity "
+"Forms、Contact Form 7、Elementor Forms，以及 10 多个额外的 WordPress 集成，以实现"
+"高效的数据管理。"
 
-msgid "Authenticated Using Existing Method"
-msgstr "与 Google 的集成（现有方法）"
+msgid "Existing Client / Secret Key (Auto Setup)"
+msgstr "现有客户端/密钥（自动设置）"
 
 msgid "Google Account Connection"
 msgstr "Google 账户连接"
@@ -897,10 +1274,13 @@ msgid "Connected Email Account"
 msgstr "已连接的电子邮件账户"
 
 msgid " Connected"
-msgstr "已连接"
+msgstr " 已连接"
+
+msgid "Sheet Name"
+msgstr "表格名称"
 
 msgid "Loading..."
-msgstr "Loading..."
+msgstr "加载中..."
 
 msgid "Let's Connect"
 msgstr "让我们连接"
@@ -908,7 +1288,9 @@ msgstr "让我们连接"
 msgid "Setup Guide & Troubleshooting"
 msgstr "设置指南与故障排除"
 
-msgid "Sync Elementor Forms data with Google Sheets in real-time effortlessly and accurately."
+msgid ""
+"Sync Elementor Forms data with Google Sheets in real-time effortlessly and "
+"accurately."
 msgstr "实时轻松准确地将 Elementor Forms 数据与 Google Sheets 同步。"
 
 msgid "Getting Started"
@@ -1007,17 +1389,18 @@ msgstr "惊人的关键功能"
 msgid "Everything You Need to Sync Data"
 msgstr "您所需的一切以同步数据"
 
-msgid "Common features shared across every GSheetConnector Pro add-on built for reliability, flexibility, and scale."
-msgstr "每个 GSheetConnector Pro 附加组件共享的常见功能，旨在提供可靠性、灵活性和可扩展性。"
+msgid ""
+"Common features shared across every GSheetConnector Pro add-on built for "
+"reliability, flexibility, and scale."
+msgstr ""
+"每个 GSheetConnector Pro 附加组件共享的常见功能，旨在提供可靠性、灵活性和可扩展"
+"性。"
 
 msgid "Upgrade to Pro"
 msgstr "升级到 Pro"
 
 msgid "View Full Features"
 msgstr "查看完整功能"
-
-msgid "Form"
-msgstr "表单"
 
 msgid "Processing"
 msgstr "处理中"
@@ -1046,8 +1429,78 @@ msgstr "自定义映射"
 msgid "Video Tutorials"
 msgstr "视频教程"
 
-msgid "Existing Client / Secret Key (Auto Setup)"
-msgstr "现有客户端/密钥（自动设置）"
+msgid ""
+"Manage the notices displayed on your connected forms and your website’s Privacy "
+"Policy page. Customize the messages to explain how submitted information may be "
+"used and stored."
+msgstr ""
+"管理在连接的表单和您的网站隐私政策页面上显示的通知。自定义消息以解释提交的信息如何"
+"使用和存储。"
+
+msgid "Enable GDPR Notice"
+msgstr "启用 GDPR 通知"
+
+msgid ""
+"You can customize this message using the text editor below. The notice is "
+"displayed only when this setting is enabled."
+msgstr "您可以使用下面的文本编辑器自定义此消息。仅当启用此设置时，通知才会显示。"
+
+msgid "Enable “Powered by GSheetConnector” credit"
+msgstr "启用“由 GSheetConnector 提供支持”的信用"
+
+msgid "Preview of the branding credit"
+msgstr "品牌信用的预览"
+
+msgid "Display"
+msgstr "显示"
+
+msgid "Visible beneath the form notice"
+msgstr "在表单通知下可见"
+
+msgid "Hidden"
+msgstr "隐藏"
+
+msgid "Add rel=\"nofollow\" to the branding link"
+msgstr "为品牌链接添加 rel=\"nofollow\""
+
+msgid "Enable Privacy Policy Notice"
+msgstr "启用隐私政策通知"
+
+msgid ""
+"Choose where to display a privacy notice on your website’s designated Privacy "
+"Policy page."
+msgstr "选择在您网站指定的隐私政策页面上显示隐私通知的位置。"
+
+msgid "Display On"
+msgstr "显示在"
+
+msgid "Shown on your website’s designated Privacy Policy page."
+msgstr "在您网站指定的隐私政策页面上显示。"
+
+msgid "View Privacy Policy Page"
+msgstr "查看隐私政策页面"
+
+msgid ""
+"No Privacy Policy page has been selected. Please configure one in Settings → "
+"Privacy."
+msgstr "未选择隐私政策页面。请在设置 → 隐私中配置一个页面。"
+
+msgid ""
+"Customize this message to match your website’s data practices. The notice is "
+"displayed according to the setting selected above."
+msgstr "自定义此消息以与您网站的数据实践相匹配。通知根据上述所选设置显示。"
+
+msgid "GDPR Notices"
+msgstr "GDPR 通知"
+
+msgid "Form Preview"
+msgstr "表单预览"
+
+msgid "No forms found"
+msgstr "未找到表单"
+
+msgid "Save Settings successfully."
+msgstr "设置成功保存。"
 
 msgid "Google Sheets Setup Required"
 msgstr "需要 Google 表格设置"
@@ -1055,7 +1508,9 @@ msgstr "需要 Google 表格设置"
 msgid "your selected Method is : "
 msgstr "您选择的方法是："
 
-msgid "To start sending form entries to Google Sheets, please connect your Google account first."
+msgid ""
+"To start sending form entries to Google Sheets, please connect your Google "
+"account first."
 msgstr "要开始将表单条目发送到 Google 表格，请先连接您的 Google 帐户。"
 
 msgid "✔ Click on the Sign in with Google button"
@@ -1079,7 +1534,9 @@ msgstr "前往集成设置"
 msgid "Sheet Sync Feeds"
 msgstr "表格同步数据"
 
-msgid "Create, connect, manage, and monitor how your form submissions are automatically synced to Google Sheets in real time."
+msgid ""
+"Create, connect, manage, and monitor how your form submissions are automatically "
+"synced to Google Sheets in real time."
 msgstr "创建、连接、管理和监控您的表单提交如何实时自动同步到 Google Sheets。"
 
 msgid "+ Add Form Feed"
@@ -1091,20 +1548,16 @@ msgstr "- 关闭表单数据"
 msgid "Create Sheet Sync Feeds"
 msgstr "创建表格同步数据"
 
-msgid "Select a form and give your feed a name to start syncing form submissions with Google Sheets in real time."
+msgid ""
+"Select a form and give your feed a name to start syncing form submissions with "
+"Google Sheets in real time."
 msgstr "选择一个表单并为您的数据命名，以开始实时将表单提交与 Google Sheets 同步。"
 
 msgid "Select Form"
 msgstr "选择表单"
 
-msgid "Unnamed Form"
-msgstr "未命名表单"
-
 msgid "Unknown Element ID"
 msgstr "未知元素 ID"
-
-msgid "[Atomic Form]"
-msgstr "[Atomic Form]"
 
 msgid "MetForm: "
 msgstr "MetForm: "
@@ -1136,7 +1589,8 @@ msgstr "下一页 »"
 msgid "Plugin Preferences"
 msgstr "插件偏好设置"
 
-msgid "Manage how plugin settings and data are handled when the plugin is uninstalled."
+msgid ""
+"Manage how plugin settings and data are handled when the plugin is uninstalled."
 msgstr "管理插件卸载时设置和数据的处理方式。"
 
 msgid "Delete Plugin Data on Uninstall"
@@ -1160,10 +1614,14 @@ msgstr "不正确的设置可能会删除所有敏感表单和用户数据"
 msgid "Confirm Data Deletion"
 msgstr "确认数据删除"
 
-msgid "Enabling this option will permanently delete all plugin data, including settings and integrations, when the plugin is uninstalled."
+msgid ""
+"Enabling this option will permanently delete all plugin data, including settings "
+"and integrations, when the plugin is uninstalled."
 msgstr "启用此选项将在卸载插件时永久删除所有插件数据，包括设置和集成。"
 
-msgid "If you plan to upgrade from Free to Pro, you may lose your existing configuration data."
+msgid ""
+"If you plan to upgrade from Free to Pro, you may lose your existing configuration "
+"data."
 msgstr "如果您计划从免费版升级到专业版，您可能会丢失现有的配置数据。"
 
 msgid "Proceed only if you want a complete cleanup. This action cannot be undone."
@@ -1190,8 +1648,13 @@ msgstr "选择 Elementor 表单如何与 Google Sheets 进行身份验证。"
 msgid "Auto Setup"
 msgstr "自动设置"
 
-msgid "Sign in with your Google account to connect Elementor Forms with Google Sheets. Once connected, your data syncs based on your settings. Learn more in the documentation"
-msgstr "使用您的 Google 账户登录，以将 Elementor 表单与 Google Sheets 连接。一旦连接，您的数据将根据您的设置进行同步。有关更多信息，请参阅文档"
+msgid ""
+"Sign in with your Google account to connect Elementor Forms with Google Sheets. "
+"Once connected, your data syncs based on your settings. Learn more in the "
+"documentation"
+msgstr ""
+"使用您的 Google 账户登录，以将 Elementor 表单与 Google Sheets 连接。一旦连接，您的"
+"数据将根据您的设置进行同步。有关更多信息，请参阅文档"
 
 msgid "click here"
 msgstr "点击这里"
@@ -1223,22 +1686,44 @@ msgstr "如果提示，请保存身份验证代码。"
 msgid "This allows the plugin to securely sync your form data with Google Sheets."
 msgstr "这允许插件安全地将您的表单数据与 Google Sheets 同步。"
 
-msgid "<p class="fw-400 text-dark"><strong>Google Drive</strong> and <strong>Google Sheets</strong> permissions were not granted during authentication with Google.</p>
-                                        <p class="fw-400 text-dark"><strong>Refer to Step 4 in the Connection Guide shown alongside.</strong><br> Then, deactivate the connection and re-authorize it, ensuring both Google Drive and Google Sheets permissions are enabled.</p>"
-msgstr "<p class="fw-400 text-dark"><strong>Google Drive</strong> 和 <strong>Google Sheets</strong> 权限在与 Google 进行身份验证时未被授予。</p>
-                                        <p class="fw-400 text-dark"><strong>请参考旁边的连接指南第 4 步。</strong><br> 然后，停用连接并重新授权，确保启用 Google Drive 和 Google Sheets 权限。</p>"
+msgid ""
+"<p class=\"fw-400 text-dark\"><strong>Google Drive</strong> and <strong>Google "
+"Sheets</strong> permissions were not granted during authentication with Google.</"
+"p>\n"
+"                                        <p class=\"fw-400 text-"
+"dark\"><strong>Refer to Step 4 in the Connection Guide shown alongside.</"
+"strong><br> Then, deactivate the connection and re-authorize it, ensuring both "
+"Google Drive and Google Sheets permissions are enabled.</p>"
+msgstr ""
+"<p class=\"fw-400 text-dark\"><strong>Google Drive</strong> 和 <strong>Google "
+"Sheets</strong> 权限在与 Google 进行身份验证时未被授予。</p>\n"
+"                                        <p class=\"fw-400 text-dark\"><strong>请参"
+"考旁边的连接指南第 4 步。</strong><br> 然后，停用连接并重新授权，确保启用 Google "
+"Drive 和 Google Sheets 权限。</p>"
+
+msgid "Last connected with %s."
+msgstr "最后与 %s 连接。"
 
 msgid "Connected"
 msgstr "已连接"
 
-msgid "Authentication failed. Your Google access token may be expired or invalid. Please re-authenticate your account with the required permissions."
-msgstr "Authentication failed. Your Google access token may be expired or invalid. Please re-authenticate your account with the required permissions."
+msgid ""
+"Authentication failed. Your Google access token may be expired or invalid. Please "
+"re-authenticate your account with the required permissions."
+msgstr ""
+"认证失败。您的 Google 访问令牌可能已过期或无效。请使用所需权限重新验证您的帐户。"
 
 msgid "Connect Your Google Account"
 msgstr "连接您的 Google 帐户"
 
-msgid "Securely link your Google account to start syncing form entries automatically."
+msgid ""
+"Securely link your Google account to start syncing form entries automatically."
 msgstr "安全地链接您的 Google 帐户以开始自动同步表单条目。"
+
+msgid ""
+"Last connected with %s. Sign in with the same account so your existing sheets and "
+"feeds keep working."
+msgstr "最后与 %s 连接。使用相同的账户登录，以便您现有的表格和馈送继续工作。"
 
 msgid "Sign in with Google"
 msgstr "使用 Google 登录"
@@ -1249,8 +1734,13 @@ msgstr "客户端令牌"
 msgid "Save Client Token"
 msgstr "保存客户端令牌"
 
-msgid "We do not store any of the data from your Google account on our servers, everything is processed & stored on your server. We take your privacy extremely seriously and ensure it is never misused. Learn more in the documentation"
-msgstr "我们不会在我们的服务器上存储您 Google 帐户的任何数据，所有数据都在您的服务器上处理和存储。我们非常重视您的隐私，并确保不会被滥用。详细信息请参见文档"
+msgid ""
+"We do not store any of the data from your Google account on our servers, "
+"everything is processed & stored on your server. We take your privacy extremely "
+"seriously and ensure it is never misused. Learn more in the documentation"
+msgstr ""
+"我们不会在我们的服务器上存储您 Google 帐户的任何数据，所有数据都在您的服务器上处理"
+"和存储。我们非常重视您的隐私，并确保不会被滥用。详细信息请参见文档"
 
 msgid "click here."
 msgstr "点击这里。"
@@ -1258,8 +1748,12 @@ msgstr "点击这里。"
 msgid "Connection Status & Next Steps"
 msgstr "连接状态与后续步骤"
 
-msgid "Your Google account has been successfully connected. You are now ready to sync your form submissions with Google Sheets securely and automatically."
-msgstr "您的 Google 账户已成功连接。您现在可以安全且自动地将表单提交与 Google Sheets 同步。"
+msgid ""
+"Your Google account has been successfully connected. You are now ready to sync "
+"your form submissions with Google Sheets securely and automatically."
+msgstr ""
+"您的 Google 账户已成功连接。您现在可以安全且自动地将表单提交与 Google Sheets 同"
+"步。"
 
 msgid "Create New Feed"
 msgstr "创建新 Feed"
@@ -1288,13 +1782,16 @@ msgstr "连接指南"
 msgid "Step-by-Step"
 msgstr "逐步操作"
 
-msgid "Follow these steps to connect your Google account and start syncing your form data with Google Sheets."
+msgid ""
+"Follow these steps to connect your Google account and start syncing your form "
+"data with Google Sheets."
 msgstr "按照以下步骤连接您的 Google 账户并开始将表单数据与 Google Sheets 同步。"
 
 msgid "Step-1 Connect Your Google Account"
 msgstr "步骤-1 连接您的 Google 账户"
 
-msgid "Sign in with your Google account to start the automatic Google Sheets integration."
+msgid ""
+"Sign in with your Google account to start the automatic Google Sheets integration."
 msgstr "使用您的 Google 账户登录以开始自动 Google Sheets 集成。"
 
 msgid "Step-2 Choose Google Account"
@@ -1333,34 +1830,46 @@ msgstr "您的 Google 账户现在已成功连接。"
 msgid "Manual Google Sheets Integration"
 msgstr "手动 Google Sheets 集成"
 
-msgid "Connect Elementor Forms to Google Sheets using your own Google Cloud project.
-                            Ideal for advanced users who need full API control, custom OAuth setup,
-                            and independent credential management."
-msgstr "使用您自己的 Google Cloud 项目将 Elementor 表单连接到 Google Sheets。
-                            适合需要完全 API 控制、自定义 OAuth 设置和独立凭据管理的高级用户。"
+msgid ""
+"Connect Elementor Forms to Google Sheets using your own Google Cloud project.\n"
+"                            Ideal for advanced users who need full API control, "
+"custom OAuth setup,\n"
+"                            and independent credential management."
+msgstr ""
+"使用您自己的 Google Cloud 项目将 Elementor 表单连接到 Google Sheets。\n"
+"                            适合需要完全 API 控制、自定义 OAuth 设置和独立凭据管理"
+"的高级用户。"
 
 msgid "Custom API Credentials"
 msgstr "自定义 API 凭证"
 
-msgid "Connect using your own Google Cloud Client ID and Client Secret for full authentication control."
+msgid ""
+"Connect using your own Google Cloud Client ID and Client Secret for full "
+"authentication control."
 msgstr "使用您自己的 Google Cloud 客户端 ID 和客户端密钥进行完整的认证控制。"
 
 msgid "Secure Authentication"
 msgstr "安全认证"
 
-msgid "Authenticate directly with Google using a secure Authentication flow without third-party dependency."
+msgid ""
+"Authenticate directly with Google using a secure Authentication flow without "
+"third-party dependency."
 msgstr "直接使用安全认证流程与 Google 进行认证，无需第三方依赖。"
 
 msgid "Advanced Configuration"
 msgstr "高级配置"
 
-msgid "Set custom Redirect URIs, manage scopes, and configure API settings based on your project needs."
+msgid ""
+"Set custom Redirect URIs, manage scopes, and configure API settings based on your "
+"project needs."
 msgstr "设置自定义重定向 URI，管理范围，并根据您的项目需求配置 API 设置。"
 
 msgid "Priority Technical Support"
 msgstr "优先技术支持"
 
-msgid "Get fast assistance from our expert team for setup, troubleshooting, and optimization."
+msgid ""
+"Get fast assistance from our expert team for setup, troubleshooting, and "
+"optimization."
 msgstr "从我们的专家团队获取快速帮助，进行设置、故障排除和优化。"
 
 msgid "View Pro Features"
@@ -1369,40 +1878,62 @@ msgstr "查看专业功能"
 msgid "Service Account Google Sheets Integration"
 msgstr "服务账户 Google Sheets 集成"
 
-msgid "Securely connect Elementor Forms to Google Sheets using a Google Cloud Service Account JSON key. Ideal for automated server-to-server syncing without requiring manual Google login."
-msgstr "使用 Google Cloud 服务账户 JSON 密钥安全地将 Elementor 表单连接到 Google Sheets。适合无需手动 Google 登录的自动服务器到服务器同步。"
+msgid ""
+"Securely connect Elementor Forms to Google Sheets using a Google Cloud Service "
+"Account JSON key. Ideal for automated server-to-server syncing without requiring "
+"manual Google login."
+msgstr ""
+"使用 Google Cloud 服务账户 JSON 密钥安全地将 Elementor 表单连接到 Google Sheets。"
+"适合无需手动 Google 登录的自动服务器到服务器同步。"
 
 msgid "Secure JSON Authentication"
 msgstr "安全 JSON 认证"
 
-msgid "Authenticate using a secure Google Cloud JSON key file for direct and encrypted communication with Google Sheets."
-msgstr "使用安全的 Google Cloud JSON 密钥文件进行身份验证，以便与 Google Sheets 进行直接和加密的通信。"
+msgid ""
+"Authenticate using a secure Google Cloud JSON key file for direct and encrypted "
+"communication with Google Sheets."
+msgstr ""
+"使用安全的 Google Cloud JSON 密钥文件进行身份验证，以便与 Google Sheets 进行直接和"
+"加密的通信。"
 
 msgid "No Authentication Login Required"
 msgstr "无需身份验证登录"
 
-msgid "Enable automatic background syncing without requiring Google account sign-in during setup."
+msgid ""
+"Enable automatic background syncing without requiring Google account sign-in "
+"during setup."
 msgstr "启用自动后台同步，无需在设置过程中进行 Google 账户登录。"
 
 msgid "Direct Spreadsheet Access"
 msgstr "直接电子表格访问"
 
-msgid "Share your Google Sheet with the service account email to enable automatic data transfer."
+msgid ""
+"Share your Google Sheet with the service account email to enable automatic data "
+"transfer."
 msgstr "与服务账户电子邮件共享您的 Google Sheet，以启用自动数据传输。"
 
 msgid "Production-Ready & Reliable"
 msgstr "生产就绪且可靠"
 
-msgid "Built for stable, uninterrupted syncing in professional and high-traffic environments."
+msgid ""
+"Built for stable, uninterrupted syncing in professional and high-traffic "
+"environments."
 msgstr "为专业和高流量环境中的稳定、不间断同步而构建。"
 
 msgid "Deactivate Integration"
 msgstr "停用集成"
 
-msgid "Are you sure you want to deactivate Google Sheets integration?
-        This will stop syncing your form entries."
-msgstr "您确定要停用 Google Sheets 集成吗？
-        这将停止同步您的表单条目。"
+msgid ""
+"Are you sure you want to deactivate Google Sheets integration?\n"
+"        This will stop syncing your form entries."
+msgstr ""
+"您确定要停用 Google Sheets 集成吗？\n"
+"        这将停止同步您的表单条目。"
+
+msgid ""
+"Currently connected as %s. Note this account, you will need to sign in with it "
+"again."
+msgstr "当前连接为 %s。请记下该账户，您需要再次使用它登录。"
 
 msgid "Permission Not Allowed"
 msgstr "权限不允许"
@@ -1473,7 +2004,9 @@ msgstr "维护管理员责任"
 msgid "Access Management"
 msgstr "访问管理"
 
-msgid "Control which user roles are allowed to access and manage the Google Sheets integration for your forms."
+msgid ""
+"Control which user roles are allowed to access and manage the Google Sheets "
+"integration for your forms."
 msgstr "控制哪些用户角色可以访问和管理您的表单的 Google Sheets 集成。"
 
 msgid "Plugin Access Control"
@@ -1515,10 +2048,13 @@ msgstr "您没有权限访问此页面。"
 msgid "System Information"
 msgstr "系统信息"
 
-msgid "View detailed information about your plugin, server, and WordPress setup for troubleshooting and support.
-    "
-msgstr "查看有关您的插件、服务器和 WordPress 设置的详细信息，以便进行故障排除和支持。
-    "
+msgid ""
+"View detailed information about your plugin, server, and WordPress setup for "
+"troubleshooting and support.\n"
+"    "
+msgstr ""
+"查看有关您的插件、服务器和 WordPress 设置的详细信息，以便进行故障排除和支持。\n"
+"    "
 
 msgid "Copy System Info"
 msgstr "复制系统信息"
@@ -1619,18 +2155,21 @@ msgstr "作者网站"
 msgid "Theme directory location"
 msgstr "主题目录位置"
 
-msgid "Network Active
-      plugins"
-msgstr "活动插件"
-
 msgid "Active Plugins"
 msgstr "活动插件"
+
+msgid "Inactive Plugins"
+msgstr "未激活的插件"
 
 msgid "Server"
 msgstr "服务器"
 
-msgid "The options shown below relate to your server setup. If changes are required, you may need your web host’s assistance."
-msgstr "以下选项与您的服务器设置相关。如果需要更改，您可能需要您的网络托管服务提供商的协助。"
+msgid ""
+"The options shown below relate to your server setup. If changes are required, you "
+"may need your web host’s assistance."
+msgstr ""
+"以下选项与您的服务器设置相关。如果需要更改，您可能需要您的网络托管服务提供商的协"
+"助。"
 
 msgid "Server Architecture"
 msgstr "服务器架构"
@@ -1740,7 +2279,8 @@ msgstr "WordPress 常量"
 msgid "Filesystem Permission"
 msgstr "文件系统权限"
 
-msgid "Shows whether WordPress is able to write to the directories it needs access to."
+msgid ""
+"Shows whether WordPress is able to write to the directories it needs access to."
 msgstr "显示 WordPress 是否能够写入所需访问的目录。"
 
 msgid "The main WordPress directory"
@@ -1763,6 +2303,9 @@ msgstr "调试日志"
 
 msgid "Copied successfully."
 msgstr "复制成功。"
+
+msgid "display"
+msgstr "显示"
 
 msgid "https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro"
 msgstr "https://www.gsheetconnector.com/elementor-forms-google-sheet-connector-pro"

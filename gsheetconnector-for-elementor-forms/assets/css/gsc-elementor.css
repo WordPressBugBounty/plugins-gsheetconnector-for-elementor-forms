@@ -407,6 +407,11 @@
   margin-left: 5px;
   font-weight: 600;
 }
+/* Dashboard "Google Account Connection" card: badge never splits and sits flush under the heading (same as Fluent Forms). */
+.gselef-free .unlock-pro-button-sections .gsc-google-auth-card .heading span.badge {
+  white-space: nowrap;
+  margin-left: 0;
+}
 .gselef-free .gsc-json-wrapper {
   margin-bottom: 18px;
 }
@@ -2981,9 +2986,12 @@
 /*dashbord feed display css*/
 .gselef-free .gselef-feed-table-wrap {
   border: 1px solid #e5e7eb;
-  border-radius: 14px;
+  border-radius: 8px;
   background: #ffffff;
-  overflow: hidden;
+  overflow-x: auto;
+  /* All feeds are listed; more than fit here scroll inside the card. */
+  overflow-y: auto;
+  max-height: 300px;
 }
 .gselef-free #gselef-feed-table {
   width: 100%;
@@ -2994,14 +3002,17 @@
   background: transparent;
 }
 .gselef-free table#gselef-feed-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   text-align: left;
   padding: 12px 18px;
   background: #f9fafb;
   color: #6b7280;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  text-transform: capitalize;
+  text-transform: uppercase;
   border-bottom: 1px solid #e5e7eb;
 }
 .gselef-free table#gselef-feed-table tbody td a {
@@ -3039,9 +3050,6 @@
   vertical-align: middle;
   text-decoration: underline;
 }
-.gscdf #gselef-pagination-wrap {
-  padding-bottom: 15px;
-}
 .gselef-free table#gselef-feed-table tbody tr:last-child td {
   border-bottom: 0;
 }
@@ -3071,4 +3079,196 @@
   color: #6b7280;
   font-size: 13px;
   vertical-align: middle;
+}
+/* GDPR & Privacy Policy tab */
+.gselef-free .gsc-hint {
+  font-size: 13px;
+  color: #6b7280;
+}
+.gselef-free .gsc-description {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+.gselef-free .gs-info-box-blue {
+  background: #f1f5f9;
+  border-left: 4px solid #2196f3;
+  padding: 12px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.gselef-free .gsc-preview-wrap {
+  font-size: 14px;
+}
+.gselef-free .gselef-sample-form input[type="text"],
+.gselef-free .gselef-sample-form textarea {
+  display: block;
+  width: 100%;
+  margin: 4px 0 12px;
+}
+.gselef-free .gselef_privacy_loder.loading {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  border: 2px solid #d1d5db;
+  border-top-color: #2271b1;
+  border-radius: 50%;
+  vertical-align: middle;
+  animation: gselef-spin 0.8s linear infinite;
+}
+@keyframes gselef-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.gselef-free .gsc-preview-wrap .gsc-select {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 6px;
+}
+.gselef-free #gselef_form_preview.loading {
+  opacity: 0.5;
+}
+.gselef-free .gselef-preview-canvas {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.gselef-free .gselef-preview-canvas .gselef-frontend-gdpr-notice,
+.gselef-free .gselef-preview-canvas .gselef-branding {
+  margin: 10px 0 0;
+}
+/* Admin preview only (same as Fluent Forms): the submit button and credit are hidden; the front end is unchanged. */
+.gselef-free #gselef_form_preview button,
+.gselef-free #gselef_form_preview .gselef-branding {
+  display: none;
+}
+
+/* Entries Dashboard: stat cards, charts (same design as Fluent Forms) */
+.gselef-free .gselef-filter-form {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.gselef-free .gselef-filter-form label {
+  font-size: 13px;
+  color: #6b7280;
+}
+.gselef-free .gselef-entries-dashboard .gselef-select {
+  min-width: 160px;
+  max-width: 100%;
+}
+.gselef-free .gselef-entries-dashboard .loading:not(.d-none) {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #d1d5db;
+  border-top-color: #6d28d9;
+  border-radius: 50%;
+  animation: gselef-spin 0.8s linear infinite;
+}
+.gselef-free .gselef-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.gselef-free .gselef-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 25px;
+}
+.gselef-free .gselef-stat-icon {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+}
+.gselef-free .gselef-stat-icon .dashicons {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+}
+.gselef-free .gselef-stat-icon-total {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+.gselef-free .gselef-stat-icon-unread {
+  background: #fef3c7;
+  color: #b45309;
+}
+.gselef-free .gselef-stat-icon-read {
+  background: #d1fae5;
+  color: #047857;
+}
+.gselef-free .gselef-stat-icon-new {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.gselef-free .gselef-stat-label {
+  font-size: 13px;
+  color: #6b7280;
+}
+.gselef-free .gselef-stat-number {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+}
+.gselef-free .gselef-chart-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+.gselef-free .gselef-chart-card {
+  min-width: 0;
+}
+.gselef-free .gselef-chart-card-pie canvas {
+  max-height: 220px;
+  display: block;
+  margin: 0 auto;
+}
+.gselef-free .gselef-chart-canvas-wrap {
+  position: relative;
+}
+.gselef-free .gselef-chart-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+.gselef-free .gselef-chart-loading.is-hidden {
+  display: none;
+}
+.gselef-free .gselef-chart-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #6d28d9;
+  border-radius: 50%;
+  animation: gselef-spin 0.7s linear infinite;
+}
+@media (max-width: 1024px) {
+  .gselef-free .gselef-chart-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 900px) {
+  .gselef-free .gselef-stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 560px) {
+  .gselef-free .gselef-stat-grid {
+    grid-template-columns: 1fr;
+  }
 }

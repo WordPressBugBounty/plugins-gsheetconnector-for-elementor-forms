@@ -72,6 +72,8 @@ class gsc_elementor_sidemenu extends Settings_Page
             $active_tab_name = esc_html(__('Settings', 'gsheetconnector-for-elementor-forms'));
         }elseif ($active_tab == 'system_status') {
             $active_tab_name = esc_html(__('System Status', 'gsheetconnector-for-elementor-forms'));
+        } elseif ($active_tab == 'gdpr_privacy_policy') {
+            $active_tab_name = esc_html(__('GDPR & Privacy Policy', 'gsheetconnector-for-elementor-forms'));
         } elseif ($active_tab == 'extensions') {
             $active_tab_name = esc_html(__('Extensions', 'gsheetconnector-for-elementor-forms'));
         }
@@ -140,9 +142,8 @@ class gsc_elementor_sidemenu extends Settings_Page
 
         $is_dismissed = gselef_free_is_dismissed('review');
         $is_snoozed = gselef_free_is_snoozed('review');
-
+        // The review notice has no waiting period (same as Fluent Forms): it shows once authenticated.
         $show_review_notice =
-        $is_time_passed &&
         !$is_dismissed &&
         !$is_snoozed;
 
@@ -176,7 +177,50 @@ class gsc_elementor_sidemenu extends Settings_Page
             <!-- notification start  -->
             <div class="notification-gselef-notice-slider">
                 <div class="notification-gselef-slider-track">
-                    <!--  slider one-->
+                    <!--  slider one: review (shown first, as in Fluent Forms)-->
+                    <?php if ($show_review_notice && $gselef_is_authenticated) { ?>
+                        <div class="notification-gselef-slide">
+                            <div class="gselef-review-banner">
+
+                                <div class="gselef-review-content">
+                                    <div class="gselef-review-heading">
+                                        <?php esc_html_e('Enjoying the Plugin?', 'gsheetconnector-for-elementor-forms'); ?>
+                                    </div>
+
+                                    <p>
+                                        <?php echo wp_kses_post(__('If you are enjoying <strong>GSheetConnector for Elementor Forms</strong>, please consider leaving a 5-star review. Your support helps us improve and grow.', 'gsheetconnector-for-elementor-forms')); ?>
+                                    </p>
+
+                                    <div class="gselef-notification-actions">
+
+                                        <a href="<?php echo esc_url('https://wordpress.org/support/plugin/gsheetconnector-for-elementor-forms/reviews/'); ?>"
+                                            target="_blank" rel="noopener noreferrer" class="gselef-btn-review gsc-review-btn link-hover-white">
+                                            <?php esc_html_e('Ok, you deserve it!', 'gsheetconnector-for-elementor-forms'); ?>
+                                        </a>
+
+                                        <button class="gselef-review-dismiss-btn gselef-dismiss-btn" data-key="review">
+                                            <?php esc_html_e('I already did', 'gsheetconnector-for-elementor-forms'); ?>
+                                        </button>
+
+
+                                        <a href="<?php echo esc_url('https://www.gsheetconnector.com/docs/elementor-google-sheet-connector'); ?>"
+                                            target="_blank" rel="noopener noreferrer" class="gselef-btn-secondary">
+                                            <?php esc_html_e('I need help', 'gsheetconnector-for-elementor-forms'); ?>
+                                        </a>
+
+
+                                        <button class="gselef-review-btn-later" data-key="review">
+                                            <?php esc_html_e('Maybe Later', 'gsheetconnector-for-elementor-forms'); ?>
+                                        </button>
+
+                                    </div>
+                                </div>
+                                <button class="gselef-review-close" data-key="review">✕</button>
+                            </div>
+                        </div>
+                    <?php } ?>
+
+                    <!--  slider two: pro-->
                     <?php if ($show_showpro_notice && $gselef_is_authenticated) { ?>
                         <div class="notification-gselef-slide">
                             <div class="gselef-Showpro-banner">
@@ -212,49 +256,6 @@ class gsc_elementor_sidemenu extends Settings_Page
                                     </div>
                                 </div>
                                 <button class="gselef-showpro-close" data-key="showpro">✕</button>
-                            </div>
-                        </div>
-                    <?php } ?>
-
-                    <!--  slider two-->
-                    <?php if ($show_review_notice && $gselef_is_authenticated) { ?>
-                        <div class="notification-gselef-slide">
-                            <div class="gselef-review-banner">
-
-                                <div class="gselef-review-content">
-                                    <div class="gselef-review-heading">
-                                        <?php esc_html_e('Enjoying the Plugin?', 'gsheetconnector-for-elementor-forms'); ?>
-                                    </div>
-
-                                    <p>
-                                        <?php esc_html_e('If you are enjoying the plugin, please consider leaving a 5-star review. Your support helps us improve and grow.', 'gsheetconnector-for-elementor-forms'); ?>
-                                    </p>
-
-                                    <div class="gselef-notification-actions">
-
-                                        <a href="<?php echo esc_url('https://wordpress.org/support/plugin/gsheetconnector-for-elementor-forms/reviews/'); ?>"
-                                            target="_blank" rel="noopener noreferrer" class="gselef-btn-review gsc-review-btn link-hover-white">
-                                            <?php esc_html_e('Ok, you deserve it!', 'gsheetconnector-for-elementor-forms'); ?>
-                                        </a>
-
-                                        <button class="gselef-review-dismiss-btn gselef-dismiss-btn" data-key="review">
-                                            <?php esc_html_e('I already did', 'gsheetconnector-for-elementor-forms'); ?>
-                                        </button>
-
-
-                                        <a href="<?php echo esc_url('https://www.gsheetconnector.com/docs/elementor-google-sheet-connector'); ?>"
-                                            target="_blank" rel="noopener noreferrer" class="gselef-btn-secondary">
-                                            <?php esc_html_e('I need help', 'gsheetconnector-for-elementor-forms'); ?>
-                                        </a>
-
-
-                                        <button class="gselef-review-btn-later" data-key="review">
-                                            <?php esc_html_e('Maybe Later', 'gsheetconnector-for-elementor-forms'); ?>
-                                        </button>
-
-                                    </div>
-                                </div>
-                                <button class="gselef-review-close" data-key="review">✕</button>
                             </div>
                         </div>
                     <?php } ?>
@@ -308,7 +309,7 @@ class gsc_elementor_sidemenu extends Settings_Page
                                     </p>
 
                                     <p>
-                                        <?php esc_html_e('Please reauthenticate with your google account to continue syncing data without interruptions.', 'gsheetconnector-for-elementor-forms'); ?>
+                                        <?php echo wp_kses_post(__('Your Google connection for <strong>GSheetConnector for Elementor Forms</strong> is missing or expired. Please authenticate to continue syncing data without interruptions.', 'gsheetconnector-for-elementor-forms')); ?>
                                     </p>
 
                                     <div class="gselef-activate-actions">
@@ -436,7 +437,8 @@ class gsc_elementor_sidemenu extends Settings_Page
             'form_feed_settings' => esc_html__('Form Feeds', 'gsheetconnector-for-elementor-forms'),
             'settings'           => esc_html__('Settings', 'gsheetconnector-for-elementor-forms'),
             'system_status'    => esc_html__('System Status', 'gsheetconnector-for-elementor-forms'),
-            'extensions'         => esc_html__('Extensions', 'gsheetconnector-for-elementor-forms'),
+            'gdpr_privacy_policy' => esc_html__('GDPR & Privacy Policy', 'gsheetconnector-for-elementor-forms'),
+            'extensions'       => esc_html__('Extensions', 'gsheetconnector-for-elementor-forms'),
         );
 
           echo '<div class="nav-tab-wrapper d-flex justify-flex-start w-100 m-0">';
@@ -502,6 +504,13 @@ class gsc_elementor_sidemenu extends Settings_Page
                     --------------------------------*/
                     case 'system_status':
                     include(GS_CONN_ELE_PATH . "includes/pages/gsc-system-status.php");
+                    break;
+
+                    /*--------------------------------
+                    GDPR & Privacy Policy Tab
+                    --------------------------------*/
+                    case 'gdpr_privacy_policy':
+                    include(GS_CONN_ELE_PATH . "includes/pages/gsc-elementor-privacy-gdpr.php");
                     break;
 
                      /*--------------------------------

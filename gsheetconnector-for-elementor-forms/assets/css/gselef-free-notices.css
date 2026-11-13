@@ -1,0 +1,118 @@
+/* Global admin notices (Google authentication + review). Same design as the Fluent Forms Free global notices.
+   Paragraph margins/colour and the content width are deliberately left to the WordPress admin defaults, as in Fluent. */
+.gselef-free .gselef-activate-banner {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  background: linear-gradient(90deg, #eff6ff, #ffffff);
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+  padding: 5px 18px;
+  margin: 20px;
+  position: relative;
+  box-sizing: border-box;
+}
+.gselef-free .gselef-review-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(90deg, #ecfdf5, #ffffff);
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  position: relative;
+  margin: 20px;
+  box-sizing: border-box;
+}
+.gselef-free .gselef-global-logo img {
+  width: 100%;
+  max-width: 240px;
+  object-fit: contain;
+}
+.gselef-free .gselef-activate-content-header,
+.gselef-free .gselef-review-heading {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: normal;
+}
+.gselef-free .gselef-activate-content-header {
+  color: #1e3a8a;
+}
+.gselef-free .gselef-review-heading {
+  color: #065f46;
+}
+.gselef-free .gselef-activate-actions,
+.gselef-free .gselef-notification-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  align-items: center;
+}
+.gselef-free .gselef-btn-activate,
+.gselef-free .gselef-btn-review {
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+.gselef-free .gselef-btn-activate {
+  background: #2563eb;
+}
+.gselef-free .gselef-btn-activate:hover {
+  background: #1d4ed8;
+  color: #fff;
+}
+.gselef-free .gselef-btn-review {
+  background: #199436;
+}
+.gselef-free .gselef-btn-review:hover {
+  background: #15803d;
+  color: #fff;
+}
+.gselef-free .gselef-btn-secondary {
+  text-decoration: underline;
+  color: #000;
+}
+.gselef-free .gselef-btn-secondary:hover {
+  text-decoration: underline;
+  color: #000;
+}
+.gselef-free .gselef-btn-later {
+  background: transparent;
+  border: none;
+  font-size: 13px;
+  color: #374151;
+  cursor: pointer;
+}
+.gselef-free .gselef-btn-later:hover {
+  text-decoration: underline;
+}
+.gselef-free .gselef-dismiss-btn {
+  background: transparent;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.gselef-free .gselef-dismiss-btn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+.gselef-free .gselef-global-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-size: 16px;
+  color: #787c82;
+}

@@ -215,6 +215,9 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
             $gsc_elementor_data = Plugin::elementor()->db->iterate_data(
                 $gsc_elementor_data,
                 function ($element) {
+                    // The saved spreadsheet / tab must reach the globals used below to build the tab dropdown.
+                    global $gsc_elementor_spreadsheetid, $gsc_elementor_sheetname;
+
                     if (isset($element['widgetType']) && 'form' === (string) $element['widgetType']) {
 
                        if (isset($element['settings']['enable_manual_sheet_settings']) && $element['settings']['enable_manual_sheet_settings'] === 'yes') {
@@ -389,7 +392,7 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
         $widget->add_control(
             'manual_sheet_name',
             [
-                'label' => __('Sheet Name', 'gsheetconnector-for-elementor-forms'),
+                'label' => __('Google Spreadsheet Name', 'gsheetconnector-for-elementor-forms'),
                 'label_block' => true,
                 'separator' => 'before',
                 'classes' => 'elementor-text-controls',
@@ -406,7 +409,7 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
         $widget->add_control(
             'manual_sheet_id',
             [
-                'label' => __('Sheet ID', 'gsheetconnector-for-elementor-forms'),
+                'label' => __('Google Spreadsheet ID', 'gsheetconnector-for-elementor-forms'),
                 'label_block' => true,
                 'separator' => 'before',
                 'classes' => 'elementor-text-controls',
@@ -423,7 +426,7 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
         $widget->add_control(
             'manual_tab_name',
             [
-                'label' => __('Tab Name', 'gsheetconnector-for-elementor-forms'),
+                'label' => __('Google Spreadsheet Tab Name', 'gsheetconnector-for-elementor-forms'),
                 'label_block' => true,
                 'separator' => 'before',
                 'classes' => 'elementor-text-controls',
@@ -440,7 +443,7 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
         $widget->add_control(
             'manual_tab_id',
             [
-                'label' => __('Tab ID', 'gsheetconnector-for-elementor-forms'),
+                'label' => __('Google Spreadsheet Tab ID', 'gsheetconnector-for-elementor-forms'),
                 'label_block' => true,
                 'separator' => 'before',
                 'classes' => 'elementor-text-controls',
@@ -475,7 +478,7 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
         $widget->add_control(
             'gs_spreadsheet_id',
             [
-                'label' => esc_attr__('Sheet Name', 'gsheetconnector-for-elementor-forms'),
+                'label' => esc_attr__('Google Spreadsheet Name', 'gsheetconnector-for-elementor-forms'),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'options' => $sheetId_array,
                 'label_block' => true,
@@ -495,7 +498,7 @@ class GSC_Elementor_Actions_Free extends \ElementorPro\Modules\Forms\Classes\Act
         $widget->add_control(
             'gs_spreadsheet_tab_name',
             [
-                'label' => esc_attr__('Sheet Tab Name', 'gsheetconnector-for-elementor-forms') . '<span class="elementor-state-icon tabselectionloading" style="display:none; margin-left: 15px;"><i class="eicon-loading eicon-animation-spin" aria-hidden="true"></i></span>',
+                'label' => esc_attr__('Google Spreadsheet Tab Name', 'gsheetconnector-for-elementor-forms') . '<span class="elementor-state-icon tabselectionloading" style="display:none; margin-left: 15px;"><i class="eicon-loading eicon-animation-spin" aria-hidden="true"></i></span>',
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'options' => !empty($tab_arr) ? $tab_arr : array('0' => 'Loading...'),
 
