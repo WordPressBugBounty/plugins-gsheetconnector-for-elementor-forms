@@ -296,6 +296,16 @@ function fetch_tabs_api(sheetnameId) {
 
     jQuery(".tabselectionloading")
       .hide();
+  }).fail(function () {
+
+    jQuery("[data-setting='gs_spreadsheet_tab_name']")
+      .prop("disabled", false);
+
+    jQuery(".loading-gs-fetch-tabs")
+      .removeClass("loading");
+
+    jQuery(".tabselectionloading")
+      .hide();
   });
 }
 

@@ -886,6 +886,10 @@ public function get_google_tab_list_by_sheetname()
         // Nonce check
     check_ajax_referer('gs-ajax-nonce-ele', 'security');
 
+    if (! current_user_can('manage_options')) {
+        wp_send_json_error(array('message' => 'You do not have permission to perform this action.'), 403);
+    }
+
         // Validate and sanitize POST data
     $spreadsheet_id = isset($_POST['sheetname']) ? sanitize_text_field(wp_unslash($_POST['sheetname'])) : '';
     $refresh        = isset($_POST['refresh']) ? sanitize_text_field(wp_unslash($_POST['refresh'])) : '';
@@ -1039,6 +1043,10 @@ public function verify_gscelementor_integation()
 {
         // nonce check
     check_ajax_referer('gs-ajax-nonce-ele', 'security');
+
+    if (! current_user_can('manage_options')) {
+        wp_send_json_error(array('message' => 'You do not have permission to perform this action.'), 403);
+    }
 
     /* validate and sanitize incoming data */
     if (isset($_POST['code'])) {

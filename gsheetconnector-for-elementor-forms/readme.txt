@@ -5,7 +5,7 @@ Tags: elementor, elementor forms, elementor addons, metform google sheets, atomi
 Requires at least: 5.6
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.9
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author URI: https://www.gsheetconnector.com/
@@ -202,6 +202,9 @@ Your Elementor Forms, Elementor Atomic Forms, and MetForm submissions will now s
 
 
 == Changelog ==
+
+= 1.4.0 (14-11-2026) =
+* Fixed: Added missing capability checks to authenticated AJAX handlers to prevent unauthorized users from accessing Elementor Google Sheets integration actions.
 
 = 1.3.9 (13-11-2026) =
 * Added: GDPR & Privacy Policy tab to manage the GDPR notice shown below Elementor forms, the Privacy Policy page notice and an optional "Powered by GSheetConnector" credit.
